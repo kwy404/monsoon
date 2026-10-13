@@ -1,5 +1,6 @@
 import { escapeClass, parse, serialize } from '../bin/css.mjs';
 import { tokensCss, preflight } from './base.mjs';
+import { componentsCss } from './components/index.mjs';
 import { keyframes } from './utilities/effects.mjs';
 import layout from './utilities/layout.mjs';
 import flexgrid from './utilities/flexgrid.mjs';
@@ -64,6 +65,11 @@ export function generate({ version = '0.0.0' } = {}) {
   nodes.push(...parse(preflight));
   nodes.push({ type: 'comment', text: 'Keyframes' });
   nodes.push(...parse(keyframes));
+  const components = componentsCss();
+  if (components.trim()) {
+    nodes.push({ type: 'comment', text: 'Components' });
+    nodes.push(...parse(components));
+  }
   nodes.push({ type: 'comment', text: UTILITIES_MARKER });
 
   // Base utilities
