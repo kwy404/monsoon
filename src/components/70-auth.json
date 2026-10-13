@@ -1,0 +1,446 @@
+{
+  "group": "auth",
+  "title": "Two factor and sign in",
+  "components": [
+    {
+      "name": "Verification code",
+      "slug": "otp-cells",
+      "description": "One cell per character on top of the CSS only .otp-field: auto advance, Backspace goes back, arrows, Home and End, paste or SMS autofill of the whole code from any cell (spaces and dashes are stripped), error shake and success states, masked mode and a monsoon:otp-complete event. The field stays in the form with the full value. Needs monsoon.js.",
+      "classes": [
+        "otp",
+        "otp-field",
+        "otp-input",
+        "otp-separator",
+        "otp-masked"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-otp",
+        "options": [
+          "data-m-otp-length=\"6\" (4 to 8, or the field maxlength)",
+          "data-m-otp-separator=\"3\" (a dash after cell 3, or \"2,4\")",
+          "data-m-otp-type=\"alphanumeric\" (letters and digits, shown upper case)",
+          "data-m-otp-pattern=\"[0-9a-f]\" (any one character class)",
+          "data-m-otp-masked (dots instead of characters)",
+          "data-m-otp-autosubmit (submits the form when complete)",
+          "data-m-otp-webotp (reads the SMS with the WebOTP API where supported)",
+          "data-m-otp-name=\"code\" (field name when the markup has no field)"
+        ],
+        "methods": [
+          "Monsoon.otp(el).value",
+          "Monsoon.otp(el).value = \"482913\"",
+          "Monsoon.otp(el).complete",
+          "Monsoon.otp(el).error(clear)",
+          "Monsoon.otp(el).success()",
+          "Monsoon.otp(el).reset()",
+          "Monsoon.otp(el).clear()",
+          "Monsoon.otp(el).focus()",
+          "Monsoon.otp(el).disabled = true"
+        ],
+        "events": [
+          "monsoon:otp-change { value, complete }",
+          "monsoon:otp-complete { code }"
+        ]
+      },
+      "html": "<div class=\"grid gap-5\">\n  <div class=\"otp\" data-m-otp data-m-otp-separator=\"3\">\n  <input class=\"otp-field\" name=\"code\" maxlength=\"6\" inputmode=\"numeric\" autocomplete=\"one-time-code\" aria-label=\"Verification code\">\n</div>\n  <div class=\"otp otp-lg otp-primary\" data-m-otp data-m-otp-length=\"8\" data-m-otp-type=\"alphanumeric\" data-m-otp-separator=\"4\">\n  <input class=\"otp-field\" name=\"recovery\" maxlength=\"8\" inputmode=\"text\" autocomplete=\"one-time-code\" aria-label=\"Recovery code\">\n</div>\n  <div class=\"flex flex-wrap items-center gap-4\">\n    <div class=\"otp otp-sm otp-masked\" data-m-otp data-m-otp-length=\"4\">\n      <input class=\"otp-field\" name=\"pin\" maxlength=\"4\" inputmode=\"numeric\" autocomplete=\"one-time-code\" aria-label=\"PIN\">\n    </div>\n    <div class=\"otp otp-sm\" data-m-otp data-m-otp-length=\"4\" data-m-otp-disabled>\n      <input class=\"otp-field\" name=\"locked\" maxlength=\"4\" inputmode=\"numeric\" value=\"2580\" aria-label=\"Locked code\" disabled>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "name": "Authenticator app setup",
+      "slug": "authenticator-setup",
+      "description": "Two step setup for a time based authenticator: a QR code drawn in the browser from an otpauth:// URI (no image, no dependency), the setup key in groups of four with a copy button behind a \"Can't scan the code?\" disclosure, then the first code to confirm. Needs monsoon.js for the QR code and the code cells.",
+      "classes": [
+        "auth-card",
+        "auth-card-wide",
+        "auth-header",
+        "auth-header-start",
+        "auth-icon",
+        "auth-title",
+        "auth-description",
+        "auth-setup",
+        "auth-setup-step",
+        "auth-setup-done",
+        "auth-setup-title",
+        "auth-setup-text",
+        "auth-setup-scan",
+        "auth-secret",
+        "auth-secret-toggle",
+        "auth-secret-panel",
+        "auth-secret-key",
+        "auth-secret-value",
+        "auth-secret-meta",
+        "qr"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-qr",
+        "options": [
+          "data-m-qr-value=\"otpauth://totp/Issuer:account?secret=...&issuer=Issuer\"",
+          "data-m-qr-label=\"Scan with your authenticator app\"",
+          "data-m-qr-border=\"2\" (quiet zone in modules)"
+        ],
+        "methods": [
+          "Monsoon.qr(el).value = \"otpauth://...\"",
+          "Monsoon.qr(el).version",
+          "Monsoon.qr(el).modules"
+        ],
+        "events": [
+          "monsoon:qr-render { version, size, mask }",
+          "monsoon:qr-error { message }",
+          "monsoon:otp-complete { code }"
+        ]
+      },
+      "html": "<form class=\"auth-card auth-card-wide\" action=\"#\" onsubmit=\"event.preventDefault()\">\n  <header class=\"auth-header auth-header-start\">\n    <span class=\"auth-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"6.5\" y=\"2.5\" width=\"11\" height=\"19\" rx=\"2.5\"/><path d=\"M10.5 18.5h3\"/><path d=\"M9.5 9.5h5M9.5 12.5h3\"/></svg></span>\n    <h2 class=\"auth-title\">Set up your authenticator app</h2>\n    <p class=\"auth-description\">Codes from an app keep working without signal and can't be intercepted like text messages.</p>\n  </header>\n  <ol class=\"auth-setup\">\n    <li class=\"auth-setup-step\">\n      <p class=\"auth-setup-title\">Scan this QR code</p>\n      <p class=\"auth-setup-text\">Open your authenticator app, tap Add account and point the camera at the code.</p>\n      <div class=\"auth-setup-scan\">\n        <div class=\"qr\" data-m-qr data-m-qr-value=\"otpauth://totp/Example:you%40example.com?secret=JBSWY3DPEHPK3PXP&amp;issuer=Example&amp;algorithm=SHA1&amp;digits=6&amp;period=30\" data-m-qr-label=\"QR code to add Example to your authenticator app\"></div>\n        <details class=\"auth-secret\">\n          <summary class=\"auth-secret-toggle\">Can't scan the code?</summary>\n          <div class=\"auth-secret-panel\">\n            <span>Enter this setup key in your app instead.</span>\n            <div class=\"auth-secret-key\">\n              <code class=\"auth-secret-value\"><span>JBSW</span><span>Y3DP</span><span>EHPK</span><span>3PXP</span></code>\n              <button type=\"button\" class=\"copy-btn\" data-m-copy=\"JBSWY3DPEHPK3PXP\" aria-label=\"Copy setup key\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"11.5\" height=\"11.5\" rx=\"2\"/><path d=\"M5.5 15H5a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 5 3.5h8.5A1.5 1.5 0 0 1 15 5v.5\"/></svg></button>\n            </div>\n            <dl class=\"auth-secret-meta\">\n              <dt>Account</dt><dd>you@example.com</dd>\n              <dt>Type</dt><dd>Time based, 6 digits, every 30 s</dd>\n            </dl>\n          </div>\n        </details>\n      </div>\n    </li>\n    <li class=\"auth-setup-step\">\n      <p class=\"auth-setup-title\">Enter the 6 digit code</p>\n      <p class=\"auth-setup-text\">Type the code your app shows for Example.</p>\n      <div class=\"otp otp-sm\" data-m-otp data-m-otp-separator=\"3\">\n        <input class=\"otp-field\" name=\"code\" maxlength=\"6\" inputmode=\"numeric\" autocomplete=\"one-time-code\" aria-label=\"Verification code\">\n      </div>\n      <div class=\"flex flex-wrap gap-2\">\n        <button class=\"btn btn-primary\">Verify and turn on</button>\n        <button type=\"button\" class=\"btn btn-ghost\">Cancel</button>\n      </div>\n    </li>\n  </ol>\n</form>"
+    },
+    {
+      "name": "QR code",
+      "slug": "qr-code",
+      "description": "A QR code generated in the browser (byte mode, error correction level M, versions 1 to 10, up to 213 bytes) as a crisp SVG. Dark modules stay on a light tile in dark mode too, so every camera can read it. Three sizes. Needs monsoon.js.",
+      "classes": [
+        "qr",
+        "qr-code",
+        "qr-sm",
+        "qr-lg"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-qr",
+        "options": [
+          "data-m-qr-value=\"any text or URL\"",
+          "data-m-qr-label=\"QR code\" (accessible name)",
+          "data-m-qr-border=\"2\"",
+          "data-m-qr-mask=\"0\" (0 to 7, chosen automatically when left out)"
+        ],
+        "methods": [
+          "Monsoon.qr(el).value",
+          "Monsoon.qr(el).value = \"https://example.com\"",
+          "Monsoon.qr(el).version",
+          "Monsoon.qr(el).modules (rows of 0 and 1)"
+        ],
+        "events": [
+          "monsoon:qr-render { version, size, mask }",
+          "monsoon:qr-error { message }"
+        ]
+      },
+      "html": "<div class=\"flex flex-wrap items-end gap-6\">\n  <div class=\"qr qr-sm\" data-m-qr data-m-qr-value=\"https://example.com\" data-m-qr-label=\"QR code for example.com\"></div>\n  <div class=\"qr\" data-m-qr data-m-qr-value=\"WIFI:T:WPA;S:Example Guest;P:monsoon-rain-42;;\" data-m-qr-label=\"QR code to join the Example Guest network\"></div>\n  <div class=\"qr qr-lg\" data-m-qr data-m-qr-value=\"otpauth://totp/Example:you%40example.com?secret=JBSWY3DPEHPK3PXP&amp;issuer=Example&amp;algorithm=SHA1&amp;digits=6&amp;period=30\" data-m-qr-label=\"QR code for an authenticator app\"></div>\n</div>"
+    },
+    {
+      "name": "Recovery codes",
+      "slug": "recovery-codes",
+      "description": "One time recovery codes in a two column grid with copy all, download as a .txt file and print. Used codes are struck through, and Continue stays disabled until \"I saved these codes\" is checked. Needs monsoon.js for the actions.",
+      "classes": [
+        "backup-codes",
+        "backup-codes-header",
+        "backup-codes-title",
+        "backup-codes-count",
+        "backup-codes-grid",
+        "backup-code",
+        "backup-code-used",
+        "backup-codes-actions",
+        "backup-codes-confirm"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-auth-codes",
+        "options": [
+          "data-m-auth-codes-filename=\"example-recovery-codes.txt\"",
+          "data-m-auth-codes-title=\"Example recovery codes\"",
+          "data-codes-action=\"copy | download | print | confirm | continue\" on the parts"
+        ],
+        "methods": [
+          "Monsoon.authCodes(el).codes",
+          "Monsoon.authCodes(el).copy()",
+          "Monsoon.authCodes(el).download()",
+          "Monsoon.authCodes(el).print()"
+        ],
+        "events": [
+          "monsoon:auth-codes { action, codes }"
+        ]
+      },
+      "html": "<div class=\"auth-card auth-card-wide\">\n  <header class=\"auth-header auth-header-start\">\n    <span class=\"auth-icon auth-icon-warning\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"2.5\"/><path d=\"M8 10.5V8a4 4 0 0 1 8 0v2.5\"/><path d=\"M12 14.5v2\"/></svg></span>\n    <h2 class=\"auth-title\">Save your recovery codes</h2>\n    <p class=\"auth-description\">If you lose your phone, each code lets you sign in once. Store them in a password manager or print them.</p>\n  </header>\n  <div class=\"backup-codes\" data-m-auth-codes data-m-auth-codes-filename=\"example-recovery-codes.txt\" data-m-auth-codes-title=\"Example recovery codes\">\n    <div class=\"backup-codes-header\">\n      <p class=\"backup-codes-title\">Recovery codes</p>\n      <span class=\"backup-codes-count\">8 of 10 unused</span>\n    </div>\n    <ol class=\"backup-codes-grid\">\n      <li class=\"backup-code\"><code>7KQ2-M9XA</code></li>\n      <li class=\"backup-code\"><code>P4WD-38NZ</code></li>\n      <li class=\"backup-code backup-code-used\"><code>H6TC-QV2R</code><span class=\"sr-only\"> (used)</span></li>\n      <li class=\"backup-code\"><code>Z9LE-5MKB</code></li>\n      <li class=\"backup-code\"><code>B3YU-7FJS</code></li>\n      <li class=\"backup-code\"><code>R8NX-2GHD</code></li>\n      <li class=\"backup-code backup-code-used\"><code>V5CW-K4PT</code><span class=\"sr-only\"> (used)</span></li>\n      <li class=\"backup-code\"><code>E2MJ-9QLY</code></li>\n      <li class=\"backup-code\"><code>T7AF-6RNU</code></li>\n      <li class=\"backup-code\"><code>G4SB-X8KE</code></li>\n    </ol>\n    <div class=\"backup-codes-actions\">\n      <button type=\"button\" class=\"btn btn-sm btn-outline btn-neutral\" data-codes-action=\"copy\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"11.5\" height=\"11.5\" rx=\"2\"/><path d=\"M5.5 15H5a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 5 3.5h8.5A1.5 1.5 0 0 1 15 5v.5\"/></svg> Copy all</button>\n      <button type=\"button\" class=\"btn btn-sm btn-outline btn-neutral\" data-codes-action=\"download\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5\"/><path d=\"M5 20h14\"/></svg> Download .txt</button>\n      <button type=\"button\" class=\"btn btn-sm btn-outline btn-neutral\" data-codes-action=\"print\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 9V3.5h10V9\"/><rect x=\"3\" y=\"9\" width=\"18\" height=\"8\" rx=\"2\"/><rect x=\"7\" y=\"14\" width=\"10\" height=\"7\" rx=\"1\"/></svg> Print</button>\n    </div>\n    <label class=\"backup-codes-confirm\">\n      <input type=\"checkbox\" class=\"checkbox checkbox-sm checkbox-success mt-0.5\" data-codes-action=\"confirm\">\n      <span>I saved these codes somewhere safe</span>\n    </label>\n    <button type=\"button\" class=\"btn btn-primary btn-block\" data-codes-action=\"continue\" disabled>Continue</button>\n  </div>\n</div>"
+    },
+    {
+      "name": "Method picker",
+      "slug": "method-picker",
+      "description": "Second factor choices as selectable cards on native radio inputs: icon, title, a short explanation, a Recommended badge and when it was last used. Arrow keys move between methods; unavailable methods can be disabled.",
+      "classes": [
+        "auth-methods",
+        "auth-method",
+        "auth-method-icon",
+        "auth-method-body",
+        "auth-method-title",
+        "auth-method-text",
+        "auth-method-meta"
+      ],
+      "html": "<form class=\"auth-card auth-card-wide\" action=\"#\" onsubmit=\"event.preventDefault()\">\n  <header class=\"auth-header auth-header-start\">\n    <h2 class=\"auth-title\">Choose how to verify</h2>\n    <p class=\"auth-description\">Pick a second step for signing in to you@example.com.</p>\n  </header>\n  <fieldset class=\"auth-methods\">\n    <legend class=\"sr-only\">Verification method</legend>\n    <label class=\"auth-method\">\n      <input type=\"radio\" name=\"mfa-method\" value=\"app\" checked>\n      <span class=\"auth-method-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"6.5\" y=\"2.5\" width=\"11\" height=\"19\" rx=\"2.5\"/><path d=\"M10.5 18.5h3\"/><path d=\"M9.5 9.5h5M9.5 12.5h3\"/></svg></span>\n      <span class=\"auth-method-body\">\n        <span class=\"auth-method-title\">Authenticator app <span class=\"badge badge-success badge-sm\">Recommended</span></span>\n        <span class=\"auth-method-text\">A 6 digit code from an app like 1Password or Google Authenticator</span>\n        <span class=\"auth-method-meta\">Last used 2 days ago</span>\n      </span>\n    </label>\n    <label class=\"auth-method\">\n      <input type=\"radio\" name=\"mfa-method\" value=\"push\">\n      <span class=\"auth-method-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 2h-15z\"/><path d=\"M10 21a2.2 2.2 0 0 0 4 0\"/></svg></span>\n      <span class=\"auth-method-body\">\n        <span class=\"auth-method-title\">Push notification</span>\n        <span class=\"auth-method-text\">Approve the sign in on your phone</span>\n      </span>\n    </label>\n    <label class=\"auth-method\">\n      <input type=\"radio\" name=\"mfa-method\" value=\"passkey\">\n      <span class=\"auth-method-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9.5\" cy=\"8\" r=\"3.5\"/><path d=\"M3.5 20a6 6 0 0 1 9.4-4.9\"/><circle cx=\"17.5\" cy=\"12.5\" r=\"2.5\"/><path d=\"M17.5 15v6l1.6-1.3M17.5 18l1.4 1\"/></svg></span>\n      <span class=\"auth-method-body\">\n        <span class=\"auth-method-title\">Passkey</span>\n        <span class=\"auth-method-text\">Use your fingerprint, face or screen lock</span>\n      </span>\n    </label>\n    <label class=\"auth-method\">\n      <input type=\"radio\" name=\"mfa-method\" value=\"key\" disabled>\n      <span class=\"auth-method-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"6\" rx=\"1\"/><rect x=\"7\" y=\"8.5\" width=\"10\" height=\"13\" rx=\"3\"/><circle cx=\"12\" cy=\"15\" r=\"1.75\"/></svg></span>\n      <span class=\"auth-method-body\">\n        <span class=\"auth-method-title\">Security key</span>\n        <span class=\"auth-method-text\">Not available in this browser</span>\n      </span>\n    </label>\n    <label class=\"auth-method\">\n      <input type=\"radio\" name=\"mfa-method\" value=\"sms\">\n      <span class=\"auth-method-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 5.5h15a1 1 0 0 1 1 1V16a1 1 0 0 1-1 1H9l-4.5 3.5V6.5a1 1 0 0 1 1-1z\"/><path d=\"M8.5 11.25h.01M12 11.25h.01M15.5 11.25h.01\" stroke-width=\"2.4\"/></svg></span>\n      <span class=\"auth-method-body\">\n        <span class=\"auth-method-title\">Text message</span>\n        <span class=\"auth-method-text\">We send a code to +55 •• •••••-0474</span>\n      </span>\n    </label>\n    <label class=\"auth-method\">\n      <input type=\"radio\" name=\"mfa-method\" value=\"email\">\n      <span class=\"auth-method-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2.5\"/><path d=\"m3.5 7.5 8.5 6 8.5-6\"/></svg></span>\n      <span class=\"auth-method-body\">\n        <span class=\"auth-method-title\">Email</span>\n        <span class=\"auth-method-text\">We send a code to y•••@example.com</span>\n      </span>\n    </label>\n  </fieldset>\n  <button class=\"btn btn-primary btn-block\">Continue</button>\n</form>"
+    },
+    {
+      "name": "Verify screen",
+      "slug": "verify-code",
+      "description": "The second step after the password: masked destination, code cells that submit when complete, a resend link with a countdown, another method link and a \"Don't ask again on this device for 30 days\" checkbox. Needs monsoon.js for the cells and the countdown.",
+      "classes": [
+        "auth-card",
+        "auth-header",
+        "auth-icon",
+        "auth-title",
+        "auth-description",
+        "auth-destination",
+        "auth-alt",
+        "auth-countdown"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-auth-resend",
+        "options": [
+          "data-m-auth-resend-seconds=\"30\"",
+          "data-m-auth-resend-idle (starts enabled, counts after the first click)",
+          "data-m-auth-resend-done=\"You can request a new code now.\" (announced at zero)"
+        ],
+        "methods": [
+          "Monsoon.authResend(el).remaining",
+          "Monsoon.authResend(el).start(60)",
+          "Monsoon.authResend(el).stop()"
+        ],
+        "events": [
+          "monsoon:auth-resend { seconds } (cancelable: preventDefault() keeps it enabled)",
+          "monsoon:auth-resend-ready",
+          "monsoon:otp-complete { code }"
+        ]
+      },
+      "html": "<form class=\"auth-card\" action=\"#\" onsubmit=\"event.preventDefault()\">\n  <header class=\"auth-header\">\n    <span class=\"auth-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 5.5h15a1 1 0 0 1 1 1V16a1 1 0 0 1-1 1H9l-4.5 3.5V6.5a1 1 0 0 1 1-1z\"/><path d=\"M8.5 11.25h.01M12 11.25h.01M15.5 11.25h.01\" stroke-width=\"2.4\"/></svg></span>\n    <h2 class=\"auth-title\">Enter the code we texted you</h2>\n    <p class=\"auth-description\">We sent a 6 digit code to <span class=\"auth-destination\">+55 •• •••••-0474</span>. It expires in 10 minutes.</p>\n  </header>\n  <div class=\"otp mx-auto\" data-m-otp data-m-otp-separator=\"3\" data-m-otp-autosubmit>\n  <input class=\"otp-field\" name=\"code\" maxlength=\"6\" inputmode=\"numeric\" autocomplete=\"one-time-code\" aria-label=\"Verification code\">\n</div>\n  <label class=\"flex items-start gap-2.5 text-sm\">\n    <input type=\"checkbox\" class=\"checkbox checkbox-sm mt-0.5\" name=\"trust_device\" checked>\n    <span>Don't ask again on this device for 30 days</span>\n  </label>\n  <button class=\"btn btn-primary btn-block\">Verify</button>\n  <div class=\"auth-alt\">\n    <span>Didn't get it? <button type=\"button\" class=\"link link-primary\" data-m-auth-resend data-m-auth-resend-seconds=\"30\">Resend code</button></span>\n    <a class=\"link link-muted\" href=\"#methods\">Try another method</a>\n  </div>\n</form>"
+    },
+    {
+      "name": "Push approval",
+      "slug": "push-approval",
+      "description": "Check your phone: a pulsing device with the incoming request and number matching (the two digits to tap on the phone). State classes for approved, denied and expired change the color, stop the pulse and show a badge.",
+      "classes": [
+        "auth-push",
+        "auth-push-visual",
+        "auth-push-ring",
+        "auth-push-device",
+        "auth-push-notice",
+        "auth-push-number",
+        "auth-push-status",
+        "auth-push-approved",
+        "auth-push-denied",
+        "auth-push-expired"
+      ],
+      "html": "<div class=\"grid gap-4 sm:grid-cols-2 items-start\">\n  <div class=\"auth-card\">\n    <div class=\"auth-push\">\n      <div class=\"auth-push-visual\" aria-hidden=\"true\">\n        <span class=\"auth-push-ring\"></span><span class=\"auth-push-ring\"></span>\n        <div class=\"auth-push-device\"><div class=\"auth-push-notice\"></div></div>\n      </div>\n      <header class=\"auth-header\">\n        <h2 class=\"auth-title\">Check your phone</h2>\n        <p class=\"auth-description\">We sent a sign in request to your Pixel 8. Tap the number below to approve it.</p>\n      </header>\n      <p class=\"auth-push-number\">Number to tap <strong>47</strong></p>\n      <p class=\"auth-push-status\" role=\"status\">Waiting for approval</p>\n    </div>\n    <div class=\"auth-alt\">\n      <button type=\"button\" class=\"link link-primary\">Send again</button>\n      <a class=\"link link-muted\" href=\"#methods\">Use another method</a>\n    </div>\n  </div>\n  <div class=\"grid gap-4\">\n    <div class=\"auth-card auth-card-compact\">\n      <div class=\"auth-push auth-push-approved\">\n        <div class=\"auth-push-visual\" aria-hidden=\"true\"><div class=\"auth-push-device\"><div class=\"auth-push-notice\"></div></div></div>\n        <p class=\"auth-push-status\" role=\"status\">Approved, signing you in</p>\n      </div>\n    </div>\n    <div class=\"auth-card auth-card-compact\">\n      <div class=\"auth-push auth-push-denied\">\n        <div class=\"auth-push-visual\" aria-hidden=\"true\"><div class=\"auth-push-device\"><div class=\"auth-push-notice\"></div></div></div>\n        <p class=\"auth-push-status\" role=\"status\">Request denied on your phone</p>\n        <button type=\"button\" class=\"btn btn-sm btn-outline\">Try again</button>\n      </div>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "name": "Security key and passkey",
+      "slug": "security-key",
+      "description": "Prompt for a passkey or a hardware security key: an animated key mark, the steps, platform hints (Touch ID, Windows Hello, Android, USB or NFC keys) and error, retry and success states through classes. The page calls WebAuthn and switches the classes.",
+      "classes": [
+        "auth-key",
+        "auth-key-visual",
+        "auth-key-steps",
+        "auth-key-hints",
+        "auth-key-hint",
+        "auth-key-message",
+        "auth-key-error",
+        "auth-key-success"
+      ],
+      "api": {
+        "notes": [
+          "UI only: call navigator.credentials.get({ publicKey }) (or create() to register) when the screen opens, with the challenge and allowCredentials from your server.",
+          "Add .auth-key-error to the .auth-key element when the promise rejects (NotAllowedError means cancelled or timed out) and show the Retry button; add .auth-key-success when your server accepts the assertion.",
+          "Put the message in .auth-key-message (role=\"status\"), it is shown only in the error and success states."
+        ]
+      },
+      "html": "<div class=\"grid gap-4 md:grid-cols-2 items-start\">\n  <div class=\"auth-card\">\n    <div class=\"auth-key\">\n      <div class=\"auth-key-visual\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7.5 5.2A8 8 0 0 1 20 12c0 1.4-.1 2.7-.4 4\"/><path d=\"M4.3 9A8 8 0 0 1 5.5 7\"/><path d=\"M4 12.5c0 1.6-.3 3-.9 4.2\"/><path d=\"M8 10.5a4 4 0 0 1 8 1.5c0 2.8-.4 5.3-1.3 7.5\"/><path d=\"M12 12c0 3.2-.6 6-1.9 8.3\"/><path d=\"M8.2 14.5c-.2 1.9-.8 3.6-1.7 5\"/></svg></div>\n      <header class=\"auth-header\">\n        <h2 class=\"auth-title\">Use your passkey</h2>\n        <p class=\"auth-description\">Your browser will ask you to confirm it's you.</p>\n      </header>\n      <ol class=\"auth-key-steps\">\n        <li>Choose the passkey for you@example.com when your browser asks.</li>\n        <li>Confirm with your fingerprint, face, screen lock or security key.</li>\n      </ol>\n      <ul class=\"auth-key-hints\" aria-label=\"Works with\">\n        <li class=\"auth-key-hint\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 11V5.5a1.5 1.5 0 0 1 3 0V10l4.8 1a2 2 0 0 1 1.6 2.3l-.8 4.5a3 3 0 0 1-3 2.5h-3.3a3 3 0 0 1-2.4-1.2L5.5 15.5a1.5 1.5 0 0 1 2.3-1.9L9 15\"/></svg> Touch ID</li>\n        <li class=\"auth-key-hint\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2\"/><path d=\"M9 9.5v1M15 9.5v1M12 9.5v3.5h-1M9.5 16a3.5 3.5 0 0 0 5 0\"/></svg> Windows Hello</li>\n        <li class=\"auth-key-hint\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/></svg> Android</li>\n        <li class=\"auth-key-hint\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 8.5a5 5 0 0 1 0 7M9.5 6a8.5 8.5 0 0 1 0 12M13 3.5a12 12 0 0 1 0 17\"/></svg> USB or NFC key</li>\n      </ul>\n      <p class=\"auth-key-message\" role=\"status\"></p>\n    </div>\n    <div class=\"auth-alt\"><a class=\"link link-muted\" href=\"#methods\">Use another method</a></div>\n  </div>\n  <div class=\"auth-card\">\n    <div class=\"auth-key auth-key-error\">\n      <div class=\"auth-key-visual\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"6\" rx=\"1\"/><rect x=\"7\" y=\"8.5\" width=\"10\" height=\"13\" rx=\"3\"/><circle cx=\"12\" cy=\"15\" r=\"1.75\"/></svg></div>\n      <header class=\"auth-header\">\n        <h2 class=\"auth-title\">We couldn't verify your key</h2>\n      </header>\n      <p class=\"auth-key-message\" role=\"status\">The request timed out or was cancelled. Insert your key and try again.</p>\n      <div class=\"flex flex-wrap justify-center gap-2\">\n        <button type=\"button\" class=\"btn btn-primary\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 11.5A8 8 0 0 0 5.6 6.8L4 8.5\"/><path d=\"M4 4v4.5h4.5\"/><path d=\"M4 12.5a8 8 0 0 0 14.4 4.7L20 15.5\"/><path d=\"M20 20v-4.5h-4.5\"/></svg> Retry</button>\n        <button type=\"button\" class=\"btn btn-ghost\">Use another method</button>\n      </div>\n    </div>\n  </div>\n</div>"
+    },
+    {
+      "name": "Phone number",
+      "slug": "phone-input",
+      "description": "Phone number with a country picker: a searchable list with flags and dial codes, formatting as you type for the selected country, typing or pasting +44 or 0044 switches the country, and a hidden field with the E.164 number. Without the script the native select and tel input still work. Needs monsoon.js.",
+      "classes": [
+        "phone-input",
+        "phone-input-select",
+        "phone-input-field",
+        "phone-input-country",
+        "phone-input-flag",
+        "phone-input-code",
+        "phone-input-dial",
+        "phone-input-menu",
+        "phone-input-search",
+        "phone-input-list",
+        "phone-input-option",
+        "phone-input-name",
+        "phone-input-empty"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-auth-phone",
+        "options": [
+          "data-m-auth-phone-name=\"phone_e164\" (hidden input with +15550100123)",
+          "data-m-auth-phone-countries=\"US,BR,GB,PT\" (limit the list)"
+        ],
+        "methods": [
+          "Monsoon.authPhone(el).value (country, dial, national, e164, valid)",
+          "Monsoon.authPhone(el).country = \"BR\"",
+          "Monsoon.authPhone(el).open()",
+          "Monsoon.authPhone(el).close()"
+        ],
+        "events": [
+          "monsoon:auth-phone { country, dial, national, e164, valid }"
+        ]
+      },
+      "html": "<form class=\"grid gap-5 max-w-sm\" action=\"#\" onsubmit=\"event.preventDefault()\">\n  <div class=\"field\">\n    <label class=\"label\" for=\"mfa-phone\">Mobile number</label>\n    <div class=\"phone-input\" data-m-auth-phone data-m-auth-phone-name=\"phone_e164\">\n      <select class=\"phone-input-select select\" name=\"country\" aria-label=\"Country\">\n        <option value=\"US\">United States (+1)</option>\n        <option value=\"BR\" selected>Brazil (+55)</option>\n        <option value=\"GB\">United Kingdom (+44)</option>\n        <option value=\"PT\">Portugal (+351)</option>\n        <option value=\"DE\">Germany (+49)</option>\n        <option value=\"IN\">India (+91)</option>\n      </select>\n      <input id=\"mfa-phone\" class=\"phone-input-field input\" type=\"tel\" name=\"phone\" value=\"11987650474\" autocomplete=\"tel-national\" aria-describedby=\"mfa-phone-hint\">\n    </div>\n    <p class=\"hint\" id=\"mfa-phone-hint\">We'll text a code to this number. Message rates may apply.</p>\n  </div>\n  <div class=\"field\">\n    <label class=\"label\" for=\"mfa-phone-2\">Backup number</label>\n    <div class=\"phone-input\" data-m-auth-phone data-m-auth-phone-countries=\"US,CA,GB,PT,ES,FR,DE,IT,JP\">\n      <select class=\"phone-input-select select\" name=\"backup_country\" aria-label=\"Country\">\n        <option value=\"US\" selected>United States (+1)</option>\n        <option value=\"GB\">United Kingdom (+44)</option>\n      </select>\n      <input id=\"mfa-phone-2\" class=\"phone-input-field input\" type=\"tel\" name=\"backup_phone\" autocomplete=\"tel-national\">\n    </div>\n  </div>\n</form>"
+    },
+    {
+      "name": "Two factor status",
+      "slug": "two-factor-status",
+      "description": "Account settings card: on or off badge, the methods in use with manage and remove actions, recovery codes left with a regenerate button and when the account was last verified. The .auth-status-off modifier turns the card into a prompt to switch it on.",
+      "classes": [
+        "auth-status",
+        "auth-status-off",
+        "auth-status-header",
+        "auth-status-intro",
+        "auth-status-title",
+        "auth-status-text",
+        "auth-status-list",
+        "auth-status-item",
+        "auth-status-icon",
+        "auth-status-body",
+        "auth-status-name",
+        "auth-status-meta",
+        "auth-status-actions",
+        "auth-status-footer",
+        "auth-icon-success",
+        "auth-icon-warning",
+        "auth-icon-danger",
+        "auth-icon-info",
+        "auth-icon-neutral"
+      ],
+      "html": "<div class=\"grid gap-4 max-w-2xl\">\n  <section class=\"auth-status\" aria-labelledby=\"mfa-status-title\">\n    <header class=\"auth-status-header\">\n      <span class=\"auth-icon auth-icon-success\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3 5 6v5.2c0 4.4 3 8.3 7 9.8 4-1.5 7-5.4 7-9.8V6z\"/><path d=\"m9 12 2.2 2.2L15.5 10\"/></svg></span>\n      <div class=\"auth-status-intro\">\n        <h3 class=\"auth-status-title\" id=\"mfa-status-title\">Two factor authentication <span class=\"badge badge-success badge-sm\">On</span></h3>\n        <p class=\"auth-status-text\">You'll be asked for a second step when you sign in on a new device.</p>\n      </div>\n      <button type=\"button\" class=\"btn btn-sm btn-outline btn-neutral\">Turn off</button>\n    </header>\n    <ul class=\"auth-status-list\">\n      <li class=\"auth-status-item\">\n        <span class=\"auth-status-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"6.5\" y=\"2.5\" width=\"11\" height=\"19\" rx=\"2.5\"/><path d=\"M10.5 18.5h3\"/><path d=\"M9.5 9.5h5M9.5 12.5h3\"/></svg></span>\n        <div class=\"auth-status-body\">\n          <p class=\"auth-status-name\">Authenticator app <span class=\"badge badge-primary badge-sm\">Default</span></p>\n          <p class=\"auth-status-meta\">Added Mar 4, 2026 · Last used 2 hours ago</p>\n        </div>\n        <div class=\"auth-status-actions\"><button type=\"button\" class=\"btn btn-sm btn-ghost btn-neutral\">Manage</button></div>\n      </li>\n      <li class=\"auth-status-item\">\n        <span class=\"auth-status-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9.5\" cy=\"8\" r=\"3.5\"/><path d=\"M3.5 20a6 6 0 0 1 9.4-4.9\"/><circle cx=\"17.5\" cy=\"12.5\" r=\"2.5\"/><path d=\"M17.5 15v6l1.6-1.3M17.5 18l1.4 1\"/></svg></span>\n        <div class=\"auth-status-body\">\n          <p class=\"auth-status-name\">Passkey on MacBook Air</p>\n          <p class=\"auth-status-meta\">Added Jun 18, 2026 · Last used yesterday</p>\n        </div>\n        <div class=\"auth-status-actions\"><button type=\"button\" class=\"btn btn-sm btn-ghost btn-neutral\">Rename</button><button type=\"button\" class=\"btn btn-sm btn-ghost btn-danger\">Remove</button></div>\n      </li>\n      <li class=\"auth-status-item\">\n        <span class=\"auth-status-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 5.5h15a1 1 0 0 1 1 1V16a1 1 0 0 1-1 1H9l-4.5 3.5V6.5a1 1 0 0 1 1-1z\"/><path d=\"M8.5 11.25h.01M12 11.25h.01M15.5 11.25h.01\" stroke-width=\"2.4\"/></svg></span>\n        <div class=\"auth-status-body\">\n          <p class=\"auth-status-name\">Text message</p>\n          <p class=\"auth-status-meta\">+55 •• •••••-0474 · Backup method</p>\n        </div>\n        <div class=\"auth-status-actions\"><button type=\"button\" class=\"btn btn-sm btn-ghost btn-neutral\">Change</button><button type=\"button\" class=\"btn btn-sm btn-ghost btn-danger\">Remove</button></div>\n      </li>\n    </ul>\n    <footer class=\"auth-status-footer\">\n      <span>8 of 10 recovery codes left · Last verified Oct 12, 2026</span>\n      <button type=\"button\" class=\"btn btn-sm btn-outline btn-neutral\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 11.5A8 8 0 0 0 5.6 6.8L4 8.5\"/><path d=\"M4 4v4.5h4.5\"/><path d=\"M4 12.5a8 8 0 0 0 14.4 4.7L20 15.5\"/><path d=\"M20 20v-4.5h-4.5\"/></svg> Regenerate codes</button>\n    </footer>\n  </section>\n  <section class=\"auth-status auth-status-off\" aria-labelledby=\"mfa-off-title\">\n    <header class=\"auth-status-header\">\n      <span class=\"auth-icon auth-icon-warning\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3 5 6v5.2c0 4.4 3 8.3 7 9.8 4-1.5 7-5.4 7-9.8V6z\"/><path d=\"M12 8v4.5M12 16h.01\"/></svg></span>\n      <div class=\"auth-status-intro\">\n        <h3 class=\"auth-status-title\" id=\"mfa-off-title\">Two factor authentication <span class=\"badge badge-warning badge-sm\">Off</span></h3>\n        <p class=\"auth-status-text\">Add a second step so a stolen password is not enough to get into your account.</p>\n      </div>\n      <button type=\"button\" class=\"btn btn-sm btn-primary\">Turn on</button>\n    </header>\n  </section>\n</div>"
+    },
+    {
+      "name": "Sign in progress",
+      "slug": "sign-in-steps",
+      "description": "A compact step indicator for the sign in flow: password, second factor, done. Completed steps get .auth-flow-done (with a check), the current one aria-current=\"step\".",
+      "classes": [
+        "auth-flow",
+        "auth-flow-step",
+        "auth-flow-label",
+        "auth-flow-done"
+      ],
+      "html": "<div class=\"grid gap-6 max-w-sm\">\n  <ol class=\"auth-flow\" aria-label=\"Sign in progress\">\n    <li class=\"auth-flow-step\" aria-current=\"step\"><span class=\"auth-flow-label\">Password</span></li>\n    <li class=\"auth-flow-step\"><span class=\"auth-flow-label\">Verify</span></li>\n    <li class=\"auth-flow-step\"><span class=\"auth-flow-label\">Done</span></li>\n  </ol>\n  <ol class=\"auth-flow\" aria-label=\"Sign in progress\">\n    <li class=\"auth-flow-step auth-flow-done\"><span class=\"auth-flow-label\">Password<span class=\"sr-only\">, completed</span></span></li>\n    <li class=\"auth-flow-step\" aria-current=\"step\"><span class=\"auth-flow-label\">Verify</span></li>\n    <li class=\"auth-flow-step\"><span class=\"auth-flow-label\">Done</span></li>\n  </ol>\n  <ol class=\"auth-flow\" aria-label=\"Sign in progress\">\n    <li class=\"auth-flow-step auth-flow-done\"><span class=\"auth-flow-label\">Password<span class=\"sr-only\">, completed</span></span></li>\n    <li class=\"auth-flow-step auth-flow-done\"><span class=\"auth-flow-label\">Verify<span class=\"sr-only\">, completed</span></span></li>\n    <li class=\"auth-flow-step auth-flow-done\"><span class=\"auth-flow-label\">Done<span class=\"sr-only\">, completed</span></span></li>\n  </ol>\n</div>"
+    },
+    {
+      "name": "Magic link sent",
+      "slug": "magic-link",
+      "description": "Check your email: an animated envelope, the masked address, buttons that open the common mail apps, a resend link with a countdown and a way back to the password. Needs monsoon.js for the countdown.",
+      "classes": [
+        "auth-mail-visual",
+        "auth-mail-letter",
+        "auth-mail-front",
+        "auth-mail-apps",
+        "auth-mail-app",
+        "auth-footer"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-auth-resend",
+        "options": [
+          "data-m-auth-resend-seconds=\"60\"",
+          "data-m-auth-resend-idle"
+        ],
+        "methods": [
+          "Monsoon.authResend(el).start(60)",
+          "Monsoon.authResend(el).remaining"
+        ],
+        "events": [
+          "monsoon:auth-resend { seconds }",
+          "monsoon:auth-resend-ready"
+        ]
+      },
+      "html": "<div class=\"auth-card\">\n  <header class=\"auth-header\">\n    <div class=\"auth-mail-visual\" aria-hidden=\"true\">\n      <svg viewBox=\"0 0 88 68\">\n        <path d=\"M6 26 44 3l38 23\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linejoin=\"round\" opacity=\".45\"/>\n        <g class=\"auth-mail-letter\"><rect x=\"16\" y=\"9\" width=\"56\" height=\"42\" rx=\"4\"/><path d=\"M25 20h24M25 28h38M25 36h30\"/></g>\n        <path class=\"auth-mail-front\" d=\"M6 26l38 24 38-24v34a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z\"/>\n      </svg>\n    </div>\n    <h2 class=\"auth-title\">Check your email</h2>\n    <p class=\"auth-description\">We sent a sign in link to <span class=\"auth-destination\">y•••@example.com</span>. The link works once and expires in 15 minutes.</p>\n  </header>\n  <div class=\"auth-mail-apps\">\n    <a class=\"auth-mail-app\" href=\"https://mail.google.com/\" target=\"_blank\" rel=\"noopener\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2.5\"/><path d=\"m3.5 7.5 8.5 6 8.5-6\"/></svg> Gmail</a>\n    <a class=\"auth-mail-app\" href=\"https://outlook.live.com/mail/\" target=\"_blank\" rel=\"noopener\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2.5\"/><path d=\"m3.5 7.5 8.5 6 8.5-6\"/></svg> Outlook</a>\n    <a class=\"auth-mail-app\" href=\"message://\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2.5\"/><path d=\"m3.5 7.5 8.5 6 8.5-6\"/></svg> Apple Mail</a>\n  </div>\n  <p class=\"auth-alt\"><span>Didn't get it? Check spam or <button type=\"button\" class=\"link link-primary\" data-m-auth-resend data-m-auth-resend-seconds=\"60\">resend the link</button></span></p>\n  <footer class=\"auth-footer\"><a class=\"link link-muted inline-flex items-center gap-1.5\" href=\"#password\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 12H5m0 0 5.5-5.5M5 12l5.5 5.5\"/></svg> Sign in with a password instead</a></footer>\n</div>"
+    },
+    {
+      "name": "Trusted devices",
+      "slug": "trusted-devices",
+      "description": "Active sessions and trusted devices: device icon, browser and system, location and last activity, a This device badge with a live dot, and revoke buttons, plus a way to sign out everywhere else.",
+      "classes": [
+        "auth-devices",
+        "auth-device",
+        "auth-device-current",
+        "auth-device-icon",
+        "auth-device-body",
+        "auth-device-name",
+        "auth-device-meta"
+      ],
+      "html": "<section class=\"grid gap-3 max-w-2xl\" aria-labelledby=\"sessions-title\">\n  <div class=\"flex flex-wrap items-end justify-between gap-2\">\n    <div>\n      <h3 class=\"text-base font-semibold\" id=\"sessions-title\">Where you're signed in</h3>\n      <p class=\"text-sm text-muted-foreground\">Devices that skip the second step for 30 days are marked Trusted.</p>\n    </div>\n    <button type=\"button\" class=\"btn btn-sm btn-outline btn-danger\">Sign out other sessions</button>\n  </div>\n  <ul class=\"auth-devices\">\n    <li class=\"auth-device auth-device-current\">\n      <span class=\"auth-device-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4.5\" y=\"5\" width=\"15\" height=\"10.5\" rx=\"1.5\"/><path d=\"M2.5 19h19\"/></svg></span>\n      <div class=\"auth-device-body\">\n        <p class=\"auth-device-name\">Chrome on macOS <span class=\"badge badge-success badge-sm\">This device</span></p>\n        <p class=\"auth-device-meta\"><span>Lisbon, Portugal</span><span>203.0.113.24</span><span>Active now</span></p>\n      </div>\n      <span class=\"badge badge-sm\">Trusted</span>\n    </li>\n    <li class=\"auth-device\">\n      <span class=\"auth-device-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/></svg></span>\n      <div class=\"auth-device-body\">\n        <p class=\"auth-device-name\">Safari on iPhone <span class=\"badge badge-sm\">Trusted</span></p>\n        <p class=\"auth-device-meta\"><span>Porto, Portugal</span><span>2 hours ago</span></p>\n      </div>\n      <button type=\"button\" class=\"btn btn-sm btn-ghost btn-danger\" aria-label=\"Revoke Safari on iPhone\">Revoke</button>\n    </li>\n    <li class=\"auth-device\">\n      <span class=\"auth-device-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M8.5 20h7M12 16v4\"/></svg></span>\n      <div class=\"auth-device-body\">\n        <p class=\"auth-device-name\">Firefox on Windows</p>\n        <p class=\"auth-device-meta\"><span>Madrid, Spain</span><span>198.51.100.7</span><span>Sep 28, 2026</span></p>\n      </div>\n      <button type=\"button\" class=\"btn btn-sm btn-ghost btn-danger\" aria-label=\"Revoke Firefox on Windows\">Revoke</button>\n    </li>\n    <li class=\"auth-device\">\n      <span class=\"auth-device-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4.5\" y=\"3\" width=\"15\" height=\"18\" rx=\"2.5\"/><path d=\"M11 18h2\"/></svg></span>\n      <div class=\"auth-device-body\">\n        <p class=\"auth-device-name\">Example app on Android tablet</p>\n        <p class=\"auth-device-meta\"><span>São Paulo, Brazil</span><span>Aug 3, 2026</span></p>\n      </div>\n      <button type=\"button\" class=\"btn btn-sm btn-ghost btn-danger\" aria-label=\"Revoke Example app on Android tablet\">Revoke</button>\n    </li>\n  </ul>\n</section>"
+    },
+    {
+      "name": "New password",
+      "slug": "new-password",
+      "description": "Password with a reveal toggle, a four step strength meter and a live rule checklist: length, lower and upper case, a number, a symbol, and not a common password, keyboard run or repeated character. Needs monsoon.js.",
+      "classes": [
+        "auth-strength",
+        "auth-strength-bar",
+        "auth-strength-label",
+        "auth-rules",
+        "auth-rule"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-auth-password",
+        "options": [
+          "data-m-auth-password-min=\"12\"",
+          "data-m-auth-password-context=\"you,example\" (words the password must not contain)",
+          "data-rule=\"length | lower | upper | number | symbol | common\" on each .auth-rule"
+        ],
+        "methods": [
+          "Monsoon.authPassword(el).score (0 to 4)",
+          "Monsoon.authPassword(el).check() (rules, score, label, valid)"
+        ],
+        "events": [
+          "monsoon:auth-password { score, label, rules, valid }"
+        ]
+      },
+      "html": "<div class=\"field max-w-md\" data-m-auth-password data-m-auth-password-min=\"12\" data-m-auth-password-context=\"you,example\">\n  <label class=\"label\" for=\"new-password\">New password</label>\n  <div class=\"password-field\">\n    <input id=\"new-password\" type=\"password\" class=\"input\" name=\"new_password\" value=\"Monsoon-rain\" autocomplete=\"new-password\">\n    <button type=\"button\" class=\"password-field-toggle\" aria-pressed=\"false\" aria-label=\"Show password\"></button>\n  </div>\n  <div class=\"auth-strength\" aria-hidden=\"false\">\n    <span class=\"auth-strength-bar\"></span><span class=\"auth-strength-bar\"></span><span class=\"auth-strength-bar\"></span><span class=\"auth-strength-bar\"></span>\n    <span class=\"auth-strength-label\"></span>\n  </div>\n  <ul class=\"auth-rules\" aria-label=\"Password rules\">\n    <li class=\"auth-rule\" data-rule=\"length\">At least 12 characters</li>\n    <li class=\"auth-rule\" data-rule=\"lower\">A lower case letter</li>\n    <li class=\"auth-rule\" data-rule=\"upper\">An upper case letter</li>\n    <li class=\"auth-rule\" data-rule=\"number\">A number</li>\n    <li class=\"auth-rule\" data-rule=\"symbol\">A symbol like ! or #</li>\n    <li class=\"auth-rule\" data-rule=\"common\">Not a common password</li>\n  </ul>\n</div>"
+    },
+    {
+      "name": "Sign in, centered",
+      "slug": "sign-in-centered",
+      "description": "A centered sign in card on a soft backdrop: passkey first, then email and password, the flow progress, and a footer link. Composes the card shell with the native form fields; needs monsoon.js only for the reveal button.",
+      "classes": [
+        "auth-layout",
+        "auth-card",
+        "auth-header",
+        "auth-icon",
+        "auth-title",
+        "auth-description",
+        "auth-footer"
+      ],
+      "needsJs": true,
+      "html": "<div class=\"auth-layout\">\n  <form class=\"auth-card\" action=\"#\" onsubmit=\"event.preventDefault()\">\n    <ol class=\"auth-flow\" aria-label=\"Sign in progress\">\n      <li class=\"auth-flow-step\" aria-current=\"step\"><span class=\"auth-flow-label\">Password</span></li>\n      <li class=\"auth-flow-step\"><span class=\"auth-flow-label\">Verify</span></li>\n      <li class=\"auth-flow-step\"><span class=\"auth-flow-label\">Done</span></li>\n    </ol>\n    <header class=\"auth-header\">\n      <span class=\"auth-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"2.5\"/><path d=\"M8 10.5V8a4 4 0 0 1 8 0v2.5\"/><path d=\"M12 14.5v2\"/></svg></span>\n      <h2 class=\"auth-title\">Sign in to Example</h2>\n      <p class=\"auth-description\">Welcome back. Use a passkey or your email and password.</p>\n    </header>\n    <button type=\"button\" class=\"btn btn-outline btn-block\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9.5\" cy=\"8\" r=\"3.5\"/><path d=\"M3.5 20a6 6 0 0 1 9.4-4.9\"/><circle cx=\"17.5\" cy=\"12.5\" r=\"2.5\"/><path d=\"M17.5 15v6l1.6-1.3M17.5 18l1.4 1\"/></svg> Continue with a passkey</button>\n    <div class=\"divider my-0\">or</div>\n    <div class=\"grid gap-4\">\n      <div class=\"field\">\n        <label class=\"label\" for=\"signin-email\">Email</label>\n        <input id=\"signin-email\" class=\"input\" type=\"email\" name=\"email\" autocomplete=\"username webauthn\" placeholder=\"you@example.com\">\n      </div>\n      <div class=\"field\">\n        <div class=\"flex items-center justify-between\"><label class=\"label\" for=\"signin-password\">Password</label><a class=\"link link-primary text-sm\" href=\"#forgot\">Forgot it?</a></div>\n        <div class=\"password-field\" data-m-auth-password>\n          <input id=\"signin-password\" class=\"input\" type=\"password\" name=\"password\" autocomplete=\"current-password\">\n          <button type=\"button\" class=\"password-field-toggle\" aria-pressed=\"false\" aria-label=\"Show password\"></button>\n        </div>\n      </div>\n    </div>\n    <button class=\"btn btn-primary btn-block\">Continue</button>\n    <footer class=\"auth-footer\">New here? <a class=\"link link-primary\" href=\"#signup\">Create an account</a></footer>\n  </form>\n</div>"
+    },
+    {
+      "name": "Sign in, split",
+      "slug": "sign-in-split",
+      "description": "Two columns: the second factor step on one side and an illustration panel with a quote on the other, drawn with inline SVG over the theme colors. The panel hides itself when the container is narrow. Needs monsoon.js for the code cells and the countdown.",
+      "classes": [
+        "auth-split",
+        "auth-split-main",
+        "auth-split-panel",
+        "auth-split-quote",
+        "auth-split-caption"
+      ],
+      "needsJs": true,
+      "html": "<div class=\"auth-split\">\n  <div class=\"auth-split-main\">\n    <form class=\"grid gap-6\" action=\"#\" onsubmit=\"event.preventDefault()\">\n      <ol class=\"auth-flow\" aria-label=\"Sign in progress\">\n      <li class=\"auth-flow-step auth-flow-done\"><span class=\"auth-flow-label\">Password<span class=\"sr-only\">, completed</span></span></li>\n      <li class=\"auth-flow-step\" aria-current=\"step\"><span class=\"auth-flow-label\">Verify</span></li>\n      <li class=\"auth-flow-step\"><span class=\"auth-flow-label\">Done</span></li>\n    </ol>\n      <header class=\"auth-header\">\n        <span class=\"auth-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4.5 5.5h15a1 1 0 0 1 1 1V16a1 1 0 0 1-1 1H9l-4.5 3.5V6.5a1 1 0 0 1 1-1z\"/><path d=\"M8.5 11.25h.01M12 11.25h.01M15.5 11.25h.01\" stroke-width=\"2.4\"/></svg></span>\n        <h2 class=\"auth-title\">Enter the code we texted you</h2>\n        <p class=\"auth-description\">We sent a 6 digit code to <span class=\"auth-destination\">+55 •• •••••-0474</span>. It expires in 10 minutes.</p>\n      </header>\n      <div class=\"otp mx-auto\" data-m-otp data-m-otp-separator=\"3\" data-m-otp-autosubmit>\n      <input class=\"otp-field\" name=\"code\" maxlength=\"6\" inputmode=\"numeric\" autocomplete=\"one-time-code\" aria-label=\"Verification code\">\n    </div>\n      <label class=\"flex items-start gap-2.5 text-sm\">\n        <input type=\"checkbox\" class=\"checkbox checkbox-sm mt-0.5\" name=\"trust_device\" checked>\n        <span>Don't ask again on this device for 30 days</span>\n      </label>\n      <button class=\"btn btn-primary btn-block\">Verify</button>\n      <div class=\"auth-alt\">\n        <span>Didn't get it? <button type=\"button\" class=\"link link-primary\" data-m-auth-resend data-m-auth-resend-seconds=\"30\">Resend code</button></span>\n        <a class=\"link link-muted\" href=\"#methods\">Try another method</a>\n      </div>\n    </form>\n  </div>\n  <aside class=\"auth-split-panel\">\n    <svg viewBox=\"0 0 400 480\" fill=\"none\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\">\n      <g stroke=\"currentColor\" stroke-opacity=\".16\"><circle cx=\"300\" cy=\"120\" r=\"60\"/><circle cx=\"300\" cy=\"120\" r=\"110\"/><circle cx=\"300\" cy=\"120\" r=\"160\"/><circle cx=\"300\" cy=\"120\" r=\"210\"/></g>\n      <path d=\"M300 64 254 82v34c0 30 19.5 56 46 66 26.5-10 46-36 46-66V82z\" fill=\"currentColor\" fill-opacity=\".14\" stroke=\"currentColor\" stroke-opacity=\".7\" stroke-width=\"3\" stroke-linejoin=\"round\"/>\n      <path d=\"m281 120 13 13 26-27\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      <g fill=\"currentColor\" fill-opacity=\".9\"><rect x=\"70\" y=\"250\" width=\"34\" height=\"42\" rx=\"8\"/><rect x=\"112\" y=\"250\" width=\"34\" height=\"42\" rx=\"8\"/><rect x=\"154\" y=\"250\" width=\"34\" height=\"42\" rx=\"8\"/><rect x=\"204\" y=\"250\" width=\"34\" height=\"42\" rx=\"8\" fill-opacity=\".35\"/><rect x=\"246\" y=\"250\" width=\"34\" height=\"42\" rx=\"8\" fill-opacity=\".35\"/><rect x=\"288\" y=\"250\" width=\"34\" height=\"42\" rx=\"8\" fill-opacity=\".35\"/></g>\n    </svg>\n    <p class=\"auth-split-quote\">\"Turning on two step sign in took our team five minutes, and account takeovers went to zero.\"</p>\n    <p class=\"auth-split-caption\">Security lead at a fictional example company</p>\n  </aside>\n</div>"
+    },
+    {
+      "name": "Sign in, compact",
+      "slug": "sign-in-compact",
+      "description": "A compact card for popovers, sidebars and embedded flows: the method switcher and code entry in a tight layout with .auth-card-compact. Needs monsoon.js for the code cells.",
+      "classes": [
+        "auth-card-compact",
+        "auth-card",
+        "auth-header-start"
+      ],
+      "needsJs": true,
+      "html": "<form class=\"auth-card auth-card-compact\" action=\"#\" onsubmit=\"event.preventDefault()\">\n  <header class=\"auth-header auth-header-start\">\n    <h2 class=\"auth-title text-lg\">Confirm it's you</h2>\n    <p class=\"auth-description text-sm\">Enter a code from your authenticator app to change your email.</p>\n  </header>\n  <div class=\"otp otp-sm\" data-m-otp data-m-otp-separator=\"3\">\n    <input class=\"otp-field\" name=\"code\" maxlength=\"6\" inputmode=\"numeric\" autocomplete=\"one-time-code\" aria-label=\"Verification code\">\n  </div>\n  <div class=\"flex items-center justify-between gap-2\">\n    <a class=\"link link-muted text-sm\" href=\"#recovery\">Use a recovery code</a>\n    <button class=\"btn btn-primary btn-sm\">Confirm</button>\n  </div>\n</form>"
+    }
+  ]
+}
