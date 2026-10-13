@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSy
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse, serialize, selectorClasses, sizes, kb } from './css.mjs';
+import { arbitraryCss, scanArbitrary } from '../src/arbitrary/index.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_CSS = join(here, '..', 'dist', 'monsoon.css');
@@ -22,12 +23,15 @@ Usage
 Commands
   purge     Scan files for class names and write a stylesheet with only the
             rules you use, plus the base reset, theme tokens and keyframes.
+            Arbitrary value classes (bg-[#0ea5e9], md:w-[37px]) are compiled
+            into static rules, so production needs no script.
   classes   List every class in the stylesheet, one per line.
 
 Purge options
   -o, --out <file>      Output file (default: print to stdout)
   --safelist <a,b,c>    Extra classes to keep even if they are not found
   --no-minify           Write readable CSS instead of minified CSS
+  --no-arbitrary        Do not compile arbitrary value classes
   --css <file>          Source stylesheet (default: the bundled dist/monsoon.css)
 
 Classes options
@@ -156,11 +160,20 @@ function filterNodes(nodes, keep, stats) {
   return out;
 }
 
-export function purgeCss(css, used, { minify = true } = {}) {
+/**
+ * Keeps the utility rules whose classes are in `used`. Classes in `arbitrary`
+ * (arbitrary value classes such as bg-[red]) are compiled and appended after
+ * the static utilities, in the same order the runtime engine uses.
+ */
+export function purgeCss(css, used, { minify = true, arbitrary = [] } = {}) {
   const [head, utils] = splitAtMarker(parse(css));
-  const stats = { total: 0, kept: 0 };
+  const stats = { total: 0, kept: 0, arbitrary: 0 };
   const kept = filterNodes(utils, (c) => used.has(c), stats);
-  const out = serialize([...head, ...kept], { minify });
+  const extra = arbitraryCss(arbitrary);
+  stats.arbitrary = extra.classes.length;
+  const nodes = [...head, ...kept];
+  if (extra.css) nodes.push({ type: 'comment', text: 'monsoon:arbitrary' }, ...parse(extra.css));
+  const out = serialize(nodes, { minify });
   return { css: minify ? `${out}\n` : out, stats };
 }
 
@@ -181,7 +194,7 @@ export function listClasses(css) {
 // ---- CLI ----
 
 function parseArgs(argv) {
-  const args = { _: [], minify: true, json: false };
+  const args = { _: [], minify: true, json: false, arbitrary: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '-o' || a === '--out') args.out = argv[++i];
@@ -189,6 +202,7 @@ function parseArgs(argv) {
     else if (a === '--safelist') args.safelist = argv[++i];
     else if (a === '--filter') args.filter = argv[++i];
     else if (a === '--no-minify') args.minify = false;
+    else if (a === '--no-arbitrary') args.arbitrary = false;
     else if (a === '--json') args.json = true;
     else if (a === '-h' || a === '--help') args.help = true;
     else if (a === '-v' || a === '--version') args.version = true;
@@ -241,9 +255,19 @@ export async function main(argv, io = { log: console.log, error: console.error, 
       return 1;
     }
     const used = new Set();
-    for (const f of files) for (const c of extractCandidates(readFileSync(f, 'utf8'))) used.add(c);
-    if (args.safelist) args.safelist.split(',').map((s) => s.trim()).filter(Boolean).forEach((c) => used.add(c));
-    const { css, stats } = purgeCss(source, used, { minify: args.minify });
+    const arbitrary = new Set();
+    for (const f of files) {
+      const text = readFileSync(f, 'utf8');
+      for (const c of extractCandidates(text)) used.add(c);
+      if (args.arbitrary) for (const c of scanArbitrary(text)) arbitrary.add(c);
+    }
+    if (args.safelist) {
+      for (const c of args.safelist.split(',').map((s) => s.trim()).filter(Boolean)) {
+        used.add(c);
+        if (args.arbitrary) arbitrary.add(c);
+      }
+    }
+    const { css, stats } = purgeCss(source, used, { minify: args.minify, arbitrary: [...arbitrary].sort() });
     if (args.out) {
       mkdirSync(dirname(resolve(args.out)), { recursive: true });
       writeFileSync(args.out, css);
@@ -251,6 +275,7 @@ export async function main(argv, io = { log: console.log, error: console.error, 
       const full = await sizes(serialize(parse(source), { minify: true }));
       io.error(`monsooncss purge: scanned ${files.length} file${files.length === 1 ? '' : 's'}`);
       io.error(`  kept ${stats.kept} of ${stats.total} utility rules`);
+      if (stats.arbitrary) io.error(`  compiled ${stats.arbitrary} arbitrary value class${stats.arbitrary === 1 ? '' : 'es'}`);
       io.error(`  ${args.out}: ${kb(s.raw)} raw, ${kb(s.gzip)} gzip, ${kb(s.brotli)} brotli (full build ${kb(full.brotli)} brotli)`);
     } else io.write(css);
     return 0;

@@ -13,6 +13,8 @@
     "./min": "./dist/monsoon.min.css",
     "./js": "./dist/monsoon.esm.js",
     "./js/browser": "./dist/monsoon.js",
+    "./js/arbitrary": "./dist/monsoon-arbitrary.js",
+    "./arbitrary": "./src/arbitrary/index.mjs",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -21,6 +23,10 @@
   "files": [
     "dist",
     "bin",
+    "src/arbitrary",
+    "src/variants.mjs",
+    "src/scales.mjs",
+    "src/utilities/borders.mjs",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
@@ -57,6 +63,7 @@
     "dark-mode",
     "container-queries",
     "responsive",
+    "arbitrary-values",
     "purge",
     "production-css",
     "frontend"
@@ -77,6 +84,7 @@
   "sideEffects": [
     "*.css",
     "./dist/monsoon.js",
+    "./dist/monsoon-arbitrary.js",
     "./dist/monsoon.esm.js",
     "./src/js/components/*.mjs"
   ],

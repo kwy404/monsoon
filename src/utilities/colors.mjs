@@ -20,6 +20,11 @@ const fill = (decls, value) => Object.fromEntries(Object.entries(decls).map(([p,
 const mix = (value, pct) => `color-mix(in oklab, ${value} ${pct}%, transparent)`;
 const BTB = ['bg', 'text', 'border'];
 
+// The bare hue (bg-red, text-blue) is step 500 in light mode and step 400 in
+// dark mode. It reads --mode where it is used, so it follows the nearest
+// themed ancestor exactly like the semantic tokens do.
+export const bare = (p) => `color-mix(in oklab, var(--color-${p}-400) calc(var(--mode) * 100%), var(--color-${p}-500))`;
+
 export default function colors(add) {
   // Ordered by utility type so later types never fight earlier ones.
   for (const [prefix, decls] of Object.entries(properties)) {
@@ -51,6 +56,8 @@ export default function colors(add) {
         void shades;
       }
     }
+    // Bare color shorthand: bg-red, text-blue, border-emerald.
+    for (const p of Object.keys(palette)) add(cat, `${prefix}-${p}`, fill(decls, bare(p)), BTB.includes(prefix) ? ['color'] : []);
   }
 
   // Opacity modifiers for semantic colors, black and white: bg-black/50, text-primary/80.
@@ -79,6 +86,7 @@ export default function colors(add) {
   }
   const stopColors = { ...Object.fromEntries(semanticColors.map((n) => [n, `var(--${n})`])), white: '#fff', black: '#000', transparent: 'transparent' };
   for (const p of Object.keys(palette)) for (const s of [400, 500, 600]) stopColors[`${p}-${s}`] = `var(--color-${p}-${s})`;
+  for (const p of Object.keys(palette)) stopColors[p] = bare(p);
   for (const [n, v] of Object.entries(stopColors)) {
     add('backgrounds', `from-${n}`, {
       '--m-gradient-from': v,
