@@ -3,7 +3,7 @@ import { generate } from '../src/generate.mjs';
 import { componentsCss } from '../src/components/index.mjs';
 import { semanticColors } from '../src/theme.mjs';
 import { parse, selectorClasses, escapeClass } from '../bin/css.mjs';
-import { read } from './helpers.mjs';
+import { read, sharedTokens } from './helpers.mjs';
 
 const pkg = JSON.parse(read('package.json'));
 const css = read('src/components/10-forms.css');
@@ -75,7 +75,7 @@ describe('forms components', () => {
     const outsideUrls = css.replace(/url\("[^"]*"\)/g, 'url()');
     expect(outsideUrls).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
     expect(outsideUrls).not.toMatch(/\b(rgb|rgba|hsl|hsla)\(/);
-    const allowed = new Set([...semanticColors, 'mode', 'font-mono']);
+    const allowed = new Set([...semanticColors, 'mode', 'font-mono', 'tone', 'tone-fg', ...sharedTokens.map((t) => t.slice(2))]);
     const vars = [...outsideUrls.matchAll(/var\(--([\w-]+)/g)].map((m) => m[1]);
     const foreign = vars.filter((v) => !allowed.has(v) && !/^(_|field-|choice-|otp-)/.test(v));
     expect(foreign).toEqual([]);

@@ -21,7 +21,9 @@ export default function layout(add) {
   for (const [k, v] of Object.entries(display)) {
     const groups = ['layout', 'visibility'];
     if (['block', 'inline-block', 'inline', 'flex', 'inline-flex', 'grid', 'hidden'].includes(k)) groups.push('cq');
-    add('layout', k, { display: v }, groups);
+    // .list-item is also the row of the .list component, which needs flex.
+    const opts = k === 'list-item' ? { selector: (sel) => `${sel}:where(:not(.list > *))` } : {};
+    add('layout', k, { display: v }, groups, opts);
   }
 
   // Position
@@ -66,7 +68,8 @@ export default function layout(add) {
   // Visibility and box
   add('layout', 'visible', { visibility: 'visible' }, ['visibility']);
   add('layout', 'invisible', { visibility: 'hidden' }, ['visibility']);
-  add('layout', 'collapse', { visibility: 'collapse' });
+  // .collapse is also the <details> disclosure component, which stays visible.
+  add('layout', 'collapse', { visibility: 'collapse' }, [], { selector: (sel) => `${sel}:where(:not(details))` });
   add('layout', 'box-border', { 'box-sizing': 'border-box' });
   add('layout', 'box-content', { 'box-sizing': 'content-box' });
   for (const v of ['left', 'right', 'none', 'start', 'end']) add('layout', `float-${v}`, { float: v === 'start' ? 'inline-start' : v === 'end' ? 'inline-end' : v });

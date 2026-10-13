@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { generate } from '../src/generate.mjs';
 import { parse, selectorClasses } from '../bin/css.mjs';
 import { semanticColors } from '../src/theme.mjs';
-import { read } from './helpers.mjs';
+import { read, sharedTokens } from './helpers.mjs';
 
 const css = read('src/components/20-actions.css');
 const manifest = JSON.parse(read('src/components/20-actions.json'));
@@ -71,7 +71,7 @@ describe('actions and feedback components', () => {
 
   it('only reads known tokens or its own custom properties', () => {
     const declared = new Set([...css.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
-    const allowed = new Set([...semanticColors.map((t) => `--${t}`), '--mode', '--font-sans', '--font-mono', '--m-shadow-color']);
+    const allowed = new Set([...semanticColors.map((t) => `--${t}`), '--mode', '--font-sans', '--font-mono', '--m-shadow-color', ...sharedTokens]);
     const unknown = [...new Set([...css.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1]))]
       .filter((v) => !declared.has(v) && !allowed.has(v));
     expect(unknown).toEqual([]);
@@ -79,7 +79,8 @@ describe('actions and feedback components', () => {
 
   it('respects reduced motion and shows a focus ring', () => {
     expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)/);
-    expect(css).toContain('outline: 2px solid var(--ring)');
+    expect(css).toContain('outline: var(--m-ring)');
+    expect(css).not.toContain('outline: 2px solid var(--ring)');
   });
 
   it('keeps tone classes after the component defaults', () => {

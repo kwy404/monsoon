@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "count": 4616,
+  "count": 4615,
   "classes": [
     {
       "class": "container",
@@ -221,7 +221,7 @@
     {
       "class": "list-item",
       "category": "layout",
-      "css": ".list-item {\n  display: list-item;\n}",
+      "css": ".list-item:where(:not(.list > *)) {\n  display: list-item;\n}",
       "variants": [
         "group-hover",
         "peer-checked",
@@ -2036,7 +2036,7 @@
     {
       "class": "collapse",
       "category": "layout",
-      "css": ".collapse {\n  visibility: collapse;\n}",
+      "css": ".collapse:where(:not(details)) {\n  visibility: collapse;\n}",
       "variants": []
     },
     {
@@ -36843,13 +36843,7 @@
     {
       "class": "focus-ring",
       "category": "accessibility",
-      "css": ".focus-ring:focus-visible {\n  outline: 2px solid var(--ring);\n  outline-offset: 2px;\n}",
-      "variants": []
-    },
-    {
-      "class": "skip-link",
-      "category": "accessibility",
-      "css": ".skip-link:not(:focus):not(:focus-within) {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  white-space: nowrap;\n  border-width: 0;\n}",
+      "css": ".focus-ring:focus-visible {\n  outline: var(--m-ring);\n  outline-offset: var(--m-ring-offset);\n}",
       "variants": []
     },
     {

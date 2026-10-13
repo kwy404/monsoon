@@ -18,7 +18,8 @@
         "input-xs",
         "input-sm",
         "input-md",
-        "input-lg"
+        "input-lg",
+        "input-xl"
       ],
       "html": "<div class=\"grid gap-3 max-w-sm\">\n  <input type=\"email\" class=\"input\" placeholder=\"you@example.com\" aria-label=\"Email\">\n  <input type=\"text\" class=\"input input-sm input-ghost\" placeholder=\"Ghost, small\" aria-label=\"Ghost input\">\n  <input type=\"url\" class=\"input input-filled\" placeholder=\"https://\" aria-label=\"Website\">\n  <input type=\"tel\" class=\"input input-success\" value=\"+1 415 555 0132\" aria-label=\"Phone\">\n  <input type=\"text\" class=\"input input-lg\" value=\"Read only value\" readonly aria-label=\"Read only\">\n  <input type=\"text\" class=\"input\" placeholder=\"Disabled\" disabled aria-label=\"Disabled input\">\n</div>"
     },
@@ -48,6 +49,7 @@
         "textarea-sm",
         "textarea-md",
         "textarea-lg",
+        "textarea-xl",
         "textarea-autosize"
       ],
       "html": "<div class=\"grid gap-3 max-w-sm\">\n  <textarea class=\"textarea\" placeholder=\"Tell us about your project\" aria-label=\"Project\"></textarea>\n  <textarea class=\"textarea textarea-autosize textarea-sm\" aria-label=\"Notes\">This one grows as you type.</textarea>\n</div>"
@@ -68,7 +70,8 @@
         "select-xs",
         "select-sm",
         "select-md",
-        "select-lg"
+        "select-lg",
+        "select-xl"
       ],
       "html": "<div class=\"grid gap-3 max-w-sm\">\n  <select class=\"select\" aria-label=\"Country\">\n    <option>Brazil</option>\n    <option>Canada</option>\n    <option>Japan</option>\n  </select>\n  <select class=\"select select-sm select-filled\" aria-label=\"Sort by\">\n    <option>Newest first</option>\n    <option>Oldest first</option>\n  </select>\n</div>"
     },
@@ -180,7 +183,8 @@
         "file-input-xs",
         "file-input-sm",
         "file-input-md",
-        "file-input-lg"
+        "file-input-lg",
+        "file-input-xl"
       ],
       "html": "<div class=\"grid gap-3 max-w-sm\">\n  <input type=\"file\" class=\"file-input\" aria-label=\"Attachment\">\n  <input type=\"file\" class=\"file-input file-input-primary file-input-sm\" aria-label=\"Avatar\">\n</div>"
     },
@@ -283,7 +287,8 @@
         "input-group-xs",
         "input-group-sm",
         "input-group-md",
-        "input-group-lg"
+        "input-group-lg",
+        "input-group-xl"
       ],
       "html": "<div class=\"grid gap-3 max-w-sm\">\n  <div class=\"input-group\">\n    <span class=\"input-group-addon\">https://</span>\n    <input class=\"input\" placeholder=\"example.com\" aria-label=\"Domain\">\n  </div>\n  <div class=\"input-group\">\n    <input type=\"number\" class=\"input\" value=\"120\" aria-label=\"Amount\">\n    <span class=\"input-group-addon\">USD</span>\n  </div>\n  <div class=\"input-group input-group-sm\">\n    <input type=\"email\" class=\"input\" placeholder=\"Email\" aria-label=\"Email\">\n    <button type=\"button\" class=\"input-group-button\">Subscribe</button>\n  </div>\n</div>"
     },
@@ -309,7 +314,7 @@
     {
       "name": "Password field",
       "slug": "password-field",
-      "description": "A password input with room for a reveal button; toggle aria-pressed and the input type from your app.",
+      "description": "A password input with a reveal button. The button needs a few lines of JavaScript: toggle aria-pressed on it and switch the input type between password and text.",
       "classes": [
         "password-field",
         "password-field-toggle"
@@ -347,7 +352,7 @@
     {
       "name": "Input counter",
       "slug": "input-counter",
-      "description": "Layout for a number input between decrease and increase buttons; wire the buttons with stepUp() and stepDown().",
+      "description": "A number input between decrease and increase buttons. The buttons need a few lines of JavaScript: call stepDown() and stepUp() on the input.",
       "classes": [
         "input-counter",
         "input-counter-button"

@@ -48,11 +48,10 @@ export function accessibility(add) {
   add('accessibility', 'forced-color-adjust-auto', { 'forced-color-adjust': 'auto' });
   add('accessibility', 'forced-color-adjust-none', { 'forced-color-adjust': 'none' });
   // Monsoon helpers
-  add('accessibility', 'focus-ring', { outline: '2px solid var(--ring)', 'outline-offset': '2px' }, [], {
+  // The same ring every component draws (see --m-ring in base.mjs).
+  add('accessibility', 'focus-ring', { outline: 'var(--m-ring)', 'outline-offset': 'var(--m-ring-offset)' }, [], {
     selector: (s) => `${s}:focus-visible`,
   });
-  add('accessibility', 'skip-link', srOnly, [], {
-    selector: (s) => `${s}:not(:focus):not(:focus-within)`,
-  });
+  // .skip-link is a component (src/components/30-navigation.css), not a utility.
   add('accessibility', 'touch-target', { 'min-width': '44px', 'min-height': '44px' });
 }

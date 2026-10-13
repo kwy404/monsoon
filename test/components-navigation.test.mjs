@@ -93,6 +93,7 @@ describe('navigation components', () => {
 
   it('honours reduced motion and shows a focus ring', () => {
     expect(css).toMatch(/prefers-reduced-motion: reduce/);
-    expect(css).toMatch(/outline: 2px solid var\(--ring\)/);
+    expect(css).toMatch(/outline: var\(--m-ring\)/);
+    expect(css).not.toMatch(/outline: 2px solid var\(--ring\)/);
   });
 });

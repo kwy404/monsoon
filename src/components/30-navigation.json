@@ -101,7 +101,7 @@
         "dropdown-hover",
         "dropdown-open"
       ],
-      "html": "<details class=\"dropdown\"><summary class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Options</summary><ul class=\"dropdown-content menu\"><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>Rename</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg>Duplicate<kbd class=\"menu-shortcut\">Ctrl D</kbd></a></li><li class=\"menu-divider\"></li><li><a href=\"#\" class=\"menu-danger\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\"/></svg>Delete</a></li></ul></details><button type=\"button\" popovertarget=\"account-menu\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Account</button><ul id=\"account-menu\" popover class=\"dropdown-content dropdown-end menu\"><li class=\"menu-title\">Signed in as Ana</li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/></svg>Profile</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1\"/></svg>Settings</a></li></ul>"
+      "html": "<div class=\"flex gap-2\"><details class=\"dropdown\"><summary class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Options</summary><ul class=\"dropdown-content menu\"><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>Rename</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg>Duplicate<kbd class=\"menu-shortcut\">Ctrl D</kbd></a></li><li class=\"menu-divider\"></li><li><a href=\"#\" class=\"menu-danger\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\"/></svg>Delete</a></li></ul></details><button type=\"button\" popovertarget=\"account-menu\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Account</button><ul id=\"account-menu\" popover class=\"dropdown-content dropdown-end menu\"><li class=\"menu-title\">Signed in as Ana</li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/></svg>Profile</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1\"/></svg>Settings</a></li></ul></div>"
     },
     {
       "name": "Menu",
@@ -236,8 +236,11 @@
         "tabs-boxed",
         "tabs-pills",
         "tabs-lifted",
+        "tabs-xs",
         "tabs-sm",
+        "tabs-md",
         "tabs-lg",
+        "tabs-xl",
         "tabs-full"
       ],
       "html": "<div class=\"tabs tabs-line\" role=\"tablist\"><input type=\"radio\" name=\"project-tabs\" class=\"tab\" aria-label=\"Overview\" checked><div class=\"tab-content\" role=\"tabpanel\">Traffic is up 12 percent this week.</div><input type=\"radio\" name=\"project-tabs\" class=\"tab\" aria-label=\"Deployments\"><div class=\"tab-content\" role=\"tabpanel\">Last deployment finished 4 minutes ago.</div><input type=\"radio\" name=\"project-tabs\" class=\"tab\" aria-label=\"Settings\"><div class=\"tab-content\" role=\"tabpanel\">Domains, environment variables and team access.</div></div><nav class=\"tabs tabs-boxed mt-6 w-fit\" aria-label=\"Range\"><a href=\"#\" class=\"tab tab-active\" aria-current=\"page\">Day</a><a href=\"#\" class=\"tab\">Week</a><a href=\"#\" class=\"tab\">Month</a><a href=\"#\" class=\"tab tab-disabled\">Year</a></nav>"
@@ -265,8 +268,11 @@
         "pagination-ellipsis",
         "pagination-prev",
         "pagination-next",
+        "pagination-xs",
         "pagination-sm",
+        "pagination-md",
         "pagination-lg",
+        "pagination-xl",
         "pagination-pills",
         "pagination-joined"
       ],

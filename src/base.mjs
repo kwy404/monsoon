@@ -23,6 +23,62 @@ export const THEME_SCOPE = ':root, .theme, .dark, .light, [data-theme], [style*=
 // --seed without painting anything, use .theme or style="--seed: ...".
 export const SECTION = ':where(.dark, .light, [data-theme=dark], [data-theme=light]):where(:not(:root))';
 
+// Shared component tokens
+// -----------------------
+// One scale for every component: radius, control heights, font sizes and
+// paddings per size step, border width, focus ring, motion and disabled
+// opacity. They are plain values declared once on :root, so overriding one
+// (for the whole page or for a subtree) restyles every component using it.
+export const componentScale = {
+  'radius-xs': '.25rem',
+  'radius-sm': '.375rem',
+  'radius-md': '.5rem',
+  'radius-lg': '.625rem',
+  'radius-xl': '.75rem',
+  'radius-2xl': '1rem',
+  'radius-3xl': '1.25rem',
+  'radius-full': '9999px',
+  'control-h-xs': '1.75rem',
+  'control-h-sm': '2rem',
+  'control-h-md': '2.5rem',
+  'control-h-lg': '3rem',
+  'control-h-xl': '3.5rem',
+  'control-fs-xs': '.75rem',
+  'control-fs-sm': '.8125rem',
+  'control-fs-md': '.875rem',
+  'control-fs-lg': '1rem',
+  'control-fs-xl': '1.125rem',
+  'control-px-xs': '.5rem',
+  'control-px-sm': '.75rem',
+  'control-px-md': '1rem',
+  'control-px-lg': '1.25rem',
+  'control-px-xl': '1.5rem',
+  'border-width': '1px',
+  'ring-width': '2px',
+  'ring-offset': '2px',
+  'duration-fast': '.15s',
+  duration: '.2s',
+  'duration-slow': '.3s',
+  ease: 'cubic-bezier(.2, .8, .2, 1)',
+  'ease-spring': 'cubic-bezier(.3, 1.3, .6, 1)',
+  'ease-drawer': 'cubic-bezier(.32, .72, 0, 1)',
+  'disabled-opacity': '.5',
+};
+
+// Tokens that read the theme (--ring, --mode) are declared with the theme
+// tokens, so a dark section inside a light page gets dark mode shadows.
+const shade = (a, b) => `oklch(0 0 0 / calc(${a} + ${b} * var(--mode)))`;
+export const componentThemeTokens = {
+  ring: 'var(--m-ring-width) solid var(--ring)',
+  'shadow-xs': `0 1px 2px ${shade(0.05, 0.15)}`,
+  'shadow-sm': `0 1px 2px ${shade(0.05, 0.2)}, 0 1px 3px ${shade(0.05, 0.15)}`,
+  'shadow-md': `0 2px 4px -1px ${shade(0.05, 0.2)}, 0 6px 16px -4px ${shade(0.12, 0.3)}`,
+  'shadow-lg': `0 2px 6px -2px ${shade(0.06, 0.2)}, 0 12px 32px -8px ${shade(0.18, 0.3)}`,
+  'shadow-xl': `0 4px 12px -4px ${shade(0.08, 0.2)}, 0 24px 64px -16px ${shade(0.28, 0.3)}`,
+};
+
+const declare = (obj, indent) => Object.entries(obj).map(([k, v]) => `${indent}--m-${k}: ${v};`).join('\n');
+
 function defaultSeedLch() {
   const m = DEFAULT_SEED.match(/oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)/);
   return [+m[1], +m[2], +m[3]];
@@ -51,6 +107,7 @@ export function tokensCss() {
   --font-serif: ${fonts.serif};
   --font-mono: ${fonts.mono};
 ${paletteVars.join('\n')}
+${declare(componentScale, '  ')}
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -60,6 +117,7 @@ ${paletteVars.join('\n')}
 .light, [data-theme=light] { --mode: 0; color-scheme: light; }
 ${THEME_SCOPE} {
 ${tokenDecls}
+${declare(componentThemeTokens, '  ')}
 }
 ${SECTION} {
   color: var(--foreground);
@@ -142,7 +200,7 @@ export const preflight = `
   ::placeholder { opacity: 1; color: var(--muted-foreground); }
   textarea { resize: vertical; }
   button, input:where([type=button], [type=reset], [type=submit]) { appearance: button; }
-  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  :focus-visible { outline: var(--m-ring); outline-offset: var(--m-ring-offset); }
   [hidden]:where(:not([hidden=until-found])) { display: none !important; }
 }
 @layer base {
