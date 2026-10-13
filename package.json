@@ -1,0 +1,83 @@
+{
+  "name": "monsooncss",
+  "version": "0.1.0",
+  "description": "Utility-first CSS framework that needs no build step. One CSS file from a CDN, familiar utility class names, seed color theming in pure CSS and automatic dark mode.",
+  "type": "module",
+  "main": "dist/monsoon.min.css",
+  "style": "dist/monsoon.min.css",
+  "unpkg": "dist/monsoon.min.css",
+  "jsdelivr": "dist/monsoon.min.css",
+  "exports": {
+    ".": "./dist/monsoon.min.css",
+    "./css": "./dist/monsoon.css",
+    "./min": "./dist/monsoon.min.css",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "monsooncss": "bin/monsoon.mjs"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "lint": "node scripts/lint.mjs",
+    "size": "node scripts/size.mjs",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "utility-css",
+    "utility-first",
+    "utility-classes",
+    "css-utilities",
+    "atomic-css",
+    "functional-css",
+    "no-build",
+    "no-build-css",
+    "zero-config",
+    "zero-config-css",
+    "cdn",
+    "cdn-css",
+    "css-cdn",
+    "stylesheet",
+    "design-tokens",
+    "theming",
+    "seed-color",
+    "oklch",
+    "relative-color-syntax",
+    "dark-mode",
+    "container-queries",
+    "responsive",
+    "purge",
+    "production-css",
+    "frontend"
+  ],
+  "author": "Alexandre Kohler (https://github.com/kwy404)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwy404/monsoon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwy404/monsoon/issues"
+  },
+  "homepage": "https://kwy404.github.io/monsoon/",
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "devDependencies": {
+    "lightningcss": "^1.30.1",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
