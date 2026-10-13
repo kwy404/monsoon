@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monsoon: utility-first CSS without a build step, from a CDN</title>
+<meta name="description" content="Monsoon is a no build CSS framework: one stylesheet from a CDN, 4,616 utility classes, a whole theme from one --seed color, automatic dark mode and container queries.">
+<link rel="canonical" href="https://kwy404.github.io/monsoon/">
+<meta name="author" content="Alexandre Kohler">
+<meta name="theme-color" content="#3b5bdb">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Monsoon">
+<meta property="og:title" content="Monsoon: utility-first CSS without a build step, from a CDN">
+<meta property="og:description" content="Monsoon is a no build CSS framework: one stylesheet from a CDN, 4,616 utility classes, a whole theme from one --seed color, automatic dark mode and container queries.">
+<meta property="og:url" content="https://kwy404.github.io/monsoon/">
+<meta property="og:image" content="https://kwy404.github.io/monsoon/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Monsoon utility-first CSS framework with Mo the red panda mascot, one stylesheet from a CDN and a theme from one seed color">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Monsoon: utility-first CSS without a build step, from a CDN">
+<meta name="twitter:description" content="Monsoon is a no build CSS framework: one stylesheet from a CDN, 4,616 utility classes, a whole theme from one --seed color, automatic dark mode and container queries.">
+<meta name="twitter:image" content="https://kwy404.github.io/monsoon/assets/og.png">
+<meta name="twitter:image:alt" content="Monsoon utility-first CSS framework with Mo the red panda mascot, one stylesheet from a CDN and a theme from one seed color">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="monsoon.min.css">
+<link rel="stylesheet" href="site.css">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script src="https://cdn.jsdelivr.net/npm/voodoojs@0.13.0/dist/voodoo.full.min.js" data-manual defer></script>
+<script type="module" src="site.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Monsoon","alternateName":"monsooncss","description":"Utility-first CSS framework with no build step: one stylesheet from a CDN, a full theme from one seed color with OKLCH relative colors, automatic dark mode and container query utilities.","applicationCategory":"DeveloperApplication","applicationSubCategory":"CSS framework","operatingSystem":"Any","softwareVersion":"0.1.0","url":"https://kwy404.github.io/monsoon/","downloadUrl":"https://www.npmjs.com/package/monsooncss","codeRepository":"https://github.com/kwy404/monsoon","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Alexandre Kohler","url":"https://github.com/kwy404"},"image":"https://kwy404.github.io/monsoon/assets/og.png","keywords":"utility-first css without a build step, css framework from a cdn, no build css framework, utility css cdn production, generate a theme from one color css, dark mode css, container queries utility classes, oklch color palette css, accessible color contrast css"},{"@type":"WebSite","name":"Monsoon","url":"https://kwy404.github.io/monsoon/"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I use utility-first CSS without a build step?","acceptedAnswer":{"@type":"Answer","text":"Add one tag, \u003clink rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/monsooncss\">, and write classes such as px-4, md:grid-cols-3 or hover:bg-primary in your HTML. Every class is already in the file, so there is no compiler, no config file and no watcher to run."}},{"@type":"Question","name":"Is a CSS framework from a CDN fine for production?","acceptedAnswer":{"@type":"Answer","text":"Yes. The minified file is about 43 kB with brotli and 80 kB with gzip, it is cached by the browser after the first visit, and you can pin an exact version such as monsooncss@0.1.0. If you want the smallest possible file, run npx monsooncss purge once and serve the result yourself."}},{"@type":"Question","name":"How do I generate a whole theme from one color in CSS?","acceptedAnswer":{"@type":"Answer","text":"Set --seed to any CSS color, for example :root { --seed: #0d9488; }. Monsoon derives primary, secondary, accent, surfaces, muted text, borders and the focus ring from it with OKLCH relative colors, in pure CSS. Put style=\"--seed: teal\" on any element to theme only that section."}},{"@type":"Question","name":"How does dark mode work?","acceptedAnswer":{"@type":"Answer","text":"It is automatic. Monsoon follows prefers-color-scheme, and you can force a scheme with class=\"dark\", class=\"light\" or data-theme=\"dark\" on the root element or on any section. Semantic colors such as bg-surface and text-foreground switch on their own, so most pages need no dark: classes at all."}},{"@type":"Question","name":"Is the color contrast accessible?","acceptedAnswer":{"@type":"Answer","text":"The seed formulas push the primary color out of the lightness band where neither white nor dark text is safe, and flip the foreground to match. The test suite checks 4.5:1 (WCAG AA) for every token pair across 18 named seeds and a sweep of 2,197 sRGB seeds, in light and dark mode."}},{"@type":"Question","name":"Does Monsoon support container queries?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add @container to a parent and use @xs: to @xl: on its children, for example @md:flex-row. The container breakpoints run from 20rem to 36rem and are generated for layout, spacing, sizing and text utilities."}},{"@type":"Question","name":"Can I use it with PHP, WordPress, Django or Rails?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is a plain stylesheet, so it works in any template language. Link it from your layout, write classes in your templates, and if you want a smaller file point the purge command at your template folders, for example \"templates/**/*.html\" or \"app/views/**/*.erb\"."}},{"@type":"Question","name":"What is not supported?","acceptedAnswer":{"@type":"Answer","text":"Stacked variants such as dark:hover:, arbitrary values such as w-[37px] and the important modifier are not part of a prebuilt stylesheet. Opacity modifiers like bg-primary/90 exist for semantic colors, black and white. For anything else, a style attribute or a few lines of your own CSS next to Monsoon work fine."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Monsoon","item":"https://kwy404.github.io/monsoon/"}]}]}</script>
+</head>
+<body class="antialiased bg-background text-foreground">
+
+<a href="#main" class="skip-link fixed top-2 left-2 z-50 rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm font-medium">Skip to content</a>
+<header class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md" v-data="{ menu: false }" @keydown.escape="menu = false">
+  <div class="mx-auto max-w-7xl flex items-center justify-between gap-4 px-4 sm:px-6 h-16">
+    <a href="index.html" class="flex items-center gap-2.5 font-bold tracking-tight text-lg" aria-label="Monsoon home">
+      <img src="assets/favicon.svg" width="32" height="32" alt="" class="size-8">
+      <span>Monsoon</span>
+      <span class="hidden sm:inline-block rounded-full border bg-surface px-2 py-0.5 text-xs font-medium text-muted-foreground">v0.1.0</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main">
+      <a href="index.html#playground" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Playground</a>
+      <a href="components.html" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Components</a>
+      <a href="classes.html" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Classes</a>
+      <a href="index.html#guides" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Guides</a>
+    </nav>
+    <div class="flex items-center gap-1">
+      <a href="https://github.com/kwy404/monsoon" class="hidden sm:inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" aria-label="Monsoon on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a>
+      <button type="button" class="theme-btn inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" v-theme-toggle aria-label="Switch between light and dark theme">
+        <svg class="moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="md:hidden inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted" @click="menu = !menu" :aria-expanded="menu ? 'true' : 'false'" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="md:hidden border-t bg-background px-4 py-3 space-y-1" v-show="menu" v-cloak aria-label="Mobile">
+    <a href="index.html#playground" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Playground</a>
+    <a href="components.html" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Components</a>
+    <a href="classes.html" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Classes</a>
+    <a href="index.html#guides" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Guides</a>
+    <a href="https://github.com/kwy404/monsoon" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted">GitHub</a>
+  </nav>
+</header>
+<main id="main">
+
+<section class="relative overflow-hidden">
+  <div class="bloom absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="grid-lines absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-16 pb-20 lg:pt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="space-y-7">
+      <a href="https://github.com/kwy404/monsoon/blob/main/CHANGELOG.md" class="inline-flex items-center gap-2 rounded-full border bg-surface/80 px-3 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <span class="rounded-full bg-primary text-primary-foreground px-2 py-0.5 text-xs font-semibold">New</span> Version 0.1.0 is out
+      </a>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-balance leading-tight">Utility-first CSS <span class="text-gradient">without a build step</span></h1>
+      <p class="text-lg sm:text-xl text-muted-foreground text-pretty max-w-xl">Monsoon is one stylesheet from a CDN. Write classes in your HTML, change one <code class="font-mono text-base whitespace-nowrap rounded-md border bg-surface px-1.5 py-0.5 text-foreground">--seed</code> color and get a full theme with automatic dark mode. No compiler, no config, no JavaScript.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#quick-start" class="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold shadow-lg hover:bg-primary/90 transition">Get started</a>
+        <a href="#playground" class="inline-flex items-center gap-2 rounded-xl border bg-surface px-5 py-3 font-semibold hover:bg-muted transition">Try the seed playground</a>
+      </div>
+      <div class="max-w-xl"><div class="window text-left" v-data="{ pm: $storage.get('monsoon-pm') || 'cdn' }">
+  <div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><div class="tabs" role="tablist" aria-label="Install with"><button type="button" role="tab" class="tab" id="hero-tab-cdn" aria-controls="hero-panel-cdn" aria-selected="true" :aria-selected="pm === 'cdn' ? 'true' : 'false'" @click="pm = 'cdn'; $storage.set('monsoon-pm', 'cdn')">CDN</button><button type="button" role="tab" class="tab" id="hero-tab-npm" aria-controls="hero-panel-npm" aria-selected="false" :aria-selected="pm === 'npm' ? 'true' : 'false'" @click="pm = 'npm'; $storage.set('monsoon-pm', 'npm')">npm</button><button type="button" role="tab" class="tab" id="hero-tab-pnpm" aria-controls="hero-panel-pnpm" aria-selected="false" :aria-selected="pm === 'pnpm' ? 'true' : 'false'" @click="pm = 'pnpm'; $storage.set('monsoon-pm', 'pnpm')">pnpm</button><button type="button" role="tab" class="tab" id="hero-tab-yarn" aria-controls="hero-panel-yarn" aria-selected="false" :aria-selected="pm === 'yarn' ? 'true' : 'false'" @click="pm = 'yarn'; $storage.set('monsoon-pm', 'yarn')">yarn</button><button type="button" role="tab" class="tab" id="hero-tab-bun" aria-controls="hero-panel-bun" aria-selected="false" :aria-selected="pm === 'bun' ? 'true' : 'false'" @click="pm = 'bun'; $storage.set('monsoon-pm', 'bun')">bun</button></div><span class="ml-auto flex items-center" v-show="pm === 'cdn'"><button type="button" class="code-copy" v-cloak v-copy-from="#hero-code-cdn" v-copy-label="Copied" aria-label="Copy cdn install command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></span><span class="ml-auto flex items-center" v-show="pm === 'npm'" v-cloak><button type="button" class="code-copy" v-cloak v-copy-from="#hero-code-npm" v-copy-label="Copied" aria-label="Copy npm install command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></span><span class="ml-auto flex items-center" v-show="pm === 'pnpm'" v-cloak><button type="button" class="code-copy" v-cloak v-copy-from="#hero-code-pnpm" v-copy-label="Copied" aria-label="Copy pnpm install command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></span><span class="ml-auto flex items-center" v-show="pm === 'yarn'" v-cloak><button type="button" class="code-copy" v-cloak v-copy-from="#hero-code-yarn" v-copy-label="Copied" aria-label="Copy yarn install command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></span><span class="ml-auto flex items-center" v-show="pm === 'bun'" v-cloak><button type="button" class="code-copy" v-cloak v-copy-from="#hero-code-bun" v-copy-label="Copied" aria-label="Copy bun install command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></span></div>
+  <div role="tabpanel" id="hero-panel-cdn" aria-labelledby="hero-tab-cdn" :hidden="pm !== 'cdn'"><pre id="hero-code-cdn" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="cdn install command"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">link</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> rel</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"stylesheet"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> href</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"https://cdn.jsdelivr.net/npm/monsooncss"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></div><div role="tabpanel" id="hero-panel-npm" aria-labelledby="hero-tab-npm" :hidden="pm !== 'npm'" hidden><pre id="hero-code-npm" class="term shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="npm install command"><code><span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npm</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> install</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span></span></code></pre></div><div role="tabpanel" id="hero-panel-pnpm" aria-labelledby="hero-tab-pnpm" :hidden="pm !== 'pnpm'" hidden><pre id="hero-code-pnpm" class="term shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="pnpm install command"><code><span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">pnpm</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> add</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span></span></code></pre></div><div role="tabpanel" id="hero-panel-yarn" aria-labelledby="hero-tab-yarn" :hidden="pm !== 'yarn'" hidden><pre id="hero-code-yarn" class="term shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="yarn install command"><code><span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">yarn</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> add</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span></span></code></pre></div><div role="tabpanel" id="hero-panel-bun" aria-labelledby="hero-tab-bun" :hidden="pm !== 'bun'" hidden><pre id="hero-code-bun" class="term shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="bun install command"><code><span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">bun</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> add</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span></span></code></pre></div>
+</div></div>
+    </div>
+    <div class="relative">
+      <div class="absolute inset-8 rounded-full bg-gradient-to-br from-primary to-accent opacity-20 blur-3xl" aria-hidden="true"></div>
+      <img src="assets/mascot.svg" width="452" height="452" alt="Mo, the Monsoon mascot: a cheerful red panda in a raincoat holding a colorful umbrella" class="float relative mx-auto w-full max-w-md">
+    </div>
+  </div>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 pb-16">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="rounded-2xl border bg-surface/80 px-5 py-4">
+          <p class="text-2xl sm:text-3xl font-extrabold tracking-tight">4,616</p>
+          <p class="text-sm text-muted-foreground">base utility classes</p>
+        </div>
+        <div class="rounded-2xl border bg-surface/80 px-5 py-4">
+          <p class="text-2xl sm:text-3xl font-extrabold tracking-tight">7,565</p>
+          <p class="text-sm text-muted-foreground">variant classes</p>
+        </div>
+        <div class="rounded-2xl border bg-surface/80 px-5 py-4">
+          <p class="text-2xl sm:text-3xl font-extrabold tracking-tight">43 kB</p>
+          <p class="text-sm text-muted-foreground">brotli, the whole file</p>
+        </div>
+        <div class="rounded-2xl border bg-surface/80 px-5 py-4">
+          <p class="text-2xl sm:text-3xl font-extrabold tracking-tight">0</p>
+          <p class="text-sm text-muted-foreground">build steps or JavaScript</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="quick-start" class="py-24 border-t">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Quick start</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">One link tag, then just write HTML</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Copy this file, open it in a browser and you are done. Every class below is already in the stylesheet.</p>
+</div>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+      <div class="lg:col-span-3 min-w-0"><figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>index.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-1" v-copy-label="Copied" aria-label="Copy index.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-1" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="index.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;!</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">doctype</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> html</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">html</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> lang</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"en"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">head</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">meta</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> charset</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"utf-8"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">meta</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> name</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"viewport"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> content</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"width=device-width, initial-scale=1"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">link</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> rel</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"stylesheet"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> href</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"https://cdn.jsdelivr.net/npm/monsooncss"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">head</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">body</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"bg-background text-foreground antialiased"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">main</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"mx-auto max-w-md p-8"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"rounded-2xl border bg-surface p-6 shadow-lg space-y-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">      &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">h1</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"text-2xl font-bold"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">Hello, Monsoon</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">h1</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">      &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"text-muted-foreground"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">One stylesheet. No build step.</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">      &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">button</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium hover:bg-primary/90"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">        Get started</span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">      &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">button</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">main</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">body</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">html</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure></div>
+      <div class="lg:col-span-2 space-y-6">
+        <ol class="space-y-5">
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">1</span><div><p class="font-semibold">Link the stylesheet</p><p class="text-sm text-muted-foreground">From jsDelivr, unpkg or your own server. Nothing to install.</p></div></li>
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">2</span><div><p class="font-semibold">Write utility classes</p><p class="text-sm text-muted-foreground">Spacing, layout, color and state live right in the markup.</p></div></li>
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">3</span><div><p class="font-semibold">Pick a seed color</p><p class="text-sm text-muted-foreground">One custom property themes the page, light and dark.</p></div></li>
+        </ol>
+        <div class="rounded-2xl border bg-surface-2 p-6">
+          <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Result</p>
+          <div class="rounded-2xl border bg-surface p-6 shadow-lg space-y-4">
+            <p class="text-2xl font-bold">Hello, Monsoon</p>
+            <p class="text-muted-foreground">One stylesheet. No build step.</p>
+            <button type="button" class="rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium hover:bg-primary/90">Get started</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-24 border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Why Monsoon</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Everything a utility stylesheet needs, nothing to set up</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">A complete set of utilities and a theme engine written in CSS itself, so the file you link is the whole product.</p>
+</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19.5 7.7v8.6L12 20.5l-7.5-4.2V7.7z"/><path d="M4.5 7.7 12 12l7.5-4.3M12 12v8.5"/><path d="M3 3l18 18" style="stroke:var(--icon-accent,#8b5cf6)"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">No build step</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Link one stylesheet. No compiler, no config file, no watcher and no JavaScript in your page.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 19a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 17.7 9.1 5 5 0 0 1 17 19z"/><path d="M12 10.5v5.5M9.5 13.5 12 16l2.5-2.5" style="stroke:var(--icon-accent,#8b5cf6)"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Straight from a CDN</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Served by jsDelivr and unpkg from npm. Pin a version for production or host the file yourself.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 14C12 10.5 9.5 8 5 8c0 4 2.5 6 7 6z"/><path d="M12 12c0-4 2.8-7.5 7.5-7.5 0 4.5-3 7.5-7.5 7.5z" style="stroke:var(--icon-accent,#8b5cf6)"/><path d="M7 21h10"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">A theme from one color</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Set <code>--seed</code> and every semantic color follows, computed in the browser with OKLCH relative colors.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Dark mode built in</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Follows the operating system, and <code>.dark</code>, <code>.light</code> or <code>data-theme</code> switch a page or a single section.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="7.3" r="1.5" style="fill:var(--icon-accent,#8b5cf6)" stroke="none"/><path d="M7.5 10.2 12 11l4.5-.8M12 11v3.2l-2.6 4M12 14.2l2.6 4"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Contrast you can trust</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Foregrounds flip to keep 4.5:1 against their fill. Focus ring, skip link and touch target helpers included.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="11" height="4.5" rx="2.25"/><rect x="3" y="9.75" width="18" height="4.5" rx="2.25" style="stroke:var(--icon-accent,#8b5cf6)"/><rect x="3" y="16.5" width="14" height="4.5" rx="2.25"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">4,616 utilities</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Layout, flexbox, grid, spacing, sizing, typography, color, borders, effects, filters, transforms and motion.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 21 8l-9 5-9-5z" style="stroke:var(--icon-accent,#8b5cf6)"/><path d="M3 12.5l9 5 9-5M3 16.5l9 5 9-5"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">7,565 variant classes</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">hover, focus, active, disabled, group, peer, structural, dark, motion and five breakpoints, where they make sense.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3" width="19" height="12.5" rx="2"/><rect x="5.5" y="6" width="7" height="6.5" rx="1" style="stroke:var(--icon-accent,#8b5cf6)"/><path d="M4 20h16M6 18l-2 2 2 2M18 18l2 2-2 2"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Container queries</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Mark a parent with <code>@container</code> and style children with <code>@xs:</code> to <code>@xl:</code>, independent of the viewport.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 3.5l5 5M8.5 4.5v4h-4M20.5 3.5l-5 5M15.5 4.5v4h4M3.5 20.5l5-5M4.5 15.5h4v4M20.5 20.5l-5-5M19.5 15.5h-4v4"/><circle cx="12" cy="12" r="1.6" style="fill:var(--icon-accent,#8b5cf6)" stroke="none"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">About 43 kB brotli</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">The complete minified stylesheet. One request, cached after the first page view.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/><path d="M6.3 8h11.4" style="stroke:var(--icon-accent,#8b5cf6)"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Optional purge CLI</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed"><code>npx monsooncss purge</code> keeps only the classes your files use. A typical page ends up at a few kilobytes.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><circle cx="17.25" cy="6.75" r="3.75"/><path d="M6.75 13.5 10.5 21H3z"/><path d="M17.25 13.5V21M13.5 17.25H21" style="stroke:var(--icon-accent,#8b5cf6)"/></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Any stack</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed">Plain HTML, PHP, WordPress, Django, Rails, static site generators or any JavaScript framework.</p>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 hover:shadow-md transition">
+        <div class="icon size-11 rounded-xl bg-primary/10 text-primary p-2.5"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-45 12 12)"><rect x="2.5" y="8.5" width="11" height="7" rx="3.5"/><rect x="10.5" y="8.5" width="11" height="7" rx="3.5" style="stroke:var(--icon-accent,#8b5cf6)"/></g></svg></div>
+        <h3 class="mt-4 font-semibold text-lg">Names that read like CSS</h3>
+        <p class="mt-2 text-sm text-muted-foreground leading-relaxed"><code>px-4</code>, <code>gap-6</code>, <code>text-muted-foreground</code>: each class says what it writes, so markup stays readable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="playground" class="py-24 border-t">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6" v-data="{ seed: '#3b5bdb' }">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Seed playground</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Generate a theme from one color</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Pick any color. Buttons, cards, alerts, forms, badges and the table below are re-themed live in light and dark mode, and the contrast ratios are measured from the colors your browser actually renders.</p>
+</div>
+    <div class="rounded-2xl border bg-surface p-4 sm:p-5 shadow-sm flex flex-col lg:flex-row gap-5 lg:items-center">
+      <div class="flex items-center gap-3">
+        <input type="color" class="color-input" value="#3b5bdb" v-model="seed" aria-label="Seed color picker">
+        <div>
+          <label for="seed-text" class="block text-xs font-medium text-muted-foreground">--seed</label>
+          <input id="seed-text" class="w-40 rounded-md border bg-background px-2.5 py-1.5 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring" value="#3b5bdb" v-model.debounce="seed" spellcheck="false" autocomplete="off">
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2.5" role="group" aria-label="Preset seed colors">
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-foreground" style="--swatch: #3b5bdb" :class="seed === '#3b5bdb' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#3b5bdb'" aria-label="Indigo #3b5bdb" title="Indigo #3b5bdb"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #0d9488" :class="seed === '#0d9488' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#0d9488'" aria-label="Teal #0d9488" title="Teal #0d9488"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #e11d48" :class="seed === '#e11d48' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#e11d48'" aria-label="Rose #e11d48" title="Rose #e11d48"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #f59e0b" :class="seed === '#f59e0b' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#f59e0b'" aria-label="Amber #f59e0b" title="Amber #f59e0b"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #7c3aed" :class="seed === '#7c3aed' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#7c3aed'" aria-label="Violet #7c3aed" title="Violet #7c3aed"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #059669" :class="seed === '#059669' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#059669'" aria-label="Emerald #059669" title="Emerald #059669"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #0284c7" :class="seed === '#0284c7' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#0284c7'" aria-label="Sky #0284c7" title="Sky #0284c7"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #84cc16" :class="seed === '#84cc16' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#84cc16'" aria-label="Lime #84cc16" title="Lime #84cc16"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #ea580c" :class="seed === '#ea580c' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#ea580c'" aria-label="Orange #ea580c" title="Orange #ea580c"></button>
+        <button type="button" class="swatch size-8 rounded-full ring-2 ring-offset-2 ring-offset-surface transition hover:scale-110 ring-transparent" style="--swatch: #475569" :class="seed === '#475569' ? 'ring-foreground' : 'ring-transparent'" @click="seed = '#475569'" aria-label="Slate #475569" title="Slate #475569"></button>
+      </div>
+      <div class="lg:ml-auto rounded-lg bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
+        style="--seed: <span class="text-foreground" v-text="seed">#3b5bdb</span>"<br>
+        <span v-text="lch(seed)">oklch(0.52 0.19 267)</span>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+      <div class="light rounded-2xl border bg-background text-foreground p-5 sm:p-6 space-y-5 shadow-sm" style="--seed: #3b5bdb" :style="{ '--seed': safe(seed) }">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <p class="inline-flex items-center gap-2 text-sm font-semibold"><span class="size-2.5 rounded-full bg-white border border-black/20"></span>Light mode</p>
+    <div class="flex flex-wrap gap-2 text-xs">
+      <span class="inline-flex items-center gap-1.5 rounded-full border bg-surface px-2.5 py-1" title="Contrast of primary-foreground on primary">Button text <b class="font-mono font-semibold" v-text="ratio(seed, 'light', 'primary')">-</b></span>
+      <span class="inline-flex items-center gap-1.5 rounded-full border bg-surface px-2.5 py-1" title="Contrast of foreground on background">Body text <b class="font-mono font-semibold" v-text="ratio(seed, 'light', 'body')">-</b></span>
+      <span class="rounded-full bg-success text-success-foreground px-2.5 py-1 font-semibold" v-text="grade(seed, 'light')">AA</span>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    <button type="button" class="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-medium shadow-sm hover:bg-primary/90 transition">Primary</button>
+    <button type="button" class="rounded-lg bg-secondary text-secondary-foreground px-4 py-2 text-sm font-medium hover:bg-secondary/80 transition">Secondary</button>
+    <button type="button" class="rounded-lg bg-accent text-accent-foreground px-4 py-2 text-sm font-medium transition">Accent</button>
+    <button type="button" class="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted transition">Outline</button>
+  </div>
+  <div class="rounded-lg border-l-4 border-primary bg-primary/10 p-3 text-sm"><strong class="font-semibold text-primary">Tip.</strong> Every color in this card comes from one seed.</div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <form class="rounded-xl border bg-surface p-4 space-y-3" onsubmit="return false">
+      <label class="block text-sm font-medium" for="email-light">Email</label>
+      <input id="email-light" type="email" placeholder="you@example.com" class="w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" class="accent-primary size-4" checked> Keep me posted</label>
+      <div class="h-2 rounded-full bg-muted"><div class="h-2 w-2/3 rounded-full bg-primary"></div></div>
+    </form>
+    <div class="rounded-xl border bg-surface overflow-hidden text-sm">
+      <table class="w-full">
+        <thead class="bg-muted text-left text-xs uppercase tracking-wide text-muted-foreground"><tr><th class="px-3 py-2 font-semibold">Plan</th><th class="px-3 py-2 font-semibold">Status</th></tr></thead>
+        <tbody class="divide-y">
+          <tr><td class="px-3 py-2">Starter</td><td class="px-3 py-2"><span class="rounded-full bg-success/10 text-success px-2 py-0.5 text-xs font-medium">Active</span></td></tr>
+          <tr><td class="px-3 py-2">Team</td><td class="px-3 py-2"><span class="rounded-full bg-warning text-warning-foreground px-2 py-0.5 text-xs font-medium">Trial</span></td></tr>
+          <tr><td class="px-3 py-2">Legacy</td><td class="px-3 py-2"><span class="rounded-full bg-danger/10 text-danger px-2 py-0.5 text-xs font-medium">Ended</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-2 text-xs font-medium">
+    <span class="rounded-full bg-success text-success-foreground px-2.5 py-0.5">success</span>
+    <span class="rounded-full bg-warning text-warning-foreground px-2.5 py-0.5">warning</span>
+    <span class="rounded-full bg-danger text-danger-foreground px-2.5 py-0.5">danger</span>
+    <span class="rounded-full bg-info text-info-foreground px-2.5 py-0.5">info</span>
+    <span class="rounded-full border px-2.5 py-0.5 text-muted-foreground">muted</span>
+  </div>
+  <div class="grid grid-cols-4 sm:grid-cols-8 gap-1.5" aria-label="Derived tokens">
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-primary"></div><p class="text-xs text-muted-foreground truncate">primary</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-secondary"></div><p class="text-xs text-muted-foreground truncate">secondary</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-accent"></div><p class="text-xs text-muted-foreground truncate">accent</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-surface-3"></div><p class="text-xs text-muted-foreground truncate">surface-3</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-muted"></div><p class="text-xs text-muted-foreground truncate">muted</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-border"></div><p class="text-xs text-muted-foreground truncate">border</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-ring"></div><p class="text-xs text-muted-foreground truncate">ring</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-foreground"></div><p class="text-xs text-muted-foreground truncate">foreground</p></div>
+  </div>
+</div>
+      <div class="dark rounded-2xl border bg-background text-foreground p-5 sm:p-6 space-y-5 shadow-sm" style="--seed: #3b5bdb" :style="{ '--seed': safe(seed) }">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <p class="inline-flex items-center gap-2 text-sm font-semibold"><span class="size-2.5 rounded-full bg-slate-900 border border-white/30"></span>Dark mode</p>
+    <div class="flex flex-wrap gap-2 text-xs">
+      <span class="inline-flex items-center gap-1.5 rounded-full border bg-surface px-2.5 py-1" title="Contrast of primary-foreground on primary">Button text <b class="font-mono font-semibold" v-text="ratio(seed, 'dark', 'primary')">-</b></span>
+      <span class="inline-flex items-center gap-1.5 rounded-full border bg-surface px-2.5 py-1" title="Contrast of foreground on background">Body text <b class="font-mono font-semibold" v-text="ratio(seed, 'dark', 'body')">-</b></span>
+      <span class="rounded-full bg-success text-success-foreground px-2.5 py-1 font-semibold" v-text="grade(seed, 'dark')">AA</span>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    <button type="button" class="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-medium shadow-sm hover:bg-primary/90 transition">Primary</button>
+    <button type="button" class="rounded-lg bg-secondary text-secondary-foreground px-4 py-2 text-sm font-medium hover:bg-secondary/80 transition">Secondary</button>
+    <button type="button" class="rounded-lg bg-accent text-accent-foreground px-4 py-2 text-sm font-medium transition">Accent</button>
+    <button type="button" class="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted transition">Outline</button>
+  </div>
+  <div class="rounded-lg border-l-4 border-primary bg-primary/10 p-3 text-sm"><strong class="font-semibold text-primary">Tip.</strong> Every color in this card comes from one seed.</div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <form class="rounded-xl border bg-surface p-4 space-y-3" onsubmit="return false">
+      <label class="block text-sm font-medium" for="email-dark">Email</label>
+      <input id="email-dark" type="email" placeholder="you@example.com" class="w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" class="accent-primary size-4" checked> Keep me posted</label>
+      <div class="h-2 rounded-full bg-muted"><div class="h-2 w-2/3 rounded-full bg-primary"></div></div>
+    </form>
+    <div class="rounded-xl border bg-surface overflow-hidden text-sm">
+      <table class="w-full">
+        <thead class="bg-muted text-left text-xs uppercase tracking-wide text-muted-foreground"><tr><th class="px-3 py-2 font-semibold">Plan</th><th class="px-3 py-2 font-semibold">Status</th></tr></thead>
+        <tbody class="divide-y">
+          <tr><td class="px-3 py-2">Starter</td><td class="px-3 py-2"><span class="rounded-full bg-success/10 text-success px-2 py-0.5 text-xs font-medium">Active</span></td></tr>
+          <tr><td class="px-3 py-2">Team</td><td class="px-3 py-2"><span class="rounded-full bg-warning text-warning-foreground px-2 py-0.5 text-xs font-medium">Trial</span></td></tr>
+          <tr><td class="px-3 py-2">Legacy</td><td class="px-3 py-2"><span class="rounded-full bg-danger/10 text-danger px-2 py-0.5 text-xs font-medium">Ended</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-2 text-xs font-medium">
+    <span class="rounded-full bg-success text-success-foreground px-2.5 py-0.5">success</span>
+    <span class="rounded-full bg-warning text-warning-foreground px-2.5 py-0.5">warning</span>
+    <span class="rounded-full bg-danger text-danger-foreground px-2.5 py-0.5">danger</span>
+    <span class="rounded-full bg-info text-info-foreground px-2.5 py-0.5">info</span>
+    <span class="rounded-full border px-2.5 py-0.5 text-muted-foreground">muted</span>
+  </div>
+  <div class="grid grid-cols-4 sm:grid-cols-8 gap-1.5" aria-label="Derived tokens">
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-primary"></div><p class="text-xs text-muted-foreground truncate">primary</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-secondary"></div><p class="text-xs text-muted-foreground truncate">secondary</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-accent"></div><p class="text-xs text-muted-foreground truncate">accent</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-surface-3"></div><p class="text-xs text-muted-foreground truncate">surface-3</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-muted"></div><p class="text-xs text-muted-foreground truncate">muted</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-border"></div><p class="text-xs text-muted-foreground truncate">border</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-ring"></div><p class="text-xs text-muted-foreground truncate">ring</p></div>
+    <div class="space-y-1"><div class="h-8 rounded-md border bg-foreground"></div><p class="text-xs text-muted-foreground truncate">foreground</p></div>
+  </div>
+</div>
+    </div>
+    <p class="mt-5 text-sm text-muted-foreground text-center">Ratios are WCAG 2 contrast computed from <span class="font-mono">getComputedStyle</span>. The test suite checks 4.5:1 or better for every pair in both modes.</p>
+  </div>
+</section>
+
+<section id="class-playground" class="py-24 border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Class playground</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Edit HTML, see Monsoon render it</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Type any utility class into the editor. The preview is a sandboxed frame that loads the same stylesheet you would link in production.</p>
+</div>
+    <div v-data="{ code: presets[0].code, p: 0, dark: false }">
+    <div class="flex flex-wrap items-center gap-2 mb-5" role="group" aria-label="Examples">
+      <button type="button" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors bg-primary text-primary-foreground border-primary" :class="p === 0 ? 'bg-primary text-primary-foreground border-primary' : 'bg-surface hover:bg-muted'" :aria-pressed="p === 0 ? 'true' : 'false'" aria-pressed="true" @click="code = presets[0].code; p = 0">Profile card</button>
+      <button type="button" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors bg-surface hover:bg-muted" :class="p === 1 ? 'bg-primary text-primary-foreground border-primary' : 'bg-surface hover:bg-muted'" :aria-pressed="p === 1 ? 'true' : 'false'" aria-pressed="false" @click="code = presets[1].code; p = 1">Buttons</button>
+      <button type="button" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors bg-surface hover:bg-muted" :class="p === 2 ? 'bg-primary text-primary-foreground border-primary' : 'bg-surface hover:bg-muted'" :aria-pressed="p === 2 ? 'true' : 'false'" aria-pressed="false" @click="code = presets[2].code; p = 2">Seed islands</button>
+      <button type="button" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors bg-surface hover:bg-muted" :class="p === 3 ? 'bg-primary text-primary-foreground border-primary' : 'bg-surface hover:bg-muted'" :aria-pressed="p === 3 ? 'true' : 'false'" aria-pressed="false" @click="code = presets[3].code; p = 3">Container query</button>
+      <button type="button" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors bg-surface hover:bg-muted" :class="p === 4 ? 'bg-primary text-primary-foreground border-primary' : 'bg-surface hover:bg-muted'" :aria-pressed="p === 4 ? 'true' : 'false'" aria-pressed="false" @click="code = presets[4].code; p = 4">Alerts</button>
+      <button type="button" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors bg-surface hover:bg-muted" :class="p === 5 ? 'bg-primary text-primary-foreground border-primary' : 'bg-surface hover:bg-muted'" :aria-pressed="p === 5 ? 'true' : 'false'" aria-pressed="false" @click="code = presets[5].code; p = 5">Toggle</button>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div class="window flex flex-col">
+        <div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>playground.html</span></span><span class="panel-shell">Edit me</span></div>
+        <label for="playground-code" class="sr-only">HTML with Monsoon classes</label>
+        <textarea id="playground-code" class="code-input flex-1 w-full min-h-96 p-4 resize-y focus:outline-none" spellcheck="false" autocomplete="off" autocapitalize="off" v-model.debounce="code">&lt;div class=&quot;mx-auto max-w-sm rounded-2xl border bg-surface p-6 shadow-lg&quot;&gt;
+  &lt;div class=&quot;flex items-center gap-4&quot;&gt;
+    &lt;div class=&quot;size-14 rounded-full bg-gradient-to-br from-primary to-accent&quot;&gt;&lt;/div&gt;
+    &lt;div&gt;
+      &lt;p class=&quot;text-lg font-semibold&quot;&gt;Ada Rivers&lt;/p&gt;
+      &lt;p class=&quot;text-sm text-muted-foreground&quot;&gt;Design engineer&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;mt-4 text-sm text-muted-foreground&quot;&gt;
+    Builds interfaces with plain HTML and one stylesheet.
+  &lt;/p&gt;
+  &lt;div class=&quot;mt-5 flex gap-2&quot;&gt;
+    &lt;button class=&quot;flex-1 rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium hover:bg-primary/90 transition&quot;&gt;Follow&lt;/button&gt;
+    &lt;button class=&quot;flex-1 rounded-lg border px-4 py-2 font-medium hover:bg-muted transition&quot;&gt;Message&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</textarea>
+      </div>
+      <div class="window flex flex-col">
+        <div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><span>Preview</span></span>
+          <label class="ml-auto mr-3 inline-flex items-center gap-2 text-xs cursor-pointer select-none" style="color: var(--ed-tab-text)"><input type="checkbox" class="accent-primary size-4" v-model="dark"> Dark preview</label>
+        </div>
+        <iframe class="preview-frame flex-1 bg-background" title="Live preview of the HTML above" sandbox srcdoc="&lt;!doctype html&gt;&lt;html class=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;monsoon.min.css&quot;&gt;&lt;/head&gt;&lt;body class=&quot;p-6 antialiased bg-background text-foreground&quot;&gt;&lt;div class=&quot;mx-auto max-w-sm rounded-2xl border bg-surface p-6 shadow-lg&quot;&gt;
+  &lt;div class=&quot;flex items-center gap-4&quot;&gt;
+    &lt;div class=&quot;size-14 rounded-full bg-gradient-to-br from-primary to-accent&quot;&gt;&lt;/div&gt;
+    &lt;div&gt;
+      &lt;p class=&quot;text-lg font-semibold&quot;&gt;Ada Rivers&lt;/p&gt;
+      &lt;p class=&quot;text-sm text-muted-foreground&quot;&gt;Design engineer&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;mt-4 text-sm text-muted-foreground&quot;&gt;
+    Builds interfaces with plain HTML and one stylesheet.
+  &lt;/p&gt;
+  &lt;div class=&quot;mt-5 flex gap-2&quot;&gt;
+    &lt;button class=&quot;flex-1 rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium hover:bg-primary/90 transition&quot;&gt;Follow&lt;/button&gt;
+    &lt;button class=&quot;flex-1 rounded-lg border px-4 py-2 font-medium hover:bg-muted transition&quot;&gt;Message&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" :srcdoc.dangerous="frameDoc(code, dark)"></iframe>
+      </div>
+    </div>
+  </div>
+    <script type="application/json" id="playground-presets">[{"label":"Profile card","code":"\u003cdiv class=\"mx-auto max-w-sm rounded-2xl border bg-surface p-6 shadow-lg\">\n  \u003cdiv class=\"flex items-center gap-4\">\n    \u003cdiv class=\"size-14 rounded-full bg-gradient-to-br from-primary to-accent\">\u003c/div>\n    \u003cdiv>\n      \u003cp class=\"text-lg font-semibold\">Ada Rivers\u003c/p>\n      \u003cp class=\"text-sm text-muted-foreground\">Design engineer\u003c/p>\n    \u003c/div>\n  \u003c/div>\n  \u003cp class=\"mt-4 text-sm text-muted-foreground\">\n    Builds interfaces with plain HTML and one stylesheet.\n  \u003c/p>\n  \u003cdiv class=\"mt-5 flex gap-2\">\n    \u003cbutton class=\"flex-1 rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium hover:bg-primary/90 transition\">Follow\u003c/button>\n    \u003cbutton class=\"flex-1 rounded-lg border px-4 py-2 font-medium hover:bg-muted transition\">Message\u003c/button>\n  \u003c/div>\n\u003c/div>"},{"label":"Buttons","code":"\u003cdiv class=\"flex flex-wrap gap-3\">\n  \u003cbutton class=\"rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium shadow-sm hover:bg-primary/90 active:scale-95 transition\">Primary\u003c/button>\n  \u003cbutton class=\"rounded-lg bg-secondary text-secondary-foreground px-4 py-2 font-medium hover:bg-secondary/80 transition\">Secondary\u003c/button>\n  \u003cbutton class=\"rounded-lg bg-accent text-accent-foreground px-4 py-2 font-medium transition\">Accent\u003c/button>\n  \u003cbutton class=\"rounded-lg border px-4 py-2 font-medium hover:bg-muted transition\">Outline\u003c/button>\n  \u003cbutton class=\"rounded-lg px-4 py-2 font-medium text-primary hover:bg-primary/10 transition\">Ghost\u003c/button>\n  \u003cbutton class=\"rounded-lg bg-danger text-danger-foreground px-4 py-2 font-medium\">Delete\u003c/button>\n  \u003cbutton class=\"rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed\" disabled>Disabled\u003c/button>\n\u003c/div>"},{"label":"Seed islands","code":"\u003cdiv class=\"grid grid-cols-1 sm:grid-cols-3 gap-4\">\n  \u003cdiv style=\"--seed: teal\" class=\"rounded-xl border bg-surface p-5 space-y-3\">\n    \u003cp class=\"font-semibold text-primary\">teal\u003c/p>\n    \u003cbutton class=\"w-full rounded-md bg-primary text-primary-foreground py-2 font-medium\">Primary\u003c/button>\n    \u003cbutton class=\"w-full rounded-md bg-accent text-accent-foreground py-2 font-medium\">Accent\u003c/button>\n  \u003c/div>\n  \u003cdiv style=\"--seed: #e11d48\" class=\"rounded-xl border bg-surface p-5 space-y-3\">\n    \u003cp class=\"font-semibold text-primary\">#e11d48\u003c/p>\n    \u003cbutton class=\"w-full rounded-md bg-primary text-primary-foreground py-2 font-medium\">Primary\u003c/button>\n    \u003cbutton class=\"w-full rounded-md bg-accent text-accent-foreground py-2 font-medium\">Accent\u003c/button>\n  \u003c/div>\n  \u003cdiv style=\"--seed: gold\" class=\"rounded-xl border bg-surface p-5 space-y-3\">\n    \u003cp class=\"font-semibold\">gold\u003c/p>\n    \u003cbutton class=\"w-full rounded-md bg-primary text-primary-foreground py-2 font-medium\">Primary\u003c/button>\n    \u003cbutton class=\"w-full rounded-md bg-accent text-accent-foreground py-2 font-medium\">Accent\u003c/button>\n  \u003c/div>\n\u003c/div>"},{"label":"Container query","code":"\u003cdiv class=\"@container rounded-2xl border bg-surface p-4\">\n  \u003cdiv class=\"flex flex-col @md:flex-row gap-4 @md:items-center\">\n    \u003cdiv class=\"h-28 @md:w-1/3 rounded-xl bg-gradient-to-br from-primary to-accent\">\u003c/div>\n    \u003cdiv class=\"flex-1 space-y-2\">\n      \u003cp class=\"text-lg @lg:text-2xl font-bold\">Resize the preview\u003c/p>\n      \u003cp class=\"text-sm text-muted-foreground\">\n        This card stacks in a narrow container and switches to a row\n        once the container is 28rem wide, whatever the viewport is.\n      \u003c/p>\n    \u003c/div>\n  \u003c/div>\n\u003c/div>"},{"label":"Alerts","code":"\u003cdiv class=\"space-y-3\">\n  \u003cdiv class=\"rounded-lg border-l-4 border-success bg-success/10 p-4 text-sm\">\u003cstrong class=\"font-semibold\">Saved.\u003c/strong> Your settings were updated.\u003c/div>\n  \u003cdiv class=\"rounded-lg border-l-4 border-warning bg-warning/10 p-4 text-sm\">\u003cstrong class=\"font-semibold\">Heads up.\u003c/strong> Your trial ends in 3 days.\u003c/div>\n  \u003cdiv class=\"rounded-lg border-l-4 border-danger bg-danger/10 p-4 text-sm\">\u003cstrong class=\"font-semibold\">Error.\u003c/strong> The payment could not be processed.\u003c/div>\n  \u003cdiv class=\"rounded-lg border-l-4 border-info bg-info/10 p-4 text-sm\">\u003cstrong class=\"font-semibold\">Note.\u003c/strong> A new version is available.\u003c/div>\n\u003c/div>"},{"label":"Toggle","code":"\u003clabel class=\"relative inline-flex items-center gap-3 cursor-pointer\">\n  \u003cinput type=\"checkbox\" class=\"peer sr-only\" checked>\n  \u003cspan class=\"w-11 h-6 rounded-full bg-muted peer-checked:bg-primary transition-colors\">\u003c/span>\n  \u003cspan class=\"absolute left-0.5 top-0.5 size-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-5\">\u003c/span>\n  \u003cspan class=\"text-sm font-medium\">Email me about new releases\u003c/span>\n\u003c/label>"}]</script>
+  </div>
+</section>
+
+<section class="py-24 border-t">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Components</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Build real interfaces with utilities only</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Navbars, heroes, pricing, forms, tables, alerts, a modal with the native dialog element and more. Each one is plain HTML you can copy.</p>
+</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="rounded-2xl border bg-surface p-6 space-y-4">
+        <p class="text-sm font-semibold text-muted-foreground">Pricing</p>
+        <p class="text-4xl font-extrabold tracking-tight">$19<span class="text-base font-medium text-muted-foreground">/month</span></p>
+        <ul class="space-y-2 text-sm"><li class="flex gap-2"><span class="text-success font-bold" aria-hidden="true">&#10003;</span>Unlimited projects</li><li class="flex gap-2"><span class="text-success font-bold" aria-hidden="true">&#10003;</span>Priority support</li></ul>
+        <button type="button" class="w-full rounded-lg bg-primary text-primary-foreground py-2.5 font-medium hover:bg-primary/90 transition">Choose plan</button>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 space-y-3">
+        <p class="text-sm font-semibold text-muted-foreground">Alerts</p>
+        <div class="rounded-lg border-l-4 border-success bg-success/10 p-3 text-sm"><strong class="font-semibold">Saved.</strong> Settings updated.</div>
+        <div class="rounded-lg border-l-4 border-warning bg-warning/10 p-3 text-sm"><strong class="font-semibold">Heads up.</strong> Trial ends soon.</div>
+        <div class="rounded-lg border-l-4 border-danger bg-danger/10 p-3 text-sm"><strong class="font-semibold">Error.</strong> Payment failed.</div>
+      </div>
+      <div class="rounded-2xl border bg-surface p-6 space-y-3">
+        <p class="text-sm font-semibold text-muted-foreground">Form</p>
+        <label for="teaser-email" class="block text-sm font-medium">Work email</label>
+        <input id="teaser-email" type="email" placeholder="you@company.com" class="w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+        <label class="relative inline-flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" class="peer sr-only" checked>
+          <span class="w-11 h-6 rounded-full bg-muted peer-checked:bg-primary transition-colors"></span>
+          <span class="absolute left-0.5 top-0.5 size-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-5"></span>
+          <span class="text-sm">Product updates</span>
+        </label>
+      </div>
+    </div>
+    <p class="mt-8 text-center"><a href="components.html" class="inline-flex items-center gap-2 rounded-xl border bg-surface px-5 py-3 font-semibold hover:bg-muted transition">Open the components gallery <span aria-hidden="true">&rarr;</span></a></p>
+  </div>
+</section>
+
+<section id="theming" class="py-24 border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">How seed theming works</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">One custom property, a full palette, in pure CSS</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">No preprocessor computes your colors ahead of time. The browser derives every token from <span class="font-mono">--seed</span> with OKLCH relative color syntax, so changing it at runtime, per page or per section just works.</p>
+</div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="min-w-0 space-y-5">
+        <figure class="window " data-lang="css"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#42a5f5"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="7.2" font-weight="700" fill="#ffffff">#</text></svg><span>theme.css</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-2" v-copy-label="Copied" aria-label="Copy theme.css code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-2" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="theme.css code"><code><span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">/* You write one line */</span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">:root</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> { </span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE">--seed</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">: </span><span style="--shiki-light:#0451A5;--shiki-dark:#CE9178">#0d9488</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">; }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">/* Monsoon derives the rest in the browser */</span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">  --primary: oklch(from var(--_seed) calc((1 - clamp(0, (l - 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.6</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) </span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">*</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> 100000, 1)) </span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">*</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> min(l, 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.52</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) + clamp(0, (l - 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.6</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) </span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">*</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> 100000, 1) </span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">*</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> max(l, 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.66</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">)) c h);</span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">  --primary-foreground: oklch(from var(--primary) clamp(0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.17</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">, (0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.6</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> - l) </span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">*</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> 100000, 1) min(c, 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.03</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) h);</span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">  --background: oklch(from var(--seed) calc(0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.99</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> - 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.83</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6"> *</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> var(--mode)) min(c, 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.012</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) h);</span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">  --accent: oklch(from var(--seed) clamp(0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.74</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">, l + 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.12</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">, 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.88</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) min(c, 0</span><span style="--shiki-light:#800000;--shiki-dark:#D7BA7D">.16</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">) calc(h + 180));</span></span></code></pre></figure>
+        <figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>section.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-3" v-copy-label="Copied" aria-label="Copy section.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-3" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="section.html code"><code><span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">&#x3C;!-- Re-theme one section, the rest of the page keeps its seed --></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">section</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> style</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"--seed: teal"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"rounded-2xl bg-surface p-8"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">button</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"rounded-lg bg-primary text-primary-foreground px-4 py-2"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">Teal</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">button</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">section</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure>
+      </div>
+      <div class="space-y-6">
+        <ol class="space-y-5">
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">1</span><div><p class="font-semibold">Read the seed in OKLCH</p><p class="text-sm text-muted-foreground"><span class="font-mono">oklch(from var(--seed) l c h)</span> splits any CSS color into perceptual lightness, chroma and hue.</p></div></li>
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">2</span><div><p class="font-semibold">Keep lightness out of the unsafe band</p><p class="text-sm text-muted-foreground">Between L 0.52 and 0.66 neither white nor dark text reaches 4.5:1 for every hue, so primary snaps to one side of it.</p></div></li>
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">3</span><div><p class="font-semibold">Flip the foreground</p><p class="text-sm text-muted-foreground">A <span class="font-mono">clamp()</span> with a large multiplier acts as a branch free if, choosing white or near black text.</p></div></li>
+          <li class="flex gap-4"><span class="grid place-items-center size-8 shrink-0 rounded-full bg-primary text-primary-foreground text-sm font-bold">4</span><div><p class="font-semibold">Switch modes with a number</p><p class="text-sm text-muted-foreground"><span class="font-mono">--mode</span> is 0 in light and 1 in dark, so the same declarations serve both schemes.</p></div></li>
+        </ol>
+        <div class="rounded-2xl border bg-surface overflow-hidden">
+          <table class="w-full text-sm">
+            <caption class="sr-only">Semantic tokens derived from the seed</caption>
+            <thead class="bg-muted text-left"><tr><th class="px-4 py-2.5 font-semibold">Token</th><th class="px-4 py-2.5 font-semibold">Used for</th></tr></thead>
+            <tbody class="divide-y">
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">primary<br><span class="text-muted-foreground">primary-foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Main actions, links, active states. Lightness is pushed out of the unsafe band.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">secondary<br><span class="text-muted-foreground">secondary-foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Quiet buttons and chips, a low chroma tint of the seed.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">accent<br><span class="text-muted-foreground">accent-foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Highlights. The seed hue rotated by 180 degrees.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">background<br><span class="text-muted-foreground">foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Page background and body text.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">surface, surface-2, surface-3<br><span class="text-muted-foreground">foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Cards, panels and raised layers.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">muted<br><span class="text-muted-foreground">muted-foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Subtle fills and secondary text.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">border, ring</td><td class="px-4 py-2.5 text-muted-foreground">Hairlines and the focus ring.</td></tr>
+              <tr><td class="px-4 py-2.5 font-mono text-xs align-top">success, warning, danger, info<br><span class="text-muted-foreground">*-foreground</span></td><td class="px-4 py-2.5 text-muted-foreground">Status colors with their own readable text.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm"><a href="generate-a-theme-from-one-color-css.html" class="font-medium text-primary underline underline-offset-4">Read the full seed theming guide</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="variants" class="py-24 border-t">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Dark mode, variants and container queries</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">State, scheme and size in the class name</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Variants are generated where they are useful: hover and focus for colors and effects, breakpoints for layout, dark for palette colors. That is what keeps the full file small enough to link directly.</p>
+</div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div class="min-w-0 space-y-3">
+        <h3 class="font-semibold text-lg">Dark mode with one line</h3>
+        <p class="text-sm text-muted-foreground min-h-10">Automatic from the operating system. Force it on a page or a section with one attribute.</p>
+        <figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>dark.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-4" v-copy-label="Copied" aria-label="Copy dark.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-4" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="dark.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">html</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> data-theme</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"dark"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">&#x3C;!-- or only one section --></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">aside</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"dark bg-surface p-6"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"text-foreground"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">Always dark</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">aside</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure>
+      </div>
+      <div class="min-w-0 space-y-3">
+        <h3 class="font-semibold text-lg">State and breakpoints</h3>
+        <p class="text-sm text-muted-foreground min-h-10">Prefix a class with a state or a breakpoint. Breakpoints are mobile first.</p>
+        <figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>variants.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-5" v-copy-label="Copied" aria-label="Copy variants.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-5" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="variants.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">button</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"bg-primary</span></span>
+<span class="line"><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">  hover:bg-primary/90</span></span>
+<span class="line"><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">  focus-visible:ring-2</span></span>
+<span class="line"><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">  active:scale-95</span></span>
+<span class="line"><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">  disabled:opacity-50"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">  Save</span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">button</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"grid grid-cols-1</span></span>
+<span class="line"><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">  md:grid-cols-3 gap-6"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure>
+      </div>
+      <div class="min-w-0 space-y-3">
+        <h3 class="font-semibold text-lg">Container queries</h3>
+        <p class="text-sm text-muted-foreground min-h-10">Respond to the width of a parent instead of the viewport.</p>
+        <figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>card.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-6" v-copy-label="Copied" aria-label="Copy card.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-6" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="card.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"@container"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"flex flex-col</span></span>
+<span class="line"><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">    @md:flex-row gap-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">img</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"@md:w-1/3"</span></span>
+<span class="line"><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE">      src</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"cover.jpg"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> alt</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">""</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"@lg:text-lg"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">      Fits any column.</span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure>
+      </div>
+    </div>
+    <div class="mt-8 rounded-2xl border bg-surface p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+      <div><p class="font-semibold">State variants</p><p class="mt-1 text-muted-foreground font-mono text-xs leading-relaxed">hover: focus: focus-within: focus-visible: active: disabled: group-hover: peer-checked: first: last: odd: even: motion-safe: motion-reduce: dark:</p></div>
+      <div><p class="font-semibold">Breakpoints (min-width)</p><p class="mt-1 text-muted-foreground font-mono text-xs leading-relaxed">sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px</p></div>
+      <div><p class="font-semibold">Container breakpoints</p><p class="mt-1 text-muted-foreground font-mono text-xs leading-relaxed">@xs: 20rem, @sm: 24rem, @md: 28rem, @lg: 32rem, @xl: 36rem</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="purge" class="py-24 border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Purge CLI</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Ship only the classes you use</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">The full file is fine for most sites. When every kilobyte counts, one command scans your templates and writes a stylesheet with only the rules they reference, plus the reset, theme tokens and keyframes.</p>
+</div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="min-w-0"><figure class="window" data-lang="bash"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="panel-tab">Terminal</span><span class="panel-shell"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x=".5" y="1.5" width="15" height="13" rx="2.5" fill="none" stroke="currentColor"/><path d="m4 5.5 2.5 2.5L4 10.5M8 10.5h4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>bash</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-7" v-copy-label="Copied" aria-label="Copy command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-7" class="term shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="Terminal commands"><code><span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npx</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> purge</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> "src/**/*.html"</span><span style="--shiki-light:#0000FF;--shiki-dark:#569CD6"> -o</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> public/monsoon.css</span></span></code></pre><pre class="term-out" aria-label="Command output"><code><span class="dim">monsooncss purge: scanned 1 file</span>
+<span class="dim">  kept 293 of 12779 utility rules</span>
+  public/monsoon.css: 31.3 kB raw, 6.9 kB gzip, <span class="ok">5.7 kB brotli</span> <span class="dim">(full build 43.2 kB brotli)</span></code></pre></figure>
+        <p class="mt-3 text-sm text-muted-foreground">Real output for the repository's kitchen sink demo page.</p>
+      </div>
+      <div class="min-w-0 space-y-5">
+        <figure class="window" data-lang="bash"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="panel-tab">Terminal</span><span class="panel-shell"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x=".5" y="1.5" width="15" height="13" rx="2.5" fill="none" stroke="currentColor"/><path d="m4 5.5 2.5 2.5L4 10.5M8 10.5h4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>bash</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-8" v-copy-label="Copied" aria-label="Copy command"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-8" class="term shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="Terminal commands"><code><span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955"># several globs, any file type</span></span>
+<span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npx</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> purge</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> "templates/**/*.html"</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> "app/**/*.{php,erb,js}"</span><span style="--shiki-light:#0000FF;--shiki-dark:#569CD6"> -o</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> static/monsoon.css</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955"># keep classes you build from strings at runtime</span></span>
+<span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npx</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> purge</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> "src/**/*.html"</span><span style="--shiki-light:#0000FF;--shiki-dark:#569CD6"> --safelist</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> bg-success,bg-danger</span><span style="--shiki-light:#0000FF;--shiki-dark:#569CD6"> -o</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> out.css</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#008000;--shiki-dark:#6A9955"># list every class, or search them</span></span>
+<span class="line cmd"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npx</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> monsooncss</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> classes</span><span style="--shiki-light:#0000FF;--shiki-dark:#569CD6"> --filter</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> grid-cols</span></span></code></pre></figure>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <li class="rounded-xl border bg-surface p-4"><span class="font-mono font-semibold">-o, --out</span><br><span class="text-muted-foreground">Output file. Without it the CSS goes to stdout.</span></li>
+          <li class="rounded-xl border bg-surface p-4"><span class="font-mono font-semibold">--safelist a,b</span><br><span class="text-muted-foreground">Classes to keep even if no file mentions them.</span></li>
+          <li class="rounded-xl border bg-surface p-4"><span class="font-mono font-semibold">--no-minify</span><br><span class="text-muted-foreground">Readable output instead of minified CSS.</span></li>
+          <li class="rounded-xl border bg-surface p-4"><span class="font-mono font-semibold">--css file</span><br><span class="text-muted-foreground">Purge another copy of the stylesheet.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reference" class="py-24 border-t">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Class reference</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">4,616 classes, searchable, with their CSS</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Every class in the stylesheet with its category, the exact CSS it writes and the variants it supports.</p>
+</div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <a href="classes.html?cat=colors" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">colors</p><p class="text-sm text-muted-foreground">2,050 classes</p></a>
+      <a href="classes.html?cat=spacing" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">spacing</p><p class="text-sm text-muted-foreground">761 classes</p></a>
+      <a href="classes.html?cat=layout" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">layout</p><p class="text-sm text-muted-foreground">388 classes</p></a>
+      <a href="classes.html?cat=backgrounds" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">backgrounds</p><p class="text-sm text-muted-foreground">301 classes</p></a>
+      <a href="classes.html?cat=sizing" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">sizing</p><p class="text-sm text-muted-foreground">268 classes</p></a>
+      <a href="classes.html?cat=borders" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">borders</p><p class="text-sm text-muted-foreground">193 classes</p></a>
+      <a href="classes.html?cat=transforms" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">transforms</p><p class="text-sm text-muted-foreground">143 classes</p></a>
+      <a href="classes.html?cat=typography" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">typography</p><p class="text-sm text-muted-foreground">131 classes</p></a>
+      <a href="classes.html?cat=grid" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">grid</p><p class="text-sm text-muted-foreground">111 classes</p></a>
+      <a href="classes.html?cat=flexbox" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">flexbox</p><p class="text-sm text-muted-foreground">58 classes</p></a>
+      <a href="classes.html?cat=interactivity" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">interactivity</p><p class="text-sm text-muted-foreground">58 classes</p></a>
+      <a href="classes.html?cat=alignment" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">alignment</p><p class="text-sm text-muted-foreground">55 classes</p></a>
+      <a href="classes.html?cat=effects" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">effects</p><p class="text-sm text-muted-foreground">34 classes</p></a>
+      <a href="classes.html?cat=transitions" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">transitions</p><p class="text-sm text-muted-foreground">29 classes</p></a>
+      <a href="classes.html?cat=filters" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">filters</p><p class="text-sm text-muted-foreground">24 classes</p></a>
+      <a href="classes.html?cat=accessibility" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">accessibility</p><p class="text-sm text-muted-foreground">7 classes</p></a>
+      <a href="classes.html?cat=animation" class="rounded-xl border bg-surface p-4 hover:border-primary hover:shadow-md transition"><p class="font-semibold capitalize">animation</p><p class="text-sm text-muted-foreground">5 classes</p></a>
+    </div>
+    <p class="mt-8 text-center"><a href="classes.html" class="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold hover:bg-primary/90 transition">Search all classes <span aria-hidden="true">&rarr;</span></a></p>
+  </div>
+</section>
+
+<section id="guides" class="py-24 border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">Guides</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Learn the ideas behind Monsoon</h2>
+  <p class="mt-4 text-lg text-muted-foreground text-pretty">Practical guides with examples you can paste into a page today.</p>
+</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <a href="utility-first-css-without-a-build-step.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Getting started</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">Utility-first CSS without a build step</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Link one stylesheet and write classes in plain HTML. What you get, what you give up and why it stays small.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="css-framework-from-a-cdn.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Install</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">How to load a CSS framework from a CDN</h3>
+        <p class="mt-2 text-sm text-muted-foreground">jsDelivr and unpkg URLs, pinning a version, integrity hashes and when to host the file yourself.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="no-build-css-framework.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Concepts</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">A no build CSS framework for real projects</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Who a no build stylesheet is for, how the workflow feels and how to keep a project tidy without tooling.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="utility-css-cdn-in-production.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Production</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">Utility CSS from a CDN in production</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Real numbers for size and caching, plus a short checklist for shipping the stylesheet to production.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="generate-a-theme-from-one-color-css.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Theming</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">Generate a theme from one color in CSS</h3>
+        <p class="mt-2 text-sm text-muted-foreground">How one --seed custom property becomes primary, accent, surfaces and readable text, in pure CSS.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="dark-mode-with-one-line-of-css.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Dark mode</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">Dark mode with one line of CSS</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Automatic dark mode from the operating system, forced dark sections and a tiny toggle.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="container-queries-utility-classes.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Layout</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">Container queries with utility classes</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Mark a parent with @container and let components adapt to the space they are given.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="oklch-color-palette-css.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Color</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">An OKLCH color palette for CSS</h3>
+        <p class="mt-2 text-sm text-muted-foreground">22 hues, 11 steps each, generated in OKLCH on one lightness curve and kept inside the sRGB gamut.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="accessible-color-contrast-css.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Accessibility</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">Accessible color contrast in CSS, for any seed color</h3>
+        <p class="mt-2 text-sm text-muted-foreground">How the seed formulas keep 4.5:1 contrast for any color, and the helpers for focus and motion.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+      <a href="css-utilities-for-php-wordpress-django-rails.html" class="group rounded-2xl border bg-surface p-6 hover:shadow-lg hover:-translate-y-0.5 transition">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary">Server-rendered</p>
+        <h3 class="mt-2 text-lg font-semibold tracking-tight">CSS utilities for PHP, WordPress, Django and Rails</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Link Monsoon from your layout, theme it from server data and purge your template folders.</p>
+        <p class="mt-4 text-sm font-medium text-primary">Read the guide <span aria-hidden="true">&rarr;</span></p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="py-24 border-t">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6">
+    <div class="mx-auto text-center max-w-3xl mb-12">
+  <p class="text-sm font-semibold uppercase tracking-widest text-primary">FAQ</p>
+  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Questions people ask about Monsoon</h2>
+
+</div>
+    <div class="divide-y rounded-2xl border bg-surface" v-accordion>
+  <div class="px-5" v-accordion-item="open">
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">How do I use utility-first CSS without a build step?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Add one tag, <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/monsooncss&quot;&gt;</code>, and write classes such as <code>px-4</code>, <code>md:grid-cols-3</code> or <code>hover:bg-primary</code> in your HTML. Every class is already in the file, so there is no compiler, no config file and no watcher to run.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Is a CSS framework from a CDN fine for production?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Yes. The minified file is about 43 kB with brotli and 80 kB with gzip, it is cached by the browser after the first visit, and you can pin an exact version such as <code>monsooncss@0.1.0</code>. If you want the smallest possible file, run <code>npx monsooncss purge</code> once and serve the result yourself.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">How do I generate a whole theme from one color in CSS?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Set <code>--seed</code> to any CSS color, for example <code>:root { --seed: #0d9488; }</code>. Monsoon derives primary, secondary, accent, surfaces, muted text, borders and the focus ring from it with OKLCH relative colors, in pure CSS. Put <code>style=&quot;--seed: teal&quot;</code> on any element to theme only that section.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">How does dark mode work?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>It is automatic. Monsoon follows <code>prefers-color-scheme</code>, and you can force a scheme with <code>class=&quot;dark&quot;</code>, <code>class=&quot;light&quot;</code> or <code>data-theme=&quot;dark&quot;</code> on the root element or on any section. Semantic colors such as <code>bg-surface</code> and <code>text-foreground</code> switch on their own, so most pages need no <code>dark:</code> classes at all.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Is the color contrast accessible?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>The seed formulas push the primary color out of the lightness band where neither white nor dark text is safe, and flip the foreground to match. The test suite checks 4.5:1 (WCAG AA) for every token pair across 18 named seeds and a sweep of 2,197 sRGB seeds, in light and dark mode.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Does Monsoon support container queries?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Yes. Add <code>@container</code> to a parent and use <code>@xs:</code> to <code>@xl:</code> on its children, for example <code>@md:flex-row</code>. The container breakpoints run from 20rem to 36rem and are generated for layout, spacing, sizing and text utilities.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Can I use it with PHP, WordPress, Django or Rails?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Yes. It is a plain stylesheet, so it works in any template language. Link it from your layout, write classes in your templates, and if you want a smaller file point the purge command at your template folders, for example <code>&quot;templates/**/*.html&quot;</code> or <code>&quot;app/views/**/*.erb&quot;</code>.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">What is not supported?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Stacked variants such as <code>dark:hover:</code>, arbitrary values such as <code>w-[37px]</code> and the important modifier are not part of a prebuilt stylesheet. Opacity modifiers like <code>bg-primary/90</code> exist for semantic colors, black and white. For anything else, a <code>style</code> attribute or a few lines of your own CSS next to Monsoon work fine.</p></div>
+  </div>
+</div>
+  </div>
+</section>
+
+<section class="pb-24">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-violet-600 to-fuchsia-600 p-10 sm:p-14 text-center text-white shadow-2xl">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-balance">Paste one line and start building</h2>
+      <p class="mt-3 text-lg text-white/90">Free and open source under the MIT license.</p>
+      <div class="mt-8 mx-auto max-w-2xl"><figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>index.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-9" v-copy-label="Copied" aria-label="Copy index.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-9" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="index.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">link</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> rel</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"stylesheet"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> href</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"https://cdn.jsdelivr.net/npm/monsooncss"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure></div>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="https://github.com/kwy404/monsoon" class="rounded-xl bg-white text-slate-900 px-5 py-3 font-semibold hover:bg-white/90 transition">Star on GitHub</a>
+        <a href="https://www.npmjs.com/package/monsooncss" class="rounded-xl border border-white/50 px-5 py-3 font-semibold text-white hover:bg-white/10 transition">View on npm</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+    <div class="lg:col-span-2 space-y-4">
+      <a href="index.html" class="inline-flex items-center gap-2.5 font-bold text-lg"><img src="assets/favicon.svg" width="32" height="32" alt="" class="size-8">Monsoon</a>
+      <p class="text-sm text-muted-foreground max-w-sm">Utility-first CSS with no build step. One stylesheet from a CDN, a whole theme from one seed color, dark mode included.</p>
+      <p class="text-sm text-muted-foreground">Interactive parts built with <a href="https://github.com/kwy404/Voodoo.js" class="font-medium text-foreground underline underline-offset-4 decoration-primary">Voodoo.js</a>.</p>
+    </div>
+      <div>
+        <h2 class="text-sm font-semibold text-foreground">Docs</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="index.html#quick-start" class="text-muted-foreground hover:text-foreground transition-colors">Quick start</a></li>
+          <li><a href="index.html#playground" class="text-muted-foreground hover:text-foreground transition-colors">Seed playground</a></li>
+          <li><a href="components.html" class="text-muted-foreground hover:text-foreground transition-colors">Components</a></li>
+          <li><a href="classes.html" class="text-muted-foreground hover:text-foreground transition-colors">Class reference</a></li>
+          <li><a href="index.html#purge" class="text-muted-foreground hover:text-foreground transition-colors">Purge CLI</a></li>
+          <li><a href="https://github.com/kwy404/monsoon/blob/main/CHANGELOG.md" class="text-muted-foreground hover:text-foreground transition-colors">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-sm font-semibold text-foreground">Guides</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="utility-first-css-without-a-build-step.html" class="text-muted-foreground hover:text-foreground transition-colors">Utility-first CSS without a build step</a></li>
+          <li><a href="css-framework-from-a-cdn.html" class="text-muted-foreground hover:text-foreground transition-colors">CSS framework from a CDN</a></li>
+          <li><a href="no-build-css-framework.html" class="text-muted-foreground hover:text-foreground transition-colors">No build CSS framework</a></li>
+          <li><a href="utility-css-cdn-in-production.html" class="text-muted-foreground hover:text-foreground transition-colors">Utility CSS from a CDN in production</a></li>
+          <li><a href="generate-a-theme-from-one-color-css.html" class="text-muted-foreground hover:text-foreground transition-colors">Generate a theme from one color</a></li>
+          <li><a href="dark-mode-with-one-line-of-css.html" class="text-muted-foreground hover:text-foreground transition-colors">Dark mode with one line of CSS</a></li>
+        </ul>
+      </div>
+    <div>
+      <h2 class="text-sm font-semibold text-foreground">More from kwy404</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href="https://kwy404.github.io/graphemely/" class="text-muted-foreground hover:text-foreground transition-colors" title="Truncate, slice and count strings with emoji safely.">graphemely</a></li>
+        <li><a href="https://kwy404.github.io/edgegoat/" class="text-muted-foreground hover:text-foreground transition-colors" title="Edge case test inputs for time zones, DST, unicode and numbers.">edgegoat</a></li>
+        <li><a href="https://kwy404.github.io/vueleap/" class="text-muted-foreground hover:text-foreground transition-colors" title="Migrate Vue 2 to Vue 3 with one command.">vueleap</a></li>
+        <li><a href="https://kwy404.github.io/numberparrot/" class="text-muted-foreground hover:text-foreground transition-colors" title="Parse localized number and currency strings.">numberparrot</a></li>
+        <li><a href="https://kwy404.github.io/breakhound/" class="text-muted-foreground hover:text-foreground transition-colors" title="Find bugs in any JavaScript library automatically.">breakhound</a></li>
+        <li><a href="https://github.com/kwy404/Voodoo.js" class="text-muted-foreground hover:text-foreground transition-colors" title="JSX and reactivity from a plain HTML file.">Voodoo.js</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-6 flex flex-col sm:flex-row gap-3 sm:items-center justify-between text-sm text-muted-foreground">
+      <p>MIT License. Made by <a href="https://github.com/kwy404" class="text-foreground hover:underline">Alexandre Kohler</a>.</p>
+      <p class="flex gap-4"><a href="https://github.com/kwy404/monsoon" class="hover:text-foreground">GitHub</a><a href="https://www.npmjs.com/package/monsooncss" class="hover:text-foreground">npm</a><a href="https://github.com/kwy404/monsoon/issues" class="hover:text-foreground">Issues</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

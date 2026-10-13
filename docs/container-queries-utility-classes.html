@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Container queries utility classes | Monsoon</title>
+<meta name="description" content="Use CSS container queries with utility classes: mark a parent with @container and style children with @xs: to @xl:. Components that adapt to their column, not the viewport.">
+<link rel="canonical" href="https://kwy404.github.io/monsoon/container-queries-utility-classes.html">
+<meta name="author" content="Alexandre Kohler">
+<meta name="theme-color" content="#3b5bdb">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Monsoon">
+<meta property="og:title" content="Container queries utility classes | Monsoon">
+<meta property="og:description" content="Use CSS container queries with utility classes: mark a parent with @container and style children with @xs: to @xl:. Components that adapt to their column, not the viewport.">
+<meta property="og:url" content="https://kwy404.github.io/monsoon/container-queries-utility-classes.html">
+<meta property="og:image" content="https://kwy404.github.io/monsoon/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Monsoon utility-first CSS framework with Mo the red panda mascot, one stylesheet from a CDN and a theme from one seed color">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Container queries utility classes | Monsoon">
+<meta name="twitter:description" content="Use CSS container queries with utility classes: mark a parent with @container and style children with @xs: to @xl:. Components that adapt to their column, not the viewport.">
+<meta name="twitter:image" content="https://kwy404.github.io/monsoon/assets/og.png">
+<meta name="twitter:image:alt" content="Monsoon utility-first CSS framework with Mo the red panda mascot, one stylesheet from a CDN and a theme from one seed color">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="monsoon.min.css">
+<link rel="stylesheet" href="site.css">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script src="https://cdn.jsdelivr.net/npm/voodoojs@0.13.0/dist/voodoo.full.min.js" data-manual defer></script>
+<script type="module" src="site.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Container queries with utility classes","description":"Use CSS container queries with utility classes: mark a parent with @container and style children with @xs: to @xl:. Components that adapt to their column, not the viewport.","url":"https://kwy404.github.io/monsoon/container-queries-utility-classes.html","mainEntityOfPage":"https://kwy404.github.io/monsoon/container-queries-utility-classes.html","datePublished":"2026-10-13","dateModified":"2026-10-13","inLanguage":"en","proficiencyLevel":"Beginner","keywords":"container queries utility classes, css container queries, @container css, responsive components css","wordCount":666,"image":"https://kwy404.github.io/monsoon/assets/og.png","author":{"@type":"Person","name":"Alexandre Kohler","url":"https://github.com/kwy404"},"publisher":{"@type":"Person","name":"Alexandre Kohler","url":"https://github.com/kwy404"},"about":{"@type":"SoftwareApplication","name":"Monsoon","applicationCategory":"DeveloperApplication","url":"https://kwy404.github.io/monsoon/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between md: and @md:?","acceptedAnswer":{"@type":"Answer","text":"md: checks the viewport width (768px and up). @md: checks the width of the nearest @container ancestor (28rem and up)."}},{"@type":"Question","name":"Do I need a build step for container queries?","acceptedAnswer":{"@type":"Answer","text":"No. The @container class and the @xs: to @xl: variants are in the stylesheet you link from the CDN."}},{"@type":"Question","name":"Can I use container queries and breakpoints together?","acceptedAnswer":{"@type":"Answer","text":"Yes. A common pattern is breakpoints for the page grid and container queries inside each component."}},{"@type":"Question","name":"Which browsers support container queries?","acceptedAnswer":{"@type":"Answer","text":"Current versions of Chrome, Edge, Firefox and Safari. Older browsers ignore the prefixed classes and show the unprefixed, narrow layout."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Monsoon","item":"https://kwy404.github.io/monsoon/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://kwy404.github.io/monsoon/index.html#guides"},{"@type":"ListItem","position":3,"name":"Container queries utility classes","item":"https://kwy404.github.io/monsoon/container-queries-utility-classes.html"}]}]}</script>
+</head>
+<body class="antialiased bg-background text-foreground">
+
+<a href="#main" class="skip-link fixed top-2 left-2 z-50 rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm font-medium">Skip to content</a>
+<header class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md" v-data="{ menu: false }" @keydown.escape="menu = false">
+  <div class="mx-auto max-w-7xl flex items-center justify-between gap-4 px-4 sm:px-6 h-16">
+    <a href="index.html" class="flex items-center gap-2.5 font-bold tracking-tight text-lg" aria-label="Monsoon home">
+      <img src="assets/favicon.svg" width="32" height="32" alt="" class="size-8">
+      <span>Monsoon</span>
+      <span class="hidden sm:inline-block rounded-full border bg-surface px-2 py-0.5 text-xs font-medium text-muted-foreground">v0.1.0</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main">
+      <a href="index.html#playground" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Playground</a>
+      <a href="components.html" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Components</a>
+      <a href="classes.html" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground">Classes</a>
+      <a href="index.html#guides" class="rounded-md px-3 py-2 text-sm font-medium transition-colors text-foreground bg-muted" aria-current="page">Guides</a>
+    </nav>
+    <div class="flex items-center gap-1">
+      <a href="https://github.com/kwy404/monsoon" class="hidden sm:inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" aria-label="Monsoon on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a>
+      <button type="button" class="theme-btn inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" v-theme-toggle aria-label="Switch between light and dark theme">
+        <svg class="moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="md:hidden inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted" @click="menu = !menu" :aria-expanded="menu ? 'true' : 'false'" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="md:hidden border-t bg-background px-4 py-3 space-y-1" v-show="menu" v-cloak aria-label="Mobile">
+    <a href="index.html#playground" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Playground</a>
+    <a href="components.html" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Components</a>
+    <a href="classes.html" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Classes</a>
+    <a href="index.html#guides" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted" @click="menu = false">Guides</a>
+    <a href="https://github.com/kwy404/monsoon" class="block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted">GitHub</a>
+  </nav>
+</header>
+<main id="main">
+
+<div class="bloom border-b">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-12">
+    <nav aria-label="Breadcrumb"><ol class="crumbs flex flex-wrap items-center text-sm text-muted-foreground"><li><a href="index.html" class="hover:text-foreground">Monsoon</a></li><li><a href="index.html#guides" class="hover:text-foreground">Guides</a></li><li aria-current="page" class="text-foreground font-medium">Container queries utility classes</li></ol></nav>
+    <p class="mt-8 text-sm font-semibold uppercase tracking-widest text-primary">Layout</p>
+    <h1 class="mt-3 max-w-4xl text-4xl sm:text-5xl font-extrabold tracking-tight text-balance">Container queries with utility classes</h1>
+    <p class="mt-5 max-w-3xl text-lg sm:text-xl text-muted-foreground text-pretty">Viewport breakpoints answer &quot;how wide is the screen&quot;. Components usually need to know &quot;how wide is my column&quot;. Container queries answer that, and Monsoon exposes them as utility classes you can write straight in your HTML.</p>
+    <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground"><span>By <a href="https://github.com/kwy404" class="text-foreground hover:underline">Alexandre Kohler</a></span><span aria-hidden="true">&middot;</span><time datetime="2026-10-13">Updated October 13, 2026</time><span aria-hidden="true">&middot;</span><span>3 min read</span></p>
+  </div>
+</div>
+<div class="mx-auto max-w-7xl px-4 sm:px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
+  <article class="article lg:col-span-8 min-w-0 space-y-5 text-foreground">
+    <section class="space-y-5">
+      <h2 id="the-two-pieces" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">The two pieces</h2>
+      <p>First, mark a parent as a container with the <code>@container</code> class. It sets <code>container-type: inline-size</code>, which makes the element a size container for its width. Then, on any descendant, prefix a utility with a container breakpoint such as <code>@md:</code>:</p>
+      <div><figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>card.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-1" v-copy-label="Copied" aria-label="Copy card.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-1" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="card.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"@container"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"flex flex-col @md:flex-row gap-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">img</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"rounded-xl @md:w-1/3"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> src</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"cover.jpg"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> alt</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"Cover"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"space-y-2"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">      &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">h3</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"text-lg @lg:text-2xl font-bold"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">Title</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">h3</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">      &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"text-muted-foreground"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">Stacks when narrow, sits in a row when wide.</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">p</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure></div>
+      <p>The same card now works in a wide main column and in a narrow sidebar, without knowing anything about the page around it. The class <code>container-q</code> does the same as <code>@container</code> if you prefer a name without the at sign.</p>
+    </section>
+    <section class="space-y-5">
+      <h2 id="container-breakpoints" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">Container breakpoints</h2>
+      <p>Container breakpoints are measured in rem because containers are usually smaller than screens:</p>
+      <div class="overflow-x-auto rounded-xl border bg-surface"><table class="w-full text-sm"><thead class="bg-muted text-left"><tr><th scope="col" class="px-4 py-2.5 font-semibold">Prefix</th><th scope="col" class="px-4 py-2.5 font-semibold">Container width at least</th></tr></thead><tbody class="divide-y"><tr><td class="px-4 py-2.5 align-top"><code>@xs:</code></td><td class="px-4 py-2.5 align-top">20rem (320px)</td></tr><tr><td class="px-4 py-2.5 align-top"><code>@sm:</code></td><td class="px-4 py-2.5 align-top">24rem (384px)</td></tr><tr><td class="px-4 py-2.5 align-top"><code>@md:</code></td><td class="px-4 py-2.5 align-top">28rem (448px)</td></tr><tr><td class="px-4 py-2.5 align-top"><code>@lg:</code></td><td class="px-4 py-2.5 align-top">32rem (512px)</td></tr><tr><td class="px-4 py-2.5 align-top"><code>@xl:</code></td><td class="px-4 py-2.5 align-top">36rem (576px)</td></tr></tbody></table></div>
+      <p>They are min-width queries, mobile first like the viewport breakpoints: write the narrow layout without a prefix and add the wider layout with a prefix.</p>
+    </section>
+    <section class="space-y-5">
+      <h2 id="which-utilities-support-them" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">Which utilities support them</h2>
+      <p>To keep the stylesheet small, container variants are generated for the utilities you use to rearrange a component:</p>
+      <ul class="list-disc pl-6 space-y-2"><li>display: <code>block</code>, <code>inline-block</code>, <code>inline</code>, <code>flex</code>, <code>inline-flex</code>, <code>grid</code>, <code>hidden</code></li><li>flex direction and wrapping: <code>flex-row</code>, <code>flex-col</code>, <code>flex-wrap</code>, <code>flex-nowrap</code></li><li>grid: <code>grid-cols-1</code> to <code>grid-cols-12</code>, <code>col-span-1</code> to <code>col-span-12</code>, <code>col-span-full</code></li><li>gap, <code>items-*</code> and <code>justify-*</code></li><li>padding <code>p-*</code>, <code>px-*</code>, <code>py-*</code> for the common steps</li><li>width fractions, <code>w-full</code> and <code>w-auto</code></li><li>text size <code>text-xs</code> to <code>text-9xl</code> and text alignment</li></ul>
+      <p>Search the <a href="classes.html">class reference</a> with the &quot;Has @md:&quot; filter for the complete list.</p>
+    </section>
+    <section class="space-y-5">
+      <h2 id="a-responsive-card-grid-that-needs-no-breakpoints" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">A responsive card grid that needs no breakpoints</h2>
+      <p>Combine the two ideas: the grid uses viewport breakpoints to decide how many columns the page has, and each card uses container queries to decide its own layout inside whatever column width it gets.</p>
+      <div><figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>layout.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-2" v-copy-label="Copied" aria-label="Copy layout.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-2" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="layout.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"grid grid-cols-1 lg:grid-cols-3 gap-6"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"lg:col-span-2 @container rounded-2xl border bg-surface p-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"grid grid-cols-1 @md:grid-cols-2 gap-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">...</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">aside</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"@container rounded-2xl border bg-surface p-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">    &#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> class</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"grid grid-cols-1 @md:grid-cols-2 gap-4"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">...</span><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">  &#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">aside</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span>
+<span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;/</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">div</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure></div>
+      <figure class="rounded-2xl border bg-surface-2 p-5 sm:p-6"><figcaption class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Same card, two container widths</figcaption><div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div class="sm:col-span-2 @container rounded-xl border bg-surface p-4"><div class="flex flex-col @md:flex-row gap-3"><div class="h-20 @md:w-1/3 rounded-lg bg-gradient-to-br from-primary to-accent"></div><p class="flex-1 text-sm text-muted-foreground">Wide column: this card is at least 28rem, so it uses a row.</p></div></div>
+  <div class="@container rounded-xl border bg-surface p-4"><div class="flex flex-col @md:flex-row gap-3"><div class="h-20 @md:w-1/3 rounded-lg bg-gradient-to-br from-primary to-accent"></div><p class="flex-1 text-sm text-muted-foreground">Narrow column: same markup, stacked.</p></div></div>
+</div></figure>
+    </section>
+    <section class="space-y-5">
+      <h2 id="breakpoints-or-container-queries" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">Breakpoints or container queries?</h2>
+      <p>Both have a place, and they answer different questions. Use viewport breakpoints (<code>md:</code>, <code>lg:</code>) for decisions about the whole page: how many columns the layout has, whether the navigation collapses, how wide the main content is. Use container queries for decisions inside a component: whether a card shows its image beside or above the text, how many items a list shows per row, how large a heading should be.</p>
+      <p>A good test is to ask where the component might be reused. A product card that appears in a three column grid, a sidebar and a full width search result cannot know the viewport width that matters to it, because the same viewport gives it three different widths. That card should use container queries. A site header always spans the viewport, so viewport breakpoints are the natural fit.</p>
+      <p>Because container queries are just classes in Monsoon, you can adopt them gradually. Start with the one component that looks wrong in a sidebar, wrap it in an element with <code>@container</code>, and replace its <code>md:</code> prefixes with <code>@md:</code>. Nothing else on the page has to change, and there is no configuration to update.</p>
+    </section>
+    <section class="space-y-5">
+      <h2 id="things-to-know" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">Things to know</h2>
+      <ul class="list-disc pl-6 space-y-2"><li>A container cannot query itself. Put <code>@container</code> on a parent and the prefixed classes on its children.</li><li><code>container-type: inline-size</code> makes the element ignore the width of its contents for sizing, so give containers a width from their layout (a grid cell, <code>w-full</code>, a flex item).</li><li>Containers nest. A prefixed class responds to the nearest ancestor container.</li><li>Container queries are supported in all current major browsers.</li></ul>
+    </section>
+    <section class="space-y-5">
+      <h2 id="faq" class="pt-6 text-2xl sm:text-3xl font-bold tracking-tight scroll-mt-16">Frequently asked questions</h2>
+      <div class="divide-y rounded-2xl border bg-surface" v-accordion>
+  <div class="px-5" v-accordion-item="open">
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">What is the difference between md: and @md:?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p><code>md:</code> checks the viewport width (768px and up). <code>@md:</code> checks the width of the nearest <code>@container</code> ancestor (28rem and up).</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Do I need a build step for container queries?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>No. The <code>@container</code> class and the <code>@xs:</code> to <code>@xl:</code> variants are in the stylesheet you link from the CDN.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Can I use container queries and breakpoints together?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Yes. A common pattern is breakpoints for the page grid and container queries inside each component.</p></div>
+  </div>
+  <div class="px-5" v-accordion-item>
+    <h3 class="text-base font-semibold"><button type="button" class="w-full py-4 text-left">Which browsers support container queries?</button></h3>
+    <div class="pb-5 text-muted-foreground leading-relaxed space-y-3"><p>Current versions of Chrome, Edge, Firefox and Safari. Older browsers ignore the prefixed classes and show the unprefixed, narrow layout.</p></div>
+  </div>
+</div>
+    </section>
+    <div class="rounded-2xl bg-gradient-to-br from-primary via-violet-600 to-fuchsia-600 p-8 text-white shadow-xl">
+      <p class="text-2xl font-bold tracking-tight">Try it in ten seconds</p>
+      <p class="mt-2 text-white/90">Paste this into any HTML page. No install, no build.</p>
+      <div class="mt-5"><figure class="window " data-lang="html"><div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="tab active"><svg class="file-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e44d26"/><text x="8" y="11.2" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="6" font-weight="700" fill="#ffffff">&lt;/&gt;</text></svg><span>index.html</span></span><button type="button" class="code-copy" v-cloak v-copy-from="#code-3" v-copy-label="Copied" aria-label="Copy index.html code"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M4 4V1.5A1.5 1.5 0 0 1 5.5 0h7A1.5 1.5 0 0 1 14 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10v2.5A1.5 1.5 0 0 1 8.5 16h-7A1.5 1.5 0 0 1 0 14.5v-9A1.5 1.5 0 0 1 1.5 4H4Zm1.5 0h3A1.5 1.5 0 0 1 10 5.5v5h2.5V1.5h-7V4Zm-4 1.5v9h7v-9h-7Z"/></svg><span>Copy</span></button></div><pre id="code-3" class="numbered shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E" tabindex="0" aria-label="index.html code"><code><span class="line"><span style="--shiki-light:#800000;--shiki-dark:#808080">&#x3C;</span><span style="--shiki-light:#800000;--shiki-dark:#569CD6">link</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> rel</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"stylesheet"</span><span style="--shiki-light:#E50000;--shiki-dark:#9CDCFE"> href</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">=</span><span style="--shiki-light:#0000FF;--shiki-dark:#CE9178">"https://cdn.jsdelivr.net/npm/monsooncss"</span><span style="--shiki-light:#800000;--shiki-dark:#808080">></span></span></code></pre></figure></div>
+    </div>
+  </article>
+  <aside class="hidden lg:block lg:col-span-4">
+    <div class="sticky top-24 space-y-6">
+      <nav aria-label="On this page" class="rounded-2xl border bg-surface p-4">
+        <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">On this page</p>
+        <ol class="text-sm space-y-0.5">
+          <li><a href="#the-two-pieces" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">The two pieces</a></li>
+          <li><a href="#container-breakpoints" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">Container breakpoints</a></li>
+          <li><a href="#which-utilities-support-them" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">Which utilities support them</a></li>
+          <li><a href="#a-responsive-card-grid-that-needs-no-breakpoints" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">A responsive card grid that needs no breakpoints</a></li>
+          <li><a href="#breakpoints-or-container-queries" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">Breakpoints or container queries?</a></li>
+          <li><a href="#things-to-know" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">Things to know</a></li>
+          <li><a href="#faq" class="block rounded-md px-3 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">FAQ</a></li>
+        </ol>
+      </nav>
+      <div class="rounded-2xl border bg-surface p-5 space-y-3">
+        <p class="font-semibold">Monsoon in numbers</p>
+        <ul class="text-sm text-muted-foreground space-y-1.5">
+          <li><span class="font-semibold text-foreground">4,616</span> base classes</li>
+          <li><span class="font-semibold text-foreground">7,565</span> variant classes</li>
+          <li><span class="font-semibold text-foreground">43 kB</span> brotli, whole file</li>
+          <li><span class="font-semibold text-foreground">0</span> build steps</li>
+        </ul>
+        <a href="classes.html" class="inline-block text-sm font-medium text-primary hover:underline">Search the class reference</a>
+      </div>
+    </div>
+  </aside>
+</div>
+<div class="border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-14">
+    <h2 class="text-2xl font-bold tracking-tight">Related guides</h2>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <a href="utility-first-css-without-a-build-step.html" class="rounded-2xl border bg-surface p-5 hover:shadow-lg hover:-translate-y-0.5 transition">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary">Getting started</p>
+          <p class="mt-2 font-semibold">Utility-first CSS without a build step</p>
+          <p class="mt-1 text-sm text-muted-foreground">Link one stylesheet and write classes in plain HTML. What you get, what you give up and why it stays small.</p>
+        </a>
+        <a href="no-build-css-framework.html" class="rounded-2xl border bg-surface p-5 hover:shadow-lg hover:-translate-y-0.5 transition">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary">Concepts</p>
+          <p class="mt-2 font-semibold">A no build CSS framework for real projects</p>
+          <p class="mt-1 text-sm text-muted-foreground">Who a no build stylesheet is for, how the workflow feels and how to keep a project tidy without tooling.</p>
+        </a>
+        <a href="dark-mode-with-one-line-of-css.html" class="rounded-2xl border bg-surface p-5 hover:shadow-lg hover:-translate-y-0.5 transition">
+          <p class="text-xs font-semibold uppercase tracking-widest text-primary">Dark mode</p>
+          <p class="mt-2 font-semibold">Dark mode with one line of CSS</p>
+          <p class="mt-1 text-sm text-muted-foreground">Automatic dark mode from the operating system, forced dark sections and a tiny toggle.</p>
+        </a>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="border-t bg-surface-2">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+    <div class="lg:col-span-2 space-y-4">
+      <a href="index.html" class="inline-flex items-center gap-2.5 font-bold text-lg"><img src="assets/favicon.svg" width="32" height="32" alt="" class="size-8">Monsoon</a>
+      <p class="text-sm text-muted-foreground max-w-sm">Utility-first CSS with no build step. One stylesheet from a CDN, a whole theme from one seed color, dark mode included.</p>
+      <p class="text-sm text-muted-foreground">Interactive parts built with <a href="https://github.com/kwy404/Voodoo.js" class="font-medium text-foreground underline underline-offset-4 decoration-primary">Voodoo.js</a>.</p>
+    </div>
+      <div>
+        <h2 class="text-sm font-semibold text-foreground">Docs</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="index.html#quick-start" class="text-muted-foreground hover:text-foreground transition-colors">Quick start</a></li>
+          <li><a href="index.html#playground" class="text-muted-foreground hover:text-foreground transition-colors">Seed playground</a></li>
+          <li><a href="components.html" class="text-muted-foreground hover:text-foreground transition-colors">Components</a></li>
+          <li><a href="classes.html" class="text-muted-foreground hover:text-foreground transition-colors">Class reference</a></li>
+          <li><a href="index.html#purge" class="text-muted-foreground hover:text-foreground transition-colors">Purge CLI</a></li>
+          <li><a href="https://github.com/kwy404/monsoon/blob/main/CHANGELOG.md" class="text-muted-foreground hover:text-foreground transition-colors">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-sm font-semibold text-foreground">Guides</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="utility-first-css-without-a-build-step.html" class="text-muted-foreground hover:text-foreground transition-colors">Utility-first CSS without a build step</a></li>
+          <li><a href="css-framework-from-a-cdn.html" class="text-muted-foreground hover:text-foreground transition-colors">CSS framework from a CDN</a></li>
+          <li><a href="no-build-css-framework.html" class="text-muted-foreground hover:text-foreground transition-colors">No build CSS framework</a></li>
+          <li><a href="utility-css-cdn-in-production.html" class="text-muted-foreground hover:text-foreground transition-colors">Utility CSS from a CDN in production</a></li>
+          <li><a href="generate-a-theme-from-one-color-css.html" class="text-muted-foreground hover:text-foreground transition-colors">Generate a theme from one color</a></li>
+          <li><a href="dark-mode-with-one-line-of-css.html" class="text-muted-foreground hover:text-foreground transition-colors">Dark mode with one line of CSS</a></li>
+        </ul>
+      </div>
+    <div>
+      <h2 class="text-sm font-semibold text-foreground">More from kwy404</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href="https://kwy404.github.io/graphemely/" class="text-muted-foreground hover:text-foreground transition-colors" title="Truncate, slice and count strings with emoji safely.">graphemely</a></li>
+        <li><a href="https://kwy404.github.io/edgegoat/" class="text-muted-foreground hover:text-foreground transition-colors" title="Edge case test inputs for time zones, DST, unicode and numbers.">edgegoat</a></li>
+        <li><a href="https://kwy404.github.io/vueleap/" class="text-muted-foreground hover:text-foreground transition-colors" title="Migrate Vue 2 to Vue 3 with one command.">vueleap</a></li>
+        <li><a href="https://kwy404.github.io/numberparrot/" class="text-muted-foreground hover:text-foreground transition-colors" title="Parse localized number and currency strings.">numberparrot</a></li>
+        <li><a href="https://kwy404.github.io/breakhound/" class="text-muted-foreground hover:text-foreground transition-colors" title="Find bugs in any JavaScript library automatically.">breakhound</a></li>
+        <li><a href="https://github.com/kwy404/Voodoo.js" class="text-muted-foreground hover:text-foreground transition-colors" title="JSX and reactivity from a plain HTML file.">Voodoo.js</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-6 flex flex-col sm:flex-row gap-3 sm:items-center justify-between text-sm text-muted-foreground">
+      <p>MIT License. Made by <a href="https://github.com/kwy404" class="text-foreground hover:underline">Alexandre Kohler</a>.</p>
+      <p class="flex gap-4"><a href="https://github.com/kwy404/monsoon" class="hover:text-foreground">GitHub</a><a href="https://www.npmjs.com/package/monsooncss" class="hover:text-foreground">npm</a><a href="https://github.com/kwy404/monsoon/issues" class="hover:text-foreground">Issues</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

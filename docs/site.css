@@ -1,0 +1,168 @@
+/* Extras for the Monsoon site. Everything else on these pages is Monsoon
+   utility classes from monsoon.min.css. This file only holds what a utility
+   cannot express: the brand seed, editor frames for highlighted code, a few
+   decorative backgrounds and Voodoo.js state hooks. */
+
+:root {
+  --seed: #3b5bdb;
+  --font-mono: "Cascadia Code", "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, ui-monospace, monospace;
+  --ed-bg: #ffffff;
+  --ed-bar: #f3f3f3;
+  --ed-tab: #ffffff;
+  --ed-tab-inactive: #ececec;
+  --ed-tab-text: #333333;
+  --ed-tab-muted: #6f6f6f;
+  --ed-border: #e5e5e5;
+  --ed-gutter: #237893;
+  --ed-status: #007acc;
+  --ed-btn: #ffffff;
+  --ed-btn-border: #d4d4d4;
+  --term-prompt: #107c10;
+  --term-green: #107c10;
+  --term-dim: #6f6f6f;
+  scroll-padding-top: 5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    --ed-bg: #1e1e1e; --ed-bar: #252526; --ed-tab: #1e1e1e; --ed-tab-inactive: #2d2d2d;
+    --ed-tab-text: #ffffff; --ed-tab-muted: #969696; --ed-border: #2b2b2b; --ed-gutter: #858585;
+    --ed-btn: #3c3c3c; --ed-btn-border: #3c3c3c; --term-prompt: #23d18b; --term-green: #23d18b; --term-dim: #8b8b8b;
+  }
+}
+:root[data-theme=dark] {
+  --ed-bg: #1e1e1e; --ed-bar: #252526; --ed-tab: #1e1e1e; --ed-tab-inactive: #2d2d2d;
+  --ed-tab-text: #ffffff; --ed-tab-muted: #969696; --ed-border: #2b2b2b; --ed-gutter: #858585;
+  --ed-btn: #3c3c3c; --ed-btn-border: #3c3c3c; --term-prompt: #23d18b; --term-green: #23d18b; --term-dim: #8b8b8b;
+}
+
+[v-cloak] { display: none !important; }
+body { text-rendering: optimizeLegibility; }
+::selection { background: color-mix(in oklab, var(--primary) 28%, transparent); }
+
+/* Hero backdrop: two soft blooms in the seed and accent colors. */
+.bloom {
+  background:
+    radial-gradient(48rem 28rem at 85% -10%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(40rem 26rem at 0% 10%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 70%);
+}
+.grid-lines {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+}
+.text-gradient {
+  background-image: linear-gradient(100deg, var(--primary), var(--color-violet-500) 55%, var(--color-fuchsia-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.float { animation: float 7s ease-in-out infinite; }
+@keyframes float { 50% { translate: 0 -10px; } }
+@media (prefers-reduced-motion: reduce) { .float { animation: none; } }
+
+/* Inline icons carry a second color through --icon-accent. */
+.icon { --icon-accent: var(--accent); }
+.icon svg { width: 100%; height: 100%; }
+
+/* VS Code style windows: editors and terminals around Shiki output. */
+.window {
+  border: 1px solid var(--ed-border);
+  border-radius: 0.875rem;
+  overflow: hidden;
+  background: var(--ed-bg);
+  min-width: 0;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.18);
+}
+.window-bar { display: flex; align-items: stretch; min-height: 40px; background: var(--ed-bar); border-bottom: 1px solid var(--ed-border); font: 13px/1 var(--font-sans); }
+.dots { display: inline-flex; align-items: center; gap: 7px; padding: 0 14px; flex: none; }
+.dots i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+.dots i:nth-child(2) { background: #febc2e; }
+.dots i:nth-child(3) { background: #28c840; }
+.tab { position: relative; display: inline-flex; align-items: center; gap: 7px; padding: 0 16px; color: var(--ed-tab-muted); background: var(--ed-tab-inactive); border-right: 1px solid var(--ed-border); font: 13px/1 var(--font-sans); white-space: nowrap; min-width: 0; }
+.tab span { overflow: hidden; text-overflow: ellipsis; }
+.tab.active, .tab[aria-selected="true"] { background: var(--ed-tab); color: var(--ed-tab-text); margin-bottom: -1px; }
+.tab.active::before, .tab[aria-selected="true"]::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--ed-status); }
+.dots + .tab { border-left: 1px solid var(--ed-border); }
+button.tab { border-top: 0; border-bottom: 0; border-left: 0; cursor: pointer; transition: color 0.15s, background 0.15s; }
+button.tab:hover { color: var(--ed-tab-text); }
+.tabs { display: flex; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.file-icon { width: 16px; height: 16px; flex: none; }
+.panel-tab { display: inline-flex; align-items: center; padding: 0 12px; font: 600 11px/1 var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ed-tab-text); box-shadow: inset 0 -1px 0 var(--ed-tab-text); }
+.panel-shell { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 0 6px; color: var(--ed-tab-muted); font-size: 12.5px; white-space: nowrap; min-width: 0; overflow: hidden; }
+.code-copy { position: relative; align-self: center; display: inline-flex; align-items: center; gap: 6px; margin: 0 8px 0 auto; border: 1px solid var(--ed-btn-border); background: var(--ed-btn); color: var(--ed-tab-text); border-radius: 6px; padding: 5px 10px; font: 500 12.5px/1 var(--font-sans); cursor: pointer; transition: border-color 0.15s; flex: none; }
+.panel-shell + .code-copy { margin-left: 4px; }
+.code-copy:hover, .code-copy.v-copied { border-color: var(--ed-status); }
+.window pre.shiki {
+  margin: 0;
+  padding: 16px 20px 18px 0;
+  overflow-x: auto;
+  font: 13.5px/1.7 var(--font-mono);
+  font-variant-ligatures: none;
+  tab-size: 2;
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+.window pre.shiki:focus-visible { outline-offset: -3px; }
+.window pre.shiki code { display: block; min-width: max-content; counter-reset: line; }
+.window pre.shiki span { color: var(--shiki-light); }
+.window pre.numbered .line::before { counter-increment: line; content: counter(line); display: inline-block; width: 3.4em; padding-right: 1.5em; text-align: right; color: var(--ed-gutter); user-select: none; }
+.window pre.term { padding: 14px 20px 16px; }
+.window pre.term .line.cmd::before { content: "$ "; color: var(--term-prompt); font-weight: 700; user-select: none; }
+.window.scroll-y pre.shiki { max-height: 26rem; }
+:root[data-theme=dark] .window pre.shiki, :root[data-theme=dark] .window pre.shiki span { color: var(--shiki-dark); }
+:root[data-theme=dark] .window pre.shiki { background-color: var(--shiki-dark-bg); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) .window pre.shiki, :root:not([data-theme=light]) .window pre.shiki span { color: var(--shiki-dark); }
+  :root:not([data-theme=light]) .window pre.shiki { background-color: var(--shiki-dark-bg); }
+}
+.term-out { margin: 0; padding: 14px 20px 18px; overflow-x: auto; font: 13px/1.65 var(--font-mono); color: var(--ed-tab-text); background: var(--ed-bg); }
+.term-out code { display: block; min-width: max-content; white-space: pre; }
+.term-out .ok { color: var(--term-green); }
+.term-out .dim { color: var(--term-dim); }
+@media (max-width: 640px) {
+  .window pre.shiki { font-size: 12.5px; }
+  .window pre.numbered .line::before { width: 2.6em; padding-right: 1.1em; }
+  .tab { padding: 0 12px; }
+  .code-copy span { display: none; }
+}
+
+/* Live class playground: a plain textarea dressed as an editor. */
+.code-input { font: 13.5px/1.7 var(--font-mono); tab-size: 2; white-space: pre; overflow-wrap: normal; color: var(--ed-tab-text); background: var(--ed-bg); caret-color: var(--ed-status); }
+.preview-frame { width: 100%; height: 100%; min-height: 22rem; border: 0; display: block; background: transparent; }
+
+/* Seed playground swatches and the native color input. */
+.swatch { background: var(--swatch); }
+.color-input { inline-size: 3rem; block-size: 3rem; padding: 0; border: 0; background: none; cursor: pointer; }
+.color-input::-webkit-color-swatch-wrapper { padding: 0; }
+.color-input::-webkit-color-swatch { border: 1px solid var(--border); border-radius: 0.75rem; }
+.color-input::-moz-color-swatch { border: 1px solid var(--border); border-radius: 0.75rem; }
+
+/* Component gallery: dialog backdrop and the details marker. */
+@keyframes pop { from { opacity: 0; scale: 0.96; } }
+
+/* Voodoo.js accordion header inherits the page font. */
+.v-accordion-header { font: inherit; color: inherit; background: none; border: 0; }
+
+/* Breadcrumb separators. */
+.crumbs li + li::before { content: "/"; margin-inline: 0.5rem; color: var(--muted-foreground); opacity: 0.6; }
+
+/* Class reference rows. */
+.css-out { font: 12.5px/1.6 var(--font-mono); white-space: pre; overflow-x: auto; }
+
+/* Guide articles: long form text rhythm. */
+.article p, .article li { line-height: 1.75; }
+.article a:not(.window a, .no-link) { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.article a:not(.window a, .no-link):hover { text-decoration-thickness: 2px; }
+
+/* Theme toggle icon follows the state Voodoo.js writes on the button. */
+.theme-btn .sun { display: none; }
+.theme-btn[data-v-theme="dark"] .sun { display: block; }
+.theme-btn[data-v-theme="dark"] .moon { display: none; }
+
+/* Inline code in running text. */
+:where(p, li, td, dd, h3, button) > code { overflow-wrap: break-word; font-family: var(--font-mono); font-size: 0.88em; padding: 0.1em 0.35em; border-radius: 0.35rem; background: var(--muted); border: 1px solid var(--border); }
+dialog::backdrop { background: rgb(15 18 40 / 0.55); backdrop-filter: blur(4px); }
+dialog[open] { animation: pop 0.18s ease-out; }

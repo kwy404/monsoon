@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="64" height="64">
+  <title>Monsoon</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b5bdb"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="60" fill="url(#bg)"/>
+  <g transform="translate(128 142) scale(.94)">
+  <g transform="translate(0 0)">
+    <path d="M-40 -44 Q-56 -108 -94 -100 Q-114 -72 -104 -30 Z" fill="#fff4e6" stroke="#141530" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-56 -50 Q-66 -90 -88 -86 Q-98 -66 -92 -42 Z" fill="#8f3a1e"/>
+    <path d="M40 -44 Q56 -108 94 -100 Q114 -72 104 -30 Z" fill="#fff4e6" stroke="#141530" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M56 -50 Q66 -90 88 -86 Q98 -66 92 -42 Z" fill="#8f3a1e"/>
+    <path d="M0 -84 C64 -84 104 -50 106 -8 L120 22 L100 30 C86 64 46 84 0 84 C-46 84 -86 64 -100 30 L-120 22 L-106 -8 C-104 -50 -64 -84 0 -84 Z" fill="#c4532d"/>
+    <path d="M-112 18 C-104 -4 -76 -6 -62 12 C-54 26 -60 52 -80 58 C-94 52 -102 40 -104 26 Z" fill="#fff4e6"/>
+    <path d="M112 18 C104 -4 76 -6 62 12 C54 26 60 52 80 58 C94 52 102 40 104 26 Z" fill="#fff4e6"/>
+    <ellipse cx="0" cy="44" rx="44" ry="32" fill="#fff4e6"/>
+    <ellipse cx="-38" cy="-36" rx="15" ry="10" fill="#fff4e6" transform="rotate(-14 -38 -36)"/>
+    <ellipse cx="38" cy="-36" rx="15" ry="10" fill="#fff4e6" transform="rotate(14 38 -36)"/>
+    <path d="M0 -84 C64 -84 104 -50 106 -8 L120 22 L100 30 C86 64 46 84 0 84 C-46 84 -86 64 -100 30 L-120 22 L-106 -8 C-104 -50 -64 -84 0 -84 Z" fill="none" stroke="#141530" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <ellipse cx="-38" cy="4" rx="21" ry="25" fill="#141530"/>
+    <circle cx="-31" cy="-5" r="8" fill="#ffffff"/>
+    <ellipse cx="38" cy="4" rx="21" ry="25" fill="#141530"/>
+    <circle cx="45" cy="-5" r="8" fill="#ffffff"/>
+    <path d="M-13 24 Q0 20 13 24 Q10 36 0 38 Q-10 36 -13 24 Z" fill="#141530" stroke="#141530" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+  </g>
+</svg>
