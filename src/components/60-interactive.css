@@ -802,7 +802,7 @@
 .color-picker-preview { width: 2.25rem; border-radius: var(--m-radius-md); }
 .color-picker-panel:popover-open { display: grid; }
 .color-picker-panel:not([popover]) { display: grid; }
-.color-picker-panel { gap: .75rem; width: 16rem; padding: .75rem; }
+.color-picker-panel { gap: .75rem; width: 17rem; padding: .75rem; }
 .color-picker[data-inline] > .color-picker-panel {
   position: static;
   z-index: auto;
@@ -863,7 +863,7 @@
   mask: var(--m-ix-pipette) center / contain no-repeat;
 }
 .color-picker-fields { display: flex; gap: .5rem; }
-.color-picker-format { flex: 0 0 5.5rem; }
+.color-picker-format { flex: 0 0 5rem; }
 .color-picker-text { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: .75rem; }
 .color-picker-swatches {
   display: grid;
