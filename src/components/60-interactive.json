@@ -1,0 +1,768 @@
+{
+  "group": "interactive",
+  "title": "Interactive",
+  "components": [
+    {
+      "name": "Date picker",
+      "slug": "datepicker",
+      "description": "A popover calendar over a native date input: month and year menus, a keyboard grid (arrows, Home, End, Page Up and Page Down), min and max, disabled dates, and month names and week start from the locale. Needs monsoon.js.",
+      "classes": [
+        "datepicker",
+        "datepicker-toggle",
+        "datepicker-panel",
+        "datepicker-calendar",
+        "datepicker-header",
+        "datepicker-prev",
+        "datepicker-next",
+        "datepicker-grid",
+        "datepicker-day",
+        "input",
+        "select"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-datepicker",
+        "options": [
+          "data-m-datepicker-locale=\"pt-BR\"",
+          "data-m-datepicker-week-start=\"1\"",
+          "data-m-datepicker-disabled=\"sat,sun,2026-12-25\"",
+          "data-m-datepicker-presets=\"today,7d,30d,month\"",
+          "min and max on the input"
+        ],
+        "methods": [
+          "Monsoon.datepicker(el).open()",
+          "Monsoon.datepicker(el).close()",
+          "Monsoon.datepicker(el).value",
+          "Monsoon.datepicker(el).value = \"2026-10-20\""
+        ],
+        "events": [
+          "monsoon:change { value }",
+          "input and change on the native input"
+        ]
+      },
+      "html": "<div class=\"grid gap-4 max-w-xs\">\n  <div class=\"field\">\n    <label class=\"label\" for=\"dp-delivery\">Delivery date</label>\n    <div class=\"datepicker\" data-m-datepicker data-m-datepicker-disabled=\"sun\">\n      <input type=\"date\" id=\"dp-delivery\" class=\"input\" value=\"2026-10-16\" min=\"2026-10-01\" max=\"2027-03-31\">\n    </div>\n    <p class=\"hint\">Sundays are closed.</p>\n  </div>\n  <div class=\"datepicker\" data-m-datepicker data-m-datepicker-locale=\"de-DE\">\n    <input type=\"date\" class=\"input input-sm\" value=\"2026-11-03\" aria-label=\"Termin\">\n  </div>\n</div>"
+    },
+    {
+      "name": "Date range picker",
+      "slug": "datepicker-range",
+      "description": "Two date inputs in one .datepicker pick a range: the first click sets the start, the second the end, with the days between highlighted and presets such as Last 7 days. Needs monsoon.js.",
+      "classes": [
+        "datepicker",
+        "datepicker-separator",
+        "datepicker-presets",
+        "datepicker-preset"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-datepicker",
+        "options": [
+          "data-m-datepicker-presets=\"today,yesterday,7d,30d,90d,month,last-month,year\"",
+          "any \"Nd\" preset means the last N days"
+        ],
+        "methods": [
+          "Monsoon.datepicker(el).value",
+          "Monsoon.datepicker(el).value = [\"2026-10-01\", \"2026-10-13\"]"
+        ],
+        "events": [
+          "monsoon:change { start, end }"
+        ]
+      },
+      "html": "<div class=\"datepicker max-w-md\" data-m-datepicker data-m-datepicker-presets=\"today,7d,30d,month,last-month\">\n  <input type=\"date\" class=\"input\" name=\"from\" value=\"2026-10-01\" aria-label=\"Start date\">\n  <input type=\"date\" class=\"input\" name=\"to\" value=\"2026-10-13\" aria-label=\"End date\">\n</div>"
+    },
+    {
+      "name": "Combobox",
+      "slug": "combobox",
+      "description": "Filter as you type over a native select or an input with a datalist, following the WAI-ARIA combobox pattern. Matches are highlighted, accents are ignored and option groups are kept. Needs monsoon.js.",
+      "classes": [
+        "combobox",
+        "combobox-input",
+        "combobox-toggle",
+        "combobox-list",
+        "combobox-option",
+        "combobox-group",
+        "combobox-empty"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-combobox",
+        "options": [
+          "data-m-combobox-placeholder",
+          "data-m-combobox-empty=\"No results\"",
+          "data-m-combobox-async (ask for items with an event)"
+        ],
+        "methods": [
+          "Monsoon.combobox(el).open()",
+          "Monsoon.combobox(el).close()",
+          "Monsoon.combobox(el).value",
+          "Monsoon.combobox(el).refresh()"
+        ],
+        "events": [
+          "monsoon:change { value, label }",
+          "monsoon:combobox-search { query, set(items) } with data-m-combobox-async"
+        ]
+      },
+      "html": "<div class=\"grid gap-4 max-w-xs\">\n  <div class=\"combobox\" data-m-combobox>\n    <select class=\"select\" aria-label=\"Time zone\">\n      <option value=\"\">Pick a time zone</option>\n      <optgroup label=\"Americas\">\n        <option value=\"America/Sao_Paulo\">São Paulo</option>\n        <option value=\"America/New_York\">New York</option>\n        <option value=\"America/Mexico_City\">Mexico City</option>\n        <option value=\"America/Vancouver\">Vancouver</option>\n      </optgroup>\n      <optgroup label=\"Europe\">\n        <option value=\"Europe/Lisbon\">Lisbon</option>\n        <option value=\"Europe/Berlin\">Berlin</option>\n        <option value=\"Europe/Zurich\">Zürich</option>\n      </optgroup>\n      <optgroup label=\"Asia\">\n        <option value=\"Asia/Tokyo\">Tokyo</option>\n        <option value=\"Asia/Singapore\">Singapore</option>\n      </optgroup>\n    </select>\n  </div>\n  <div class=\"combobox\" data-m-combobox>\n    <input class=\"input\" list=\"cb-languages\" placeholder=\"Favorite language\" aria-label=\"Favorite language\">\n    <datalist id=\"cb-languages\"><option value=\"JavaScript\"><option value=\"TypeScript\"><option value=\"Python\"><option value=\"Rust\"><option value=\"Go\"><option value=\"Elixir\"></datalist>\n  </div>\n</div>"
+    },
+    {
+      "name": "Multi select combobox",
+      "slug": "combobox-multiple",
+      "description": "On a select with multiple the combobox shows the picks as chips. Backspace in the empty field removes the last one and the listbox stays open while you pick. Needs monsoon.js.",
+      "classes": [
+        "combobox",
+        "combobox-control",
+        "combobox-chips",
+        "combobox-chip",
+        "chip",
+        "chip-remove"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-combobox",
+        "options": [
+          "multiple on the select"
+        ],
+        "methods": [
+          "Monsoon.combobox(el).value (an array)",
+          "Monsoon.combobox(el).value = [\"design\"]"
+        ],
+        "events": [
+          "monsoon:change { value: [...] }",
+          "change on the native select"
+        ]
+      },
+      "html": "<div class=\"combobox max-w-sm\" data-m-combobox data-m-combobox-placeholder=\"Add a skill\">\n  <select class=\"select\" multiple aria-label=\"Skills\">\n    <option value=\"design\" selected>Design</option>\n    <option value=\"research\">User research</option>\n    <option value=\"frontend\" selected>Frontend</option>\n    <option value=\"backend\">Backend</option>\n    <option value=\"devops\">DevOps</option>\n    <option value=\"writing\">Technical writing</option>\n    <option value=\"data\">Data analysis</option>\n  </select>\n</div>"
+    },
+    {
+      "name": "Select (custom)",
+      "slug": "select-menu",
+      "description": "A fully custom select over a native one, which stays in the form with its value and change events in sync. Options can carry an icon, an image, a color or a description, optgroups become headings, long lists get a search box, multiple shows chips, and it can be clearable. Keyboard and screen readers follow the WAI-ARIA select only combobox pattern, and the size, tone and variant classes of .select carry over. Needs monsoon.js.",
+      "classes": [
+        "select-menu",
+        "select-menu-trigger",
+        "select-menu-value",
+        "select-menu-placeholder",
+        "select-menu-label",
+        "select-menu-clear",
+        "select-menu-popup",
+        "select-menu-search",
+        "select-menu-list",
+        "select-menu-option",
+        "select-menu-text",
+        "select-menu-description",
+        "select-menu-icon",
+        "select-menu-image",
+        "select-menu-swatch",
+        "select-menu-groupbox",
+        "select-menu-group",
+        "select-menu-empty",
+        "select-menu-chip",
+        "select-menu-chip-remove",
+        "select",
+        "input"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-select",
+        "options": [
+          "data-m-select-search (on by default from 10 options, \"false\" turns it off)",
+          "data-m-select-clearable",
+          "data-m-select-placeholder=\"Pick one\" (or an empty first option)",
+          "multiple on the select",
+          "data-description, data-icon, data-image or data-color on an option",
+          "select-xs to select-xl, select-primary, select-ghost and select-filled"
+        ],
+        "methods": [
+          "Monsoon.select(el).open()",
+          "Monsoon.select(el).close()",
+          "Monsoon.select(el).value",
+          "Monsoon.select(el).value = \"team\"",
+          "Monsoon.select(el).refresh() after changing select.value in code"
+        ],
+        "events": [
+          "change and input on the native select",
+          "monsoon:change { value }"
+        ]
+      },
+      "html": "<div class=\"grid gap-4 max-w-sm\">\n  <div class=\"field\">\n    <label class=\"label\" for=\"sm-plan\">Plan</label>\n    <select id=\"sm-plan\" class=\"select\" name=\"plan\" data-m-select>\n      <option value=\"\">Choose a plan</option>\n      <option value=\"hobby\" data-description=\"One project, community support\">Hobby</option>\n      <option value=\"team\" data-description=\"Up to 20 seats and shared billing\" selected>Team</option>\n      <option value=\"business\" data-description=\"SSO, audit logs and a 99.9% SLA\">Business</option>\n      <option value=\"enterprise\" data-description=\"Talk to sales\" disabled>Enterprise</option>\n    </select>\n  </div>\n  <select class=\"select\" data-m-select data-m-select-clearable aria-label=\"Status\">\n    <option value=\"\">Any status</option>\n    <option value=\"todo\" data-color=\"var(--muted-foreground)\">To do</option>\n    <option value=\"doing\" data-color=\"var(--info)\">In progress</option>\n    <option value=\"review\" data-color=\"var(--warning)\">In review</option>\n    <option value=\"done\" data-color=\"var(--success)\" selected>Done</option>\n  </select>\n  <select class=\"select select-sm\" data-m-select aria-label=\"Region\">\n    <optgroup label=\"Americas\">\n      <option>Montreal</option><option>Ohio</option><option>Oregon</option><option selected>Sao Paulo</option>\n    </optgroup>\n    <optgroup label=\"Europe\">\n      <option>Frankfurt</option><option>Ireland</option><option>London</option><option>Milan</option><option>Paris</option><option>Stockholm</option>\n    </optgroup>\n    <optgroup label=\"Asia Pacific\">\n      <option>Mumbai</option><option>Seoul</option><option>Singapore</option><option>Sydney</option><option>Tokyo</option>\n    </optgroup>\n  </select>\n  <select class=\"select\" multiple data-m-select data-m-select-placeholder=\"Assign people\" aria-label=\"Assignees\">\n    <option value=\"ana\" selected>Ana Lima</option>\n    <option value=\"bruno\">Bruno Costa</option>\n    <option value=\"chen\" selected>Chen Wei</option>\n    <option value=\"dara\">Dara Okafor</option>\n    <option value=\"eli\">Eli Novak</option>\n  </select>\n  <div class=\"flex flex-wrap gap-2\">\n    <select class=\"select select-xs select-filled\" data-m-select aria-label=\"Sort\"><option>Newest</option><option>Oldest</option><option>Popular</option></select>\n    <select class=\"select select-lg select-primary\" data-m-select aria-label=\"Size\"><option>Small</option><option selected>Medium</option><option>Large</option></select>\n    <select class=\"select\" data-m-select disabled aria-label=\"Locked\"><option>Locked</option></select>\n  </div>\n</div>"
+    },
+    {
+      "name": "Tags input",
+      "slug": "tags-input",
+      "description": "Chips over a plain text input that keeps a comma separated value. Enter or comma adds, Backspace removes the last tag, a pasted list is split, duplicates flash, and there are suggestions and a maximum. Needs monsoon.js.",
+      "classes": [
+        "tags-input",
+        "tags-input-tags",
+        "tags-input-tag",
+        "tags-input-remove",
+        "tags-input-field"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-tags-input",
+        "options": [
+          "data-m-tags-input-max=\"5\"",
+          "data-m-tags-input-suggestions=\"css,html,js\"",
+          "data-m-tags-input-separator=\",\"",
+          "data-m-tags-input-add-on-blur=\"false\""
+        ],
+        "methods": [
+          "Monsoon.tagsInput(el).tags",
+          "Monsoon.tagsInput(el).add(\"css\")",
+          "Monsoon.tagsInput(el).remove(\"css\")",
+          "Monsoon.tagsInput(el).clear()"
+        ],
+        "events": [
+          "monsoon:change { tags }",
+          "monsoon:tag-add { tag } (cancelable)",
+          "monsoon:tag-remove { tag }"
+        ]
+      },
+      "html": "<div class=\"field max-w-md\">\n  <label class=\"label\" for=\"ti-topics\">Topics</label>\n  <div class=\"tags-input\" data-m-tags-input data-m-tags-input-max=\"6\" data-m-tags-input-suggestions=\"accessibility,animation,css,dark mode,design tokens,forms,javascript,performance,typography\">\n    <input id=\"ti-topics\" class=\"input\" name=\"topics\" value=\"css, design tokens\" placeholder=\"Add a topic\">\n  </div>\n  <p class=\"hint\">Up to 6 topics. Paste a comma separated list to add many.</p>\n</div>"
+    },
+    {
+      "name": "Sortable list",
+      "slug": "sortable",
+      "description": "Reorder with a pointer or the keyboard: Space picks an item up, the arrows move it, Space drops it and Escape puts it back. Siblings slide out of the way and the list scrolls near its edges. Needs monsoon.js.",
+      "classes": [
+        "sortable",
+        "sortable-item",
+        "sortable-handle",
+        "sortable-ghost"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-sortable",
+        "options": [
+          "data-m-sortable-group=\"board\" (lists that trade items)",
+          "data-m-sortable-axis=\"x\" (a horizontal list)",
+          "a .sortable-handle inside items limits the pointer drag to it"
+        ],
+        "methods": [
+          "Monsoon.sortable(el).items",
+          "Monsoon.sortable(el).move(item, index, toList)"
+        ],
+        "events": [
+          "monsoon:sort { item, from, to, oldIndex, newIndex } (preventDefault undoes it)"
+        ]
+      },
+      "html": "<ul class=\"sortable max-w-sm\" data-m-sortable aria-label=\"Playlist\">\n  <li class=\"sortable-item\"><span class=\"sortable-handle\" aria-hidden=\"true\"></span><span class=\"flex-1\">Overture</span><span class=\"text-xs text-muted-foreground\">2:14</span></li>\n  <li class=\"sortable-item\"><span class=\"sortable-handle\" aria-hidden=\"true\"></span><span class=\"flex-1\">Night drive</span><span class=\"text-xs text-muted-foreground\">3:41</span></li>\n  <li class=\"sortable-item\"><span class=\"sortable-handle\" aria-hidden=\"true\"></span><span class=\"flex-1\">Monsoon season</span><span class=\"text-xs text-muted-foreground\">4:05</span></li>\n  <li class=\"sortable-item\"><span class=\"sortable-handle\" aria-hidden=\"true\"></span><span class=\"flex-1\">Glass harbor</span><span class=\"text-xs text-muted-foreground\">2:58</span></li>\n  <li class=\"sortable-item\"><span class=\"sortable-handle\" aria-hidden=\"true\"></span><span class=\"flex-1\">Coda</span><span class=\"text-xs text-muted-foreground\">1:47</span></li>\n</ul>"
+    },
+    {
+      "name": "Kanban board",
+      "slug": "kanban",
+      "description": "Sortable lists that share a group become kanban columns: drag cards between them, or pick one up with Space and move it to the next column with the left and right arrows. Column counts update on drop. Needs monsoon.js.",
+      "classes": [
+        "kanban",
+        "kanban-column",
+        "kanban-title",
+        "kanban-count",
+        "sortable",
+        "sortable-item"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-sortable",
+        "options": [
+          "data-m-sortable-group=\"board\" on every column list",
+          "aria-label on each list names it in announcements"
+        ],
+        "methods": [
+          "Monsoon.sortable(list).move(card, 0, otherList)"
+        ],
+        "events": [
+          "monsoon:sort { item, from, to, oldIndex, newIndex }"
+        ]
+      },
+      "html": "<div class=\"kanban\">\n  <section class=\"kanban-column\">\n    <h3 class=\"kanban-title\">To do <span class=\"kanban-count\">3</span></h3>\n    <ul class=\"sortable\" data-m-sortable data-m-sortable-group=\"board\" aria-label=\"To do\">\n      <li class=\"sortable-item flex-col items-start gap-1\"><span class=\"badge badge-sm badge-info\">Docs</span>Write the release notes</li>\n      <li class=\"sortable-item flex-col items-start gap-1\"><span class=\"badge badge-sm badge-warning\">Design</span>Pick the launch colors</li>\n      <li class=\"sortable-item\">Record a short demo</li>\n    </ul>\n  </section>\n  <section class=\"kanban-column\">\n    <h3 class=\"kanban-title\">In progress <span class=\"kanban-count\">2</span></h3>\n    <ul class=\"sortable\" data-m-sortable data-m-sortable-group=\"board\" aria-label=\"In progress\">\n      <li class=\"sortable-item flex-col items-start gap-1\"><span class=\"badge badge-sm badge-danger\">Bug</span>Fix the focus ring in Safari</li>\n      <li class=\"sortable-item\">Review the date picker</li>\n    </ul>\n  </section>\n  <section class=\"kanban-column\">\n    <h3 class=\"kanban-title\">Done <span class=\"kanban-count\">1</span></h3>\n    <ul class=\"sortable\" data-m-sortable data-m-sortable-group=\"board\" aria-label=\"Done\">\n      <li class=\"sortable-item\">Ship the token scale</li>\n    </ul>\n  </section>\n</div>"
+    },
+    {
+      "name": "Dual range slider",
+      "slug": "range-dual",
+      "description": "Two thumbs for a minimum and a maximum over two native range inputs, which keep the values for the form. Steps, a minimum gap, formatted tooltips and the WAI-ARIA slider keys. Needs monsoon.js.",
+      "classes": [
+        "range-dual",
+        "range-dual-track",
+        "range-dual-fill",
+        "range-dual-thumb",
+        "range-dual-tooltip",
+        "range"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-range-dual",
+        "options": [
+          "data-m-range-dual-format=\"currency:USD\" (or percent, unit:kilometer)",
+          "data-m-range-dual-gap=\"50\"",
+          "data-m-range-dual-tooltips=\"always\"",
+          "min, max and step on the inputs"
+        ],
+        "methods": [
+          "Monsoon.rangeDual(el).value",
+          "Monsoon.rangeDual(el).value = [100, 400]"
+        ],
+        "events": [
+          "monsoon:change { min, max }",
+          "input and change on the native inputs"
+        ]
+      },
+      "html": "<div class=\"grid gap-10 max-w-sm pt-8\">\n  <div class=\"range-dual\" data-m-range-dual data-m-range-dual-format=\"currency:USD\" data-m-range-dual-gap=\"50\">\n    <input type=\"range\" class=\"range\" name=\"min-price\" min=\"0\" max=\"1000\" step=\"10\" value=\"180\" aria-label=\"Minimum price\">\n    <input type=\"range\" class=\"range\" name=\"max-price\" min=\"0\" max=\"1000\" step=\"10\" value=\"720\" aria-label=\"Maximum price\">\n  </div>\n  <div class=\"range-dual\" data-m-range-dual data-m-range-dual-format=\"percent\" data-m-range-dual-tooltips=\"always\">\n    <input type=\"range\" class=\"range\" min=\"0\" max=\"100\" value=\"25\" aria-label=\"Lower bound\">\n    <input type=\"range\" class=\"range\" min=\"0\" max=\"100\" value=\"60\" aria-label=\"Upper bound\">\n  </div>\n</div>"
+    },
+    {
+      "name": "Color picker",
+      "slug": "color-picker",
+      "description": "A saturation and brightness area, hue and opacity sliders, a hex, rgb or oklch field, swatches and the eyedropper where the browser has one, over a native color input. Needs monsoon.js.",
+      "classes": [
+        "color-picker",
+        "color-picker-trigger",
+        "color-picker-chip",
+        "color-picker-value",
+        "color-picker-panel",
+        "color-picker-area",
+        "color-picker-thumb",
+        "color-picker-row",
+        "color-picker-sliders",
+        "color-picker-hue",
+        "color-picker-alpha",
+        "color-picker-preview",
+        "color-picker-eyedropper",
+        "color-picker-fields",
+        "color-picker-format",
+        "color-picker-text",
+        "color-picker-swatches",
+        "color-picker-swatch"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-color-picker",
+        "options": [
+          "data-m-color-picker-format=\"oklch\" (hex, rgb or oklch, also what the input stores)",
+          "data-m-color-picker-swatches=\"#4f46e5,#0ea5e9\"",
+          "data-m-color-picker-alpha=\"false\"",
+          "data-m-color-picker-inline"
+        ],
+        "methods": [
+          "Monsoon.colorPicker(el).value",
+          "Monsoon.colorPicker(el).value = \"oklch(70% 0.15 200)\"",
+          "Monsoon.colorPicker(el).rgba",
+          "Monsoon.colorPicker(el).open()"
+        ],
+        "events": [
+          "monsoon:change { value, hex, rgba }",
+          "input and change on the native input"
+        ]
+      },
+      "html": "<div class=\"flex flex-wrap items-start gap-6\">\n  <div class=\"color-picker\" data-m-color-picker data-m-color-picker-swatches=\"#4f46e5,#0ea5e9,#10b981,#f59e0b,#ef4444,#ec4899,#64748b,#0f172a\">\n    <input type=\"color\" class=\"color-input\" name=\"brand\" value=\"#4f46e5\" aria-label=\"Brand color\">\n  </div>\n  <div class=\"color-picker\" data-m-color-picker data-m-color-picker-inline data-m-color-picker-format=\"oklch\">\n    <input type=\"color\" class=\"color-input\" value=\"#0ea5e9\" aria-label=\"Accent color\">\n  </div>\n</div>"
+    },
+    {
+      "name": "Data table",
+      "slug": "data-table",
+      "description": "Sorting by column (numbers, money and dates sort as such), a filter box, pagination, row selection with checkboxes and Shift for ranges, a column menu and a sticky header, on top of an existing table. Needs monsoon.js.",
+      "classes": [
+        "data-table",
+        "data-table-toolbar",
+        "data-table-filter",
+        "data-table-status",
+        "data-table-menu",
+        "data-table-menu-item",
+        "data-table-scroll",
+        "data-table-sort",
+        "data-table-sort-icon",
+        "data-table-select",
+        "data-table-empty",
+        "data-table-footer",
+        "data-table-info",
+        "data-table-pager",
+        "data-table-page",
+        "data-table-size",
+        "table",
+        "checkbox"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-data-table",
+        "options": [
+          "data-m-data-table-page-size=\"10\" (0 shows every row)",
+          "data-m-data-table-select",
+          "data-m-data-table-filter=\"false\"",
+          "data-m-data-table-columns=\"false\"",
+          "data-sort on a cell, data-sortable=\"false\" on a header"
+        ],
+        "methods": [
+          "Monsoon.dataTable(el).sort(1, \"descending\")",
+          "Monsoon.dataTable(el).filter(\"paid\")",
+          "Monsoon.dataTable(el).page(2)",
+          "Monsoon.dataTable(el).selected",
+          "Monsoon.dataTable(el).selectAll()",
+          "Monsoon.dataTable(el).refresh()"
+        ],
+        "events": [
+          "monsoon:table-sort { column, direction }",
+          "monsoon:table-filter { query, count }",
+          "monsoon:table-page { page, size }",
+          "monsoon:table-select { rows }"
+        ]
+      },
+      "html": "<div class=\"data-table\" data-m-data-table data-m-data-table-page-size=\"5\" data-m-data-table-select>\n  <table class=\"table table-hover\">\n    <thead><tr><th>Invoice</th><th>Customer</th><th>Status</th><th>Issued</th><th class=\"text-end\">Amount</th></tr></thead>\n    <tbody>\n      <tr><td class=\"font-medium\">INV-1042</td><td>Northwind</td><td data-sort=\"Paid\"><span class=\"badge badge-sm badge-success\">Paid</span></td><td>2026-09-02</td><td class=\"text-end tabular-nums\">$1,250.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1043</td><td>Globex</td><td data-sort=\"Pending\"><span class=\"badge badge-sm badge-warning\">Pending</span></td><td>2026-09-05</td><td class=\"text-end tabular-nums\">$860.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1044</td><td>Initech</td><td data-sort=\"Overdue\"><span class=\"badge badge-sm badge-danger\">Overdue</span></td><td>2026-09-09</td><td class=\"text-end tabular-nums\">$2,410.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1045</td><td>Umbrella</td><td data-sort=\"Paid\"><span class=\"badge badge-sm badge-success\">Paid</span></td><td>2026-09-12</td><td class=\"text-end tabular-nums\">$395.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1046</td><td>Hooli</td><td data-sort=\"Paid\"><span class=\"badge badge-sm badge-success\">Paid</span></td><td>2026-09-15</td><td class=\"text-end tabular-nums\">$12,000.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1047</td><td>Stark Industries</td><td data-sort=\"Pending\"><span class=\"badge badge-sm badge-warning\">Pending</span></td><td>2026-09-18</td><td class=\"text-end tabular-nums\">$4,780.50</td></tr>\n      <tr><td class=\"font-medium\">INV-1048</td><td>Wayne Enterprises</td><td data-sort=\"Paid\"><span class=\"badge badge-sm badge-success\">Paid</span></td><td>2026-09-21</td><td class=\"text-end tabular-nums\">$990.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1049</td><td>Acme</td><td data-sort=\"Overdue\"><span class=\"badge badge-sm badge-danger\">Overdue</span></td><td>2026-09-24</td><td class=\"text-end tabular-nums\">$75.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1050</td><td>Soylent</td><td data-sort=\"Pending\"><span class=\"badge badge-sm badge-warning\">Pending</span></td><td>2026-09-27</td><td class=\"text-end tabular-nums\">$3,300.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1051</td><td>Cyberdyne</td><td data-sort=\"Paid\"><span class=\"badge badge-sm badge-success\">Paid</span></td><td>2026-10-01</td><td class=\"text-end tabular-nums\">$18,450.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1052</td><td>Tyrell</td><td data-sort=\"Paid\"><span class=\"badge badge-sm badge-success\">Paid</span></td><td>2026-10-04</td><td class=\"text-end tabular-nums\">$640.00</td></tr>\n      <tr><td class=\"font-medium\">INV-1053</td><td>Massive Dynamic</td><td data-sort=\"Pending\"><span class=\"badge badge-sm badge-warning\">Pending</span></td><td>2026-10-08</td><td class=\"text-end tabular-nums\">$2,050.00</td></tr>\n    </tbody>\n  </table>\n</div>"
+    },
+    {
+      "name": "Tree view",
+      "slug": "tree",
+      "description": "Nested lists become a WAI-ARIA tree: Up and Down move, Right expands, Left collapses or goes to the parent, Home, End, type ahead and * to expand siblings. data-open starts a branch expanded. Needs monsoon.js.",
+      "classes": [
+        "tree",
+        "tree-row",
+        "tree-toggle",
+        "tree-label"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-tree",
+        "options": [
+          "data-open on a branch",
+          "data-value on an item",
+          "aria-multiselectable=\"true\" on the tree"
+        ],
+        "methods": [
+          "Monsoon.tree(el).expandAll()",
+          "Monsoon.tree(el).collapseAll()",
+          "Monsoon.tree(el).expand(item)",
+          "Monsoon.tree(el).selected"
+        ],
+        "events": [
+          "monsoon:tree-toggle { item, expanded, value }",
+          "monsoon:tree-select { item, value }"
+        ]
+      },
+      "html": "<ul class=\"tree max-w-xs\" data-m-tree aria-label=\"Project files\">\n  <li data-open><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg>src\n    <ul>\n      <li data-open><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg>components\n        <ul>\n          <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>button.css</li>\n          <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>datepicker.mjs</li>\n          <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>tree.mjs</li>\n        </ul>\n      </li>\n      <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg>tokens\n        <ul>\n          <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>color.mjs</li>\n          <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>spacing.mjs</li>\n        </ul>\n      </li>\n      <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>index.mjs</li>\n    </ul>\n  </li>\n  <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>package.json</li>\n  <li><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>README.md</li>\n</ul>"
+    },
+    {
+      "name": "Tree with checkboxes",
+      "slug": "tree-checkbox",
+      "description": "With data-m-tree-checkbox every item gets a tristate checkbox: checking a branch checks everything below it, and a branch with some checked children shows as mixed. Space or Enter toggles. Needs monsoon.js.",
+      "classes": [
+        "tree",
+        "tree-check"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-tree data-m-tree-checkbox",
+        "options": [
+          "data-checked on a leaf starts it checked"
+        ],
+        "methods": [
+          "Monsoon.tree(el).checked (values of the checked leaves)"
+        ],
+        "events": [
+          "monsoon:tree-check { item, checked }"
+        ]
+      },
+      "html": "<ul class=\"tree max-w-xs\" data-m-tree data-m-tree-checkbox aria-label=\"Notifications\">\n  <li data-open>Email\n    <ul>\n      <li data-checked data-value=\"email-mentions\">Mentions</li>\n      <li data-checked data-value=\"email-replies\">Replies</li>\n      <li data-value=\"email-digest\">Weekly digest</li>\n    </ul>\n  </li>\n  <li data-open>Push\n    <ul>\n      <li data-checked data-value=\"push-mentions\">Mentions</li>\n      <li data-checked data-value=\"push-reminders\">Reminders</li>\n    </ul>\n  </li>\n  <li data-value=\"sms\">Text messages</li>\n</ul>"
+    },
+    {
+      "name": "Split panes",
+      "slug": "splitter",
+      "description": "Resizable panes side by side or stacked: drag the separator, or focus it and use the arrows (Shift for bigger steps), Home, End and Enter to collapse. Minimum sizes, and sizes saved in localStorage when asked. Needs monsoon.js.",
+      "classes": [
+        "splitter",
+        "splitter-vertical",
+        "splitter-pane",
+        "splitter-handle"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-splitter",
+        "options": [
+          "data-m-splitter-sizes=\"30,70\"",
+          "data-m-splitter-min=\"15\" (percent, or data-min on a pane)",
+          "data-m-splitter-persist=\"editor\" (a localStorage key)",
+          "data-m-splitter-label=\"Resize sidebar\""
+        ],
+        "methods": [
+          "Monsoon.splitter(el).sizes",
+          "Monsoon.splitter(el).sizes = [25, 75]",
+          "Monsoon.splitter(el).reset()"
+        ],
+        "events": [
+          "monsoon:split { sizes }"
+        ]
+      },
+      "html": "<div class=\"splitter h-72\" data-m-splitter data-m-splitter-sizes=\"28,72\" data-m-splitter-label=\"Resize sidebar\">\n  <nav class=\"splitter-pane p-4 text-sm\" data-min=\"18\">\n    <p class=\"font-semibold mb-2\">Inbox</p>\n    <p class=\"text-muted-foreground\">Drafts</p>\n    <p class=\"text-muted-foreground\">Sent</p>\n    <p class=\"text-muted-foreground\">Archive</p>\n  </nav>\n  <div class=\"splitter splitter-vertical border-0 rounded-none min-h-0\" data-m-splitter data-m-splitter-label=\"Resize preview\">\n    <div class=\"splitter-pane p-4 text-sm\"><p class=\"font-semibold\">Quarterly review</p><p class=\"text-muted-foreground\">Ana, Oct 12</p></div>\n    <div class=\"splitter-pane p-4 text-sm bg-surface-2\"><p class=\"text-muted-foreground\">Drag the separators, or focus one and use the arrow keys.</p></div>\n  </div>\n</div>"
+    },
+    {
+      "name": "Toast manager",
+      "slug": "toast-manager",
+      "description": "Monsoon.toast(\"Saved\", { tone: \"success\" }) shows a toast in a polite live region. Toasts stack per position, pause while hovered or focused, can carry an action and can be swiped away. A button can show one with data-m-toast. Needs monsoon.js.",
+      "classes": [
+        "toast",
+        "toast-stack",
+        "toast-item",
+        "toast-icon",
+        "toast-content",
+        "toast-action",
+        "toast-close"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-toast=\"Message\"",
+        "options": [
+          "data-m-toast-tone=\"success\" (info, warning, danger)",
+          "data-m-toast-description",
+          "data-m-toast-position=\"top-center\" (top or bottom, start, center or end)",
+          "data-m-toast-duration=\"0\" (stays until dismissed)"
+        ],
+        "methods": [
+          "Monsoon.toast(message, { title, description, tone, position, duration, action: { label, onClick }, dismissible, max })",
+          "returns { el, close(), update(message, options) }"
+        ],
+        "events": [
+          "monsoon:toast { toast }",
+          "monsoon:toast-close { toast }"
+        ]
+      },
+      "html": "<div class=\"flex flex-wrap gap-2\">\n  <button type=\"button\" class=\"btn btn-sm\" data-m-toast=\"Changes saved\" data-m-toast-tone=\"success\" data-m-toast-description=\"Your profile is up to date.\">Success</button>\n  <button type=\"button\" class=\"btn btn-sm btn-outline\" data-m-toast=\"Payment failed\" data-m-toast-tone=\"danger\" data-m-toast-description=\"Check the card details and try again.\">Error</button>\n  <button type=\"button\" class=\"btn btn-sm btn-outline\" data-m-toast=\"Storage almost full\" data-m-toast-tone=\"warning\" data-m-toast-position=\"top-center\">Top center</button>\n  <button type=\"button\" class=\"btn btn-sm btn-ghost\" onclick=\"Monsoon.toast('Conversation archived', { action: { label: 'Undo', onClick: () => Monsoon.toast('Restored', { tone: 'success' }) } })\">With action</button>\n</div>"
+    },
+    {
+      "name": "Password strength",
+      "slug": "password-strength",
+      "description": "Wires the .password-field reveal button (aria-pressed and the label follow) and scores the password from length, variety and common patterns into a four step meter with a live label. Needs monsoon.js.",
+      "classes": [
+        "password-field",
+        "password-field-toggle",
+        "password-strength",
+        "password-strength-bar",
+        "password-strength-label"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-password",
+        "options": [
+          "a .password-strength element inside, or data-m-password-meter=\"#id\""
+        ],
+        "methods": [
+          "Monsoon.password(el).score (0 to 4)",
+          "Monsoon.password(el).reveal(true)"
+        ],
+        "events": [
+          "monsoon:strength { score, label }"
+        ]
+      },
+      "html": "<div class=\"field max-w-sm\" data-m-password>\n  <label class=\"label\" for=\"pw-new\">New password</label>\n  <div class=\"password-field\">\n    <input type=\"password\" id=\"pw-new\" class=\"input\" autocomplete=\"new-password\" value=\"monsoon\">\n    <button type=\"button\" class=\"password-field-toggle\" aria-pressed=\"false\" aria-label=\"Show password\"></button>\n  </div>\n  <div class=\"password-strength\"></div>\n</div>"
+    },
+    {
+      "name": "Number counter",
+      "slug": "number-counter",
+      "description": "The .input-counter buttons call stepDown() and stepUp(), repeat while held, follow min, max and step, and disable at the limits. Needs monsoon.js.",
+      "classes": [
+        "input-counter",
+        "input-counter-button",
+        "input"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-counter",
+        "options": [
+          "min, max and step on the number input"
+        ],
+        "methods": [
+          "Monsoon.counter(el).increment()",
+          "Monsoon.counter(el).decrement()"
+        ],
+        "events": [
+          "monsoon:change { value }",
+          "input and change on the native input"
+        ]
+      },
+      "html": "<div class=\"flex flex-wrap items-center gap-4\">\n  <div class=\"input-counter\" data-m-counter>\n    <button type=\"button\" class=\"input-counter-button\" aria-label=\"Decrease\">-</button>\n    <input type=\"number\" class=\"input\" value=\"2\" min=\"1\" max=\"10\" aria-label=\"Guests\">\n    <button type=\"button\" class=\"input-counter-button\" aria-label=\"Increase\">+</button>\n  </div>\n  <div class=\"input-counter input-group-sm\" data-m-counter>\n    <button type=\"button\" class=\"input-counter-button\" aria-label=\"Decrease\">-</button>\n    <input type=\"number\" class=\"input input-sm\" value=\"0.5\" min=\"0\" max=\"5\" step=\"0.25\" aria-label=\"Weight in kilograms\">\n    <button type=\"button\" class=\"input-counter-button\" aria-label=\"Increase\">+</button>\n  </div>\n</div>"
+    },
+    {
+      "name": "Textarea autosize",
+      "slug": "textarea-autosize",
+      "description": "Grows the textarea with its content. Browsers with CSS field-sizing do it natively; the script measures the others. max-height still caps it. Needs monsoon.js.",
+      "classes": [
+        "textarea"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-autosize",
+        "options": [
+          "rows sets the starting height, max-height the limit"
+        ],
+        "methods": [],
+        "events": []
+      },
+      "html": "<textarea class=\"textarea max-w-md max-h-64\" rows=\"2\" data-m-autosize aria-label=\"Message\">Write as much as you like: this box grows line by line, then scrolls once it reaches its maximum height.</textarea>"
+    },
+    {
+      "name": "Command search",
+      "slug": "command-search",
+      "description": "Makes a .command-palette searchable: items filter by text and data-keywords, empty headings hide, arrows move the selection, Enter runs the item, and a hotkey such as Ctrl K opens the dialog. Needs monsoon.js.",
+      "classes": [
+        "command-palette",
+        "command-palette-search",
+        "command-palette-input",
+        "command-palette-list",
+        "command-palette-heading",
+        "command-palette-item",
+        "command-palette-shortcut",
+        "command-palette-empty",
+        "command-palette-footer"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-command",
+        "options": [
+          "data-m-command-hotkey=\"mod+k\" (Ctrl K, or Cmd K on a Mac)",
+          "data-m-command-empty=\"Nothing found\"",
+          "data-keywords and data-value on items"
+        ],
+        "methods": [
+          "Monsoon.command(el).open()",
+          "Monsoon.command(el).close()",
+          "Monsoon.command(el).filter(\"theme\")"
+        ],
+        "events": [
+          "monsoon:command { item, value } (preventDefault keeps the palette open)"
+        ]
+      },
+      "html": "<button type=\"button\" commandfor=\"cmd-js\" command=\"show-modal\" class=\"btn btn-outline btn-sm\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.5-3.5\"/></svg>Search<kbd class=\"kbd kbd-xs\">Ctrl K</kbd></button>\n<dialog id=\"cmd-js\" class=\"modal modal-top\" aria-label=\"Command palette\">\n  <div class=\"command-palette\" data-m-command data-m-command-hotkey=\"mod+k\">\n    <label class=\"command-palette-search\"><input class=\"command-palette-input\" placeholder=\"Type a command or search\"></label>\n    <div class=\"command-palette-list\">\n      <p class=\"command-palette-heading\">Actions</p>\n      <button type=\"button\" class=\"command-palette-item\" data-keywords=\"create add page\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>New document<span class=\"command-palette-shortcut\"><kbd>Ctrl</kbd><kbd>N</kbd></span></button>\n      <button type=\"button\" class=\"command-palette-item\" data-keywords=\"people team members\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"4\"/><path d=\"M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3\"/></svg>Invite teammates</button>\n      <button type=\"button\" class=\"command-palette-item\" data-keywords=\"night appearance\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z\"/></svg>Toggle dark mode</button>\n      <p class=\"command-palette-heading\">Settings</p>\n      <button type=\"button\" class=\"command-palette-item\" data-keywords=\"account avatar\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/></svg>Profile</button>\n      <button type=\"button\" class=\"command-palette-item\" data-keywords=\"alerts email\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/></svg>Notifications</button>\n      <button type=\"button\" class=\"command-palette-item\" data-keywords=\"invoice card plan\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 10h20\"/></svg>Billing</button>\n    </div>\n    <div class=\"command-palette-footer\"><span><kbd>Up</kbd> <kbd>Down</kbd> to move</span><span><kbd>Enter</kbd> to run</span><span><kbd>Esc</kbd> to close</span></div>\n  </div>\n  <form method=\"dialog\" class=\"modal-backdrop\"><button aria-label=\"Close\">Close</button></form>\n</dialog>"
+    },
+    {
+      "name": "Infinite scroll",
+      "slug": "infinite-scroll",
+      "description": "A sentinel that fires monsoon:load when it nears the viewport or a scroll container. Append the next items, then call detail.done(), or detail.done(false) at the end. Needs monsoon.js.",
+      "classes": [
+        "infinite-scroll",
+        "spinner"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-infinite-scroll",
+        "options": [
+          "data-m-infinite-scroll-margin=\"300px\"",
+          "data-m-infinite-scroll-root=\"#feed\"",
+          "data-m-infinite-scroll-end=\"You are all caught up\""
+        ],
+        "methods": [
+          "Monsoon.infiniteScroll(el).page",
+          "Monsoon.infiniteScroll(el).reset()"
+        ],
+        "events": [
+          "monsoon:load { page, done(more = true) }"
+        ]
+      },
+      "html": "<div id=\"feed-js\" class=\"max-h-64 overflow-y-auto rounded-xl border p-3 grid gap-2 max-w-sm\">\n  <article class=\"rounded-lg border bg-surface p-3 text-sm\">Post 1</article>\n  <article class=\"rounded-lg border bg-surface p-3 text-sm\">Post 2</article>\n  <article class=\"rounded-lg border bg-surface p-3 text-sm\">Post 3</article>\n  <article class=\"rounded-lg border bg-surface p-3 text-sm\">Post 4</article>\n  <div class=\"infinite-scroll\" data-m-infinite-scroll data-m-infinite-scroll-root=\"#feed-js\" data-m-infinite-scroll-end=\"You are all caught up\"><span class=\"spinner spinner-sm\"></span>Loading more posts</div>\n</div>"
+    },
+    {
+      "name": "Countdown timer",
+      "slug": "countdown-timer",
+      "description": "Counts down to a date: each .countdown-value with a data-unit updates every second, the timer label for screen readers changes once a minute, and an event fires at zero. Needs monsoon.js.",
+      "classes": [
+        "countdown",
+        "countdown-box",
+        "countdown-value",
+        "countdown-label"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-countdown=\"2027-01-01T00:00:00\"",
+        "options": [
+          "data-unit=\"days\", \"hours\", \"minutes\" or \"seconds\" on each value; without days the hours keep counting"
+        ],
+        "methods": [
+          "Monsoon.countdown(el).left"
+        ],
+        "events": [
+          "monsoon:tick { days, hours, minutes, seconds, total }",
+          "monsoon:countdown-end"
+        ]
+      },
+      "html": "<div class=\"countdown\" role=\"timer\" data-m-countdown=\"2027-01-01T00:00:00\">\n  <div class=\"countdown-box\"><span class=\"countdown-value\" data-unit=\"days\"></span><span class=\"countdown-label\">Days</span></div>\n  <div class=\"countdown-box\"><span class=\"countdown-value\" data-unit=\"hours\"></span><span class=\"countdown-label\">Hours</span></div>\n  <div class=\"countdown-box\"><span class=\"countdown-value\" data-unit=\"minutes\"></span><span class=\"countdown-label\">Minutes</span></div>\n  <div class=\"countdown-box\"><span class=\"countdown-value\" data-unit=\"seconds\"></span><span class=\"countdown-label\">Seconds</span></div>\n</div>"
+    },
+    {
+      "name": "Paste an image",
+      "slug": "clipboard-image",
+      "description": "Focus the zone and paste an image with Ctrl V, or drop one: a preview appears, a file input inside receives the file for the form, and Delete clears it. Needs monsoon.js.",
+      "classes": [
+        "paste-zone",
+        "paste-zone-preview"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-clipboard-image",
+        "options": [
+          "data-m-clipboard-image-global (catch pastes anywhere on the page)",
+          "an input type=\"file\" inside receives the image"
+        ],
+        "methods": [
+          "Monsoon.clipboardImage(el).file",
+          "Monsoon.clipboardImage(el).clear()"
+        ],
+        "events": [
+          "monsoon:paste-image { file, url } (preventDefault skips the preview)",
+          "monsoon:paste-clear"
+        ]
+      },
+      "html": "<div class=\"paste-zone max-w-sm\" tabindex=\"0\" data-m-clipboard-image aria-label=\"Screenshot: focus and paste an image\">\n  <p><span class=\"font-medium text-foreground\">Paste a screenshot</span><br>Click here, then press <kbd class=\"kbd kbd-xs\">Ctrl</kbd> <kbd class=\"kbd kbd-xs\">V</kbd> or drop an image</p>\n  <input type=\"file\" name=\"screenshot\" accept=\"image/*\" hidden>\n</div>"
+    },
+    {
+      "name": "Rating input",
+      "slug": "rating-input",
+      "description": "A star rating with half stars, drawn as a WAI-ARIA slider over a number input that keeps the value. Hover previews, click sets, clicking the same value clears, and arrows, Home, End and digits work. Needs monsoon.js.",
+      "classes": [
+        "rating-input",
+        "rating-input-stars",
+        "rating-input-star",
+        "rating-input-value"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-rating-input",
+        "options": [
+          "max on the input sets the number of stars, step the precision (0.5 for halves)"
+        ],
+        "methods": [
+          "Monsoon.ratingInput(el).value",
+          "Monsoon.ratingInput(el).value = 4.5"
+        ],
+        "events": [
+          "monsoon:change { value }",
+          "input and change on the native input"
+        ]
+      },
+      "html": "<div class=\"grid gap-3\">\n  <div class=\"rating-input\" data-m-rating-input>\n    <input type=\"number\" class=\"input max-w-24\" name=\"score\" min=\"0\" max=\"5\" step=\"0.5\" value=\"3.5\" aria-label=\"Your rating\">\n  </div>\n  <div class=\"rating-input\" data-m-rating-input>\n    <input type=\"number\" class=\"input max-w-24\" min=\"0\" max=\"10\" step=\"1\" value=\"7\" aria-label=\"Score out of 10\">\n  </div>\n</div>"
+    },
+    {
+      "name": "Autoplay carousel",
+      "slug": "carousel-autoplay",
+      "description": "Adds autoplay to the CSS carousel: pauses on hover, on focus, in a background tab and with reduced motion, has a play and pause button, and the current dot fills up until the next slide. Needs monsoon.js.",
+      "classes": [
+        "carousel-auto",
+        "carousel-play",
+        "carousel",
+        "carousel-item",
+        "carousel-full",
+        "carousel-nav",
+        "carousel-dot"
+      ],
+      "needsJs": true,
+      "api": {
+        "attribute": "data-m-carousel-auto",
+        "options": [
+          "data-m-carousel-auto-interval=\"4000\"",
+          "data-m-carousel-auto-force (play even with reduced motion)"
+        ],
+        "methods": [
+          "Monsoon.carouselAuto(el).next()",
+          "Monsoon.carouselAuto(el).prev()",
+          "Monsoon.carouselAuto(el).go(2)",
+          "Monsoon.carouselAuto(el).play()",
+          "Monsoon.carouselAuto(el).pause()"
+        ],
+        "events": [
+          "monsoon:slide { index }"
+        ]
+      },
+      "html": "<div class=\"carousel-auto max-w-xl\" data-m-carousel-auto data-m-carousel-auto-interval=\"4000\">\n  <div class=\"carousel carousel-full\">\n    <div id=\"auto-1\" class=\"carousel-item\"><div class=\"aspect-video w-full bg-gradient-to-br from-primary to-accent grid place-items-center text-primary-foreground text-xl font-semibold\">Plan</div></div>\n    <div id=\"auto-2\" class=\"carousel-item\"><div class=\"aspect-video w-full bg-gradient-to-br from-info to-success grid place-items-center text-primary-foreground text-xl font-semibold\">Build</div></div>\n    <div id=\"auto-3\" class=\"carousel-item\"><div class=\"aspect-video w-full bg-gradient-to-br from-warning to-danger grid place-items-center text-primary-foreground text-xl font-semibold\">Ship</div></div>\n  </div>\n  <nav class=\"carousel-nav\"><a class=\"carousel-dot\" href=\"#auto-1\" aria-label=\"Slide 1\"></a><a class=\"carousel-dot\" href=\"#auto-2\" aria-label=\"Slide 2\"></a><a class=\"carousel-dot\" href=\"#auto-3\" aria-label=\"Slide 3\"></a></nav>\n</div>"
+    }
+  ]
+}
