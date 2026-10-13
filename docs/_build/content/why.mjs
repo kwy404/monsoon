@@ -43,7 +43,7 @@ export function reasons({ components = 0, noJs = 0, installGuides = 0, brotli = 
       demo: '<div class="dark rounded-lg border p-3"><p class="text-xs text-muted-foreground">dark</p><div class="light mt-2 rounded-md border p-3"><p class="text-xs text-muted-foreground">light</p><div class="dark mt-2 rounded border p-2 text-xs">dark again</div></div></div>',
     },
     {
-      title: 'Over 116 components in the same file',
+      title: `${components} components in the same file`,
       text: `${components} components ship in the one stylesheet, ${noJs} of them with no script at all: forms, actions, navigation, overlays and data display.`,
       href: 'components.html',
       demo: '<div class="flex flex-wrap items-center gap-2"><span class="badge badge-primary">New</span><span class="badge badge-success badge-dot">Active</span><kbd class="kbd">Ctrl</kbd><kbd class="kbd">K</kbd><progress class="progress progress-sm w-24" value="64" max="100">64%</progress></div>',

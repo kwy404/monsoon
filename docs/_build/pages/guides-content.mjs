@@ -1,7 +1,9 @@
 // Long form guides. Text uses a tiny inline markup: `code`, **bold**, [link](url).
 // Every class in a code sample or demo must exist in scripts/classes.json.
 const CDN = 'https://cdn.jsdelivr.net/npm/monsooncss';
-const PIN = 'https://cdn.jsdelivr.net/npm/monsooncss@0.1.0/dist/monsoon.min.css';
+import { readFileSync } from 'node:fs';
+const VERSION = JSON.parse(readFileSync(new URL('../../../package.json', import.meta.url), 'utf8')).version;
+const PIN = `https://cdn.jsdelivr.net/npm/monsooncss@${VERSION}/dist/monsoon.min.css`;
 
 export const guides = [
   // 1
@@ -322,7 +324,7 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
       {
         h: 'The numbers',
         blocks: [
-          'The production file is `dist/monsoon.min.css`. Measured on version 0.1.0:',
+          `The production file is \`dist/monsoon.min.css\`. Measured on version ${VERSION}:`,
           {
             table: {
               head: ['Encoding', 'Size'],
