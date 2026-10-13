@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidal | Calendar built with Monsoon</title>
+<meta name="description" content="Tidal is a calendar showcase for Monsoon: day, week, month and agenda views, a mini month, color coded calendars, overlapping events laid out side by side, drag to move and an event editor, styled with Monsoon classes and made interactive with Voodoo.js.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%234f46e5'/%3E%3Crect x='7' y='9' width='18' height='16' rx='3' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3Cpath d='M7 14h18M12 6v5M20 6v5' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../../monsoon.min.css">
+<style>
+  [v-cloak]{display:none}
+  :root{--seed:#4f46e5}
+  body{--v-primary:var(--primary);--v-border:var(--border);--v-surface-2:var(--muted);--v-radius-sm:.5rem}
+  .day-col.v-drop-active{outline:0}
+  .day-col.v-drop-over{outline:2px solid var(--primary);outline-offset:-2px;background:color-mix(in oklab,var(--primary) 6%,transparent)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/voodoojs@1.0.0/dist/voodoo.full.min.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body class="h-dvh overflow-hidden bg-background text-foreground antialiased">
+<noscript><p class="p-6 text-center text-sm">Tidal needs JavaScript to run. Turn it on and reload the page.</p></noscript>
+
+<div id="tidal" class="drawer drawer-open-lg h-full" v-cloak>
+  <input id="cal-nav" type="checkbox" class="drawer-toggle" v-model="navOpen" aria-label="Show sidebar">
+
+  <!-- ================================================================ main -->
+  <div class="drawer-content flex h-dvh min-w-0 flex-col">
+    <header class="flex h-16 shrink-0 items-center gap-2 border-b px-3 sm:gap-3 sm:px-5">
+      <label for="cal-nav" class="btn btn-ghost btn-sm btn-square lg:hidden" aria-label="Open sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </label>
+      <button type="button" class="btn btn-outline btn-neutral btn-sm" @click="goToday()" title="Today (T)">Today</button>
+      <div class="flex items-center">
+        <button type="button" class="btn btn-ghost btn-sm btn-square" aria-label="Previous" title="Previous (Left arrow)" @click="step(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button type="button" class="btn btn-ghost btn-sm btn-square" aria-label="Next" title="Next (Right arrow)" @click="step(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <h1 class="min-w-0 truncate text-base font-semibold sm:text-xl" aria-live="polite"><span class="sm:hidden">{ shortTitle() }</span><span class="hidden sm:inline">{ title() }</span></h1>
+
+      <div class="ml-auto flex items-center gap-2">
+        <div class="segmented segmented-sm hidden md:inline-flex" role="radiogroup" aria-label="View">
+          <label class="segmented-item" title="Day (D)"><input type="radio" name="view" value="day" :checked="view === 'day' && !search" @change="setView('day')"> Day</label>
+          <label class="segmented-item" title="Week (W)"><input type="radio" name="view" value="week" :checked="view === 'week' && !search" @change="setView('week')"> Week</label>
+          <label class="segmented-item" title="Month (M)"><input type="radio" name="view" value="month" :checked="view === 'month' && !search" @change="setView('month')"> Month</label>
+          <label class="segmented-item" title="Agenda (A)"><input type="radio" name="view" value="agenda" :checked="view === 'agenda' && !search" @change="setView('agenda')"> Agenda</label>
+        </div>
+        <select class="select select-sm w-24 md:hidden" aria-label="View" @change="setView($event.target.value)">
+          <option value="day" :selected="view === 'day'">Day</option>
+          <option value="week" :selected="view === 'week'">Week</option>
+          <option value="month" :selected="view === 'month'">Month</option>
+          <option value="agenda" :selected="view === 'agenda'">Agenda</option>
+        </select>
+        <div class="segmented segmented-xs hidden sm:inline-flex" role="radiogroup" aria-label="Theme">
+          <label class="segmented-item" title="Light"><input type="radio" name="tidal-theme" value="light" :checked="themeCurrent === 'light'" @change="setTheme('light')" aria-label="Light theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></label>
+          <label class="segmented-item" title="Dark"><input type="radio" name="tidal-theme" value="dark" :checked="themeCurrent === 'dark'" @change="setTheme('dark')" aria-label="Dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></label>
+          <label class="segmented-item" title="System"><input type="radio" name="tidal-theme" value="system" :checked="themeCurrent === 'system'" @change="setTheme('system')" aria-label="System theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></label>
+        </div>
+        <span class="avatar avatar-sm hidden bg-primary text-xs font-semibold text-primary-foreground sm:inline-flex" title="Elena Park">EP</span>
+      </div>
+    </header>
+
+    <!-- ============================================================ time grid: week and day -->
+    <section v-if="(view === 'week' || view === 'day') && !search" class="flex min-h-0 flex-1 flex-col" :aria-label="view === 'day' ? 'Day view' : 'Week view'">
+      <div class="flex shrink-0 border-b pr-2">
+        <div class="flex w-14 shrink-0 items-end justify-end pb-2 pr-2 text-xs text-muted-foreground sm:w-16"><span class="hidden truncate sm:inline">{ Intl.DateTimeFormat().resolvedOptions().timeZone.split('/').pop().replace('_', ' ') }</span></div>
+        <div class="grid flex-1" :class="view === 'day' ? 'grid-cols-1' : 'grid-cols-7'">
+          <button v-for="d in days()" :key="d" type="button" class="flex flex-col items-center gap-1 py-2 hover:bg-muted/50" :class="view === 'day' ? 'items-start pl-3' : ''" :aria-label="'Open ' + longDate(d)" @click="openDay(d)">
+            <span class="text-xs font-semibold uppercase tracking-wide" :class="isToday(d) ? 'text-primary' : 'text-muted-foreground'">{ weekday(d) }</span>
+            <span class="grid size-9 place-items-center rounded-full text-lg font-semibold tabular-nums sm:text-xl" :class="isToday(d) ? 'bg-primary text-primary-foreground shadow-sm' : (isPast(d) ? 'text-muted-foreground' : '')">{ dayNum(d) }</span>
+          </button>
+        </div>
+      </div>
+      <!-- all day row -->
+      <div class="flex shrink-0 border-b pr-2">
+        <div class="flex w-14 shrink-0 items-center justify-end pr-2 text-xs text-muted-foreground sm:w-16">All day</div>
+        <div class="grid flex-1" :class="view === 'day' ? 'grid-cols-1' : 'grid-cols-7'">
+          <div v-for="d in days()" :key="d" class="min-h-8 space-y-1 border-l p-1" @dblclick="newEvent(d, null, true)">
+            <button v-for="e in allDayOn(d)" :key="e.id" type="button" data-event class="block w-full truncate rounded-md px-2 py-0.5 text-left text-xs font-medium shadow-xs" :class="solid(e)" @click="open(e)">{ e.title }</button>
+          </div>
+        </div>
+      </div>
+      <!-- hours -->
+      <div id="time-scroller" class="relative flex-1 select-none overflow-y-auto">
+        <div class="flex">
+          <div class="w-14 shrink-0 sm:w-16" aria-hidden="true">
+            <div v-for="h in hours" :key="h" class="relative h-12">
+              <span class="absolute -top-2 right-2 text-xs text-muted-foreground tabular-nums">{ hourLabel(h) }</span>
+            </div>
+          </div>
+          <div class="grid flex-1" :class="view === 'day' ? 'grid-cols-1' : 'grid-cols-7'">
+            <div v-for="d in days()" :key="d" class="day-col relative border-l" :class="isToday(d) ? 'bg-primary/5' : ''" v-droppable="drop($detail, d)" v-droppable-accept=".cal-event" :aria-label="longDate(d)" @click="slotClick($event, d)">
+              <div v-for="h in hours" :key="h" class="h-12 border-b border-border/50"></div>
+              <div v-for="p in layout(d)" :key="p.key" class="absolute" :style="p.style">
+                <div data-event class="cal-event flex h-full w-full cursor-pointer overflow-hidden rounded-md border-l-4 px-1 text-left sm:px-2 text-xs leading-4 shadow-xs transition-colors"
+                  :class="[block(p.ev), p.short ? 'items-center gap-1.5' : 'flex-col py-1']" v-draggable v-draggable-data="p.ev.id" role="button"
+                  :aria-label="p.ev.title + ', ' + range(p.ev) + '. Press Enter to open, Space to move.'" @click="open(p.ev)" @keydown="eventKey($event, p.ev)">
+                  <span class="shrink-0 truncate font-semibold">{ p.ev.title }</span>
+                  <span class="shrink-0 truncate text-muted-foreground">{ p.short ? time(p.ev.start) : range(p.ev) }</span>
+                  <span v-if="p.tall && p.ev.location" class="shrink-0 truncate text-muted-foreground">{ p.ev.location }</span>
+                </div>
+              </div>
+              <div v-if="isToday(d)" class="pointer-events-none absolute left-0 right-0 z-10" :style="{ top: nowTop() }" aria-hidden="true">
+                <div class="relative h-0.5 bg-danger"><span class="absolute -left-1 -top-1 size-2.5 rounded-full bg-danger"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ month -->
+    <section v-if="view === 'month' && !search" class="flex min-h-0 flex-1 flex-col" aria-label="Month view">
+      <div class="grid shrink-0 grid-cols-7 border-b">
+        <div v-for="w in weekdayNames" :key="w" class="py-2 text-center text-xs font-semibold uppercase tracking-wide text-muted-foreground">{ w }</div>
+      </div>
+      <div class="grid flex-1 grid-cols-7 grid-rows-6 overflow-y-auto">
+        <div v-for="cell in monthCells()" :key="cell.date" class="min-h-24 overflow-hidden border-b border-r p-1.5 transition-colors hover:bg-muted/50" :class="cell.inMonth ? '' : 'bg-surface-2'" @click="monthCellClick($event, cell.date)">
+          <div class="mb-1 flex items-center justify-between">
+            <button type="button" class="grid size-7 place-items-center rounded-full text-sm font-medium tabular-nums hover:bg-muted" :class="isToday(cell.date) ? 'bg-primary text-primary-foreground hover:bg-primary' : (cell.inMonth ? '' : 'text-muted-foreground')" :aria-label="'Open ' + longDate(cell.date)" @click="openDay(cell.date)">{ dayNum(cell.date) }</button>
+          </div>
+          <div class="space-y-0.5">
+            <button v-for="e in eventsOn(cell.date).slice(0, 3)" :key="e.id" type="button" data-event class="flex w-full items-center gap-1.5 truncate rounded-md px-1.5 py-0.5 text-left text-xs"
+              :class="e.allDay ? solid(e) : 'hover:bg-muted'" @click="open(e)">
+              <span v-if="!e.allDay" class="size-2 shrink-0 rounded-full" :class="dot(cal(e.cal).tone)"></span>
+              <span v-if="!e.allDay" class="hidden shrink-0 text-muted-foreground tabular-nums xl:inline">{ timeShort(e.start) }</span>
+              <span class="hidden truncate font-medium sm:inline">{ e.title }</span>
+            </button>
+            <button v-if="eventsOn(cell.date).length > 3" type="button" class="w-full rounded-md px-1.5 py-0.5 text-left text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground" @click="openDay(cell.date)">+{ eventsOn(cell.date).length - 3 } more</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ agenda and search results -->
+    <section v-if="view === 'agenda' || search" class="min-h-0 flex-1 overflow-y-auto" :aria-label="search ? 'Search results' : 'Agenda'">
+      <div class="mx-auto max-w-3xl px-4 py-6 sm:px-6">
+        <div v-if="search" class="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
+          <span>Events matching <span class="font-semibold text-foreground">"{ search }"</span></span>
+          <button type="button" class="btn btn-ghost btn-xs ml-auto" @click="search = ''">Clear search</button>
+        </div>
+        <div v-if="agenda().length === 0" class="empty-state empty-state-bordered">
+          <div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <h3 class="empty-state-title">{ search ? 'No events found' : 'Nothing planned' }</h3>
+          <p class="empty-state-description">{ search ? 'Try another word, or turn on more calendars in the sidebar.' : 'Your next 30 days are wide open. Enjoy it, or add something.' }</p>
+          <div class="empty-state-actions"><button type="button" class="btn" @click="newEvent(cursor, '09:00')">New event</button></div>
+        </div>
+        <div v-for="g in agenda()" :key="g.date" class="mb-6">
+          <h2 class="sticky top-0 z-10 flex items-baseline gap-3 border-b bg-background/90 py-2 backdrop-blur-sm">
+            <span class="text-2xl font-bold tabular-nums" :class="isToday(g.date) ? 'text-primary' : ''">{ dayNum(g.date) }</span>
+            <span class="text-sm font-medium" :class="isToday(g.date) ? 'text-primary' : 'text-muted-foreground'">{ isToday(g.date) ? 'Today, ' : '' }{ longDate(g.date) }</span>
+          </h2>
+          <ul class="mt-2 space-y-1">
+            <li v-for="e in g.events" :key="e.id">
+              <button type="button" data-event class="flex w-full items-center gap-4 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-muted" @click="open(e)">
+                <span class="w-36 shrink-0 text-sm tabular-nums text-muted-foreground">{ range(e) }</span>
+                <span class="h-9 w-1 shrink-0 rounded-full" :class="dot(cal(e.cal).tone)"></span>
+                <span class="min-w-0 flex-1">
+                  <span class="block truncate font-medium">{ e.title }</span>
+                  <span class="block truncate text-xs text-muted-foreground">{ cal(e.cal).name }{ e.location ? ', ' + e.location : '' }</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <button type="button" class="btn btn-circle btn-lg fixed bottom-6 right-6 z-30 shadow-xl lg:hidden" aria-label="New event" @click="newEvent(cursor, '09:00')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <!-- ================================================================ sidebar -->
+  <div class="drawer-side">
+    <label for="cal-nav" class="drawer-overlay" aria-label="Close sidebar"></label>
+    <aside class="flex h-full w-72 flex-col gap-5 overflow-y-auto border-r bg-surface-2 p-4" aria-label="Calendars">
+      <div class="shrink-0 flex items-center justify-between">
+        <a href="../../showcase.html" class="flex items-center gap-2.5" title="Back to the showcase">
+          <span class="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M7 15.5c1.2 0 1.2-1 2.5-1s1.3 1 2.5 1 1.2-1 2.5-1 1.3 1 2.5 1"/></svg>
+          </span>
+          <span class="text-lg font-bold tracking-tight">Tidal</span>
+        </a>
+        <a href="../../showcase.html" class="btn btn-ghost btn-xs">Showcase</a>
+      </div>
+
+      <button type="button" class="btn btn-lg w-full shrink-0 shadow-md" @click="newEvent(cursor, '09:00')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create event
+      </button>
+
+      <!-- mini month -->
+      <div class="shrink-0" aria-label="Mini calendar">
+        <div class="mb-2 flex items-center justify-between">
+          <p class="text-sm font-semibold">{ monthName(mini) }</p>
+          <div class="flex">
+            <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Previous month" @click="miniStep(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Next month" @click="miniStep(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        <div class="grid grid-cols-7 text-center text-xs text-muted-foreground">
+          <span v-for="w in weekdayNames" :key="w" class="py-1 font-medium">{ w.slice(0, 2) }</span>
+        </div>
+        <div class="grid grid-cols-7 gap-y-0.5 text-center text-xs">
+          <button v-for="c in miniCells()" :key="c.date" type="button" class="relative mx-auto grid size-8 place-items-center rounded-full tabular-nums transition-colors"
+            :class="isToday(c.date) ? 'bg-primary font-semibold text-primary-foreground' : (c.date === cursor ? 'bg-primary/20 font-semibold text-primary' : (inRange(c.date) ? 'bg-primary/10' : 'hover:bg-muted')) + (c.inMonth ? '' : ' text-muted-foreground/50')"
+            :aria-label="longDate(c.date)" :aria-current="c.date === cursor ? 'date' : 'false'" @click="pickDate(c.date)">
+            { dayNum(c.date) }
+            <span v-if="hasEvents(c.date) && !isToday(c.date)" class="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full bg-primary/70" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <label class="shrink-0 search-field">
+        <input id="event-search" type="search" class="input input-sm" placeholder="Search events" aria-label="Search events" v-model="search">
+        <kbd class="search-field-shortcut" v-show="!search">/</kbd>
+      </label>
+
+      <div class="shrink-0">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">My calendars</p>
+        <ul class="space-y-0.5">
+          <li v-for="c in calendars" :key="c.id" class="group flex items-center gap-1 rounded-lg pr-1 hover:bg-muted">
+            <label class="label flex-1 cursor-pointer gap-3 px-2 py-1.5 text-sm font-normal">
+              <input type="checkbox" class="checkbox checkbox-sm" :class="checkTone(c.tone)" v-model="c.on">
+              <span class="flex-1 truncate">{ c.name }</span>
+              <span class="text-xs tabular-nums text-muted-foreground">{ calCount(c) }</span>
+            </label>
+            <button type="button" class="btn btn-ghost btn-xs opacity-0 group-hover:opacity-100" :aria-label="'Show only ' + c.name" @click="onlyCalendar(c)">Only</button>
+          </li>
+        </ul>
+      </div>
+
+      <div v-if="upcoming().length" class="shrink-0 rounded-2xl border bg-surface p-3 shadow-xs">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Up next today</p>
+        <ul class="space-y-2">
+          <li v-for="e in upcoming()" :key="e.id">
+            <button type="button" class="flex w-full items-start gap-2.5 text-left" @click="open(e)">
+              <span class="mt-1 size-2 shrink-0 rounded-full" :class="dot(cal(e.cal).tone)"></span>
+              <span class="min-w-0"><span class="block truncate text-sm font-medium">{ e.title }</span><span class="block text-xs text-muted-foreground">{ range(e) }</span></span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="shrink-0 mt-auto space-y-2 text-xs text-muted-foreground">
+        <p class="flex flex-wrap items-center gap-1">Shortcuts <kbd class="kbd kbd-xs">T</kbd><kbd class="kbd kbd-xs">D</kbd><kbd class="kbd kbd-xs">W</kbd><kbd class="kbd kbd-xs">M</kbd><kbd class="kbd kbd-xs">A</kbd><kbd class="kbd kbd-xs">N</kbd></p>
+        <button type="button" class="link link-muted" @click="resetDemo()">Reset demo events</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================================================================ event editor -->
+  <dialog id="event-form" class="modal" aria-labelledby="event-form-title">
+    <form class="modal-box" novalidate @submit.prevent="save()" @keydown="formKey($event)">
+      <div class="modal-header"><h2 id="event-form-title" class="modal-title">{ draft.id ? 'Edit event' : 'New event' }</h2></div>
+      <button type="button" class="modal-close" aria-label="Close" @click="closeDialog('event-form')"></button>
+      <div class="form">
+        <div class="field">
+          <label class="label label-required" for="event-title">Title</label>
+          <input id="event-title" class="input input-lg" placeholder="Add a title" v-model="draft.title" :aria-invalid="draftError && !draft.title.trim() ? 'true' : 'false'" maxlength="80">
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label class="label" for="event-date">Date</label>
+            <input id="event-date" type="date" class="input" v-model="draft.date">
+          </div>
+          <label class="label mt-6 cursor-pointer gap-2 self-start text-sm font-normal"><input type="checkbox" class="toggle toggle-sm" role="switch" v-model="draft.allDay"> All day</label>
+        </div>
+        <div class="form-row" v-show="!draft.allDay">
+          <div class="field">
+            <label class="label" for="event-start">Starts</label>
+            <input id="event-start" type="time" class="input" step="900" v-model="draft.start">
+          </div>
+          <div class="field">
+            <label class="label" for="event-end">Ends</label>
+            <input id="event-end" type="time" class="input" step="900" v-model="draft.end">
+          </div>
+        </div>
+        <fieldset>
+          <legend class="label mb-2">Calendar</legend>
+          <div class="flex flex-wrap gap-1.5">
+            <label v-for="c in calendars" :key="c.id" class="chip chip-sm cursor-pointer" :class="draft.cal === c.id ? 'chip-primary' : 'chip-outline'">
+              <input type="radio" name="event-cal" class="sr-only" :value="c.id" v-model="draft.cal">
+              <span class="size-2.5 rounded-full" :class="dot(c.tone)"></span>{ c.name }
+            </label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label class="label" for="event-location">Location</label>
+          <input id="event-location" class="input" placeholder="Add a place or a call link" v-model="draft.location" maxlength="80">
+        </div>
+        <div class="field">
+          <label class="label" for="event-desc">Description</label>
+          <textarea id="event-desc" class="textarea" rows="3" placeholder="Notes, agenda, links" v-model="draft.desc"></textarea>
+        </div>
+        <div v-if="draftError" class="alert alert-danger alert-soft text-sm" role="alert">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <div class="alert-content">{ draftError }</div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button v-if="draft.id" type="button" class="btn btn-ghost btn-danger mr-auto" @click="removeDraft()">Delete</button>
+        <button type="button" class="btn btn-ghost" @click="closeDialog('event-form')">Cancel</button>
+        <button type="submit" class="btn">{ draft.id ? 'Save changes' : 'Create event' }</button>
+      </div>
+    </form>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close">Close</button></form>
+  </dialog>
+
+  <!-- ================================================================ event details -->
+  <dialog id="event-view" class="modal modal-sm" aria-labelledby="event-view-title">
+    <div class="modal-box overflow-hidden p-0" v-if="viewing()">
+      <div class="h-2" :class="dot(cal(viewing().cal).tone)"></div>
+      <button type="button" class="modal-close" aria-label="Close" @click="closeDialog('event-view')"></button>
+      <div class="p-6">
+        <span class="badge badge-sm" :class="badgeTone(cal(viewing().cal).tone)">{ cal(viewing().cal).name }</span>
+        <h2 id="event-view-title" class="mt-2 pr-6 text-xl font-semibold leading-snug">{ viewing().title }</h2>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li class="flex gap-3"><svg class="mt-0.5 size-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><span class="block font-medium">{ fullDate(viewing().date) }</span><span class="text-muted-foreground">{ range(viewing()) }</span></span></li>
+          <li v-if="viewing().location" class="flex gap-3"><svg class="mt-0.5 size-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>{ viewing().location }</span></li>
+          <li v-if="viewing().desc" class="flex gap-3"><svg class="mt-0.5 size-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span class="text-muted-foreground">{ viewing().desc }</span></li>
+        </ul>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost btn-sm btn-danger mr-auto" @click="remove(viewing())">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Delete
+          </button>
+          <button type="button" class="btn btn-soft btn-sm" @click="duplicate(viewing())">Copy to next week</button>
+          <button type="button" class="btn btn-sm" @click="edit(viewing())">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit
+          </button>
+        </div>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close">Close</button></form>
+  </dialog>
+
+  <!-- toasts -->
+  <div class="toast toast-bottom toast-center z-50" aria-live="polite" v-show="toasts.length">
+    <div v-for="t in toasts" :key="t.id" class="toast-item" role="status">
+      <svg class="size-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      <p class="toast-title flex-1">{ t.text }</p>
+      <button v-if="t.action" type="button" class="btn btn-soft btn-xs" @click="runToast(t)">Undo</button>
+      <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Dismiss" @click="dismissToast(t)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

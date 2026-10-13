@@ -1,0 +1,35 @@
+{
+  "note": "Paths are relative to the docs root, the folder that holds showcase.html.",
+  "apps": [
+    {
+      "name": "Harbor",
+      "slug": "chat",
+      "title": "Harbor, a community chat",
+      "description": "Sign in, then hop between servers and channels, send messages with code blocks and mentions, react, reply, edit and delete, toggle the member list and re-theme the whole app from one accent color.",
+      "path": "showcase/chat/",
+      "thumbnail": "showcase/chat/thumb.png",
+      "seed": "#0284c7",
+      "features": ["Sign in form with validation", "Server rail and channel sidebar", "Reactions, replies, edit and delete", "Member list with roles and presence", "Settings with theme and accent color", "Saved in localStorage"]
+    },
+    {
+      "name": "Stack",
+      "slug": "board",
+      "title": "Stack, a kanban board",
+      "description": "Drag cards between lists, open a card to edit labels, checklist, due date, members and comments, filter and search the board, add and rename lists, and pick a board color that themes everything.",
+      "path": "showcase/board/",
+      "thumbnail": "showcase/board/thumb.png",
+      "seed": "#7c3aed",
+      "features": ["Drag and drop between lists", "Card details with checklist and comments", "Labels, due dates and assignees", "Filters and search", "Board color from one seed", "Saved in localStorage"]
+    },
+    {
+      "name": "Tidal",
+      "slug": "calendar",
+      "title": "Tidal, a calendar",
+      "description": "Day, week, month and agenda views with a mini month, color coded calendars, overlapping events laid out side by side, a live current time line, drag to move and a full event editor.",
+      "path": "showcase/calendar/",
+      "thumbnail": "showcase/calendar/thumb.png",
+      "seed": "#4f46e5",
+      "features": ["Day, week, month and agenda views", "Click a slot to create an event", "Drag events to move them", "Calendars you can toggle", "Search across events", "Saved in localStorage"]
+    }
+  ]
+}

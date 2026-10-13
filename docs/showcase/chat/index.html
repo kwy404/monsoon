@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbor | Community chat built with Monsoon</title>
+<meta name="description" content="Harbor is a community chat showcase for Monsoon: servers, channels, threads of messages with reactions and replies, a member list, settings with theme and accent color, all styled with Monsoon classes and made interactive with Voodoo.js.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230284c7'/%3E%3Cpath d='M15 7v13H8z' fill='%23fff'/%3E%3Cpath d='M17 10l6 10h-6z' fill='%23fff' opacity='.75'/%3E%3Cpath d='M6 24c2.5 0 2.5-1.5 5-1.5s2.5 1.5 5 1.5 2.5-1.5 5-1.5 2.5 1.5 5 1.5' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}var s=JSON.parse(localStorage.getItem('harbor:state:v1')||'null');if(s&&s.settings&&s.settings.seed)document.documentElement.style.setProperty('--seed',s.settings.seed)}catch(e){}</script>
+<link rel="stylesheet" href="../../monsoon.min.css">
+<style>
+  [v-cloak]{display:none}
+  body{--v-primary:var(--primary);--v-border:var(--border);--v-surface-2:var(--muted)}
+  .msg:focus-within :is(.msg-tools,.msg-reveal){opacity:1}
+  .msg-body .code-block{font-size:.8125rem}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/voodoojs@1.0.0/dist/voodoo.full.min.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body class="h-dvh overflow-hidden bg-background text-foreground antialiased">
+
+<noscript><p class="p-6 text-center text-sm">Harbor needs JavaScript to run. Turn it on and reload the page.</p></noscript>
+
+<div id="harbor" class="h-full" v-cloak>
+
+  <!-- ================================================================ sign in -->
+  <main v-if="!authed" class="grid min-h-dvh lg:grid-cols-2">
+    <section class="relative flex flex-col justify-center px-6 py-10 sm:px-12 lg:px-16">
+      <div class="absolute inset-x-6 top-6 flex items-center justify-between">
+        <a href="../../showcase.html" class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Showcase
+        </a>
+        <div class="segmented segmented-xs" role="radiogroup" aria-label="Theme">
+          <label class="segmented-item" title="Light"><input type="radio" name="login-theme" value="light" :checked="themeCurrent === 'light'" @change="setTheme('light')" aria-label="Light theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></label>
+          <label class="segmented-item" title="Dark"><input type="radio" name="login-theme" value="dark" :checked="themeCurrent === 'dark'" @change="setTheme('dark')" aria-label="Dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></label>
+          <label class="segmented-item" title="System"><input type="radio" name="login-theme" value="system" :checked="themeCurrent === 'system'" @change="setTheme('system')" aria-label="System theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></label>
+        </div>
+      </div>
+      <div class="mx-auto w-full max-w-sm">
+        <div class="flex items-center gap-2.5">
+          <span class="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-md">
+            <svg class="size-6" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 6v14H7z" fill="currentColor"/><path d="M17 9.5l6.5 10.5H17z" fill="currentColor" opacity=".7"/><path d="M5 24.5c2.5 0 2.5-1.5 5-1.5s2.5 1.5 5 1.5 2.5-1.5 5-1.5 2.5 1.5 5 1.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </span>
+          <span class="text-xl font-bold tracking-tight">Harbor</span>
+        </div>
+
+        <h1 class="mt-8 text-2xl font-bold tracking-tight sm:text-3xl">{ authMode === 'signin' ? 'Welcome back' : 'Create your account' }</h1>
+        <p class="mt-2 text-sm text-muted-foreground">{ authMode === 'signin' ? 'Sign in to pick up where your crew left off.' : 'Join communities, find your people and drop anchor.' }</p>
+
+        <div class="mt-8 grid gap-2">
+          <button type="button" class="btn btn-outline btn-neutral w-full" @click="quickLogin('passkey')" :disabled="busy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14 9l2 2"/></svg>Continue with a passkey
+          </button>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" class="btn btn-outline btn-neutral" @click="quickLogin('sso')" :disabled="busy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-4h6v4M8 7h.01M12 7h.01M16 7h.01M8 11h.01M12 11h.01M16 11h.01"/></svg>Company SSO
+            </button>
+            <button type="button" class="btn btn-outline btn-neutral" @click="quickLogin('link')" :disabled="busy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Magic link
+            </button>
+          </div>
+        </div>
+
+        <div class="divider my-6 text-xs text-muted-foreground">or with email</div>
+
+        <form class="form" novalidate @submit.prevent="submitAuth()">
+          <div class="field" v-if="authMode === 'signup'">
+            <label class="label" for="auth-name">Display name</label>
+            <input id="auth-name" class="input" autocomplete="nickname" placeholder="How should people call you?" v-model="form.name" :aria-invalid="errors.name ? 'true' : 'false'" aria-describedby="auth-name-error">
+            <p class="error-text" id="auth-name-error" v-show="errors.name">{ errors.name }</p>
+          </div>
+          <div class="field">
+            <label class="label" for="auth-email">Email</label>
+            <input id="auth-email" type="email" class="input" autocomplete="email" placeholder="you@example.com" v-model="form.email" :aria-invalid="errors.email ? 'true' : 'false'" aria-describedby="auth-email-error">
+            <p class="error-text" id="auth-email-error" v-show="errors.email">{ errors.email }</p>
+          </div>
+          <div class="field">
+            <div class="flex items-center justify-between">
+              <label class="label" for="auth-password">Password</label>
+              <button type="button" class="link link-primary text-xs" v-show="authMode === 'signin'" @click="forgot()">Forgot password?</button>
+            </div>
+            <div class="password-field">
+              <input id="auth-password" :type="showPassword ? 'text' : 'password'" class="input" :autocomplete="authMode === 'signin' ? 'current-password' : 'new-password'" placeholder="At least 6 characters" v-model="form.password" :aria-invalid="errors.password ? 'true' : 'false'" aria-describedby="auth-password-error">
+              <button type="button" class="password-field-toggle" :aria-pressed="showPassword ? 'true' : 'false'" :aria-label="showPassword ? 'Hide password' : 'Show password'" @click="showPassword = !showPassword"></button>
+            </div>
+            <p class="error-text" id="auth-password-error" v-show="errors.password">{ errors.password }</p>
+          </div>
+          <label class="label cursor-pointer text-sm font-normal"><input type="checkbox" class="checkbox checkbox-sm" v-model="form.remember"> Remember me on this device</label>
+
+          <div class="alert alert-info alert-soft text-sm" role="status" v-show="notice">
+            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div class="alert-content">{ notice }</div>
+          </div>
+
+          <button type="submit" class="btn btn-lg w-full" :class="busy ? 'btn-loading' : ''" :aria-busy="busy ? 'true' : 'false'" :disabled="busy">{ busy ? 'Signing you in' : (authMode === 'signin' ? 'Sign in' : 'Create account') }</button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-muted-foreground" v-if="authMode === 'signin'">New to Harbor? <button type="button" class="link link-primary font-medium" @click="switchMode('signup')">Create an account</button></p>
+        <p class="mt-6 text-center text-sm text-muted-foreground" v-else>Already have an account? <button type="button" class="link link-primary font-medium" @click="switchMode('signin')">Sign in</button></p>
+        <p class="mt-8 text-center text-xs text-muted-foreground">This is a demo. Any email and password sign you in, nothing leaves your browser.</p>
+      </div>
+    </section>
+
+    <section class="relative hidden overflow-hidden bg-primary text-primary-foreground lg:flex lg:flex-col lg:justify-center lg:px-16" aria-hidden="true">
+      <div class="absolute -right-16 -top-16 size-96 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="absolute -bottom-16 -left-16 size-96 rounded-full bg-black/20 blur-3xl"></div>
+      <div class="relative mx-auto w-full max-w-md">
+        <p class="text-sm font-semibold uppercase tracking-widest text-primary-foreground/70">Harbor communities</p>
+        <p class="mt-3 text-4xl font-bold leading-tight tracking-tight">Where your crew drops anchor.</p>
+        <p class="mt-4 text-primary-foreground/80">Channels for every topic, voice rooms for pairing, and a calm place for the conversations that matter.</p>
+        <div class="mt-10 space-y-3 rounded-2xl border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-md">
+          <div class="flex gap-3">
+            <span class="avatar avatar-sm bg-rose-500 text-white">MO</span>
+            <div class="min-w-0"><p class="text-sm font-semibold">Mira Okafor <span class="ml-1 text-xs font-normal text-primary-foreground/70">Today at 9:12 AM</span></p><p class="text-sm text-primary-foreground/90">The release candidate is live on staging. Give it a spin!</p></div>
+          </div>
+          <div class="flex gap-3">
+            <span class="avatar avatar-sm bg-teal-600 text-white">KN</span>
+            <div class="min-w-0"><p class="text-sm font-semibold">Kai Nakamura <span class="ml-1 text-xs font-normal text-primary-foreground/70">Today at 9:19 AM</span></p><p class="text-sm text-primary-foreground/90">The new theme switcher feels great.</p>
+              <div class="mt-1.5 flex gap-1.5"><span class="inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-xs"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>12</span><span class="inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-xs"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>5</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pl-11 text-xs text-primary-foreground/70"><span class="spinner spinner-dots spinner-xs"></span>Theo is typing</div>
+        </div>
+        <div class="mt-8 flex items-center gap-3 text-sm text-primary-foreground/80">
+          <span class="avatar-group"><span class="avatar avatar-xs bg-violet-500 text-white">PR</span><span class="avatar avatar-xs bg-amber-500 text-white">LD</span><span class="avatar avatar-xs bg-sky-600 text-white">JW</span></span>
+          12,400 people online right now
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================================================================ app -->
+  <div v-else class="drawer drawer-open-lg h-full">
+    <input id="nav-toggle" type="checkbox" class="drawer-toggle" v-model="navOpen" aria-label="Show servers and channels">
+
+    <div class="drawer-content flex h-dvh min-w-0">
+      <!-- main column -->
+      <section class="flex min-w-0 flex-1 flex-col bg-background" aria-label="Conversation">
+        <header class="flex h-14 shrink-0 items-center gap-2 border-b px-2 sm:px-4">
+          <label for="nav-toggle" class="btn btn-ghost btn-sm btn-square lg:hidden" aria-label="Open servers and channels">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </label>
+          <span class="text-muted-foreground" v-html="icon(channel() && channel().icon ? channel().icon : 'hash', 'size-5')"></span>
+          <h1 class="truncate text-base font-semibold">{ channel() ? channel().name : '' }</h1>
+          <span class="hidden h-5 w-px shrink-0 bg-border md:block" aria-hidden="true"></span>
+          <p class="hidden min-w-0 flex-1 truncate text-sm text-muted-foreground md:block" :title="channel() ? channel().topic : ''">{ channel() ? channel().topic : '' }</p>
+          <div class="ml-auto flex shrink-0 items-center gap-1">
+            <span class="tooltip tooltip-left" :data-tip="channel() && channel().pinned ? 'Show pinned message' : 'No pinned message'">
+              <button type="button" class="btn btn-ghost btn-sm btn-square" aria-label="Show pinned message" :disabled="!(channel() && channel().pinned)" @click="hidePinned[channel().id] = false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M9 10.8V4h6v6.8l3 3.2v2H6v-2z"/></svg>
+              </button>
+            </span>
+            <span class="tooltip tooltip-left" :data-tip="membersVisible() ? 'Hide member list' : 'Show member list'">
+              <button type="button" class="btn btn-ghost btn-sm btn-square" :class="membersVisible() ? 'btn-active' : ''" :aria-pressed="membersVisible() ? 'true' : 'false'" aria-label="Member list" @click="toggleMembers()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>
+              </button>
+            </span>
+            <label class="search-field ml-1 hidden w-44 md:flex lg:w-56">
+              <input id="message-search" type="search" class="input input-sm" placeholder="Search messages" aria-label="Search messages in this channel" v-model="query">
+              <kbd class="search-field-shortcut" v-show="!query">Ctrl K</kbd>
+            </label>
+          </div>
+        </header>
+
+        <!-- mobile search -->
+        <div class="border-b px-3 py-2 md:hidden">
+          <label class="search-field"><input type="search" class="input input-sm" placeholder="Search messages" aria-label="Search messages in this channel" v-model="query"></label>
+        </div>
+
+        <!-- pinned banner -->
+        <div v-if="pinnedMessage() && !query" class="flex items-center gap-3 border-b bg-primary/5 px-4 py-2 text-sm">
+          <svg class="size-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M9 10.8V4h6v6.8l3 3.2v2H6v-2z"/></svg>
+          <p class="min-w-0 flex-1 truncate"><span class="font-semibold">Pinned</span><span class="text-muted-foreground"> by { user(pinnedMessage().author).name.split(' ')[0] }: </span>{ snippet(pinnedMessage()) }</p>
+          <button type="button" class="btn btn-ghost btn-xs" @click="jumpTo(pinnedMessage().id)">Jump</button>
+          <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Hide pinned message" @click="hidePin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+
+        <!-- search summary -->
+        <div v-if="query" class="flex items-center gap-2 border-b bg-surface-2 px-4 py-2 text-sm" role="status">
+          <svg class="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="flex-1"><span class="font-semibold">{ resultCount() }</span> { resultCount() === 1 ? 'result' : 'results' } for "{ query }" in #{ channel() ? channel().name : '' }</span>
+          <button type="button" class="btn btn-ghost btn-xs" @click="query = ''">Clear</button>
+        </div>
+
+        <!-- messages -->
+        <div id="message-scroller" class="flex-1 overflow-y-auto overscroll-contain" tabindex="-1">
+          <div class="flex min-h-full flex-col justify-end pb-4">
+            <div v-if="!query" class="px-4 pb-4 pt-10">
+              <span class="grid size-16 place-items-center rounded-full bg-muted text-muted-foreground" v-html="icon(channel() && channel().icon ? channel().icon : 'hash', 'size-8')"></span>
+              <h2 class="mt-3 text-2xl font-bold tracking-tight">Welcome to #{ channel() ? channel().name : '' }</h2>
+              <p class="mt-1 text-sm text-muted-foreground">This is the start of the #{ channel() ? channel().name : '' } channel. { channel() ? channel().topic : '' }</p>
+            </div>
+
+            <div v-if="query && resultCount() === 0" class="empty-state mx-4 my-10">
+              <div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+              <h3 class="empty-state-title">Nothing matches "{ query }"</h3>
+              <p class="empty-state-description">Try another word, or search for a person by name.</p>
+            </div>
+
+            <div v-for="row in rows()" :key="row.key">
+              <div v-if="row.divider" class="divider mx-4 my-3 text-xs font-semibold text-muted-foreground" role="separator">{ row.label }</div>
+
+              <article v-else :id="'msg-' + row.m.id" class="msg group relative flex gap-3 px-4 transition-colors hover:bg-muted/50"
+                :class="[row.head ? 'mt-3 pt-1 pb-0.5' : 'py-0.5', settings.density === 'compact' ? 'text-sm' : '', mentionsMe(row.m) ? 'border-l-2 border-warning bg-warning/10' : '', flash === row.m.id ? 'bg-primary/10' : '']">
+
+                <button v-if="row.head" type="button" class="avatar mt-0.5 text-sm font-semibold text-white" :class="user(row.m.author).color" :aria-label="'View profile of ' + user(row.m.author).name" @click="openProfile(row.m.author)">{ initials(user(row.m.author).name) }</button>
+                <time v-else class="w-10 shrink-0 pt-0.5 text-right text-xs leading-5 text-muted-foreground opacity-0 group-hover:opacity-100" :title="fullDate(row.m.ts)">{ shortTime(row.m.ts) }</time>
+
+                <div class="min-w-0 flex-1">
+                  <button v-if="row.m.replyTo && findMessage(row.m.replyTo)" type="button" class="mb-0.5 flex max-w-full items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground" @click="jumpTo(row.m.replyTo)">
+                    <svg class="size-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+                    <span class="avatar avatar-xs text-white" :class="user(findMessage(row.m.replyTo).author).color">{ initials(user(findMessage(row.m.replyTo).author).name) }</span>
+                    <span class="shrink-0 whitespace-nowrap font-semibold" :class="roleText(user(findMessage(row.m.replyTo).author))">{ user(findMessage(row.m.replyTo).author).name }</span>
+                    <span class="truncate">{ snippet(findMessage(row.m.replyTo)) }</span>
+                  </button>
+
+                  <div v-if="row.head" class="flex flex-wrap items-baseline gap-x-2">
+                    <button type="button" class="text-sm font-semibold hover:underline" :class="roleText(user(row.m.author))" @click="openProfile(row.m.author)">{ user(row.m.author).name }</button>
+                    <span v-if="user(row.m.author).bot" class="badge badge-info badge-solid badge-xs">BOT</span>
+                    <time class="text-xs text-muted-foreground" :title="fullDate(row.m.ts)">{ stamp(row.m.ts) }</time>
+                  </div>
+
+                  <div v-if="editing === row.m.id" class="mt-1">
+                    <textarea :id="'edit-' + row.m.id" class="textarea textarea-sm w-full" rows="2" v-model="editText" @keydown="editKey($event, row.m)" aria-label="Edit message"></textarea>
+                    <p class="mt-1 text-xs text-muted-foreground">Escape to <button type="button" class="link link-primary" @click="editing = null">cancel</button>, Enter to <button type="button" class="link link-primary" @click="saveEdit(row.m)">save</button></p>
+                  </div>
+                  <div v-else class="msg-body text-sm leading-relaxed text-foreground/90">
+                    <div v-html="render(row.m)"></div>
+                    <span v-if="row.m.edited" class="text-xs text-muted-foreground">(edited)</span>
+                  </div>
+
+                  <div v-if="row.m.attachment" class="mt-2 flex w-full max-w-sm items-center gap-3 rounded-xl border bg-surface p-3">
+                    <span class="grid size-10 place-items-center rounded-lg bg-primary/10 text-primary"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg></span>
+                    <span class="min-w-0 flex-1"><span class="block truncate text-sm font-medium text-primary">{ row.m.attachment.name }</span><span class="block text-xs text-muted-foreground">{ row.m.attachment.size }</span></span>
+                    <span class="btn btn-ghost btn-sm btn-square" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></span>
+                  </div>
+
+                  <div v-if="row.m.reactions.length" class="mt-1.5 flex flex-wrap items-center gap-1">
+                    <button v-for="r in row.m.reactions" :key="r.k" type="button" class="inline-flex h-7 items-center gap-1.5 rounded-full border px-2 text-xs font-semibold tabular-nums transition-colors"
+                      :class="r.me ? 'border-primary bg-primary/10 text-primary' : 'border-transparent bg-muted text-muted-foreground hover:border-border'"
+                      :aria-pressed="r.me ? 'true' : 'false'" :aria-label="r.k + ' reaction, ' + r.n + (r.me ? ', including you' : '')" @click="toggleReaction(row.m, r.k)">
+                      <span :class="iconTone(r.k)" v-html="icon(r.k, 'size-4')"></span>{ r.n }
+                    </button>
+                    <button type="button" data-reaction-picker class="msg-reveal inline-flex h-7 items-center rounded-full border border-dashed px-2 text-muted-foreground opacity-0 transition-opacity hover:text-foreground group-hover:opacity-100" aria-label="Add reaction" @click="openPicker(row.m)">
+                      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- hover tools -->
+                <div class="msg-tools absolute -top-4 right-4 z-10 flex items-center rounded-lg border bg-surface p-0.5 opacity-0 shadow-md transition-opacity group-hover:opacity-100" :class="pickerFor === row.m.id ? 'opacity-100' : ''" role="toolbar" :aria-label="'Actions for message from ' + user(row.m.author).name">
+                  <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Like" @click="toggleReaction(row.m, 'like')"><span class="text-sky-500" v-html="icon('like', 'size-4')"></span></button>
+                  <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Love" @click="toggleReaction(row.m, 'heart')"><span class="text-rose-500" v-html="icon('heart', 'size-4')"></span></button>
+                  <button type="button" data-reaction-picker class="btn btn-ghost btn-xs btn-square" aria-label="Add reaction" :aria-expanded="pickerFor === row.m.id ? 'true' : 'false'" @click="openPicker(row.m)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></button>
+                  <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Reply" @click="reply(row.m)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg></button>
+                  <button type="button" class="btn btn-ghost btn-xs btn-square" :aria-label="channel().pinned === row.m.id ? 'Unpin message' : 'Pin message'" @click="togglePin(row.m)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5M9 10.8V4h6v6.8l3 3.2v2H6v-2z"/></svg></button>
+                  <button v-if="row.m.author === 'me'" type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Edit message" @click="startEdit(row.m)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+                  <button v-if="row.m.author === 'me'" type="button" class="btn btn-ghost btn-xs btn-square text-danger" aria-label="Delete message" @click="askDelete(row.m)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+                </div>
+
+                <div v-if="pickerFor === row.m.id" data-reaction-picker class="absolute right-4 top-6 z-20 grid grid-cols-4 gap-1 rounded-xl border bg-surface p-1.5 shadow-lg" role="group" aria-label="Pick a reaction">
+                  <button v-for="k in reactionKeys" :key="k" type="button" class="btn btn-ghost btn-sm btn-square" :aria-label="'React with ' + k" @click="toggleReaction(row.m, k)"><span :class="iconTone(k)" v-html="icon(k, 'size-5')"></span></button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- composer -->
+        <footer class="shrink-0 px-3 pb-3 sm:px-4 sm:pb-4">
+          <div v-if="replyTo && findMessage(replyTo)" class="flex items-center gap-2 rounded-t-xl border border-b-0 bg-surface-2 px-3 py-1.5 text-xs text-muted-foreground">
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+            <span class="min-w-0 flex-1 truncate">Replying to <span class="font-semibold text-foreground">{ user(findMessage(replyTo).author).name }</span></span>
+            <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Cancel reply" @click="replyTo = null"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div v-if="attachment" class="flex items-center gap-2 border border-b-0 bg-surface-2 px-3 py-2 text-sm" :class="replyTo ? '' : 'rounded-t-xl'">
+            <span class="chip chip-sm chip-primary"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>{ attachment.name }</span>
+            <span class="text-xs text-muted-foreground">{ attachment.size }</span>
+            <button type="button" class="btn btn-ghost btn-xs btn-square ml-auto" aria-label="Remove attachment" @click="attachment = null"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="relative flex items-end gap-1 border bg-surface p-1.5 shadow-sm transition-shadow focus-within:border-primary" :class="replyTo || attachment ? 'rounded-b-xl' : 'rounded-xl'">
+            <input id="file-input" type="file" class="sr-only" tabindex="-1" aria-hidden="true" @change="fileChosen($event)">
+            <span class="tooltip" data-tip="Attach a file">
+              <button type="button" class="btn btn-ghost btn-sm btn-square" aria-label="Attach a file" @click="pickFile()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.4 11-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg>
+              </button>
+            </span>
+            <textarea id="composer" class="max-h-48 flex-1 resize-none bg-transparent px-2 py-1.5 text-sm outline-none placeholder-muted-foreground" :rows="draftRows()" v-model="draft" @keydown="composerKey($event)" :placeholder="'Message #' + (channel() ? channel().name : '')" :aria-label="'Message #' + (channel() ? channel().name : '')"></textarea>
+            <span class="tooltip" data-tip="Insert an icon">
+              <button type="button" data-composer-picker class="btn btn-ghost btn-sm btn-square" aria-label="Insert an icon" :aria-expanded="composerPicker ? 'true' : 'false'" @click="composerPicker = !composerPicker">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+              </button>
+            </span>
+            <button type="button" class="btn btn-sm btn-square" aria-label="Send message" :disabled="!draft.trim() && !attachment" @click="send()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+            </button>
+
+            <div v-if="composerPicker" data-composer-picker class="absolute bottom-full right-0 z-30 mb-2 w-72 rounded-2xl border bg-surface p-3 shadow-xl" role="dialog" aria-label="Insert an icon">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Icons</p>
+              <div class="grid grid-cols-6 gap-1">
+                <button v-for="k in shortcodes" :key="k" type="button" class="btn btn-ghost btn-sm btn-square" :aria-label="'Insert ' + k" :title="':' + k + ':'" @click="insertCode(k)"><span :class="iconTone(k)" v-html="icon(k, 'size-5')"></span></button>
+              </div>
+              <p class="mt-2 text-xs text-muted-foreground">Tip: type <code class="rounded bg-muted px-1 font-mono">:fire:</code> to add one inline.</p>
+            </div>
+          </div>
+          <div class="mt-1.5 flex h-4 items-center gap-2 px-1 text-xs text-muted-foreground" aria-live="polite">
+            <span v-if="typingLabel()" class="inline-flex items-center gap-2"><span class="spinner spinner-dots spinner-xs"></span><span><span class="font-semibold text-foreground">{ typingLabel().replace(' is typing', '') }</span> is typing</span></span>
+            <span v-else class="hidden sm:inline"><kbd class="kbd kbd-xs">Enter</kbd> to send, <kbd class="kbd kbd-xs">Shift</kbd> + <kbd class="kbd kbd-xs">Enter</kbd> for a new line, <kbd class="kbd kbd-xs">Up</kbd> to edit your last message</span>
+          </div>
+        </footer>
+      </section>
+
+      <!-- member list -->
+      <div v-if="!wide && membersSheet" class="fixed inset-0 z-40 bg-black/50" @click="membersSheet = false" aria-hidden="true"></div>
+      <aside v-show="membersVisible()" class="flex-col border-l bg-surface-2" :class="wide ? 'flex w-64 shrink-0' : 'fixed inset-y-0 right-0 z-50 flex w-72 max-w-full shadow-2xl'" aria-label="Members">
+        <div class="flex h-14 shrink-0 items-center justify-between border-b px-4">
+          <p class="text-sm font-semibold">Members <span class="font-normal text-muted-foreground">{ onlineCount() } online</span></p>
+          <button v-if="!wide" type="button" class="btn btn-ghost btn-sm btn-square" aria-label="Close member list" @click="membersSheet = false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="flex-1 overflow-y-auto px-2 pb-4">
+          <section v-for="grp in memberGroups()" :key="grp.key" :aria-label="grp.label">
+            <h3 class="px-2 pb-1 pt-5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{ grp.label } <span class="font-normal">{ grp.users.length }</span></h3>
+            <button v-for="u in grp.users" :key="u.id" type="button" class="flex w-full items-center gap-3 rounded-lg px-2 py-1.5 text-left hover:bg-muted" :class="grp.offline ? 'opacity-50 hover:opacity-100' : ''" @click="openProfile(u.id)">
+              <span class="avatar avatar-sm text-xs font-semibold text-white" :class="[u.color, statusAvatar(u.status)]">{ initials(u.name) }</span>
+              <span class="min-w-0 flex-1">
+                <span class="flex items-center gap-1.5"><span class="truncate text-sm font-medium" :class="roleText(u)">{ u.name }</span><span v-if="u.bot" class="badge badge-info badge-solid badge-xs">BOT</span><span v-if="u.id === 'me'" class="text-xs text-muted-foreground">(you)</span></span>
+                <span v-if="u.activity && !grp.offline" class="block truncate text-xs text-muted-foreground">{ u.activity }</span>
+              </span>
+            </button>
+          </section>
+        </div>
+      </aside>
+    </div>
+
+    <!-- server rail and channel sidebar -->
+    <div class="drawer-side">
+      <label for="nav-toggle" class="drawer-overlay" aria-label="Close servers and channels"></label>
+      <div class="flex h-full">
+        <nav class="flex w-16 shrink-0 flex-col items-center gap-2 bg-surface-3 py-3" aria-label="Servers">
+          <div class="relative flex w-full justify-center">
+            <span class="tooltip tooltip-right" data-tip="Home">
+              <button type="button" class="grid size-12 place-items-center rounded-full bg-surface text-primary shadow-sm transition-colors hover:bg-primary hover:text-primary-foreground" aria-label="Harbor home" @click="selectServer(servers[0].id)">
+                <svg class="size-7" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 6v14H7z" fill="currentColor"/><path d="M17 9.5l6.5 10.5H17z" fill="currentColor" opacity=".7"/><path d="M5 24.5c2.5 0 2.5-1.5 5-1.5s2.5 1.5 5 1.5 2.5-1.5 5-1.5 2.5 1.5 5 1.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              </button>
+            </span>
+          </div>
+          <span class="h-px w-8 bg-border" aria-hidden="true"></span>
+          <div v-for="sv in servers" :key="sv.id" class="relative flex w-full justify-center">
+            <span class="absolute left-0 top-1/2 w-1 -translate-y-1/2 rounded-r-full bg-foreground transition-all" :class="sv.id === serverId ? 'h-10' : (serverUnread(sv) && !sv.muted ? 'h-2' : 'h-0')" aria-hidden="true"></span>
+            <span class="tooltip tooltip-right" :data-tip="sv.name">
+              <span class="indicator">
+                <span v-if="serverMentions(sv) && sv.id !== serverId" class="indicator-item indicator-bottom badge badge-danger badge-solid badge-xs badge-pill tabular-nums">{ serverMentions(sv) }</span>
+                <button type="button" class="grid size-12 place-items-center rounded-full text-sm font-bold text-white shadow-sm transition-all hover:opacity-90" :class="[sv.color, sv.id === serverId ? 'ring-2 ring-primary ring-offset-2' : '', sv.muted ? 'opacity-60' : '']" :aria-label="sv.name + (serverUnread(sv) ? ', unread messages' : '')" :aria-current="sv.id === serverId ? 'true' : 'false'" @click="selectServer(sv.id)">{ initials(sv.name) }</button>
+              </span>
+            </span>
+          </div>
+          <span class="tooltip tooltip-right" data-tip="Add a server">
+            <button type="button" class="grid size-12 place-items-center rounded-full border border-dashed border-border bg-surface text-success transition-colors hover:bg-success hover:text-success-foreground" aria-label="Add a server" @click="openCreateServer()">
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </span>
+          <a href="../../showcase.html" class="tooltip tooltip-right mt-auto" data-tip="Back to the showcase">
+            <span class="grid size-12 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface hover:text-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span class="sr-only">Back to the showcase</span></span>
+          </a>
+        </nav>
+
+        <div class="flex w-64 shrink-0 flex-col border-r bg-surface-2">
+          <!-- server header -->
+          <button type="button" popovertarget="server-menu" class="flex h-14 shrink-0 items-center gap-2 border-b px-4 text-left transition-colors hover:bg-muted">
+            <span class="min-w-0 flex-1 truncate font-semibold">{ server().name }</span>
+            <svg v-if="server().muted" class="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Muted"><path d="M13.7 21a2 2 0 0 1-3.4 0M18.6 13A17.9 17.9 0 0 1 18 8M6.3 6.3A6 6 0 0 0 6 8c0 7-3 9-3 9h14M18 8a6 6 0 0 0-9.3-5M2 2l20 20"/></svg>
+            <svg class="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div id="server-menu" popover class="dropdown-content w-56"><ul class="menu">
+            <li class="menu-title">{ server().name }</li>
+            <li><button type="button" @click="invite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg>Invite people</button></li>
+            <li><button type="button" @click="openCreateChannel()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>Create channel</button></li>
+            <li><button type="button" @click="markServerRead()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 7 17l-5-5M22 10l-7.5 7.5L13 16"/></svg>Mark as read</button></li>
+            <li><button type="button" @click="toggleServerMute()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>{ server().muted ? 'Unmute server' : 'Mute server' }</button></li>
+            <li class="menu-divider"></li>
+            <li><button type="button" class="menu-danger" :class="servers.length < 2 ? 'menu-disabled' : ''" :disabled="servers.length < 2" @click="leaveServer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Leave server</button></li>
+          </ul></div>
+
+          <!-- channel list -->
+          <div class="flex-1 overflow-y-auto px-2 pb-3">
+            <div v-for="cat in server().categories" :key="cat.id" class="pt-4">
+              <div class="group flex items-center pr-1">
+                <button type="button" class="flex flex-1 items-center gap-1 px-1 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground" :aria-expanded="cat.collapsed ? 'false' : 'true'" @click="toggleCategory(cat)">
+                  <svg class="size-3 transition-transform" :class="cat.collapsed ? '-rotate-90' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>{ cat.name }
+                </button>
+                <span class="tooltip" data-tip="Create channel">
+                  <button type="button" class="btn btn-ghost btn-xs btn-square text-muted-foreground" :aria-label="'Create a channel in ' + cat.name" @click="openCreateChannel(cat.id)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+                </span>
+              </div>
+              <ul class="space-y-0.5">
+                <li v-for="c in cat.channels" :key="c.id" v-show="!cat.collapsed || c.id === channelId()" class="relative">
+                  <span v-if="c.unread && c.id !== channelId()" class="absolute -left-2 top-1/2 h-2 w-1 -translate-y-1/2 rounded-r-full bg-foreground" aria-hidden="true"></span>
+                  <button type="button" class="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm transition-colors"
+                    :class="c.id === channelId() ? 'bg-muted font-medium text-foreground' : (c.unread || c.mentions ? 'font-semibold text-foreground hover:bg-muted/50' : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground')"
+                    :aria-current="c.id === channelId() ? 'page' : 'false'" :aria-label="(c.type === 'voice' ? 'Voice channel ' : 'Channel ') + c.name + (c.mentions ? ', ' + c.mentions + ' mentions' : (c.unread ? ', unread' : ''))" @click="selectChannel(c)">
+                    <span class="shrink-0 text-muted-foreground" v-html="icon(c.type === 'voice' ? 'voice' : (c.icon || 'hash'), 'size-4')"></span>
+                    <span class="min-w-0 flex-1 truncate">{ c.name }</span>
+                    <span v-if="c.mentions" class="badge badge-danger badge-solid badge-xs badge-pill tabular-nums">{ c.mentions }</span>
+                  </button>
+                  <ul v-if="c.type === 'voice' && c.voice.length" class="mb-1 ml-7 space-y-0.5">
+                    <li v-for="uid in c.voice" :key="uid" class="flex items-center gap-2 rounded-md px-1.5 py-1 text-xs text-muted-foreground">
+                      <span class="avatar avatar-xs text-white" :class="[user(uid).color, uid === 'me' && !muted ? 'avatar-ring' : '']">{ initials(user(uid).name) }</span>
+                      <span class="min-w-0 flex-1 truncate">{ user(uid).name }</span>
+                      <svg v-if="uid === 'me' && muted" class="size-3.5 text-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Muted"><path d="M2 2l20 20M18.9 13.9A7 7 0 0 0 19 12v-2M5 10v2a7 7 0 0 0 12 5M15 9.3V5a3 3 0 0 0-5.7-1.3M9 9v3a3 3 0 0 0 5.1 2.1M12 19v3"/></svg>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- voice connection -->
+          <div v-if="voice" class="border-t px-3 py-2">
+            <div class="flex items-center gap-2">
+              <svg class="size-4 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01M7 20v-4M12 20v-8M17 20V8M22 4v16"/></svg>
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-semibold text-success">Voice connected</p>
+                <p class="truncate text-xs text-muted-foreground">{ voice.name } / { voice.serverName }</p>
+              </div>
+              <span class="tooltip" data-tip="Disconnect">
+                <button type="button" class="btn btn-ghost btn-sm btn-square text-danger" aria-label="Disconnect from voice" @click="leaveVoice()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.7 13.3a16 16 0 0 0 3.4 2.6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L9.1 9.9M22 2 2 22"/></svg></button>
+              </span>
+            </div>
+          </div>
+
+          <!-- user panel -->
+          <div class="flex items-center gap-1 border-t bg-surface-3 px-2 py-2">
+            <button type="button" popovertarget="status-menu" class="flex min-w-0 flex-1 items-center gap-2 rounded-lg p-1 text-left hover:bg-muted" aria-label="Set your status">
+              <span class="avatar avatar-sm text-xs font-semibold text-white" :class="[me.color, statusAvatar(me.status)]">{ initials(me.name) }</span>
+              <span class="min-w-0">
+                <span class="block truncate text-sm font-semibold leading-tight">{ me.name }</span>
+                <span class="block truncate text-xs text-muted-foreground">{ statusLabel(me.status) }</span>
+              </span>
+            </button>
+            <span class="tooltip" :data-tip="muted ? 'Unmute' : 'Mute'">
+              <button type="button" class="btn btn-ghost btn-sm btn-square" :class="muted ? 'text-danger' : ''" :aria-pressed="muted ? 'true' : 'false'" aria-label="Mute microphone" @click="toggleMute()">
+                <svg v-if="!muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg>
+                <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l20 20M18.9 13.9A7 7 0 0 0 19 12v-2M5 10v2a7 7 0 0 0 12 5M15 9.3V5a3 3 0 0 0-5.7-1.3M9 9v3a3 3 0 0 0 5.1 2.1M12 19v3"/></svg>
+              </button>
+            </span>
+            <span class="tooltip" :data-tip="deafened ? 'Undeafen' : 'Deafen'">
+              <button type="button" class="btn btn-ghost btn-sm btn-square" :class="deafened ? 'text-danger' : ''" :aria-pressed="deafened ? 'true' : 'false'" aria-label="Deafen" @click="toggleDeafen()">
+                <svg v-if="!deafened" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+                <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l20 20M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 2.6-6.4M9 3.5A9 9 0 0 1 21 12v5M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3"/></svg>
+              </button>
+            </span>
+            <span class="tooltip" data-tip="User settings">
+              <button type="button" class="btn btn-ghost btn-sm btn-square" aria-label="User settings" @click="openSettings('account')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.2 2h-.4a2 2 0 0 0-2 2v.2a2 2 0 0 1-1 1.7l-.4.3a2 2 0 0 1-2 0l-.2-.1a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.2.1a2 2 0 0 1 1 1.7v.5a2 2 0 0 1-1 1.8l-.2.1a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.2-.1a2 2 0 0 1 2 0l.4.2a2 2 0 0 1 1 1.8v.2a2 2 0 0 0 2 2h.4a2 2 0 0 0 2-2v-.2a2 2 0 0 1 1-1.7l.4-.3a2 2 0 0 1 2 0l.2.1a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.2-.1a2 2 0 0 1-1-1.7v-.5a2 2 0 0 1 1-1.8l.2-.1a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.2.1a2 2 0 0 1-2 0l-.4-.2a2 2 0 0 1-1-1.8V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </span>
+          </div>
+          <div id="status-menu" popover class="dropdown-content dropdown-top w-56"><ul class="menu">
+            <li class="menu-title">Set status</li>
+            <li><button type="button" :class="me.status === 'online' ? 'menu-active' : ''" @click="setStatus('online')"><span class="status status-online"></span>Online</button></li>
+            <li><button type="button" :class="me.status === 'away' ? 'menu-active' : ''" @click="setStatus('away')"><span class="status status-away"></span>Idle</button></li>
+            <li><button type="button" :class="me.status === 'dnd' ? 'menu-active' : ''" @click="setStatus('dnd')"><span class="status status-busy"></span>Do not disturb</button></li>
+            <li><button type="button" :class="me.status === 'invisible' ? 'menu-active' : ''" @click="setStatus('invisible')"><span class="status status-offline"></span>Invisible</button></li>
+            <li class="menu-divider"></li>
+            <li><button type="button" @click="openSettings('account')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Edit profile</button></li>
+            <li><button type="button" class="menu-danger" @click="signOut()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign out</button></li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ dialogs -->
+  <dialog id="settings" class="modal modal-lg" aria-labelledby="settings-title">
+    <div class="modal-box p-0">
+      <button type="button" class="modal-close" aria-label="Close settings" @click="closeDialog('settings')"></button>
+      <div class="grid md:grid-cols-4">
+        <nav class="bg-surface-2 p-3 md:col-span-1" aria-label="Settings sections">
+          <h2 id="settings-title" class="px-2 pb-2 pt-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">User settings</h2>
+          <ul class="menu menu-sm p-0">
+            <li><button type="button" :class="settingsTab === 'account' ? 'menu-active' : ''" @click="settingsTab = 'account'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>My account</button></li>
+            <li><button type="button" :class="settingsTab === 'appearance' ? 'menu-active' : ''" @click="settingsTab = 'appearance'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2a10 10 0 0 0 0 20c.9 0 1.7-.8 1.7-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.8-1.7 1.7-1.7h2A5.6 5.6 0 0 0 22 11c0-5-4.5-9-10-9z"/></svg>Appearance</button></li>
+            <li><button type="button" :class="settingsTab === 'notifications' ? 'menu-active' : ''" @click="settingsTab = 'notifications'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>Notifications</button></li>
+            <li class="menu-divider"></li>
+            <li><button type="button" class="menu-danger" @click="signOut()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign out</button></li>
+          </ul>
+        </nav>
+
+        <div class="min-h-96 p-6 md:col-span-3">
+          <!-- account -->
+          <section v-show="settingsTab === 'account'" aria-label="My account">
+            <h3 class="text-lg font-semibold">My account</h3>
+            <div class="mt-4 overflow-hidden rounded-2xl border">
+              <div class="h-20 bg-gradient-to-r from-primary to-accent"></div>
+              <div class="flex items-end gap-4 px-4 pb-4">
+                <span class="avatar avatar-lg -mt-8 text-lg font-bold text-white ring-4 ring-surface" :class="[me.color, statusAvatar(me.status)]">{ initials(me.name) }</span>
+                <div class="min-w-0 pb-1"><p class="truncate font-semibold">{ me.name }</p><p class="text-xs text-muted-foreground">{ statusLabel(me.status) }</p></div>
+              </div>
+            </div>
+            <div class="form mt-5">
+              <div class="field">
+                <label class="label" for="set-name">Display name</label>
+                <input id="set-name" class="input" v-model="me.name" maxlength="32">
+              </div>
+              <div class="field">
+                <label class="label" for="set-about">About me</label>
+                <textarea id="set-about" class="textarea" rows="3" v-model="me.about" maxlength="190"></textarea>
+                <p class="hint">{ 190 - (me.about || '').length } characters left</p>
+              </div>
+              <div class="field">
+                <label class="label" for="set-status">Status</label>
+                <select id="set-status" class="select" v-model="me.status">
+                  <option value="online">Online</option>
+                  <option value="away">Idle</option>
+                  <option value="dnd">Do not disturb</option>
+                  <option value="invisible">Invisible</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- appearance -->
+          <section v-show="settingsTab === 'appearance'" aria-label="Appearance">
+            <h3 class="text-lg font-semibold">Appearance</h3>
+            <fieldset class="mt-4">
+              <legend class="mb-2 text-sm font-medium">Theme</legend>
+              <div class="grid grid-cols-3 gap-3">
+                <label class="radio-card">
+                  <input type="radio" name="harbor-theme" value="light" :checked="themeCurrent === 'light'" @change="setTheme('light')">
+                  <span class="grid w-full gap-2">
+                    <span class="block h-14 rounded-lg border border-zinc-200 bg-white p-2"><span class="block h-2 w-10 rounded-full bg-zinc-300"></span><span class="mt-1.5 block h-2 w-16 rounded-full bg-zinc-200"></span></span>
+                    <span class="text-sm font-medium">Light</span>
+                  </span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="harbor-theme" value="dark" :checked="themeCurrent === 'dark'" @change="setTheme('dark')">
+                  <span class="grid w-full gap-2">
+                    <span class="block h-14 rounded-lg border border-zinc-700 bg-zinc-900 p-2"><span class="block h-2 w-10 rounded-full bg-zinc-600"></span><span class="mt-1.5 block h-2 w-16 rounded-full bg-zinc-700"></span></span>
+                    <span class="text-sm font-medium">Dark</span>
+                  </span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="harbor-theme" value="system" :checked="themeCurrent === 'system'" @change="setTheme('system')">
+                  <span class="grid w-full gap-2">
+                    <span class="flex h-14 overflow-hidden rounded-lg border"><span class="block flex-1 bg-white p-2"><span class="block h-2 w-6 rounded-full bg-zinc-300"></span></span><span class="block flex-1 bg-zinc-900 p-2"><span class="block h-2 w-6 rounded-full bg-zinc-600"></span></span></span>
+                    <span class="text-sm font-medium">System</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="mt-6">
+              <legend class="mb-1 text-sm font-medium">Accent color</legend>
+              <p class="mb-3 text-xs text-muted-foreground">One seed color drives every surface, button and badge in Harbor.</p>
+              <div class="flex flex-wrap items-center gap-2">
+                <button v-for="s in seeds" :key="s.value" type="button" class="size-9 rounded-full border-2 transition-transform hover:scale-110" :class="settings.seed === s.value ? 'border-foreground' : 'border-transparent'" :style="{ backgroundColor: s.value }" :aria-label="s.name" :aria-pressed="settings.seed === s.value ? 'true' : 'false'" :title="s.name" @click="setSeed(s.value)"></button>
+                <label class="ml-1 flex items-center gap-2 text-sm text-muted-foreground">
+                  <input type="color" class="color-input" :value="settings.seed" @input="setSeed($event.target.value)" aria-label="Custom accent color">Custom
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="mt-6">
+              <legend class="mb-2 text-sm font-medium">Message display</legend>
+              <div class="segmented segmented-sm" role="radiogroup" aria-label="Message display">
+                <label class="segmented-item"><input type="radio" name="density" value="cozy" v-model="settings.density"> Cozy</label>
+                <label class="segmented-item"><input type="radio" name="density" value="compact" v-model="settings.density"> Compact</label>
+              </div>
+            </fieldset>
+
+            <div class="mt-6 rounded-2xl border bg-background p-4" aria-label="Preview">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Preview</p>
+              <div class="flex gap-3">
+                <span class="avatar text-sm font-semibold text-white" :class="me.color">{ initials(me.name) }</span>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm"><span class="font-semibold">{ me.name }</span> <span class="text-xs text-muted-foreground">Today at 10:24 AM</span></p>
+                  <p class="text-sm">Looking sharp! <span class="rounded-md bg-primary/10 px-1 py-0.5 font-medium text-primary">@Mira</span> the new accent is live.</p>
+                  <div class="mt-2 flex gap-2"><button type="button" class="btn btn-sm">Primary</button><button type="button" class="btn btn-sm btn-soft">Soft</button><span class="badge badge-primary">Badge</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- notifications -->
+          <section v-show="settingsTab === 'notifications'" aria-label="Notifications">
+            <h3 class="text-lg font-semibold">Notifications</h3>
+            <ul class="mt-4 divide-y rounded-2xl border">
+              <li class="flex items-center gap-4 p-4">
+                <div class="flex-1"><p class="text-sm font-medium">Desktop notifications</p><p class="text-xs text-muted-foreground">Show a notification when someone mentions you.</p></div>
+                <input type="checkbox" class="toggle" role="switch" v-model="settings.desktop" aria-label="Desktop notifications">
+              </li>
+              <li class="flex items-center gap-4 p-4">
+                <div class="flex-1"><p class="text-sm font-medium">Message sounds</p><p class="text-xs text-muted-foreground">Play a soft chime for new messages.</p></div>
+                <input type="checkbox" class="toggle" role="switch" v-model="settings.sounds" aria-label="Message sounds">
+              </li>
+              <li class="flex items-center gap-4 p-4">
+                <div class="flex-1"><p class="text-sm font-medium">Only mentions</p><p class="text-xs text-muted-foreground">Ignore everything that does not mention you.</p></div>
+                <input type="checkbox" class="toggle" role="switch" v-model="settings.mentionsOnly" aria-label="Only mentions">
+              </li>
+              <li class="flex items-center gap-4 p-4">
+                <div class="flex-1"><p class="text-sm font-medium">Reduce motion</p><p class="text-xs text-muted-foreground">Jump to messages without smooth scrolling.</p></div>
+                <input type="checkbox" class="toggle" role="switch" v-model="settings.reduceMotion" aria-label="Reduce motion">
+              </li>
+            </ul>
+            <div class="mt-6 flex items-center justify-between gap-4 rounded-2xl border border-dashed p-4">
+              <div><p class="text-sm font-medium">Reset demo data</p><p class="text-xs text-muted-foreground">Bring back the original servers and messages.</p></div>
+              <button type="button" class="btn btn-sm btn-outline btn-danger" @click="resetDemo()">Reset</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close settings">Close</button></form>
+  </dialog>
+
+  <dialog id="profile" class="modal modal-sm" aria-label="Profile">
+    <div class="modal-box overflow-hidden p-0" v-if="profileId">
+      <div class="h-24" :class="user(profileId).color"></div>
+      <button type="button" class="modal-close text-white" aria-label="Close profile" @click="closeDialog('profile')"></button>
+      <div class="px-5 pb-5">
+        <span class="avatar avatar-xl -mt-10 text-2xl font-bold text-white ring-4 ring-surface" :class="[user(profileId).color, statusAvatar(user(profileId).status)]">{ initials(user(profileId).name) }</span>
+        <h2 class="mt-3 text-xl font-bold">{ user(profileId).name }</h2>
+        <p class="text-sm text-muted-foreground">{ statusLabel(user(profileId).status) }<span v-if="user(profileId).activity && user(profileId).status !== 'offline'">, { user(profileId).activity }</span></p>
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          <span class="badge badge-outline"><span class="status status-xs" :class="user(profileId).role === 'admin' ? 'status-danger' : (user(profileId).role === 'mod' ? 'status-success' : (user(profileId).role === 'bot' ? 'status-info' : 'status-neutral'))"></span>{ roles[user(profileId).role].name.replace(/s$/, '') }</span>
+        </div>
+        <div class="mt-4 rounded-xl bg-surface-2 p-3">
+          <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">About</p>
+          <p class="mt-1 text-sm">{ user(profileId).about || 'No bio yet.' }</p>
+        </div>
+        <div class="modal-actions mt-4">
+          <button v-if="profileId !== 'me'" type="button" class="btn w-full" @click="mentionUser(user(profileId))">Mention in #{ channel() ? channel().name : '' }</button>
+          <button v-else type="button" class="btn w-full" @click="closeDialog('profile'); openSettings('account')">Edit profile</button>
+        </div>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close profile">Close</button></form>
+  </dialog>
+
+  <dialog id="create-server" class="modal modal-sm" aria-labelledby="create-server-title">
+    <form class="modal-box" @submit.prevent="createServer()">
+      <div class="modal-header"><h2 id="create-server-title" class="modal-title">Create a server</h2></div>
+      <button type="button" class="modal-close" aria-label="Close" @click="closeDialog('create-server')"></button>
+      <p class="text-sm text-muted-foreground">A server is where you and your friends hang out. Give it a name, you can change it later.</p>
+      <div class="mt-5 flex justify-center"><span class="grid size-16 place-items-center rounded-2xl bg-primary text-xl font-bold text-primary-foreground">{ initials(newServer.name || '?') }</span></div>
+      <div class="field mt-4">
+        <label class="label" for="new-server-name">Server name</label>
+        <input id="new-server-name" class="input" v-model="newServer.name" maxlength="40" required>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" @click="closeDialog('create-server')">Cancel</button>
+        <button type="submit" class="btn" :disabled="!newServer.name.trim()">Create</button>
+      </div>
+    </form>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close">Close</button></form>
+  </dialog>
+
+  <dialog id="create-channel" class="modal modal-sm" aria-labelledby="create-channel-title">
+    <form class="modal-box" @submit.prevent="createChannel()">
+      <div class="modal-header"><h2 id="create-channel-title" class="modal-title">Create channel</h2></div>
+      <button type="button" class="modal-close" aria-label="Close" @click="closeDialog('create-channel')"></button>
+      <fieldset>
+        <legend class="mb-2 text-sm font-medium">Channel type</legend>
+        <div class="grid gap-2">
+          <label class="radio-card"><input type="radio" name="channel-type" value="text" v-model="newChannel.type"><span><span class="block text-sm font-medium">Text</span><span class="block text-xs text-muted-foreground">Messages, images and code</span></span></label>
+          <label class="radio-card"><input type="radio" name="channel-type" value="voice" v-model="newChannel.type"><span><span class="block text-sm font-medium">Voice</span><span class="block text-xs text-muted-foreground">Hang out together with voice</span></span></label>
+        </div>
+      </fieldset>
+      <div class="field mt-4">
+        <label class="label" for="new-channel-name">Channel name</label>
+        <div class="input-group">
+          <span class="input-group-addon">{ newChannel.type === 'voice' ? 'Voice' : '#' }</span>
+          <input id="new-channel-name" class="input" v-model="newChannel.name" :placeholder="newChannel.type === 'voice' ? 'Study hall' : 'new-channel'" maxlength="32" required>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" @click="closeDialog('create-channel')">Cancel</button>
+        <button type="submit" class="btn" :disabled="!newChannel.name.trim()">Create channel</button>
+      </div>
+    </form>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close">Close</button></form>
+  </dialog>
+
+  <dialog id="confirm-delete" class="modal modal-sm" aria-labelledby="confirm-delete-title">
+    <div class="modal-box">
+      <div class="modal-header"><h2 id="confirm-delete-title" class="modal-title">Delete message?</h2></div>
+      <p class="modal-body text-muted-foreground">This removes the message for everyone in the channel. You cannot undo it.</p>
+      <div v-if="pendingDelete && findMessage(pendingDelete)" class="mt-4 rounded-xl border bg-surface-2 p-3 text-sm">{ snippet(findMessage(pendingDelete)) }</div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" @click="closeDialog('confirm-delete')">Cancel</button>
+        <button type="button" class="btn btn-danger" @click="confirmDelete()">Delete</button>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button aria-label="Close">Close</button></form>
+  </dialog>
+
+  <!-- toasts -->
+  <div class="toast toast-top toast-center z-50" aria-live="polite" v-show="toasts.length">
+    <div v-for="t in toasts" :key="t.id" class="toast-item" role="status">
+      <svg class="size-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      <p class="toast-title flex-1">{ t.text }</p>
+      <button type="button" class="btn btn-ghost btn-xs btn-square" aria-label="Dismiss" @click="dismissToast(t)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -2358,3 +2358,9 @@
     transition: none;
   }
 }
+
+/* A closed popover must stay hidden even when it also carries a component
+   class that sets display (for example <ul popover class="dropdown-content menu">). */
+[popover]:not(:popover-open):where(.menu, .dropdown-content, .context-menu, .popover) {
+  display: none;
+}
