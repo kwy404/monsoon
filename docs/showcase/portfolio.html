@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designer portfolio | Monsoon showcase</title>
+<meta name="description" content="A personal portfolio for Teodora Vance, a fictional product designer, with case studies, an experience timeline and a contact form, built only with Monsoon classes.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-background text-foreground antialiased" style="--seed: #f43f5e">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<header class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-6 sm:px-6">
+  <a href="#" class="flex items-center gap-3 font-semibold"><span class="grid size-9 place-items-center rounded-full bg-foreground text-sm font-bold text-background">TV</span><span class="hidden sm:inline">Teodora Vance</span></a>
+  <nav class="flex items-center gap-1 rounded-full border bg-surface p-1 text-sm shadow-sm" aria-label="Main">
+    <a href="#work" class="rounded-full bg-foreground px-3 py-1.5 font-medium text-background">Work</a>
+    <a href="#about" class="rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">About</a>
+    <a href="#contact" class="rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="mx-auto max-w-6xl px-4 pt-10 pb-16 sm:px-6 md:pt-20">
+    <span class="badge badge-success badge-dot badge-pill">Booking projects from January 2027</span>
+    <h1 class="mt-6 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-6xl lg:text-7xl">
+      I design calm software for <span class="font-serif italic text-primary">busy people</span> and the teams who build it.
+    </h1>
+    <div class="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="max-w-xl text-lg text-muted-foreground">Product designer and illustrator in Lisbon. Eleven years of turning messy workflows into interfaces people stop noticing, in the best way.</p>
+      <div class="flex gap-3"><a href="#contact" class="btn btn-lg btn-pill">Start a project</a><a href="#" class="btn btn-lg btn-pill btn-outline btn-neutral">Resume</a></div>
+    </div>
+  </section>
+
+  <section id="work" class="mx-auto max-w-6xl px-4 sm:px-6" aria-labelledby="work-title">
+    <div class="flex items-end justify-between border-b pb-4"><h2 id="work-title" class="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Selected work</h2><p class="text-sm text-muted-foreground">2021 to 2026</p></div>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <a href="#" class="group md:col-span-2">
+        <div class="overflow-hidden rounded-3xl bg-gradient-to-br from-rose-500 to-orange-400">
+          <svg class="block h-auto w-full transition duration-500 group-hover:scale-105" viewBox="0 0 1200 560" aria-hidden="true">
+            <g class="fill-white"><rect x="180" y="80" width="840" height="480" rx="28" opacity=".95"/></g>
+            <g class="fill-rose-500">
+              <rect x="220" y="124" width="180" height="24" rx="12" opacity=".9"/>
+              <rect x="220" y="190" width="200" height="320" rx="18" opacity=".12"/>
+            </g>
+            <g class="fill-black" opacity=".08">
+              <rect x="450" y="190" width="530" height="40" rx="12"/>
+              <rect x="450" y="250" width="250" height="120" rx="16"/>
+              <rect x="730" y="250" width="250" height="120" rx="16"/>
+              <rect x="450" y="390" width="530" height="120" rx="16"/>
+            </g>
+            <path class="stroke-rose-500" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M470 340l50-40 50 20 60-60 50 30"/>
+            <g class="fill-rose-500">
+              <circle cx="760" cy="320" r="26" opacity=".85"/>
+              <circle cx="840" cy="300" r="18" opacity=".5"/>
+              <circle cx="900" cy="330" r="12" opacity=".3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+          <div><h3 class="text-2xl font-semibold tracking-tight group-hover:text-primary">Tessellate Health</h3><p class="text-muted-foreground">Rebuilding a clinic scheduling suite used by 9,000 front desks</p></div>
+          <div class="flex flex-wrap gap-2"><span class="tag">Web app</span><span class="tag">Design system</span><span class="tag">2026</span></div>
+        </div>
+      </a>
+      <a href="#" class="group">
+        <div class="overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-500 to-sky-400">
+          <svg class="block h-auto w-full transition duration-500 group-hover:scale-105" viewBox="0 0 600 450" aria-hidden="true">
+            <rect class="fill-black" opacity=".25" x="214" y="56" width="172" height="350" rx="30"/>
+            <rect class="fill-white" x="224" y="66" width="152" height="330" rx="22"/>
+            <g class="fill-indigo-500">
+              <rect x="244" y="96" width="70" height="12" rx="6"/>
+              <rect x="244" y="130" width="112" height="112" rx="56" opacity=".18"/>
+              <rect x="244" y="262" width="112" height="14" rx="7" opacity=".5"/>
+              <rect x="244" y="286" width="80" height="14" rx="7" opacity=".3"/>
+              <rect x="244" y="336" width="112" height="36" rx="18"/>
+            </g>
+            <path class="stroke-indigo-500" fill="none" stroke-width="10" stroke-linecap="round" d="M300 152a34 34 0 1 1-24 10"/>
+          </svg>
+        </div>
+        <div class="mt-5"><h3 class="text-xl font-semibold tracking-tight group-hover:text-primary">Quietly</h3><p class="text-muted-foreground">A focus timer that ranked first in its category for 14 weeks</p><div class="mt-3 flex flex-wrap gap-2"><span class="tag">iOS</span><span class="tag">Brand</span><span class="tag">2024</span></div></div>
+      </a>
+      <a href="#" class="group">
+        <div class="overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500 to-lime-400">
+          <svg class="block h-auto w-full transition duration-500 group-hover:scale-105" viewBox="0 0 600 450" aria-hidden="true">
+            <g class="fill-white" opacity=".95">
+              <rect x="80" y="90" width="200" height="270" rx="20"/>
+              <rect x="320" y="90" width="200" height="130" rx="20"/>
+              <rect x="320" y="240" width="200" height="120" rx="20"/>
+            </g>
+            <g class="fill-emerald-600">
+              <rect x="104" y="116" width="90" height="12" rx="6"/>
+              <rect x="104" y="300" width="152" height="36" rx="18"/>
+              <rect x="344" y="116" width="60" height="12" rx="6"/>
+            </g>
+            <g class="fill-emerald-500" opacity=".35">
+              <rect x="104" y="150" width="152" height="130" rx="12"/>
+              <rect x="344" y="270" width="40" height="66" rx="8"/>
+              <rect x="396" y="290" width="40" height="46" rx="8"/>
+              <rect x="448" y="262" width="40" height="74" rx="8"/>
+            </g>
+            <path class="stroke-emerald-600" fill="none" stroke-width="6" stroke-linecap="round" d="M344 190l40-24 40 12 50-30"/>
+          </svg>
+        </div>
+        <div class="mt-5"><h3 class="text-xl font-semibold tracking-tight group-hover:text-primary">Fieldbook</h3><p class="text-muted-foreground">Offline first crop records for 30,000 small farms</p><div class="mt-3 flex flex-wrap gap-2"><span class="tag">Android</span><span class="tag">Research</span><span class="tag">2023</span></div></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto mt-24 max-w-6xl px-4 sm:px-6" aria-label="Highlights">
+    <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border bg-border md:grid-cols-4">
+      <div class="bg-surface p-6"><dt class="text-sm text-muted-foreground">Years designing</dt><dd class="mt-2 text-4xl font-semibold tracking-tight">11</dd></div>
+      <div class="bg-surface p-6"><dt class="text-sm text-muted-foreground">Products shipped</dt><dd class="mt-2 text-4xl font-semibold tracking-tight">27</dd></div>
+      <div class="bg-surface p-6"><dt class="text-sm text-muted-foreground">Teams mentored</dt><dd class="mt-2 text-4xl font-semibold tracking-tight">40+</dd></div>
+      <div class="bg-surface p-6"><dt class="text-sm text-muted-foreground">Design awards</dt><dd class="mt-2 text-4xl font-semibold tracking-tight">6</dd></div>
+    </dl>
+  </section>
+
+  <section id="about" class="mx-auto mt-24 grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-5" aria-labelledby="about-title">
+    <div class="lg:col-span-2">
+      <div class="relative mx-auto aspect-square max-w-sm overflow-hidden rounded-3xl bg-gradient-to-br from-rose-500 to-orange-400">
+        <svg class="absolute inset-0 size-full" viewBox="0 0 300 300" aria-hidden="true">
+          <circle class="fill-white" opacity=".9" cx="150" cy="120" r="54"/>
+          <path class="fill-white" opacity=".9" d="M60 300c0-60 40-96 90-96s90 36 90 96z"/>
+          <path class="stroke-black" fill="none" stroke-width="6" stroke-linecap="round" opacity=".7" d="M118 108h18M164 108h18M136 140q14 10 28 0"/>
+        </svg>
+      </div>
+    </div>
+    <div class="lg:col-span-3">
+      <h2 id="about-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">A designer who reads the support tickets</h2>
+      <div class="mt-6 space-y-4 text-lg text-muted-foreground">
+        <p>I started as an illustrator for science textbooks, which taught me to explain complicated things with as few marks as possible. That habit followed me into product work.</p>
+        <p>Today I help small teams find the one screen that matters, design it until it is boring, and build the system that keeps the rest consistent.</p>
+      </div>
+      <h3 class="mt-10 text-sm font-semibold uppercase tracking-widest text-muted-foreground">Experience</h3>
+      <ol class="timeline mt-5">
+        <li class="timeline-item"><span class="timeline-dot bg-primary"></span><div class="timeline-content"><time class="timeline-time">2023 to now</time><p class="font-semibold">Independent, Studio Vance</p><p class="text-sm text-muted-foreground">Product strategy and design systems for health and climate startups.</p></div></li>
+        <li class="timeline-item"><span class="timeline-dot"></span><div class="timeline-content"><time class="timeline-time">2019 to 2023</time><p class="font-semibold">Lead designer, Parcelwise</p><p class="text-sm text-muted-foreground">Grew the design team from two to fourteen and shipped the courier app.</p></div></li>
+        <li class="timeline-item"><span class="timeline-dot"></span><div class="timeline-content"><time class="timeline-time">2015 to 2019</time><p class="font-semibold">Product designer, Orrery Labs</p><p class="text-sm text-muted-foreground">Data tools for astronomers, and my first design system.</p></div></li>
+      </ol>
+      <div class="mt-8 flex flex-wrap gap-2"><span class="chip chip-outline">Product strategy</span><span class="chip chip-outline">Interaction design</span><span class="chip chip-outline">Design systems</span><span class="chip chip-outline">Illustration</span><span class="chip chip-outline">Workshops</span></div>
+    </div>
+  </section>
+
+  <section class="mx-auto mt-24 max-w-6xl px-4 sm:px-6" aria-label="Kind words">
+    <figure class="rounded-3xl bg-surface-2 p-8 sm:p-12">
+      <blockquote class="font-serif text-2xl leading-snug text-balance sm:text-3xl">&ldquo;Teodora found the problem we had been designing around for two years, fixed it in a week, then taught our team how to keep it fixed.&rdquo;</blockquote>
+      <figcaption class="mt-8 flex items-center gap-4"><span class="avatar avatar-placeholder bg-primary/10 text-primary">OB</span><div><p class="font-semibold">Oyelaran Bello</p><p class="text-sm text-muted-foreground">VP Product, Tessellate Health</p></div></figcaption>
+    </figure>
+  </section>
+
+  <section id="contact" class="mx-auto mt-24 mb-20 grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2" aria-labelledby="contact-title">
+    <div>
+      <h2 id="contact-title" class="text-4xl font-semibold tracking-tight sm:text-5xl">Have a tangle that needs untangling?</h2>
+      <p class="mt-4 text-lg text-muted-foreground">Tell me a little about the project. I reply to every message within two working days.</p>
+      <a href="#" class="link link-primary mt-8 inline-block text-xl font-medium">hello@teodoravance.design</a>
+      <ul class="mt-6 flex gap-4 text-sm text-muted-foreground"><li><a href="#" class="link link-hover">Sketchbook</a></li><li><a href="#" class="link link-hover">Newsletter</a></li><li><a href="#" class="link link-hover">Reading list</a></li></ul>
+    </div>
+    <form class="form rounded-3xl border bg-surface p-6 shadow-sm sm:p-8" action="#">
+      <div class="form-row">
+        <div class="field"><label class="label" for="c-name">Name</label><input id="c-name" class="input" autocomplete="name" required></div>
+        <div class="field"><label class="label" for="c-email">Email</label><input id="c-email" type="email" class="input" autocomplete="email" required></div>
+      </div>
+      <div class="field"><label class="label" for="c-budget">Budget</label><select id="c-budget" class="select"><option>Under 10k EUR</option><option selected>10k to 30k EUR</option><option>30k EUR or more</option></select></div>
+      <div class="field"><label class="label" for="c-msg">Project</label><textarea id="c-msg" class="textarea" rows="4" placeholder="What are you building, and what is getting in the way?"></textarea></div>
+      <div class="form-actions"><button type="submit" class="btn btn-pill">Send message</button></div>
+    </form>
+  </section>
+</main>
+
+<footer class="border-t">
+  <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:justify-between sm:px-6"><p>Teodora Vance, Lisbon. A fictional designer for this showcase.</p><p>Set in your system fonts, no trackers.</p></div>
+</footer>
+</body>
+</html>

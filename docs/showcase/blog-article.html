@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog article | Monsoon showcase</title>
+<meta name="description" content="A long form article page for Longwave Journal, a fictional magazine, with a table of contents, pull quotes, an inline SVG chart and an author card, built only with Monsoon classes.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-background text-foreground antialiased" style="--seed: #15803d">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<header class="border-b">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+    <a href="#" class="font-serif text-2xl font-bold italic tracking-tight">Longwave<span class="text-primary">.</span></a>
+    <nav class="hidden items-center gap-6 text-sm text-muted-foreground md:flex" aria-label="Sections">
+      <a href="#" class="hover:text-foreground">Essays</a><a href="#" class="font-medium text-foreground">Field notes</a><a href="#" class="hover:text-foreground">Interviews</a><a href="#" class="hover:text-foreground">Archive</a>
+    </nav>
+    <a href="#subscribe" class="btn btn-sm btn-pill">Subscribe</a>
+  </div>
+</header>
+
+<main>
+  <article>
+    <header class="mx-auto max-w-3xl px-4 pt-12 text-center sm:px-6 md:pt-20">
+      <div class="flex flex-wrap items-center justify-center gap-2 text-sm">
+        <a href="#" class="tag tag-primary">Field notes</a>
+        <span class="text-muted-foreground">Issue 41 &middot; October 2026</span>
+      </div>
+      <h1 class="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight text-balance sm:text-5xl lg:text-6xl">The quiet economics of the repair cafe</h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground text-pretty sm:text-xl">Every second Saturday, a church hall in Harrowgate fixes about ninety broken things for free. I spent a year counting what that is actually worth.</p>
+      <div class="mt-8 flex items-center justify-center gap-3 text-left">
+        <span class="avatar avatar-placeholder bg-gradient-to-br from-primary to-success text-primary-foreground">IV</span>
+        <div class="text-sm"><p class="font-semibold">Ines Varga</p><p class="text-muted-foreground"><time datetime="2026-10-09">Oct 9, 2026</time> &middot; 14 min read</p></div>
+      </div>
+    </header>
+
+    <figure class="mx-auto mt-12 max-w-5xl px-4 sm:px-6">
+      <div class="overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-success to-warning shadow-xl">
+        <svg class="block h-auto w-full" viewBox="0 0 1000 420" aria-hidden="true">
+          <g class="fill-white" opacity=".14"><circle cx="820" cy="80" r="160"/><circle cx="140" cy="380" r="200"/></g>
+          <g class="stroke-white" fill="none" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".92">
+            <rect x="330" y="170" width="340" height="170" rx="22"/><path d="M330 222h340"/>
+            <path d="M440 170v-26a18 18 0 0 1 18-18h84a18 18 0 0 1 18 18v26"/>
+            <path d="M150 340 238 252"/><circle cx="258" cy="232" r="28"/>
+            <path d="M760 340 860 240"/>
+          </g>
+          <g class="fill-white" opacity=".92"><rect x="478" y="206" width="44" height="32" rx="8"/><path d="M850 230l40-40 30 30-40 40z"/></g>
+        </svg>
+      </div>
+      <figcaption class="mt-3 text-center text-sm text-muted-foreground">Toasters, radios and one very determined sewing machine wait on the triage table.</figcaption>
+    </figure>
+
+    <div class="mx-auto mt-14 grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-12">
+      <aside class="hidden lg:col-span-3 lg:block">
+        <nav class="sticky top-8" aria-labelledby="toc-title">
+          <p id="toc-title" class="toc-title">In this article</p>
+          <ul class="toc">
+            <li><a href="#saturday" class="toc-active">A Saturday in the hall</a></li>
+            <li><a href="#counting">Counting what gets saved</a><ul><li><a href="#method">How I measured</a></li><li><a href="#numbers">The numbers</a></li></ul></li>
+            <li><a href="#skills">Skills are the real stock</a></li>
+            <li><a href="#next">What would scale</a></li>
+          </ul>
+          <div class="mt-8 flex gap-2">
+            <a href="#" class="btn btn-sm btn-outline btn-neutral btn-square" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></a>
+            <a href="#" class="btn btn-sm btn-outline btn-neutral btn-square" aria-label="Share by email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+            <a href="#" class="btn btn-sm btn-outline btn-neutral btn-square" aria-label="Save for later"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></a>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="min-w-0 lg:col-span-9">
+        <div class="prose prose-lg font-serif">
+          <p>The first thing you notice is the smell: solder, burnt dust and strong tea. The second is the queue. By ten past nine on a wet Saturday there are already fourteen people holding things they were told were not worth fixing.</p>
+          <h2 id="saturday">A Saturday in the hall</h2>
+          <p>The Harrowgate repair cafe runs on four folding tables and a rota of eleven volunteers. One table does electrics, one does textiles, one does bicycles and the fourth is called <em>everything else</em>, which on my first visit included a cuckoo clock, a child's scooter and a coffee grinder that had been dropped down a flight of stairs.</p>
+          <p>Nobody pays. There is a jar for donations and a sign asking visitors to stay and watch their item being opened. That second rule turns out to matter more than the first.</p>
+          <blockquote>People do not come for the free fix. They come because someone finally explains why the thing broke.</blockquote>
+          <h2 id="counting">Counting what gets saved</h2>
+          <p>Repair cafes are easy to love and hard to measure. Organizers report items fixed, but rarely what those items would have cost to replace, or how long they keep working afterwards. So for twelve sessions I kept a spreadsheet.</p>
+          <h3 id="method">How I measured</h3>
+          <ul>
+            <li>Every item was logged at the door with its category and the owner's estimate of a replacement price.</li>
+            <li>Volunteers marked each item as fixed, partly fixed or not fixable, with the time spent.</li>
+            <li>Three months later I phoned a sample of owners to ask whether the item was still in use.</li>
+          </ul>
+          <h3 id="numbers">The numbers</h3>
+          <p>Across 1,084 items, 63 percent left the hall working. Small kitchen appliances had the best odds, and laptops the worst, mostly because of glued batteries and parts that are no longer sold.</p>
+        </div>
+
+        <figure class="my-10 rounded-2xl border bg-surface p-5 sm:p-6">
+          <figcaption class="flex flex-wrap items-baseline justify-between gap-2"><span class="font-semibold">Share of items repaired, by category</span><span class="text-sm text-muted-foreground">n = 1,084 items, 12 sessions</span></figcaption>
+          <div class="mt-5 space-y-3 text-sm">
+            <div class="grid grid-cols-4 items-center gap-3 sm:grid-cols-6"><span class="text-muted-foreground">Kitchen</span><progress class="progress progress-primary progress-lg col-span-2 sm:col-span-4" value="81" max="100">81%</progress><span class="text-right font-semibold tabular-nums">81%</span></div>
+            <div class="grid grid-cols-4 items-center gap-3 sm:grid-cols-6"><span class="text-muted-foreground">Textiles</span><progress class="progress progress-primary progress-lg col-span-2 sm:col-span-4" value="77" max="100">77%</progress><span class="text-right font-semibold tabular-nums">77%</span></div>
+            <div class="grid grid-cols-4 items-center gap-3 sm:grid-cols-6"><span class="text-muted-foreground">Bicycles</span><progress class="progress progress-primary progress-lg col-span-2 sm:col-span-4" value="72" max="100">72%</progress><span class="text-right font-semibold tabular-nums">72%</span></div>
+            <div class="grid grid-cols-4 items-center gap-3 sm:grid-cols-6"><span class="text-muted-foreground">Lamps</span><progress class="progress progress-primary progress-lg col-span-2 sm:col-span-4" value="66" max="100">66%</progress><span class="text-right font-semibold tabular-nums">66%</span></div>
+            <div class="grid grid-cols-4 items-center gap-3 sm:grid-cols-6"><span class="text-muted-foreground">Audio</span><progress class="progress progress-warning progress-lg col-span-2 sm:col-span-4" value="48" max="100">48%</progress><span class="text-right font-semibold tabular-nums">48%</span></div>
+            <div class="grid grid-cols-4 items-center gap-3 sm:grid-cols-6"><span class="text-muted-foreground">Laptops</span><progress class="progress progress-danger progress-lg col-span-2 sm:col-span-4" value="29" max="100">29%</progress><span class="text-right font-semibold tabular-nums">29%</span></div>
+          </div>
+        </figure>
+
+        <div class="prose prose-lg font-serif">
+          <p>Using the owners' own replacement prices, the hall saved its visitors roughly <strong>&pound;31,400</strong> over the year, against running costs of about &pound;2,100 for rent, spare fuses and biscuits. At the three month follow up, 88 percent of repaired items were still in daily use.</p>
+          <h2 id="skills">Skills are the real stock</h2>
+          <p>The money is the headline, but it undersells the hall. Volunteers estimate that one visitor in five comes back the next month to fix something themselves at the table, with supervision. Several now volunteer.</p>
+        </div>
+
+        <aside class="callout callout-primary my-8">
+          <p class="callout-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Start one near you</p>
+          <p>You need a room, public liability insurance, a few tools and one person who can safely test mains electrics. The rest, organizers say, turns up on its own.</p>
+        </aside>
+
+        <div class="prose prose-lg font-serif">
+          <h2 id="next">What would scale</h2>
+          <p>The hall cannot fix a laptop whose battery is glued in place, and no amount of goodwill changes that. What would help is boring: spare parts sold for ten years, screws instead of glue and service manuals that are not secret. Several of those rules now exist on paper. The repair cafe is where you find out whether they work.</p>
+          <p>As I packed up on my last Saturday, a retired postman named Clive held up a radio he had owned since 1979. It crackled, then played the shipping forecast. The whole room clapped.</p>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-2"><a href="#" class="tag">Repair</a><a href="#" class="tag">Community</a><a href="#" class="tag">Circular economy</a><a href="#" class="tag">Harrowgate</a></div>
+
+        <section class="mt-10 flex flex-col gap-4 rounded-2xl border bg-surface-2 p-6 sm:flex-row sm:items-start" aria-label="About the author">
+          <span class="avatar avatar-xl avatar-placeholder shrink-0 bg-gradient-to-br from-primary to-success text-primary-foreground">IV</span>
+          <div>
+            <p class="text-sm text-muted-foreground">Written by</p>
+            <p class="text-lg font-semibold">Ines Varga</p>
+            <p class="mt-2 text-muted-foreground">Ines writes about the things people keep and the places that keep them working. Her last piece for Longwave followed a lighthouse keeper's logbooks across forty winters.</p>
+            <a href="#" class="link link-primary mt-3 inline-block text-sm font-medium">More from Ines</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <section class="mx-auto mt-20 max-w-6xl px-4 sm:px-6" aria-labelledby="related-title">
+    <div class="flex items-end justify-between gap-4"><h2 id="related-title" class="font-serif text-2xl font-bold sm:text-3xl">Keep reading</h2><a href="#" class="link link-hover text-sm text-muted-foreground">All field notes</a></div>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="card card-interactive"><div class="card-media aspect-video bg-gradient-to-br from-info to-primary"></div><div class="card-body"><p class="text-xs font-semibold uppercase tracking-wider text-primary">Essays</p><h3 class="card-title font-serif"><a href="#">Forty winters in a lighthouse logbook</a></h3><p class="card-subtitle">Ines Varga &middot; 18 min read</p></div></article>
+      <article class="card card-interactive"><div class="card-media aspect-video bg-gradient-to-br from-warning to-danger"></div><div class="card-body"><p class="text-xs font-semibold uppercase tracking-wider text-primary">Interviews</p><h3 class="card-title font-serif"><a href="#">The last cobbler on Mill Lane</a></h3><p class="card-subtitle">Tomas Reyes &middot; 9 min read</p></div></article>
+      <article class="card card-interactive sm:col-span-2 lg:col-span-1"><div class="card-media aspect-video bg-gradient-to-br from-success to-accent"></div><div class="card-body"><p class="text-xs font-semibold uppercase tracking-wider text-primary">Field notes</p><h3 class="card-title font-serif"><a href="#">A seed library that lends tomatoes</a></h3><p class="card-subtitle">Hana Oduya &middot; 11 min read</p></div></article>
+    </div>
+  </section>
+
+  <section id="subscribe" class="mx-auto my-20 max-w-6xl px-4 sm:px-6">
+    <div class="grid items-center gap-8 rounded-3xl bg-primary px-6 py-10 text-primary-foreground sm:px-10 md:grid-cols-2">
+      <div><h2 class="font-serif text-3xl font-bold">One slow letter a month</h2><p class="mt-3 text-primary-foreground/80">New field notes, a reading list and a photograph from the archive. No tracking pixels, ever.</p></div>
+      <form class="flex flex-col gap-3 sm:flex-row" action="#">
+        <label for="sub-email" class="sr-only">Email address</label>
+        <input id="sub-email" type="email" class="input input-lg flex-1 text-foreground" placeholder="you@example.com" required>
+        <button type="submit" class="btn btn-lg btn-neutral">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t">
+  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <p class="font-serif text-base font-bold italic text-foreground">Longwave<span class="text-primary">.</span></p>
+    <p>An independent, reader funded magazine. A fictional publication for this showcase.</p>
+  </div>
+</footer>
+</body>
+</html>

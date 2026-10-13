@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "count": 4659,
+  "version": "0.2.0",
+  "count": 4923,
   "classes": [
     {
       "class": "container",
@@ -21857,6 +21857,204 @@
       "variants": []
     },
     {
+      "class": "text-slate",
+      "category": "colors",
+      "css": ".text-slate {\n  color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-gray",
+      "category": "colors",
+      "css": ".text-gray {\n  color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-zinc",
+      "category": "colors",
+      "css": ".text-zinc {\n  color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-neutral",
+      "category": "colors",
+      "css": ".text-neutral {\n  color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-stone",
+      "category": "colors",
+      "css": ".text-stone {\n  color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-red",
+      "category": "colors",
+      "css": ".text-red {\n  color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-orange",
+      "category": "colors",
+      "css": ".text-orange {\n  color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-amber",
+      "category": "colors",
+      "css": ".text-amber {\n  color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-yellow",
+      "category": "colors",
+      "css": ".text-yellow {\n  color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-lime",
+      "category": "colors",
+      "css": ".text-lime {\n  color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-green",
+      "category": "colors",
+      "css": ".text-green {\n  color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-emerald",
+      "category": "colors",
+      "css": ".text-emerald {\n  color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-teal",
+      "category": "colors",
+      "css": ".text-teal {\n  color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-cyan",
+      "category": "colors",
+      "css": ".text-cyan {\n  color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-sky",
+      "category": "colors",
+      "css": ".text-sky {\n  color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-blue",
+      "category": "colors",
+      "css": ".text-blue {\n  color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-indigo",
+      "category": "colors",
+      "css": ".text-indigo {\n  color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-violet",
+      "category": "colors",
+      "css": ".text-violet {\n  color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-purple",
+      "category": "colors",
+      "css": ".text-purple {\n  color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-fuchsia",
+      "category": "colors",
+      "css": ".text-fuchsia {\n  color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-pink",
+      "category": "colors",
+      "css": ".text-pink {\n  color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "text-rose",
+      "category": "colors",
+      "css": ".text-rose {\n  color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
       "class": "bg-background",
       "category": "colors",
       "css": ".bg-background {\n  background-color: var(--background);\n}",
@@ -24172,6 +24370,204 @@
       "variants": []
     },
     {
+      "class": "bg-slate",
+      "category": "colors",
+      "css": ".bg-slate {\n  background-color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-gray",
+      "category": "colors",
+      "css": ".bg-gray {\n  background-color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-zinc",
+      "category": "colors",
+      "css": ".bg-zinc {\n  background-color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-neutral",
+      "category": "colors",
+      "css": ".bg-neutral {\n  background-color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-stone",
+      "category": "colors",
+      "css": ".bg-stone {\n  background-color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-red",
+      "category": "colors",
+      "css": ".bg-red {\n  background-color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-orange",
+      "category": "colors",
+      "css": ".bg-orange {\n  background-color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-amber",
+      "category": "colors",
+      "css": ".bg-amber {\n  background-color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-yellow",
+      "category": "colors",
+      "css": ".bg-yellow {\n  background-color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-lime",
+      "category": "colors",
+      "css": ".bg-lime {\n  background-color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-green",
+      "category": "colors",
+      "css": ".bg-green {\n  background-color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-emerald",
+      "category": "colors",
+      "css": ".bg-emerald {\n  background-color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-teal",
+      "category": "colors",
+      "css": ".bg-teal {\n  background-color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-cyan",
+      "category": "colors",
+      "css": ".bg-cyan {\n  background-color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-sky",
+      "category": "colors",
+      "css": ".bg-sky {\n  background-color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-blue",
+      "category": "colors",
+      "css": ".bg-blue {\n  background-color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-indigo",
+      "category": "colors",
+      "css": ".bg-indigo {\n  background-color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-violet",
+      "category": "colors",
+      "css": ".bg-violet {\n  background-color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-purple",
+      "category": "colors",
+      "css": ".bg-purple {\n  background-color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-fuchsia",
+      "category": "colors",
+      "css": ".bg-fuchsia {\n  background-color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-pink",
+      "category": "colors",
+      "css": ".bg-pink {\n  background-color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "bg-rose",
+      "category": "colors",
+      "css": ".bg-rose {\n  background-color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
       "class": "border-background",
       "category": "colors",
       "css": ".border-background {\n  border-color: var(--background);\n}",
@@ -26447,6 +26843,204 @@
       "variants": []
     },
     {
+      "class": "border-slate",
+      "category": "colors",
+      "css": ".border-slate {\n  border-color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-gray",
+      "category": "colors",
+      "css": ".border-gray {\n  border-color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-zinc",
+      "category": "colors",
+      "css": ".border-zinc {\n  border-color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-neutral",
+      "category": "colors",
+      "css": ".border-neutral {\n  border-color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-stone",
+      "category": "colors",
+      "css": ".border-stone {\n  border-color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-red",
+      "category": "colors",
+      "css": ".border-red {\n  border-color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-orange",
+      "category": "colors",
+      "css": ".border-orange {\n  border-color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-amber",
+      "category": "colors",
+      "css": ".border-amber {\n  border-color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-yellow",
+      "category": "colors",
+      "css": ".border-yellow {\n  border-color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-lime",
+      "category": "colors",
+      "css": ".border-lime {\n  border-color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-green",
+      "category": "colors",
+      "css": ".border-green {\n  border-color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-emerald",
+      "category": "colors",
+      "css": ".border-emerald {\n  border-color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-teal",
+      "category": "colors",
+      "css": ".border-teal {\n  border-color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-cyan",
+      "category": "colors",
+      "css": ".border-cyan {\n  border-color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-sky",
+      "category": "colors",
+      "css": ".border-sky {\n  border-color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-blue",
+      "category": "colors",
+      "css": ".border-blue {\n  border-color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-indigo",
+      "category": "colors",
+      "css": ".border-indigo {\n  border-color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-violet",
+      "category": "colors",
+      "css": ".border-violet {\n  border-color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-purple",
+      "category": "colors",
+      "css": ".border-purple {\n  border-color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-fuchsia",
+      "category": "colors",
+      "css": ".border-fuchsia {\n  border-color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-pink",
+      "category": "colors",
+      "css": ".border-pink {\n  border-color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
+      "class": "border-rose",
+      "category": "colors",
+      "css": ".border-rose {\n  border-color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": [
+        "hover",
+        "group-hover"
+      ]
+    },
+    {
       "class": "ring-background",
       "category": "colors",
       "css": ".ring-background {\n  --m-ring-color: var(--background);\n}",
@@ -27188,6 +27782,138 @@
       "class": "ring-rose-600",
       "category": "colors",
       "css": ".ring-rose-600 {\n  --m-ring-color: var(--color-rose-600);\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-slate",
+      "category": "colors",
+      "css": ".ring-slate {\n  --m-ring-color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-gray",
+      "category": "colors",
+      "css": ".ring-gray {\n  --m-ring-color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-zinc",
+      "category": "colors",
+      "css": ".ring-zinc {\n  --m-ring-color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-neutral",
+      "category": "colors",
+      "css": ".ring-neutral {\n  --m-ring-color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-stone",
+      "category": "colors",
+      "css": ".ring-stone {\n  --m-ring-color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-red",
+      "category": "colors",
+      "css": ".ring-red {\n  --m-ring-color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-orange",
+      "category": "colors",
+      "css": ".ring-orange {\n  --m-ring-color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-amber",
+      "category": "colors",
+      "css": ".ring-amber {\n  --m-ring-color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-yellow",
+      "category": "colors",
+      "css": ".ring-yellow {\n  --m-ring-color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-lime",
+      "category": "colors",
+      "css": ".ring-lime {\n  --m-ring-color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-green",
+      "category": "colors",
+      "css": ".ring-green {\n  --m-ring-color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-emerald",
+      "category": "colors",
+      "css": ".ring-emerald {\n  --m-ring-color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-teal",
+      "category": "colors",
+      "css": ".ring-teal {\n  --m-ring-color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-cyan",
+      "category": "colors",
+      "css": ".ring-cyan {\n  --m-ring-color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-sky",
+      "category": "colors",
+      "css": ".ring-sky {\n  --m-ring-color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-blue",
+      "category": "colors",
+      "css": ".ring-blue {\n  --m-ring-color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-indigo",
+      "category": "colors",
+      "css": ".ring-indigo {\n  --m-ring-color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-violet",
+      "category": "colors",
+      "css": ".ring-violet {\n  --m-ring-color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-purple",
+      "category": "colors",
+      "css": ".ring-purple {\n  --m-ring-color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-fuchsia",
+      "category": "colors",
+      "css": ".ring-fuchsia {\n  --m-ring-color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-pink",
+      "category": "colors",
+      "css": ".ring-pink {\n  --m-ring-color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "ring-rose",
+      "category": "colors",
+      "css": ".ring-rose {\n  --m-ring-color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
       "variants": []
     },
     {
@@ -28012,6 +28738,182 @@
       ]
     },
     {
+      "class": "outline-slate",
+      "category": "colors",
+      "css": ".outline-slate {\n  outline-color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-gray",
+      "category": "colors",
+      "css": ".outline-gray {\n  outline-color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-zinc",
+      "category": "colors",
+      "css": ".outline-zinc {\n  outline-color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-neutral",
+      "category": "colors",
+      "css": ".outline-neutral {\n  outline-color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-stone",
+      "category": "colors",
+      "css": ".outline-stone {\n  outline-color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-red",
+      "category": "colors",
+      "css": ".outline-red {\n  outline-color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-orange",
+      "category": "colors",
+      "css": ".outline-orange {\n  outline-color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-amber",
+      "category": "colors",
+      "css": ".outline-amber {\n  outline-color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-yellow",
+      "category": "colors",
+      "css": ".outline-yellow {\n  outline-color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-lime",
+      "category": "colors",
+      "css": ".outline-lime {\n  outline-color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-green",
+      "category": "colors",
+      "css": ".outline-green {\n  outline-color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-emerald",
+      "category": "colors",
+      "css": ".outline-emerald {\n  outline-color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-teal",
+      "category": "colors",
+      "css": ".outline-teal {\n  outline-color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-cyan",
+      "category": "colors",
+      "css": ".outline-cyan {\n  outline-color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-sky",
+      "category": "colors",
+      "css": ".outline-sky {\n  outline-color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-blue",
+      "category": "colors",
+      "css": ".outline-blue {\n  outline-color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-indigo",
+      "category": "colors",
+      "css": ".outline-indigo {\n  outline-color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-violet",
+      "category": "colors",
+      "css": ".outline-violet {\n  outline-color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-purple",
+      "category": "colors",
+      "css": ".outline-purple {\n  outline-color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-fuchsia",
+      "category": "colors",
+      "css": ".outline-fuchsia {\n  outline-color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-pink",
+      "category": "colors",
+      "css": ".outline-pink {\n  outline-color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
+      "class": "outline-rose",
+      "category": "colors",
+      "css": ".outline-rose {\n  outline-color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": [
+        "forced-colors"
+      ]
+    },
+    {
       "class": "decoration-background",
       "category": "colors",
       "css": ".decoration-background {\n  text-decoration-color: var(--background);\n}",
@@ -28573,6 +29475,138 @@
       "class": "decoration-rose-600",
       "category": "colors",
       "css": ".decoration-rose-600 {\n  text-decoration-color: var(--color-rose-600);\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-slate",
+      "category": "colors",
+      "css": ".decoration-slate {\n  text-decoration-color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-gray",
+      "category": "colors",
+      "css": ".decoration-gray {\n  text-decoration-color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-zinc",
+      "category": "colors",
+      "css": ".decoration-zinc {\n  text-decoration-color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-neutral",
+      "category": "colors",
+      "css": ".decoration-neutral {\n  text-decoration-color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-stone",
+      "category": "colors",
+      "css": ".decoration-stone {\n  text-decoration-color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-red",
+      "category": "colors",
+      "css": ".decoration-red {\n  text-decoration-color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-orange",
+      "category": "colors",
+      "css": ".decoration-orange {\n  text-decoration-color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-amber",
+      "category": "colors",
+      "css": ".decoration-amber {\n  text-decoration-color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-yellow",
+      "category": "colors",
+      "css": ".decoration-yellow {\n  text-decoration-color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-lime",
+      "category": "colors",
+      "css": ".decoration-lime {\n  text-decoration-color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-green",
+      "category": "colors",
+      "css": ".decoration-green {\n  text-decoration-color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-emerald",
+      "category": "colors",
+      "css": ".decoration-emerald {\n  text-decoration-color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-teal",
+      "category": "colors",
+      "css": ".decoration-teal {\n  text-decoration-color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-cyan",
+      "category": "colors",
+      "css": ".decoration-cyan {\n  text-decoration-color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-sky",
+      "category": "colors",
+      "css": ".decoration-sky {\n  text-decoration-color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-blue",
+      "category": "colors",
+      "css": ".decoration-blue {\n  text-decoration-color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-indigo",
+      "category": "colors",
+      "css": ".decoration-indigo {\n  text-decoration-color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-violet",
+      "category": "colors",
+      "css": ".decoration-violet {\n  text-decoration-color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-purple",
+      "category": "colors",
+      "css": ".decoration-purple {\n  text-decoration-color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-fuchsia",
+      "category": "colors",
+      "css": ".decoration-fuchsia {\n  text-decoration-color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-pink",
+      "category": "colors",
+      "css": ".decoration-pink {\n  text-decoration-color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "decoration-rose",
+      "category": "colors",
+      "css": ".decoration-rose {\n  text-decoration-color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
       "variants": []
     },
     {
@@ -29140,6 +30174,138 @@
       "variants": []
     },
     {
+      "class": "fill-slate",
+      "category": "colors",
+      "css": ".fill-slate {\n  fill: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-gray",
+      "category": "colors",
+      "css": ".fill-gray {\n  fill: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-zinc",
+      "category": "colors",
+      "css": ".fill-zinc {\n  fill: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-neutral",
+      "category": "colors",
+      "css": ".fill-neutral {\n  fill: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-stone",
+      "category": "colors",
+      "css": ".fill-stone {\n  fill: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-red",
+      "category": "colors",
+      "css": ".fill-red {\n  fill: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-orange",
+      "category": "colors",
+      "css": ".fill-orange {\n  fill: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-amber",
+      "category": "colors",
+      "css": ".fill-amber {\n  fill: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-yellow",
+      "category": "colors",
+      "css": ".fill-yellow {\n  fill: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-lime",
+      "category": "colors",
+      "css": ".fill-lime {\n  fill: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-green",
+      "category": "colors",
+      "css": ".fill-green {\n  fill: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-emerald",
+      "category": "colors",
+      "css": ".fill-emerald {\n  fill: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-teal",
+      "category": "colors",
+      "css": ".fill-teal {\n  fill: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-cyan",
+      "category": "colors",
+      "css": ".fill-cyan {\n  fill: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-sky",
+      "category": "colors",
+      "css": ".fill-sky {\n  fill: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-blue",
+      "category": "colors",
+      "css": ".fill-blue {\n  fill: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-indigo",
+      "category": "colors",
+      "css": ".fill-indigo {\n  fill: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-violet",
+      "category": "colors",
+      "css": ".fill-violet {\n  fill: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-purple",
+      "category": "colors",
+      "css": ".fill-purple {\n  fill: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-fuchsia",
+      "category": "colors",
+      "css": ".fill-fuchsia {\n  fill: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-pink",
+      "category": "colors",
+      "css": ".fill-pink {\n  fill: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "fill-rose",
+      "category": "colors",
+      "css": ".fill-rose {\n  fill: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": []
+    },
+    {
       "class": "stroke-background",
       "category": "colors",
       "css": ".stroke-background {\n  stroke: var(--background);\n}",
@@ -29704,6 +30870,138 @@
       "variants": []
     },
     {
+      "class": "stroke-slate",
+      "category": "colors",
+      "css": ".stroke-slate {\n  stroke: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-gray",
+      "category": "colors",
+      "css": ".stroke-gray {\n  stroke: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-zinc",
+      "category": "colors",
+      "css": ".stroke-zinc {\n  stroke: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-neutral",
+      "category": "colors",
+      "css": ".stroke-neutral {\n  stroke: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-stone",
+      "category": "colors",
+      "css": ".stroke-stone {\n  stroke: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-red",
+      "category": "colors",
+      "css": ".stroke-red {\n  stroke: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-orange",
+      "category": "colors",
+      "css": ".stroke-orange {\n  stroke: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-amber",
+      "category": "colors",
+      "css": ".stroke-amber {\n  stroke: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-yellow",
+      "category": "colors",
+      "css": ".stroke-yellow {\n  stroke: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-lime",
+      "category": "colors",
+      "css": ".stroke-lime {\n  stroke: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-green",
+      "category": "colors",
+      "css": ".stroke-green {\n  stroke: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-emerald",
+      "category": "colors",
+      "css": ".stroke-emerald {\n  stroke: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-teal",
+      "category": "colors",
+      "css": ".stroke-teal {\n  stroke: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-cyan",
+      "category": "colors",
+      "css": ".stroke-cyan {\n  stroke: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-sky",
+      "category": "colors",
+      "css": ".stroke-sky {\n  stroke: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-blue",
+      "category": "colors",
+      "css": ".stroke-blue {\n  stroke: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-indigo",
+      "category": "colors",
+      "css": ".stroke-indigo {\n  stroke: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-violet",
+      "category": "colors",
+      "css": ".stroke-violet {\n  stroke: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-purple",
+      "category": "colors",
+      "css": ".stroke-purple {\n  stroke: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-fuchsia",
+      "category": "colors",
+      "css": ".stroke-fuchsia {\n  stroke: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-pink",
+      "category": "colors",
+      "css": ".stroke-pink {\n  stroke: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "stroke-rose",
+      "category": "colors",
+      "css": ".stroke-rose {\n  stroke: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": []
+    },
+    {
       "class": "shadow-background",
       "category": "colors",
       "css": ".shadow-background {\n  --m-shadow-color: var(--background);\n}",
@@ -30253,6 +31551,138 @@
       "class": "shadow-rose-600",
       "category": "colors",
       "css": ".shadow-rose-600 {\n  --m-shadow-color: var(--color-rose-600);\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-slate",
+      "category": "colors",
+      "css": ".shadow-slate {\n  --m-shadow-color: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-gray",
+      "category": "colors",
+      "css": ".shadow-gray {\n  --m-shadow-color: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-zinc",
+      "category": "colors",
+      "css": ".shadow-zinc {\n  --m-shadow-color: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-neutral",
+      "category": "colors",
+      "css": ".shadow-neutral {\n  --m-shadow-color: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-stone",
+      "category": "colors",
+      "css": ".shadow-stone {\n  --m-shadow-color: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-red",
+      "category": "colors",
+      "css": ".shadow-red {\n  --m-shadow-color: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-orange",
+      "category": "colors",
+      "css": ".shadow-orange {\n  --m-shadow-color: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-amber",
+      "category": "colors",
+      "css": ".shadow-amber {\n  --m-shadow-color: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-yellow",
+      "category": "colors",
+      "css": ".shadow-yellow {\n  --m-shadow-color: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-lime",
+      "category": "colors",
+      "css": ".shadow-lime {\n  --m-shadow-color: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-green",
+      "category": "colors",
+      "css": ".shadow-green {\n  --m-shadow-color: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-emerald",
+      "category": "colors",
+      "css": ".shadow-emerald {\n  --m-shadow-color: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-teal",
+      "category": "colors",
+      "css": ".shadow-teal {\n  --m-shadow-color: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-cyan",
+      "category": "colors",
+      "css": ".shadow-cyan {\n  --m-shadow-color: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-sky",
+      "category": "colors",
+      "css": ".shadow-sky {\n  --m-shadow-color: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-blue",
+      "category": "colors",
+      "css": ".shadow-blue {\n  --m-shadow-color: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-indigo",
+      "category": "colors",
+      "css": ".shadow-indigo {\n  --m-shadow-color: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-violet",
+      "category": "colors",
+      "css": ".shadow-violet {\n  --m-shadow-color: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-purple",
+      "category": "colors",
+      "css": ".shadow-purple {\n  --m-shadow-color: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-fuchsia",
+      "category": "colors",
+      "css": ".shadow-fuchsia {\n  --m-shadow-color: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-pink",
+      "category": "colors",
+      "css": ".shadow-pink {\n  --m-shadow-color: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "shadow-rose",
+      "category": "colors",
+      "css": ".shadow-rose {\n  --m-shadow-color: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
       "variants": []
     },
     {
@@ -35852,6 +37282,138 @@
       "variants": []
     },
     {
+      "class": "from-slate",
+      "category": "backgrounds",
+      "css": ".from-slate {\n  --m-gradient-from: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-gray",
+      "category": "backgrounds",
+      "css": ".from-gray {\n  --m-gradient-from: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-zinc",
+      "category": "backgrounds",
+      "css": ".from-zinc {\n  --m-gradient-from: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-neutral",
+      "category": "backgrounds",
+      "css": ".from-neutral {\n  --m-gradient-from: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-stone",
+      "category": "backgrounds",
+      "css": ".from-stone {\n  --m-gradient-from: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-red",
+      "category": "backgrounds",
+      "css": ".from-red {\n  --m-gradient-from: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-orange",
+      "category": "backgrounds",
+      "css": ".from-orange {\n  --m-gradient-from: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-amber",
+      "category": "backgrounds",
+      "css": ".from-amber {\n  --m-gradient-from: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-yellow",
+      "category": "backgrounds",
+      "css": ".from-yellow {\n  --m-gradient-from: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-lime",
+      "category": "backgrounds",
+      "css": ".from-lime {\n  --m-gradient-from: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-green",
+      "category": "backgrounds",
+      "css": ".from-green {\n  --m-gradient-from: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-emerald",
+      "category": "backgrounds",
+      "css": ".from-emerald {\n  --m-gradient-from: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-teal",
+      "category": "backgrounds",
+      "css": ".from-teal {\n  --m-gradient-from: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-cyan",
+      "category": "backgrounds",
+      "css": ".from-cyan {\n  --m-gradient-from: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-sky",
+      "category": "backgrounds",
+      "css": ".from-sky {\n  --m-gradient-from: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-blue",
+      "category": "backgrounds",
+      "css": ".from-blue {\n  --m-gradient-from: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-indigo",
+      "category": "backgrounds",
+      "css": ".from-indigo {\n  --m-gradient-from: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-violet",
+      "category": "backgrounds",
+      "css": ".from-violet {\n  --m-gradient-from: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-purple",
+      "category": "backgrounds",
+      "css": ".from-purple {\n  --m-gradient-from: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-fuchsia",
+      "category": "backgrounds",
+      "css": ".from-fuchsia {\n  --m-gradient-from: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-pink",
+      "category": "backgrounds",
+      "css": ".from-pink {\n  --m-gradient-from: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
+      "class": "from-rose",
+      "category": "backgrounds",
+      "css": ".from-rose {\n  --m-gradient-from: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n  --m-gradient-stops: var(--m-gradient-from), var(--m-gradient-via, var(--m-gradient-to, transparent)), var(--m-gradient-to, transparent);\n}",
+      "variants": []
+    },
+    {
       "class": "via-background",
       "category": "backgrounds",
       "css": ".via-background {\n  --m-gradient-via: var(--background);\n}",
@@ -36404,6 +37966,138 @@
       "variants": []
     },
     {
+      "class": "via-slate",
+      "category": "backgrounds",
+      "css": ".via-slate {\n  --m-gradient-via: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-gray",
+      "category": "backgrounds",
+      "css": ".via-gray {\n  --m-gradient-via: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-zinc",
+      "category": "backgrounds",
+      "css": ".via-zinc {\n  --m-gradient-via: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-neutral",
+      "category": "backgrounds",
+      "css": ".via-neutral {\n  --m-gradient-via: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-stone",
+      "category": "backgrounds",
+      "css": ".via-stone {\n  --m-gradient-via: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-red",
+      "category": "backgrounds",
+      "css": ".via-red {\n  --m-gradient-via: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-orange",
+      "category": "backgrounds",
+      "css": ".via-orange {\n  --m-gradient-via: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-amber",
+      "category": "backgrounds",
+      "css": ".via-amber {\n  --m-gradient-via: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-yellow",
+      "category": "backgrounds",
+      "css": ".via-yellow {\n  --m-gradient-via: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-lime",
+      "category": "backgrounds",
+      "css": ".via-lime {\n  --m-gradient-via: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-green",
+      "category": "backgrounds",
+      "css": ".via-green {\n  --m-gradient-via: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-emerald",
+      "category": "backgrounds",
+      "css": ".via-emerald {\n  --m-gradient-via: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-teal",
+      "category": "backgrounds",
+      "css": ".via-teal {\n  --m-gradient-via: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-cyan",
+      "category": "backgrounds",
+      "css": ".via-cyan {\n  --m-gradient-via: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-sky",
+      "category": "backgrounds",
+      "css": ".via-sky {\n  --m-gradient-via: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-blue",
+      "category": "backgrounds",
+      "css": ".via-blue {\n  --m-gradient-via: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-indigo",
+      "category": "backgrounds",
+      "css": ".via-indigo {\n  --m-gradient-via: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-violet",
+      "category": "backgrounds",
+      "css": ".via-violet {\n  --m-gradient-via: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-purple",
+      "category": "backgrounds",
+      "css": ".via-purple {\n  --m-gradient-via: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-fuchsia",
+      "category": "backgrounds",
+      "css": ".via-fuchsia {\n  --m-gradient-via: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-pink",
+      "category": "backgrounds",
+      "css": ".via-pink {\n  --m-gradient-via: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "via-rose",
+      "category": "backgrounds",
+      "css": ".via-rose {\n  --m-gradient-via: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
+      "variants": []
+    },
+    {
       "class": "to-background",
       "category": "backgrounds",
       "css": ".to-background {\n  --m-gradient-to: var(--background);\n}",
@@ -36953,6 +38647,138 @@
       "class": "to-rose-600",
       "category": "backgrounds",
       "css": ".to-rose-600 {\n  --m-gradient-to: var(--color-rose-600);\n}",
+      "variants": []
+    },
+    {
+      "class": "to-slate",
+      "category": "backgrounds",
+      "css": ".to-slate {\n  --m-gradient-to: color-mix(in oklab, var(--color-slate-400) calc(var(--mode) * 100%), var(--color-slate-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-gray",
+      "category": "backgrounds",
+      "css": ".to-gray {\n  --m-gradient-to: color-mix(in oklab, var(--color-gray-400) calc(var(--mode) * 100%), var(--color-gray-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-zinc",
+      "category": "backgrounds",
+      "css": ".to-zinc {\n  --m-gradient-to: color-mix(in oklab, var(--color-zinc-400) calc(var(--mode) * 100%), var(--color-zinc-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-neutral",
+      "category": "backgrounds",
+      "css": ".to-neutral {\n  --m-gradient-to: color-mix(in oklab, var(--color-neutral-400) calc(var(--mode) * 100%), var(--color-neutral-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-stone",
+      "category": "backgrounds",
+      "css": ".to-stone {\n  --m-gradient-to: color-mix(in oklab, var(--color-stone-400) calc(var(--mode) * 100%), var(--color-stone-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-red",
+      "category": "backgrounds",
+      "css": ".to-red {\n  --m-gradient-to: color-mix(in oklab, var(--color-red-400) calc(var(--mode) * 100%), var(--color-red-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-orange",
+      "category": "backgrounds",
+      "css": ".to-orange {\n  --m-gradient-to: color-mix(in oklab, var(--color-orange-400) calc(var(--mode) * 100%), var(--color-orange-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-amber",
+      "category": "backgrounds",
+      "css": ".to-amber {\n  --m-gradient-to: color-mix(in oklab, var(--color-amber-400) calc(var(--mode) * 100%), var(--color-amber-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-yellow",
+      "category": "backgrounds",
+      "css": ".to-yellow {\n  --m-gradient-to: color-mix(in oklab, var(--color-yellow-400) calc(var(--mode) * 100%), var(--color-yellow-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-lime",
+      "category": "backgrounds",
+      "css": ".to-lime {\n  --m-gradient-to: color-mix(in oklab, var(--color-lime-400) calc(var(--mode) * 100%), var(--color-lime-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-green",
+      "category": "backgrounds",
+      "css": ".to-green {\n  --m-gradient-to: color-mix(in oklab, var(--color-green-400) calc(var(--mode) * 100%), var(--color-green-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-emerald",
+      "category": "backgrounds",
+      "css": ".to-emerald {\n  --m-gradient-to: color-mix(in oklab, var(--color-emerald-400) calc(var(--mode) * 100%), var(--color-emerald-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-teal",
+      "category": "backgrounds",
+      "css": ".to-teal {\n  --m-gradient-to: color-mix(in oklab, var(--color-teal-400) calc(var(--mode) * 100%), var(--color-teal-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-cyan",
+      "category": "backgrounds",
+      "css": ".to-cyan {\n  --m-gradient-to: color-mix(in oklab, var(--color-cyan-400) calc(var(--mode) * 100%), var(--color-cyan-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-sky",
+      "category": "backgrounds",
+      "css": ".to-sky {\n  --m-gradient-to: color-mix(in oklab, var(--color-sky-400) calc(var(--mode) * 100%), var(--color-sky-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-blue",
+      "category": "backgrounds",
+      "css": ".to-blue {\n  --m-gradient-to: color-mix(in oklab, var(--color-blue-400) calc(var(--mode) * 100%), var(--color-blue-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-indigo",
+      "category": "backgrounds",
+      "css": ".to-indigo {\n  --m-gradient-to: color-mix(in oklab, var(--color-indigo-400) calc(var(--mode) * 100%), var(--color-indigo-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-violet",
+      "category": "backgrounds",
+      "css": ".to-violet {\n  --m-gradient-to: color-mix(in oklab, var(--color-violet-400) calc(var(--mode) * 100%), var(--color-violet-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-purple",
+      "category": "backgrounds",
+      "css": ".to-purple {\n  --m-gradient-to: color-mix(in oklab, var(--color-purple-400) calc(var(--mode) * 100%), var(--color-purple-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-fuchsia",
+      "category": "backgrounds",
+      "css": ".to-fuchsia {\n  --m-gradient-to: color-mix(in oklab, var(--color-fuchsia-400) calc(var(--mode) * 100%), var(--color-fuchsia-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-pink",
+      "category": "backgrounds",
+      "css": ".to-pink {\n  --m-gradient-to: color-mix(in oklab, var(--color-pink-400) calc(var(--mode) * 100%), var(--color-pink-500));\n}",
+      "variants": []
+    },
+    {
+      "class": "to-rose",
+      "category": "backgrounds",
+      "css": ".to-rose {\n  --m-gradient-to: color-mix(in oklab, var(--color-rose-400) calc(var(--mode) * 100%), var(--color-rose-500));\n}",
       "variants": []
     },
     {

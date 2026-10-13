@@ -1,30 +1,749 @@
 // Interactive parts of the Monsoon site, built with Voodoo.js
-// (https://github.com/kwy404/Voodoo.js). Voodoo is loaded with data-manual, so
-// this module publishes small helpers on V.config.globals before the first
-// render and then starts the page. Theme toggle, menu, install tabs, copy
-// buttons, accordions and both playgrounds are declared in the HTML.
+// (https://github.com/kwy404/Voodoo.js). Voodoo is loaded with data-manual:
+// this module publishes reactive stores and helpers on V.config.globals, then
+// calls V.start(). Pages declare their behavior in HTML (v-data, @click,
+// v-model, v-effect). Plain JavaScript is used only where Voodoo cannot help:
+// pointer dragging of preview handles, the clipboard and iframe documents.
 
 const V = window.V;
+const ROOT = document.body.dataset.root || './';
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const store = {
+  get(k) {
+    try {
+      return localStorage.getItem(k);
+    } catch {
+      return null;
+    }
+  },
+  set(k, v) {
+    try {
+      if (v == null) localStorage.removeItem(k);
+      else localStorage.setItem(k, v);
+    } catch {}
+  },
+};
 
-// ---- Color math (WCAG 2 contrast from computed OKLCH or RGB colors) ----
+// ---- Theme: system, light, dark ----
+
+const THEME_KEY = 'voodoo:theme';
+const NEXT = { system: 'light', light: 'dark', dark: 'system' };
+const LABEL = { system: 'system', light: 'light', dark: 'dark' };
+const media = matchMedia('(prefers-color-scheme: dark)');
+
+function readTheme() {
+  let t = store.get(THEME_KEY);
+  try {
+    t = JSON.parse(t);
+  } catch {}
+  return t === 'light' || t === 'dark' ? t : 'system';
+}
+const T = V.reactive({ mode: readTheme(), dark: false });
+
+function applyTheme(mode) {
+  const root = document.documentElement;
+  if (mode === 'light' || mode === 'dark') {
+    root.setAttribute('data-theme', mode);
+    root.style.colorScheme = mode;
+  } else {
+    root.removeAttribute('data-theme');
+    root.style.colorScheme = '';
+  }
+  T.mode = mode;
+  T.dark = mode === 'dark' || (mode === 'system' && media.matches);
+  for (const b of $$('[data-theme-toggle]')) {
+    b.setAttribute('aria-label', `Theme: ${LABEL[mode]}. Switch to ${LABEL[NEXT[mode]]}`);
+    b.title = `Theme: ${LABEL[mode]}`;
+  }
+}
+function setTheme(mode) {
+  store.set(THEME_KEY, mode === 'system' ? null : mode);
+  applyTheme(mode);
+}
+applyTheme(T.mode);
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-theme-toggle]')) setTheme(NEXT[T.mode]);
+});
+addEventListener('storage', (e) => {
+  if (e.key === THEME_KEY) applyTheme(readTheme());
+});
+media.addEventListener('change', () => applyTheme(T.mode));
+
+// ---- Shared stores ----
+
+const S = V.reactive({ nav: false, stars: null, recent: [], loading: false, ready: 0, idx: 0, srcTick: 0 });
+const PV = V.reactive({ resp: 1024, respC: 0 });
+try {
+  S.recent = JSON.parse(store.get('monsoon-recent') || '[]').slice(0, 6);
+} catch {}
+
+addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && S.nav) S.nav = false;
+});
+document.addEventListener('click', (e) => {
+  if (S.nav && e.target.closest('.site-nav a')) S.nav = false;
+});
+
+// GitHub stars, cached for an hour.
+(async () => {
+  try {
+    const cached = JSON.parse(sessionStorage.getItem('monsoon-stars') || 'null');
+    if (cached && Date.now() - cached.t < 3600e3) {
+      S.stars = cached.n;
+      return;
+    }
+    const res = await fetch('https://api.github.com/repos/kwy404/monsoon');
+    if (!res.ok) return;
+    const n = (await res.json()).stargazers_count;
+    S.stars = n;
+    sessionStorage.setItem('monsoon-stars', JSON.stringify({ n, t: Date.now() }));
+  } catch {}
+})();
+const fmtNum = (n) => (n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : String(n));
+
+// ---- Copy helpers ----
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  }
+}
+
+/** Copies the article as Markdown-ish text. */
+function copyPage() {
+  const art = $('#article');
+  if (!art) return;
+  const out = [];
+  const title = $('.doc-title', art)?.textContent.trim();
+  if (title) out.push(`# ${title}`, '');
+  const lead = $('.doc-lead', art)?.textContent.trim();
+  if (lead) out.push(lead, '');
+  const walk = (el) => {
+    for (const n of el.children) {
+      if (n.matches('.anchor, button, .pv-bar, .demo-bar, script, template, iframe, .window-bar, .search-dlg')) continue;
+      const tag = n.tagName;
+      if (tag === 'H2') out.push(`## ${n.textContent.replace(/^#/, '').trim()}`, '');
+      else if (tag === 'H3') out.push(`### ${n.textContent.replace(/^#/, '').trim()}`, '');
+      else if (tag === 'P') out.push(n.textContent.trim().replace(/\s+/g, ' '), '');
+      else if (tag === 'PRE') out.push('```', n.textContent.replace(/\n$/, ''), '```', '');
+      else if (tag === 'UL' || tag === 'OL') {
+        $$(':scope > li', n).forEach((li, i) => out.push(`${tag === 'OL' ? `${i + 1}.` : '-'} ${li.textContent.trim().replace(/\s+/g, ' ')}`));
+        out.push('');
+      } else if (tag === 'TABLE') {
+        const rows = $$('tr', n).map((tr) => `| ${$$('th,td', tr).map((c) => c.textContent.trim().replace(/\s+/g, ' ').replace(/\|/g, '\\|')).join(' | ')} |`);
+        if (rows.length) rows.splice(1, 0, `|${' --- |'.repeat($$('th,td', n.rows[0]).length)}`);
+        out.push(...rows, '');
+      } else if (tag === 'DETAILS' && n.closest('.faq')) {
+        out.push(`**${$('summary', n)?.textContent.trim()}**`, '', $('.faq-a', n)?.textContent.trim() || '', '');
+      } else if (n.children.length) walk(n);
+    }
+  };
+  walk($('.doc-body', art));
+  out.push(`Source: ${location.href.split('#')[0]}`);
+  copyText(out.join('\n').replace(/\n{3,}/g, '\n\n')).then(() => {
+    const b = $('.copy-page');
+    if (!b) return;
+    const span = $('span', b);
+    b.classList.add('is-done');
+    span.textContent = 'Copied';
+    setTimeout(() => {
+      b.classList.remove('is-done');
+      span.textContent = 'Copy page';
+    }, 1600);
+  });
+}
+
+// ---- Preview frames ----
+
+const effective = (mode) => (mode === 'light' || mode === 'dark' ? mode : T.dark ? 'dark' : 'light');
+
+// $el in a binding can be the scope root, so find the preview frame from either.
+const asFrame = (el) => (el && el.tagName === 'IFRAME' ? el : el && el.querySelector ? el.querySelector('iframe.live-frame, iframe.pv-frame') : null);
+
+function whenReady(frame, fn) {
+  if (!frame) return;
+  const doc = frame.contentDocument;
+  // A srcdoc frame starts on an empty about:blank document; wait for the real one.
+  const real = doc && (!frame.hasAttribute('srcdoc') || doc.URL === 'about:srcdoc');
+  if (real && doc.readyState === 'complete' && doc.body) fn(doc);
+  else frame.addEventListener('load', () => fn(frame.contentDocument), { once: true });
+}
+
+/** Sets the color scheme inside a preview frame; '' follows the site. */
+function frameMode(el, mode) {
+  const frame = asFrame(el);
+  const want = effective(mode);
+  whenReady(frame, (doc) => {
+    if (!doc) return;
+    doc.documentElement.setAttribute('data-theme', want);
+    doc.documentElement.style.colorScheme = want;
+  });
+  return want;
+}
+
+let pgSave = 0;
+/** Writes editor HTML into a frame without reloading it. */
+function renderFrame(el, code, mode, _t, seed) {
+  const frame = asFrame(el);
+  const want = effective(mode);
+  whenReady(frame, (doc) => {
+    if (!doc) return;
+    doc.body.innerHTML = code;
+    doc.documentElement.setAttribute('data-theme', want);
+    doc.documentElement.style.colorScheme = want;
+    if (seed) doc.body.style.setProperty('--seed', seed);
+    else doc.body.style.removeProperty('--seed');
+  });
+  if (frame && frame.closest('.pg')) {
+    clearTimeout(pgSave);
+    pgSave = setTimeout(() => store.set('monsoon-playground', code), 400);
+  }
+  return want;
+}
+
+// Auto height for previews, and the container width probe for the responsive demo.
+function watchHeight(frame) {
+  const fit = () => {
+    const doc = frame.contentDocument;
+    if (!doc || !doc.body) return;
+    const cs = doc.defaultView.getComputedStyle(doc.body);
+    const h = Math.ceil(doc.body.getBoundingClientRect().height + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom));
+    const k = Number(frame.dataset.scale || 1);
+    const minh = Number(frame.dataset.minh || 90);
+    frame.style.height = `${Math.max(minh, h)}px`;
+    if (frame.dataset.cqProbe) {
+      const cq = doc.querySelector('[data-cq]');
+      if (cq) PV.respC = cq.clientWidth;
+      frame.parentElement.style.height = `${Math.max(90, h) * k}px`;
+    }
+  };
+  const start = () => {
+    const doc = frame.contentDocument;
+    if (!doc || !doc.body) return;
+    // A tiny fallback for command buttons in browsers without invoker commands.
+    if (!('command' in HTMLButtonElement.prototype)) {
+      doc.addEventListener('click', (e) => {
+        const b = e.target.closest('[commandfor]');
+        if (!b) return;
+        const t = doc.getElementById(b.getAttribute('commandfor'));
+        const c = b.getAttribute('command');
+        if (!t) return;
+        if (c === 'show-modal') t.showModal?.();
+        else if (c === 'close') t.close?.();
+        else if (c === 'toggle-popover') t.togglePopover?.();
+      });
+    }
+    doc.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href="#"]');
+      if (a) e.preventDefault();
+    });
+    new ResizeObserver(fit).observe(doc.body);
+    fit();
+  };
+  whenReady(frame, start);
+}
+
+// Width store for resizable previews.
+function pvSet(id, w) {
+  PV[id] = w;
+  return w;
+}
+function pvLabel(id) {
+  const w = PV[id];
+  return w ? `${w}px` : 'Full';
+}
+
+// The responsive demo can ask for more width than the page has: it scales down.
+function respStyle(w) {
+  const frame = $('.resp-frame');
+  const stage = frame?.parentElement;
+  const want = w || 1024;
+  if (!frame || !stage) return { width: `${want}px` };
+  const avail = stage.clientWidth - 48;
+  const iframe = $('iframe', frame);
+  if (want > avail) {
+    const k = avail / want;
+    iframe.style.width = `${want}px`;
+    iframe.style.transform = `scale(${k})`;
+    iframe.dataset.scale = k;
+    frame.style.height = `${iframe.offsetHeight * k}px`;
+    return { width: `${avail}px` };
+  }
+  iframe.style.width = '';
+  iframe.style.transform = '';
+  iframe.dataset.scale = 1;
+  frame.style.height = '';
+  return { width: `${want}px` };
+}
+function bpClasses(w, cw) {
+  const x = w || 1024;
+  const c = cw || 0;
+  const out = [];
+  for (const [n, px] of [['sm', 640], ['md', 768], ['lg', 1024], ['xl', 1280], ['2xl', 1536]]) if (x >= px) out.push(`on-${n}`);
+  for (const [n, px] of [['cxs', 320], ['csm', 384], ['cmd', 448], ['clg', 512], ['cxl', 576]]) if (c >= px) out.push(`on-${n}`);
+  return out.join(' ');
+}
+
+// Pointer dragging and keyboard resizing of [data-handle].
+function setupHandles() {
+  document.addEventListener('pointerdown', (e) => {
+    const h = e.target.closest('[data-handle]');
+    if (!h) return;
+    e.preventDefault();
+    const id = h.dataset.handle;
+    const box = h.closest('[data-pv]');
+    const stage = box.parentElement;
+    const min = Number(box.dataset.min || 280);
+    const left = box.getBoundingClientRect().left;
+    const max = () => Math.min(Number(box.dataset.max || 4000), stage.clientWidth - (id === 'resp' ? 48 : 40));
+    h.setPointerCapture(e.pointerId);
+    box.classList.add('is-drag');
+    const move = (ev) => {
+      const w = Math.round(Math.max(min, Math.min(max(), ev.clientX - left)));
+      PV[id] = w;
+      h.setAttribute('aria-valuenow', w);
+    };
+    const up = () => {
+      box.classList.remove('is-drag');
+      h.removeEventListener('pointermove', move);
+      h.removeEventListener('pointerup', up);
+      h.removeEventListener('pointercancel', up);
+    };
+    h.addEventListener('pointermove', move);
+    h.addEventListener('pointerup', up);
+    h.addEventListener('pointercancel', up);
+  });
+  document.addEventListener('keydown', (e) => {
+    const h = e.target.closest?.('[data-handle]');
+    if (!h || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const id = h.dataset.handle;
+    const box = h.closest('[data-pv]');
+    const cur = PV[id] || box.getBoundingClientRect().width;
+    const step = e.shiftKey ? 64 : 16;
+    const max = Math.min(Number(box.dataset.max || 4000), box.parentElement.clientWidth - 40);
+    const min = Number(box.dataset.min || 280);
+    let w = cur;
+    if (e.key === 'ArrowLeft') w -= step;
+    if (e.key === 'ArrowRight') w += step;
+    if (e.key === 'Home') w = min;
+    if (e.key === 'End') w = max;
+    PV[id] = Math.round(Math.max(min, Math.min(max, w)));
+    h.setAttribute('aria-valuenow', PV[id]);
+  });
+}
+
+// ---- Editor highlighting ----
+
+const escHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function tokens(src) {
+  const out = [];
+  const re = /<!--[\s\S]*?(?:-->|$)|<\/?[a-zA-Z][\w:-]*[^>]*>?|[^<]+|</g;
+  let m;
+  while ((m = re.exec(src))) {
+    const t = m[0];
+    if (t.startsWith('<!--')) out.push(['h-com', t]);
+    else if (/^<\/?[a-zA-Z]/.test(t)) {
+      const head = /^(<\/?)([\w:-]+)/.exec(t);
+      out.push(['h-pun', head[1]], ['h-tag', head[2]]);
+      let rest = t.slice(head[0].length);
+      const end = /(\/?>)$/.exec(rest);
+      if (end) rest = rest.slice(0, -end[1].length);
+      const ar = /(\s+)|([^\s=]+)(\s*=\s*)?("[^"]*"?|'[^']*'?|[^\s"']+)?/g;
+      let a;
+      while ((a = ar.exec(rest)) && a[0]) {
+        if (a[1]) out.push(['', a[1]]);
+        else {
+          out.push(['h-attr', a[2]]);
+          if (a[3]) out.push(['h-pun', a[3]]);
+          if (a[4]) out.push(['h-str', a[4]]);
+        }
+      }
+      if (end) out.push(['h-pun', end[1]]);
+    } else out.push(['', t]);
+  }
+  return out;
+}
+
+/** HTML syntax highlighting for the editors, one span per line for line numbers. */
+function hl(src) {
+  const lines = [''];
+  for (const [cls, text] of tokens(String(src ?? ''))) {
+    const parts = text.split('\n');
+    parts.forEach((p, i) => {
+      if (i > 0) lines.push('');
+      if (p) lines[lines.length - 1] += cls ? `<span class="${cls}">${escHtml(p)}</span>` : escHtml(p);
+    });
+  }
+  return lines.map((l) => `<span class="ln">${l}</span>`).join('\n') + '\n';
+}
+const lineCount = (code) => String(code || '').split('\n').length;
+
+const presetsEl = document.getElementById('presets-data');
+const presets = presetsEl ? JSON.parse(presetsEl.textContent) : [];
+
+// ---- Playground ----
+
+function b64encode(text) {
+  return btoa(String.fromCharCode(...new TextEncoder().encode(text))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function b64decode(text) {
+  const bin = atob(text.replace(/-/g, '+').replace(/_/g, '/'));
+  return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
+}
+function pgStart() {
+  const m = /[#&]code=([\w-]+)/.exec(location.hash);
+  if (m) {
+    try {
+      return b64decode(m[1]);
+    } catch {}
+  }
+  let handoff = null;
+  try {
+    handoff = sessionStorage.getItem('monsoon-pg');
+    sessionStorage.removeItem('monsoon-pg');
+  } catch {}
+  return handoff || store.get('monsoon-playground') || presets[0]?.code || '';
+}
+function shareCode(code) {
+  const url = `${location.href.split('#')[0]}#code=${b64encode(code)}`;
+  copyText(url);
+  history.replaceState(null, '', url);
+}
+function toPlayground(id) {
+  const src = document.querySelector(`#${CSS.escape(id)} .pv-src`)?.textContent || '';
+  try {
+    sessionStorage.setItem('monsoon-pg', src);
+  } catch {}
+  location.href = `${ROOT}playground.html`;
+}
+
+// ---- Showcase sources ----
+
+const srcCache = {};
+function showSrc(slug) {
+  if (srcCache[slug]) return srcCache[slug];
+  srcCache[slug] = '<p class="search-empty">Loading the source</p>';
+  fetch(`${ROOT}showcase/src/${slug}.html`)
+    .then((r) => r.text())
+    .then((html) => {
+      srcCache[slug] = html;
+      S.srcTick++;
+    })
+    .catch(() => {
+      srcCache[slug] = '<p class="search-empty">The source could not be loaded.</p>';
+      S.srcTick++;
+    });
+  return srcCache[slug];
+}
+async function copySource(href) {
+  try {
+    const text = await (await fetch(`${ROOT}${href}`)).text();
+    copyText(text);
+  } catch {}
+}
+
+// ---- Class index (class reference, generated CSS editor) ----
+
+let index = null;
+let indexPromise = null;
+function loadIndex() {
+  if (!indexPromise) {
+    indexPromise = fetch(`${ROOT}classes.json`)
+      .then((r) => r.json())
+      .then((j) => {
+        index = j;
+        index.byName = new Map(j.rows.map((r) => [r[0], r]));
+        S.idx++;
+        return j;
+      })
+      .catch(() => null);
+  }
+  return indexPromise;
+}
+
+function ruleText(row) {
+  const name = row[0];
+  const sel = row[4] || `.${CSS.escape(name)}`;
+  return { sel, decls: row[2] };
+}
+function cssOfClass(cls) {
+  if (!index) return null;
+  const row = index.byName.get(cls);
+  if (row) {
+    const r = ruleText(row);
+    return [{ wrap: [], sel: r.sel, decls: r.decls }];
+  }
+  const i = cls.indexOf(':', cls.startsWith('@') ? 1 : 0);
+  if (i > 0) {
+    const v = cls.slice(0, i);
+    const base = index.byName.get(cls.slice(i + 1));
+    const vi = index.variants.indexOf(v);
+    if (base && vi >= 0 && base[3].includes(vi) && index.templates[v]) {
+      return index.templates[v].map((t) => ({ wrap: t.wrap, sel: t.sel.split('{c}').join(CSS.escape(cls)), decls: base[2] }));
+    }
+    if (base) return { missing: `${v}: is not generated for ${cls.slice(i + 1)}` };
+  }
+  if (index.comp[cls]) return { raw: index.comp[cls] };
+  return null;
+}
+const sp = (c, t) => `<span class="${c}">${escHtml(t)}</span>`;
+function prettyRule({ wrap, sel, decls }) {
+  let ind = '';
+  let out = '';
+  for (const w of wrap) {
+    out += `${ind}${sp('c-at', w)} ${sp('c-pun', '{')}\n`;
+    ind += '  ';
+  }
+  out += `${ind}${sp('c-sel', sel)} ${sp('c-pun', '{')}\n`;
+  for (const d of decls.split(/;\s*/).filter(Boolean)) {
+    const k = d.indexOf(':');
+    out += `${ind}  ${sp('c-prop', d.slice(0, k).trim())}${sp('c-pun', ':')} ${sp('c-val', d.slice(k + 1).trim())}${sp('c-pun', ';')}\n`;
+  }
+  for (let i = wrap.length; i >= 0; i--) out += `${'  '.repeat(i)}${sp('c-pun', '}')}\n`;
+  return out;
+}
+function cssFor(text) {
+  if (!index) {
+    loadIndex();
+    return sp('c-com', '/* loading the class index */');
+  }
+  const list = String(text || '').split(/\s+/).filter(Boolean);
+  if (!list.length) return sp('c-com', '/* type a class, for example p-4 */');
+  return list
+    .map((c) => {
+      const r = cssOfClass(c);
+      if (!r) return sp('c-miss', `/* ${c} is not a Monsoon class */`) + '\n';
+      if (r.missing) return sp('c-miss', `/* ${r.missing} */`) + '\n';
+      if (r.raw) return `${sp('c-com', `/* ${c}, component */`)}\n${escHtml(r.raw)}\n`;
+      return `${sp('c-com', `/* ${c} */`)}\n${r.map(prettyRule).join('')}`;
+    })
+    .join('\n');
+}
+
+// Class reference search.
+let lastKey = '';
+let lastMatches = [];
+function matches(q, cat, vr) {
+  if (!index) return [];
+  const key = `${q}\u0000${cat}\u0000${vr}`;
+  if (key === lastKey) return lastMatches;
+  let query = String(q || '').trim().toLowerCase();
+  let variant = vr || '';
+  const colon = query.indexOf(':', query.startsWith('@') ? 1 : 0);
+  if (colon > 0 && index.variants.includes(query.slice(0, colon))) {
+    variant = variant || query.slice(0, colon);
+    query = query.slice(colon + 1);
+  }
+  const vi = variant ? index.variants.indexOf(variant) : -1;
+  const ci = cat && cat !== 'all' ? index.categories.indexOf(cat) : -1;
+  const exact = [];
+  const starts = [];
+  const rest = [];
+  for (const row of index.rows) {
+    if (ci >= 0 && row[1] !== ci) continue;
+    if (vi >= 0 && !row[3].includes(vi)) continue;
+    if (query) {
+      const n = row[0];
+      if (n === query) exact.push(row);
+      else if (n.startsWith(query)) starts.push(row);
+      else if (n.includes(query) || row[2].includes(query)) rest.push(row);
+      continue;
+    }
+    rest.push(row);
+  }
+  lastKey = key;
+  lastMatches = exact.concat(starts, rest);
+  return lastMatches;
+}
+const params = new URLSearchParams(location.search);
+
+// ---- Filters on index pages ----
+
+function filterRows(q, sel) {
+  const root = document.querySelector(sel);
+  if (!root) return;
+  const query = String(q || '').trim().toLowerCase();
+  for (const sec of root.querySelectorAll('.util-sec')) {
+    let any = false;
+    for (const tr of sec.querySelectorAll('tbody tr')) {
+      const show = !query || tr.textContent.toLowerCase().includes(query);
+      tr.hidden = !show;
+      any ||= show;
+    }
+    sec.hidden = !any;
+  }
+}
+function cmatch(q, g, group, text) {
+  if (g !== 'all' && g !== group) return false;
+  const query = String(q || '').trim().toLowerCase();
+  return !query || query.split(/\s+/).every((w) => text.includes(w));
+}
+
+// ---- Search ----
+
+let search = null;
+let searchPromise = null;
+function loadSearch() {
+  if (!searchPromise) {
+    S.loading = true;
+    searchPromise = fetch(`${ROOT}search-index.json`)
+      .then((r) => r.json())
+      .then((j) => {
+        search = j;
+        S.loading = false;
+        S.ready++;
+      })
+      .catch(() => {
+        S.loading = false;
+      });
+  }
+  return searchPromise;
+}
+function openSearch() {
+  const d = document.getElementById('search');
+  if (!d) return;
+  loadSearch();
+  if (!d.open) d.showModal();
+  requestAnimationFrame(() => document.getElementById('search-input')?.focus());
+}
+function closeSearch() {
+  document.getElementById('search')?.close();
+}
+const highlight = (text, words) => {
+  let html = escHtml(text);
+  for (const w of words) {
+    if (!w) continue;
+    const re = new RegExp(`(${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig');
+    html = html.replace(/(<[^>]*>)|([^<]+)/g, (m, tag, txt) => (tag ? tag : txt.replace(re, '<mark>$1</mark>')));
+  }
+  return html;
+};
+const GROUP_ORDER = ['Getting started', 'Installation', 'Components', 'Utilities', 'Classes', 'Guides', 'Pages', 'Showcase'];
+let resCache = { key: '', value: { groups: [], total: 0, flat: [] } };
+function results(q) {
+  const key = `${q}\u0000${S.ready}`;
+  if (resCache.key === key) return resCache.value;
+  const query = String(q || '').trim().toLowerCase();
+  const empty = { groups: [], total: 0, flat: [] };
+  if (!query || !search) {
+    resCache = { key, value: empty };
+    return empty;
+  }
+  const words = query.split(/\s+/).filter(Boolean);
+  const scored = [];
+  for (const [kind, group, title, url, sub, text] of search.entries) {
+    const t = title.toLowerCase();
+    let score = 0;
+    let ok = true;
+    for (const w of words) {
+      if (t === w) score += 120;
+      else if (t.startsWith(w)) score += 80;
+      else if (new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(t)) score += 55;
+      else if (t.includes(w)) score += 35;
+      else if (sub.toLowerCase().includes(w)) score += 14;
+      else if (text.includes(w)) score += 6;
+      else ok = false;
+    }
+    if (ok && score) scored.push({ kind, group, title, url, sub, score });
+  }
+  const cls = [];
+  if (words.length === 1 || /^[\w@:/.-]+$/.test(query)) {
+    const qc = query.replace(/\s+/g, '-');
+    const bare = qc.includes(':') ? qc.slice(qc.indexOf(':', qc.startsWith('@') ? 1 : 0) + 1) : qc;
+    for (const [name, ci, decl] of search.classes) {
+      let s = 0;
+      if (name === bare) s = 90;
+      else if (name.startsWith(bare)) s = 70 - Math.min(40, name.length - bare.length);
+      else if (name.includes(bare)) s = 50;
+      else if (bare.length > 3 && decl.toLowerCase().startsWith(bare)) s = 20;
+      if (s) cls.push({ kind: 'class', group: 'Classes', title: name, url: `utilities/${search.cats[ci]}.html#cls-${name}`, sub: decl, score: s });
+    }
+    cls.sort((a, b) => b.score - a.score);
+  }
+  const all = scored.concat(cls.slice(0, 8));
+  const groups = [];
+  for (const name of GROUP_ORDER) {
+    const items = all
+      .filter((x) => x.group === name)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, name === 'Classes' ? 8 : 6);
+    if (items.length) groups.push({ name, top: Math.max(...items.map((x) => x.score)), items });
+  }
+  groups.sort((a, b) => b.top - a.top);
+  let i = 0;
+  const flat = [];
+  for (const g of groups)
+    for (const it of g.items) {
+      it.i = i++;
+      it.html = highlight(it.title, words);
+      flat.push(it);
+    }
+  const value = { groups, total: flat.length, flat };
+  resCache = { key, value };
+  return value;
+}
+function moveSel(q, sel, d) {
+  const n = results(q).total;
+  if (!n) return 0;
+  const next = (sel + d + n) % n;
+  requestAnimationFrame(() => document.getElementById(`sr-${next}`)?.scrollIntoView({ block: 'nearest' }));
+  return next;
+}
+function relUrl(url) {
+  return ROOT + url;
+}
+function remember(it) {
+  const item = { title: it.title, url: it.url, group: it.group };
+  const list = [item, ...S.recent.filter((r) => r.url !== it.url)].slice(0, 6);
+  S.recent = list;
+  store.set('monsoon-recent', JSON.stringify(list));
+  return true;
+}
+function clearRecent() {
+  S.recent = [];
+  store.set('monsoon-recent', null);
+}
+function goSel(q, sel) {
+  const it = results(q).flat[sel];
+  if (!it) return;
+  remember(it);
+  closeSearch();
+  location.href = relUrl(it.url);
+}
+const KIND_ICONS = {
+  doc: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>',
+  guide: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5V21h16"/></svg>',
+  component: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>',
+  utility: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>',
+  class: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg>',
+  page: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>',
+};
+const kindIcon = (k) => KIND_ICONS[k] || KIND_ICONS.page;
+
+// ---- Seed contrast (WCAG 2 from computed OKLCH or RGB colors) ----
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const toLinear = (v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
-
 function oklabToLinear(L, a, b) {
   const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
   const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
   const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
-  return [
-    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
-    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
-    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s,
-  ].map(clamp01);
+  return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s].map(clamp01);
 }
-
 const num = (s) => (s.endsWith('%') ? parseFloat(s) / 100 : parseFloat(s));
-
-/** Linear sRGB channels from a computed color string, or null. */
 function linearRgb(color) {
   const m = /^(\w+)\(([^)]*)\)$/.exec(color.trim());
   if (!m) return null;
@@ -40,7 +759,6 @@ function linearRgb(color) {
   if (fn === 'color' && parts[0] === 'srgb') return parts.slice(1, 4).map((p) => toLinear(clamp01(num(p))));
   return null;
 }
-
 const luminance = ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
 function contrast(a, b) {
   const x = linearRgb(a);
@@ -50,32 +768,25 @@ function contrast(a, b) {
   const l2 = luminance(y);
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
-
-// ---- Seed playground ----
-
 let probe = null;
 function getProbe() {
   if (probe) return probe;
   probe = document.createElement('div');
   probe.setAttribute('aria-hidden', 'true');
   probe.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;visibility:hidden;pointer-events:none';
-  const scheme = (mode) =>
-    `<div class="${mode}" data-mode="${mode}"><i data-k="primary" class="bg-primary text-primary-foreground"></i><i data-k="body" class="bg-background text-foreground"></i><i data-k="accent" class="bg-accent text-accent-foreground"></i><i data-k="surface" class="bg-surface text-muted-foreground"></i><i data-k="seed" style="color: oklch(from var(--seed) l c h)"></i></div>`;
+  const scheme = (mode) => `<div class="${mode}" data-mode="${mode}"><i data-k="primary" class="bg-primary text-primary-foreground"></i><i data-k="body" class="bg-background text-foreground"></i><i data-k="accent" class="bg-accent text-accent-foreground"></i><i data-k="surface" class="bg-surface text-muted-foreground"></i><i data-k="seed" style="color: oklch(from var(--seed) l c h)"></i></div>`;
   probe.innerHTML = scheme('light') + scheme('dark');
   document.body.appendChild(probe);
   return probe;
 }
-
 const valid = (color) => typeof color === 'string' && color.trim() !== '' && CSS.supports('color', color.trim());
 let lastValid = '#3b5bdb';
 const cache = new Map();
-
 function measure(seed) {
   const s = valid(seed) ? seed.trim() : lastValid;
   if (cache.has(s)) return cache.get(s);
-  const root = getProbe();
   const out = {};
-  for (const box of root.querySelectorAll('[data-mode]')) {
+  for (const box of getProbe().querySelectorAll('[data-mode]')) {
     box.style.setProperty('--seed', s);
     const r = {};
     for (const el of box.querySelectorAll('[data-k]')) {
@@ -87,18 +798,60 @@ function measure(seed) {
   cache.set(s, out);
   return out;
 }
-
 const fixed = (n) => (Number.isFinite(n) ? `${n.toFixed(2)}:1` : 'n/a');
 
-const helpers = {
-  /** Last valid seed, so typing a half finished color never blanks the panels. */
+// ---- Start ----
+
+Object.assign(V.config.globals, {
+  T,
+  S,
+  PV,
+  presets,
+  fmtNum,
+  copyText,
+  copyPage,
+  frameMode,
+  renderFrame,
+  pvSet,
+  pvLabel,
+  respStyle,
+  bpClasses,
+  hl,
+  lineCount,
+  pgStart,
+  shareCode,
+  toPlayground,
+  showSrc,
+  copySource,
+  cssFor,
+  filterRows,
+  cmatch,
+  openSearch,
+  closeSearch,
+  results,
+  moveSel,
+  goSel,
+  relUrl,
+  remember,
+  clearRecent,
+  kindIcon,
+  startQuery: params.get('q') || '',
+  startCat: params.get('cat') || 'all',
+  total: (q, cat, vr, _i) => matches(q, cat, vr).length,
+  search: (q, cat, vr, limit) =>
+    matches(q, cat, vr)
+      .slice(0, limit)
+      .map((row) => ({
+        n: row[0],
+        c: index.categories[row[1]],
+        css: prettyRule({ wrap: [], ...ruleText(row) }).replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim(),
+        v: row[3].map((i) => index.variants[i]),
+      })),
   safe(seed) {
     if (valid(seed)) lastValid = seed.trim();
     return lastValid;
   },
-  ratio(seed, mode, key) {
-    return fixed(measure(seed)[mode][key]);
-  },
+  ratio: (seed, mode, key) => fixed(measure(seed)[mode][key]),
   grade(seed, mode) {
     const r = measure(seed)[mode];
     const worst = Math.min(r.primary, r.body, r.accent, r.surface);
@@ -112,98 +865,38 @@ const helpers = {
     const [l, ch, h] = m[1].trim().split(/\s+/).map(parseFloat);
     return `oklch(${l.toFixed(2)} ${ch.toFixed(3)} ${Math.round(h || 0)})`;
   },
-};
-
-// ---- Class playground ----
-
-const presetsEl = document.getElementById('playground-presets');
-const presets = presetsEl ? JSON.parse(presetsEl.textContent) : [];
-const cssHref = new URL('monsoon.min.css', document.baseURI).href;
-
-function frameDoc(code, dark) {
-  return `<!doctype html><html class="${dark ? 'dark' : 'light'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="${cssHref}"></head><body class="p-6 antialiased bg-background text-foreground">${code}</body></html>`;
-}
-
-// ---- Class reference ----
-
-let index = null;
-const VARIANTS_FALLBACK = [];
-let lastKey = '';
-let lastMatches = [];
-
-function rowCss(row) {
-  const [name, , decls, , selector] = row;
-  const sel = selector || `.${CSS.escape(name)}`;
-  const body = decls.split(/;\s*/).filter(Boolean).map((d) => `  ${d.trim()};`).join('\n');
-  return `${sel} {\n${body}\n}`;
-}
-
-function matches(q, cat, vr) {
-  if (!index) return [];
-  const key = `${q}\u0000${cat}\u0000${vr}`;
-  if (key === lastKey) return lastMatches;
-  let query = String(q || '').trim().toLowerCase();
-  let variant = vr || '';
-  // "hover:bg-primary" searches bg-primary among classes that support hover:
-  const colon = query.indexOf(':');
-  if (colon > 0 && index.variants.includes(query.slice(0, colon))) {
-    variant = variant || query.slice(0, colon);
-    query = query.slice(colon + 1);
-  }
-  const vbit = variant ? 1 << index.variants.indexOf(variant) : 0;
-  const ci = cat && cat !== 'all' ? index.categories.indexOf(cat) : -1;
-  const exact = [];
-  const starts = [];
-  const rest = [];
-  for (const row of index.rows) {
-    if (ci >= 0 && row[1] !== ci) continue;
-    if (vbit && !(row[3] & vbit)) continue;
-    if (query) {
-      const n = row[0];
-      if (n === query) exact.push(row);
-      else if (n.startsWith(query)) starts.push(row);
-      else if (n.includes(query) || row[2].includes(query)) rest.push(row);
-      continue;
-    }
-    rest.push(row);
-  }
-  lastKey = key;
-  lastMatches = exact.concat(starts, rest);
-  return lastMatches;
-}
-
-Object.assign(helpers, {
-  presets,
-  frameDoc,
-  startQuery: new URLSearchParams(location.search).get('q') || '',
-  startCat: new URLSearchParams(location.search).get('cat') || 'all',
-  total(q, cat, vr) {
-    return matches(q, cat, vr).length;
-  },
-  search(q, cat, vr, limit) {
-    return matches(q, cat, vr)
-      .slice(0, limit)
-      .map((row) => ({
-        n: row[0],
-        c: index.categories[row[1]],
-        css: rowCss(row),
-        v: index.variants.filter((_, i) => row[3] & (1 << i)),
-      }));
-  },
-  copyClass(name) {
-    navigator.clipboard?.writeText(name).catch(() => {});
-  },
 });
 
-if (V) {
-  if (document.getElementById('ref-q')) {
-    try {
-      const res = await fetch('classes.json');
-      index = await res.json();
-    } catch {
-      index = { categories: [], variants: VARIANTS_FALLBACK, rows: [] };
-    }
-  }
-  Object.assign(V.config.globals, helpers);
-  V.start();
-}
+if (document.getElementById('ref-q') || document.querySelector('.hiw')) loadIndex().then(() => {
+  lastKey = '';
+});
+for (const f of $$('iframe[data-autoheight]')) watchHeight(f);
+setupHandles();
+V.start();
+
+// Keep the active sidebar link in view.
+const active = $('.site-nav .side-link.is-active');
+const scroller = $('.site-nav-scroll');
+if (active && scroller) scroller.scrollTop = active.offsetTop - scroller.clientHeight / 2;
+
+// Refit the responsive demo when the page resizes.
+if ($('.resp-frame')) addEventListener('resize', () => Object.assign($('.resp-frame').style, respStyle(PV.resp)));
+// Prefetch the search index when the browser is idle.
+setTimeout(() => loadSearch(), 2500);
+
+// Copy buttons: data-copy-from="#id" copies that element's text, data-copy-text copies the value.
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-copy-from], [data-copy-text]');
+  if (!b) return;
+  const src = b.dataset.copyFrom ? document.querySelector(b.dataset.copyFrom) : null;
+  const text = b.dataset.copyText ?? (src ? src.innerText.replace(/\n$/, '') : '');
+  const ok = await copyText(text);
+  const label = b.querySelector('span');
+  const before = label ? label.textContent : '';
+  b.classList.add(ok ? 'is-copied' : 'is-failed');
+  if (label) label.textContent = ok ? 'Copied' : 'Press Ctrl C';
+  setTimeout(() => {
+    b.classList.remove('is-copied', 'is-failed');
+    if (label) label.textContent = before;
+  }, 1600);
+});

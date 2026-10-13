@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing page | Monsoon showcase</title>
+<meta name="description" content="A pricing page for Sketchloom, a fictional design collaboration tool, with a monthly and yearly switch that needs no JavaScript, a comparison table and an FAQ, built only with Monsoon classes.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-background text-foreground antialiased" style="--seed: #8b5cf6">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<header class="navbar navbar-sticky navbar-blur">
+  <div class="navbar-start"><a href="#" class="navbar-brand"><svg class="text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17c3-6 6-6 9 0s6 6 9 0"/><path d="M3 9c3-6 6-6 9 0s6 6 9 0"/></svg>Sketchloom</a></div>
+  <nav class="navbar-center navbar-nav" aria-label="Main"><a href="#" class="navbar-link">Product</a><a href="#" class="navbar-link">Templates</a><a href="#" class="navbar-link" aria-current="page">Pricing</a><a href="#" class="navbar-link">Changelog</a></nav>
+  <div class="navbar-end"><a href="#" class="navbar-link hidden sm:inline-flex">Log in</a><a href="#" class="btn btn-sm">Try it free</a>
+    <details class="navbar-mobile"><summary class="navbar-burger" aria-label="Menu"></summary><nav class="navbar-mobile-panel" aria-label="Mobile"><a href="#" class="navbar-link">Product</a><a href="#" class="navbar-link">Templates</a><a href="#" class="navbar-link" aria-current="page">Pricing</a><a href="#" class="navbar-link">Changelog</a></nav></details>
+  </div>
+</header>
+
+<main>
+  <section class="relative isolate overflow-hidden">
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-gradient-to-b from-secondary to-transparent" aria-hidden="true"></div>
+    <div class="mx-auto max-w-3xl px-4 pt-16 text-center sm:px-6 md:pt-24">
+      <span class="badge badge-primary badge-pill">Pricing</span>
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-balance sm:text-5xl">Pay for editors. Viewers are always free.</h1>
+      <p class="mt-5 text-lg text-muted-foreground text-pretty">Start on Sketch for nothing, then upgrade the people who actually draw. Clients, developers and stakeholders can comment for free on every plan.</p>
+    </div>
+
+    <div class="mx-auto mt-10 max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="tabs tabs-pills justify-center" role="tablist" aria-label="Billing period">
+        <input type="radio" name="billing" class="tab border" aria-label="Monthly">
+        <div class="tab-content pt-12" role="tabpanel">
+          <div class="pricing">
+            <div class="pricing-card">
+              <h2 class="pricing-name">Sketch</h2>
+              <p class="pricing-desc">For solo work and small experiments.</p>
+              <p class="pricing-price">$0<span class="pricing-period">forever</span></p>
+              <ul class="pricing-features">
+                <li>3 active files</li>
+                <li>Unlimited viewers and comments</li>
+                <li>30 day version history</li>
+                <li>Community templates</li>
+              </ul>
+              <a class="btn btn-outline btn-neutral btn-block" href="#">Start sketching</a>
+            </div>
+            <div class="pricing-card pricing-featured">
+              <span class="pricing-badge">Most teams pick this</span>
+              <h2 class="pricing-name">Studio</h2>
+              <p class="pricing-desc">For product teams shipping every week.</p>
+              <p class="pricing-price">$18<span class="pricing-period">per editor / month</span></p>
+              <ul class="pricing-features">
+                <li>Unlimited files and projects</li>
+                <li>Shared libraries and tokens</li>
+                <li>Unlimited version history</li>
+                <li>Dev handoff with code snippets</li>
+                <li>Private plugins</li>
+              </ul>
+              <a class="btn btn-block" href="#">Start 14 day trial</a>
+            </div>
+            <div class="pricing-card">
+              <h2 class="pricing-name">Atelier</h2>
+              <p class="pricing-desc">For design systems at scale.</p>
+              <p class="pricing-price">$42<span class="pricing-period">per editor / month</span></p>
+              <ul class="pricing-features">
+                <li>Everything in Studio</li>
+                <li>Branching and merge reviews</li>
+                <li>Single sign on and SCIM</li>
+                <li>Audit log and data residency</li>
+                <li>Dedicated success manager</li>
+              </ul>
+              <a class="btn btn-outline btn-neutral btn-block" href="#">Talk to sales</a>
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="billing" class="tab border" aria-label="Yearly, save 20%" checked>
+        <div class="tab-content pt-12" role="tabpanel">
+          <div class="pricing">
+            <div class="pricing-card">
+              <h2 class="pricing-name">Sketch</h2>
+              <p class="pricing-desc">For solo work and small experiments.</p>
+              <p class="pricing-price">$0<span class="pricing-period">forever</span></p>
+              <ul class="pricing-features">
+                <li>3 active files</li>
+                <li>Unlimited viewers and comments</li>
+                <li>30 day version history</li>
+                <li>Community templates</li>
+              </ul>
+              <a class="btn btn-outline btn-neutral btn-block" href="#">Start sketching</a>
+            </div>
+            <div class="pricing-card pricing-featured">
+              <span class="pricing-badge">Most teams pick this</span>
+              <h2 class="pricing-name">Studio</h2>
+              <p class="pricing-desc">For product teams shipping every week.</p>
+              <p class="pricing-price">$14<span class="pricing-period">per editor / month</span></p>
+              <p class="-mt-3 text-sm text-success">Billed $168 yearly, you save $48 per editor</p>
+              <ul class="pricing-features">
+                <li>Unlimited files and projects</li>
+                <li>Shared libraries and tokens</li>
+                <li>Unlimited version history</li>
+                <li>Dev handoff with code snippets</li>
+                <li>Private plugins</li>
+              </ul>
+              <a class="btn btn-block" href="#">Start 14 day trial</a>
+            </div>
+            <div class="pricing-card">
+              <h2 class="pricing-name">Atelier</h2>
+              <p class="pricing-desc">For design systems at scale.</p>
+              <p class="pricing-price">$34<span class="pricing-period">per editor / month</span></p>
+              <p class="-mt-3 text-sm text-success">Billed $408 yearly, you save $96 per editor</p>
+              <ul class="pricing-features">
+                <li>Everything in Studio</li>
+                <li>Branching and merge reviews</li>
+                <li>Single sign on and SCIM</li>
+                <li>Audit log and data residency</li>
+                <li>Dedicated success manager</li>
+              </ul>
+              <a class="btn btn-outline btn-neutral btn-block" href="#">Talk to sales</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col items-start gap-4 rounded-2xl border bg-surface-2 p-6 md:flex-row md:items-center md:justify-between">
+        <div class="flex items-start gap-4">
+          <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20M4 20V8l6-4v16M14 20V10l6 3v7"/></svg></span>
+          <div><p class="font-semibold">Education and nonprofits</p><p class="text-sm text-muted-foreground">Studio is free for verified students and teachers, and half price for registered nonprofits.</p></div>
+        </div>
+        <a href="#" class="btn btn-soft shrink-0">Apply in two minutes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="compare-title">
+    <h2 id="compare-title" class="text-center text-3xl font-bold tracking-tight">Compare every feature</h2>
+    <p class="mt-3 text-center text-muted-foreground">Prices shown per editor with yearly billing.</p>
+    <div class="table-wrap relative mt-10">
+      <table class="table table-zebra table-pin-col">
+        <thead><tr><th class="w-1/3">Feature</th><th class="text-center">Sketch<span class="block text-xs font-normal text-muted-foreground">$0</span></th><th class="text-center text-primary">Studio<span class="block text-xs font-normal text-muted-foreground">$14</span></th><th class="text-center">Atelier<span class="block text-xs font-normal text-muted-foreground">$34</span></th></tr></thead>
+        <tbody>
+          <tr><th colspan="4" class="bg-surface-2 text-xs uppercase tracking-wider text-muted-foreground">Files and editing</th></tr>
+          <tr><td>Active files</td><td class="text-center">3</td><td class="text-center font-medium">Unlimited</td><td class="text-center font-medium">Unlimited</td></tr>
+          <tr><td>Version history</td><td class="text-center">30 days</td><td class="text-center">Unlimited</td><td class="text-center">Unlimited</td></tr>
+          <tr><td>Shared component libraries</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td></tr>
+          <tr><td>Branching and merge reviews</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td></tr>
+          <tr><th colspan="4" class="bg-surface-2 text-xs uppercase tracking-wider text-muted-foreground">Collaboration</th></tr>
+          <tr><td>Viewers and commenters</td><td class="text-center">Unlimited</td><td class="text-center">Unlimited</td><td class="text-center">Unlimited</td></tr>
+          <tr><td>Dev handoff and code snippets</td><td class="text-center">Read only</td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td></tr>
+          <tr><td>Private plugins</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center">5</td><td class="text-center">Unlimited</td></tr>
+          <tr><th colspan="4" class="bg-surface-2 text-xs uppercase tracking-wider text-muted-foreground">Security and admin</th></tr>
+          <tr><td>Two factor authentication</td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td></tr>
+          <tr><td>Single sign on and SCIM</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center"><svg class="mx-auto size-5 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Included" role="img"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></td></tr>
+          <tr><td>Audit log retention</td><td class="text-center text-muted-foreground">&middot;</td><td class="text-center">90 days</td><td class="text-center">7 years</td></tr>
+          <tr><td>Support</td><td class="text-center">Community</td><td class="text-center">Email, 1 business day</td><td class="text-center">Named manager, 4 hours</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="border-y bg-surface-2">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-16 sm:px-6 md:grid-cols-2 lg:px-8">
+      <figure class="testimonial"><blockquote class="testimonial-quote">We moved forty designers from three tools to Sketchloom in a month. Paying only for editors cut our bill almost in half.</blockquote><figcaption class="testimonial-author"><span class="avatar avatar-placeholder bg-primary/10 text-primary">DK</span><div><p class="testimonial-name">Dana Kowalczyk</p><p class="testimonial-role">Design ops, Fennel Bank</p></div></figcaption></figure>
+      <figure class="testimonial"><blockquote class="testimonial-quote">Branch reviews on Atelier finally gave our design system the same discipline as our codebase. Nothing ships unreviewed.</blockquote><figcaption class="testimonial-author"><span class="avatar avatar-placeholder bg-accent/10 text-accent">RS</span><div><p class="testimonial-name">Rafael Santoro</p><p class="testimonial-role">Design systems lead, Tilework</p></div></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-20 sm:px-6" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-center text-3xl font-bold tracking-tight">Billing questions</h2>
+    <div class="accordion collapse-arrow mt-10">
+      <details class="collapse" name="billing-faq" open><summary class="collapse-title">Who counts as an editor?</summary><div class="collapse-content">Anyone who creates or changes a file in a paid project during the billing period. People who only view, comment or inspect code are free, however many you invite.</div></details>
+      <details class="collapse" name="billing-faq"><summary class="collapse-title">Can I switch between monthly and yearly?</summary><div class="collapse-content">Yes, at any time. Moving to yearly applies a prorated credit for the rest of your month. Moving back takes effect at the end of your yearly term.</div></details>
+      <details class="collapse" name="billing-faq"><summary class="collapse-title">What happens to my files if I downgrade?</summary><div class="collapse-content">Nothing is deleted. Files beyond the Sketch limit become read only until you archive some or upgrade again.</div></details>
+      <details class="collapse" name="billing-faq"><summary class="collapse-title">Do you offer invoices and purchase orders?</summary><div class="collapse-content">Atelier customers can pay by invoice with 30 day terms. We accept purchase orders for any yearly plan above 20 editors.</div></details>
+    </div>
+    <p class="mt-10 text-center text-sm text-muted-foreground">Prices in US dollars, excluding tax. Need something custom? <a href="#" class="link link-primary">Email our sales team</a>.</p>
+  </section>
+</main>
+
+<footer class="border-t">
+  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+    <p>Copyright 2026 Sketchloom. A fictional product for this showcase.</p>
+    <p>Terms &middot; Privacy &middot; Security &middot; Status</p>
+  </div>
+</footer>
+</body>
+</html>

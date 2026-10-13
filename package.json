@@ -1,6 +1,6 @@
 {
   "name": "monsooncss",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Utility-first CSS framework that needs no build step. One CSS file from a CDN, familiar utility class names, seed color theming in pure CSS and automatic dark mode.",
   "type": "module",
   "main": "dist/monsoon.min.css",
