@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { sizes, kb } from '../bin/css.mjs';
 
-export const TARGET_BROTLI = 60 * 1024;
-export const LIMIT_BROTLI = 80 * 1024;
+export const TARGET_BROTLI = 100 * 1024;
+export const LIMIT_BROTLI = 120 * 1024;
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const files = ['dist/monsoon.css', 'dist/monsoon.min.css'];

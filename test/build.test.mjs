@@ -55,8 +55,10 @@ describe('build output', () => {
     '.peer:checked~.peer-checked\\:bg-primary{',
     '.odd\\:bg-muted:nth-child(odd){',
     '.last\\:border-0:last-child{',
-    '.dark\\:bg-slate-800:where(.dark,.dark *,[data-theme=dark],[data-theme=dark] *){',
-    '.dark\\:bg-slate-800:where(:root:not(.light,[data-theme=light]) *){',
+    '.dark\\:bg-slate-800:where(.dark,[data-theme=dark],:is(.dark,[data-theme=dark]) :not(:is(.dark,[data-theme=dark]) :is(.light,[data-theme=light]),:is(.dark,[data-theme=dark]) :is(.light,[data-theme=light]) *)){',
+    '@scope (.dark, [data-theme=dark]) to (.light, [data-theme=light]){.dark\\:text-white{color:#fff}',
+    '.dark\\:bg-slate-800:where(:not(.dark,[data-theme=dark],.light,[data-theme=light],:is(.dark,[data-theme=dark],.light,[data-theme=light]) *)){',
+    ':where(.dark,.light,[data-theme=dark],[data-theme=light]):where(:not(:root)){color:var(--foreground);background-color:var(--background)}',
     '@media (prefers-reduced-motion:reduce){.motion-reduce\\:',
     '.motion-reduce\\:transition-none{transition-property:none}',
     '@media (min-width:768px){.container{max-width:768px}',
@@ -106,9 +108,9 @@ describe('css validity', () => {
 });
 
 describe('size budget', () => {
-  it('stays under 80 kB brotli for the full minified file', async () => {
+  it('stays under 120 kB brotli for the full minified file', async () => {
     const s = await sizes(min);
-    expect(s.brotli).toBeLessThan(80 * 1024);
+    expect(s.brotli).toBeLessThan(120 * 1024);
   });
 });
 

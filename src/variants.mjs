@@ -7,8 +7,32 @@ import { breakpoints, containerBreakpoints } from './scales.mjs';
 
 const pseudo = (name, pc, groups) => ({ name, groups, forms: [{ sel: (s) => `${s}${pc}` }] });
 
-const DARK_CLASS = ':where(.dark, .dark *, [data-theme=dark], [data-theme=dark] *)';
-const DARK_MEDIA = ':where(:root:not(.light, [data-theme=light]) *)';
+// dark: follows exactly the rule the tokens follow. An element is dark when
+// its nearest themed ancestor (itself included) is .dark or [data-theme=dark],
+// or when it has no themed ancestor at all and the OS prefers dark. A themed
+// ancestor is any element with .dark, .light, [data-theme=dark] or
+// [data-theme=light]; a forced light root is simply the nearest one.
+//
+// Three forms, none of which can match a light element:
+// 1. DARK_SELF: the element is dark itself, or it sits below a dark element
+//    and no light element sits below any dark one. That is exact for a dark
+//    page, a light or unthemed page with dark sections, and dark inside dark.
+//    Plain selectors cannot express "nearest" at any depth (each extra
+//    dark > light > dark level would add about 200 kB of raw CSS), so dark
+//    inside light inside dark is left to form 2. This form never matches a
+//    light element.
+// 2. DARK_SCOPE: @scope (dark) to (light) is the nearest ancestor rule itself,
+//    exact at any depth in every browser with @scope. Older browsers drop the
+//    block and keep form 1.
+// 3. DARK_OS: inside the prefers-color-scheme media query, only elements with
+//    no themed ancestor at all, the root included.
+export const DARK = '.dark, [data-theme=dark]';
+export const LIGHT = '.light, [data-theme=light]';
+const D = `:is(${DARK})`;
+const L = `:is(${LIGHT})`;
+export const DARK_SELF = `:where(${DARK}, ${D} :not(${D} ${L}, ${D} ${L} *))`;
+export const DARK_SCOPE = `@scope (${DARK}) to (${LIGHT})`;
+export const DARK_OS = `:where(:not(${DARK}, ${LIGHT}, :is(${DARK}, ${LIGHT}) *))`;
 
 export const stateVariants = [
   pseudo('hover', ':hover', ['color', 'alpha', 'effect']),
@@ -29,8 +53,9 @@ export const stateVariants = [
     name: 'dark',
     groups: ['darkColor', 'alpha'],
     forms: [
-      { sel: (s) => `${s}${DARK_CLASS}` },
-      { at: '@media (prefers-color-scheme: dark)', sel: (s) => `${s}${DARK_MEDIA}` },
+      { sel: (s) => `${s}${DARK_SELF}` },
+      { at: DARK_SCOPE, sel: (s) => s },
+      { at: '@media (prefers-color-scheme: dark)', sel: (s) => `${s}${DARK_OS}` },
     ],
   },
 ];

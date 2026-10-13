@@ -7,6 +7,22 @@ import { fonts } from './scales.mjs';
 // to declare the tokens again for its subtree.
 export const THEME_SCOPE = ':root, .theme, .dark, .light, [data-theme], [style*="--seed"]';
 
+// Light and dark mode
+// -------------------
+// --mode is 1 on .dark and [data-theme=dark], 0 on .light and
+// [data-theme=light], and on an unthemed root it follows prefers-color-scheme.
+// It inherits, so the nearest themed ancestor decides, exactly like the dark:
+// variant (see variants.mjs).
+//
+// A themed section is any element other than the root with .dark, .light,
+// [data-theme=dark] or [data-theme=light]. It switches color-scheme (native
+// controls and scrollbars follow) and paints its own text and background, so
+// a light section inside a dark page is never dark text on a dark backdrop.
+// The paint rule has zero specificity: a component class or a bg-* or text-*
+// utility on the same element still wins. To recompute the tokens for a new
+// --seed without painting anything, use .theme or style="--seed: ...".
+export const SECTION = ':where(.dark, .light, [data-theme=dark], [data-theme=light]):where(:not(:root))';
+
 function defaultSeedLch() {
   const m = DEFAULT_SEED.match(/oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)/);
   return [+m[1], +m[2], +m[3]];
@@ -45,7 +61,10 @@ ${paletteVars.join('\n')}
 ${THEME_SCOPE} {
 ${tokenDecls}
 }
-:where(.dark, .light, [data-theme]):not(:root) { color: var(--foreground); }
+${SECTION} {
+  color: var(--foreground);
+  background-color: var(--background);
+}
 @supports not (color: oklch(from red l c h)) {
   ${THEME_SCOPE} {
 ${fallback}
