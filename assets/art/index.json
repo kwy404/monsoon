@@ -1,0 +1,116 @@
+[
+  {
+    "name": "filters",
+    "title": "Filters",
+    "dark": "assets/art/dark/filters.svg",
+    "light": "assets/art/light/filters.svg"
+  },
+  {
+    "name": "dark-mode",
+    "title": "Dark mode",
+    "dark": "assets/art/dark/dark-mode.svg",
+    "light": "assets/art/light/dark-mode.svg"
+  },
+  {
+    "name": "css-variables",
+    "title": "CSS variables",
+    "dark": "assets/art/dark/css-variables.svg",
+    "light": "assets/art/light/css-variables.svg"
+  },
+  {
+    "name": "palette",
+    "title": "Palette",
+    "dark": "assets/art/dark/palette.svg",
+    "light": "assets/art/light/palette.svg"
+  },
+  {
+    "name": "grid-layout",
+    "title": "Grid layout",
+    "dark": "assets/art/dark/grid-layout.svg",
+    "light": "assets/art/light/grid-layout.svg"
+  },
+  {
+    "name": "transitions",
+    "title": "Transitions",
+    "dark": "assets/art/dark/transitions.svg",
+    "light": "assets/art/light/transitions.svg"
+  },
+  {
+    "name": "cascade-layers",
+    "title": "Cascade layers",
+    "dark": "assets/art/dark/cascade-layers.svg",
+    "light": "assets/art/light/cascade-layers.svg"
+  },
+  {
+    "name": "logical-properties",
+    "title": "Logical properties",
+    "dark": "assets/art/dark/logical-properties.svg",
+    "light": "assets/art/light/logical-properties.svg"
+  },
+  {
+    "name": "container-queries",
+    "title": "Container queries",
+    "dark": "assets/art/dark/container-queries.svg",
+    "light": "assets/art/light/container-queries.svg"
+  },
+  {
+    "name": "gradients",
+    "title": "Gradients",
+    "dark": "assets/art/dark/gradients.svg",
+    "light": "assets/art/light/gradients.svg"
+  },
+  {
+    "name": "3d-transforms",
+    "title": "3D transforms",
+    "dark": "assets/art/dark/3d-transforms.svg",
+    "light": "assets/art/light/3d-transforms.svg"
+  },
+  {
+    "name": "native-components",
+    "title": "Native components",
+    "dark": "assets/art/dark/native-components.svg",
+    "light": "assets/art/light/native-components.svg"
+  },
+  {
+    "name": "seed-theme",
+    "title": "Seed theme",
+    "dark": "assets/art/dark/seed-theme.svg",
+    "light": "assets/art/light/seed-theme.svg"
+  },
+  {
+    "name": "no-build",
+    "title": "No build step",
+    "dark": "assets/art/dark/no-build.svg",
+    "light": "assets/art/light/no-build.svg"
+  },
+  {
+    "name": "cdn",
+    "title": "CDN ready",
+    "dark": "assets/art/dark/cdn.svg",
+    "light": "assets/art/light/cdn.svg"
+  },
+  {
+    "name": "purge",
+    "title": "Purge unused",
+    "dark": "assets/art/dark/purge.svg",
+    "light": "assets/art/light/purge.svg"
+  },
+  {
+    "name": "accessibility",
+    "title": "Accessibility",
+    "dark": "assets/art/dark/accessibility.svg",
+    "light": "assets/art/light/accessibility.svg"
+  },
+  {
+    "name": "responsive",
+    "title": "Responsive",
+    "dark": "assets/art/dark/responsive.svg",
+    "light": "assets/art/light/responsive.svg"
+  },
+  {
+    "name": "hero-grid",
+    "title": "Hero grid",
+    "dark": "assets/art/dark/hero-grid.svg",
+    "light": "assets/art/light/hero-grid.svg"
+  }
+]
