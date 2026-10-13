@@ -1,0 +1,395 @@
+{
+  "group": "navigation",
+  "title": "Navigation and overlays",
+  "components": [
+    {
+      "name": "Drawer",
+      "slug": "drawer",
+      "description": "A side panel toggled by a hidden checkbox and its labels, with a dimmed overlay that closes it. Works without JavaScript and without a dialog.",
+      "classes": [
+        "drawer",
+        "drawer-toggle",
+        "drawer-content",
+        "drawer-side",
+        "drawer-overlay",
+        "drawer-panel"
+      ],
+      "html": "<div class=\"drawer\"><input id=\"nav-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\"><label for=\"nav-drawer\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted cursor-pointer\">Open menu</label></div><div class=\"drawer-side\"><label for=\"nav-drawer\" class=\"drawer-overlay\" aria-label=\"Close menu\"></label><nav class=\"drawer-panel\" aria-label=\"Main\"><p class=\"px-3 text-base font-semibold\">Acme Studio</p><ul class=\"menu\"><li><a href=\"#\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/></svg>Dashboard</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg>Projects</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"4\"/><path d=\"M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3\"/></svg>Team</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1\"/></svg>Settings</a></li></ul></nav></div></div>"
+    },
+    {
+      "name": "Drawer dialog",
+      "slug": "drawer-dialog",
+      "description": "A modal side panel built on <dialog>, opened with command=\"show-modal\" and closed with command=\"close\" or a click outside (closedby=\"any\"). Slides in from any edge.",
+      "classes": [
+        "drawer-dialog",
+        "drawer-start",
+        "drawer-end",
+        "drawer-top",
+        "drawer-bottom"
+      ],
+      "html": "<button type=\"button\" commandfor=\"cart-drawer\" command=\"show-modal\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90\">Open cart</button><dialog id=\"cart-drawer\" class=\"drawer-dialog drawer-end\" closedby=\"any\" aria-labelledby=\"cart-title\"><h2 id=\"cart-title\" class=\"text-lg font-semibold\">Your cart</h2><button type=\"button\" commandfor=\"cart-drawer\" command=\"close\" class=\"modal-close\" aria-label=\"Close\"></button><ul class=\"flex flex-col gap-3 text-sm\"><li class=\"flex justify-between\"><span>Linen shirt</span><span class=\"font-medium\">$48</span></li><li class=\"flex justify-between\"><span>Canvas tote</span><span class=\"font-medium\">$22</span></li></ul><button type=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 mt-auto w-full\">Checkout</button></dialog>"
+    },
+    {
+      "name": "Responsive drawer",
+      "slug": "drawer-responsive",
+      "description": "An app shell whose drawer is a toggled overlay on small screens and a sticky, always open sidebar from the lg breakpoint.",
+      "classes": [
+        "drawer-open-lg"
+      ],
+      "html": "<div class=\"drawer drawer-open-lg\"><input id=\"app-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><main class=\"drawer-content p-6\"><label for=\"app-drawer\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted cursor-pointer lg:hidden\">Menu</label><h1 class=\"mt-4 text-2xl font-semibold\">Overview</h1></main><div class=\"drawer-side\"><label for=\"app-drawer\" class=\"drawer-overlay\" aria-label=\"Close menu\"></label><nav class=\"drawer-panel\" aria-label=\"App\"><ul class=\"menu\"><li><a href=\"#\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/></svg>Overview</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 3v18h18\"/><path d=\"m7 15 4-4 3 3 5-6\"/></svg>Reports</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1\"/></svg>Settings</a></li></ul></nav></div></div>"
+    },
+    {
+      "name": "Modal",
+      "slug": "modal",
+      "description": "A centered dialog over a blurred backdrop. Open it with command=\"show-modal\" (or link to its id for a :target fallback), close it with command=\"close\", a form with method=\"dialog\" or Escape. Five widths, a top aligned variant and a bottom sheet on phones.",
+      "classes": [
+        "modal",
+        "modal-box",
+        "modal-header",
+        "modal-title",
+        "modal-body",
+        "modal-actions",
+        "modal-close",
+        "modal-backdrop",
+        "modal-sm",
+        "modal-lg",
+        "modal-xl",
+        "modal-full",
+        "modal-top",
+        "modal-bottom"
+      ],
+      "html": "<button type=\"button\" commandfor=\"delete-modal\" command=\"show-modal\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90\">Delete project</button><dialog id=\"delete-modal\" class=\"modal modal-bottom\" aria-labelledby=\"delete-title\"><div class=\"modal-box\"><div class=\"modal-header\"><h2 id=\"delete-title\" class=\"modal-title\">Delete this project?</h2></div><button type=\"button\" commandfor=\"delete-modal\" command=\"close\" class=\"modal-close\" aria-label=\"Close\"></button><p class=\"modal-body text-muted-foreground\">All deployments, domains and analytics for Acme Web will be removed. This cannot be undone.</p><form method=\"dialog\" class=\"modal-actions\"><button class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Cancel</button><button class=\"inline-flex items-center justify-center rounded-lg bg-danger px-4 py-2 text-sm font-medium text-danger-foreground hover:opacity-90\" value=\"delete\">Delete</button></form></div><form method=\"dialog\" class=\"modal-backdrop\"><button aria-label=\"Close\">Close</button></form></dialog>"
+    },
+    {
+      "name": "Sheet",
+      "slug": "sheet",
+      "description": "A bottom sheet dialog with a grab handle that slides up from the bottom edge, for share menus and quick actions on touch screens.",
+      "classes": [
+        "sheet",
+        "sheet-handle",
+        "sheet-header",
+        "sheet-body",
+        "sheet-footer"
+      ],
+      "html": "<button type=\"button\" commandfor=\"share-sheet\" command=\"show-modal\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Share</button><dialog id=\"share-sheet\" class=\"sheet\" closedby=\"any\" aria-labelledby=\"share-title\"><span class=\"sheet-handle\"></span><div class=\"sheet-header\"><h2 id=\"share-title\" class=\"text-lg font-semibold\">Share this board</h2><p class=\"text-sm text-muted-foreground\">Anyone with the link can view.</p></div><div class=\"sheet-body\"><input class=\"w-full rounded-lg border border-border bg-surface-2 px-3 py-2 text-sm\" value=\"https://acme.app/b/7f3k\" readonly aria-label=\"Link\"></div><div class=\"sheet-footer\"><button type=\"button\" commandfor=\"share-sheet\" command=\"close\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Done</button><button type=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90\">Copy link</button></div></dialog>"
+    },
+    {
+      "name": "Popover",
+      "slug": "popover",
+      "description": "A floating card on the native popover attribute: light dismiss, Escape and focus return for free. Anchored to its button where anchor positioning is supported, centered otherwise.",
+      "classes": [
+        "popover",
+        "popover-title",
+        "popover-top",
+        "popover-left",
+        "popover-right",
+        "popover-end"
+      ],
+      "html": "<button type=\"button\" popovertarget=\"plan-info\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">What is included?</button><div id=\"plan-info\" popover class=\"popover\"><strong class=\"popover-title\">Pro plan</strong><p class=\"text-muted-foreground\">Unlimited projects, preview deployments and 30 days of analytics history.</p></div>"
+    },
+    {
+      "name": "Dropdown",
+      "slug": "dropdown",
+      "description": "A menu that opens below a trigger, built on <details> or on a popover for light dismiss. Opens on focus or hover for plain wrappers, with end, top, left and right placements.",
+      "classes": [
+        "dropdown",
+        "dropdown-content",
+        "dropdown-end",
+        "dropdown-top",
+        "dropdown-left",
+        "dropdown-right",
+        "dropdown-hover",
+        "dropdown-open"
+      ],
+      "html": "<details class=\"dropdown\"><summary class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Options</summary><ul class=\"dropdown-content menu\"><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>Rename</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg>Duplicate<kbd class=\"menu-shortcut\">Ctrl D</kbd></a></li><li class=\"menu-divider\"></li><li><a href=\"#\" class=\"menu-danger\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\"/></svg>Delete</a></li></ul></details><button type=\"button\" popovertarget=\"account-menu\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">Account</button><ul id=\"account-menu\" popover class=\"dropdown-content dropdown-end menu\"><li class=\"menu-title\">Signed in as Ana</li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/></svg>Profile</a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1\"/></svg>Settings</a></li></ul>"
+    },
+    {
+      "name": "Menu",
+      "slug": "menu",
+      "description": "A list of links or actions with titles, icons, shortcuts, an active item, disabled and danger states, nested submenus on <details> and a horizontal layout.",
+      "classes": [
+        "menu",
+        "menu-item",
+        "menu-title",
+        "menu-active",
+        "menu-disabled",
+        "menu-danger",
+        "menu-divider",
+        "menu-shortcut",
+        "menu-horizontal",
+        "menu-sm",
+        "menu-lg"
+      ],
+      "html": "<ul class=\"menu w-64 rounded-xl border border-border bg-surface p-2\"><li class=\"menu-title\">Workspace</li><li><a href=\"#\" class=\"menu-active\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 12h-6l-2 3h-4l-2-3H2\"/><path d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"/></svg>Inbox<span class=\"menu-shortcut\">12</span></a></li><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 3v18h18\"/><path d=\"m7 15 4-4 3 3 5-6\"/></svg>Analytics</a></li><li><details open><summary><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg>Projects</summary><ul><li><a href=\"#\">Website</a></li><li><a href=\"#\">Mobile app</a></li><li><a href=\"#\" class=\"menu-disabled\">Archived</a></li></ul></details></li><li class=\"menu-divider\"></li><li><button type=\"button\" class=\"menu-danger\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\"/></svg>Sign out</button></li></ul>"
+    },
+    {
+      "name": "Context menu",
+      "slug": "context-menu",
+      "description": "The compact look of a desktop context menu, with labels, separators, shortcuts and a filled highlight. Pair it with a popover to show it.",
+      "classes": [
+        "context-menu",
+        "context-menu-label",
+        "context-menu-separator",
+        "context-menu-shortcut"
+      ],
+      "html": "<div class=\"context-menu w-56\" role=\"menu\" aria-label=\"Edit\"><button type=\"button\" role=\"menuitem\">Undo<span class=\"context-menu-shortcut\">Ctrl Z</span></button><button type=\"button\" role=\"menuitem\" disabled>Redo<span class=\"context-menu-shortcut\">Ctrl Y</span></button><div class=\"context-menu-separator\" role=\"separator\"></div><div class=\"context-menu-label\">Clipboard</div><button type=\"button\" role=\"menuitem\">Cut<span class=\"context-menu-shortcut\">Ctrl X</span></button><button type=\"button\" role=\"menuitem\">Copy<span class=\"context-menu-shortcut\">Ctrl C</span></button><button type=\"button\" role=\"menuitem\">Paste<span class=\"context-menu-shortcut\">Ctrl V</span></button></div>"
+    },
+    {
+      "name": "Command palette",
+      "slug": "command-palette",
+      "description": "A search box with grouped results and keyboard hints, shown in a top aligned modal dialog.",
+      "classes": [
+        "command-palette",
+        "command-palette-search",
+        "command-palette-input",
+        "command-palette-list",
+        "command-palette-heading",
+        "command-palette-item",
+        "command-palette-shortcut",
+        "command-palette-empty",
+        "command-palette-footer"
+      ],
+      "html": "<button type=\"button\" commandfor=\"palette\" command=\"show-modal\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\"><svg class=\"size-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.5-3.5\"/></svg>Search<kbd class=\"ml-2 whitespace-nowrap rounded border border-border px-1.5 font-sans text-xs text-muted-foreground\">Ctrl K</kbd></button><dialog id=\"palette\" class=\"modal modal-top\" aria-label=\"Command palette\"><div class=\"command-palette\"><label class=\"command-palette-search\"><input class=\"command-palette-input\" placeholder=\"Type a command or search\" autofocus></label><div class=\"command-palette-list\" role=\"listbox\"><p class=\"command-palette-heading\">Suggestions</p><a href=\"#\" class=\"command-palette-item\" role=\"option\" aria-selected=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6\"/></svg>New document<span class=\"command-palette-shortcut\"><kbd>Ctrl</kbd><kbd>N</kbd></span></a><a href=\"#\" class=\"command-palette-item\" role=\"option\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"4\"/><path d=\"M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3\"/></svg>Invite teammates</a><p class=\"command-palette-heading\">Settings</p><a href=\"#\" class=\"command-palette-item\" role=\"option\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/></svg>Profile<span class=\"command-palette-shortcut\"><kbd>Ctrl</kbd><kbd>P</kbd></span></a><a href=\"#\" class=\"command-palette-item\" role=\"option\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/></svg>Notifications</a></div><div class=\"command-palette-footer\"><span><kbd>Enter</kbd> to select</span><span><kbd>Esc</kbd> to close</span></div></div><form method=\"dialog\" class=\"modal-backdrop\"><button aria-label=\"Close\">Close</button></form></dialog>"
+    },
+    {
+      "name": "Lightbox",
+      "slug": "lightbox",
+      "description": "A full screen dark viewer for one image with a caption, a counter, close and previous or next controls. Uses a <dialog> or :target links.",
+      "classes": [
+        "lightbox",
+        "lightbox-image",
+        "lightbox-caption",
+        "lightbox-counter",
+        "lightbox-close",
+        "lightbox-prev",
+        "lightbox-next"
+      ],
+      "html": "<button type=\"button\" commandfor=\"photo\" command=\"show-modal\" class=\"inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium hover:bg-muted\">View photo</button><dialog id=\"photo\" class=\"lightbox\" closedby=\"any\" aria-label=\"Photo viewer\"><img class=\"lightbox-image\" src=\"https://picsum.photos/seed/monsoon/1200/800\" alt=\"Rain over a mountain lake\"><p class=\"lightbox-caption\">Rain over the lake, early morning.</p><span class=\"lightbox-counter\">3 / 12</span><a href=\"#\" class=\"lightbox-prev\" aria-label=\"Previous photo\"></a><a href=\"#\" class=\"lightbox-next\" aria-label=\"Next photo\"></a><button type=\"button\" commandfor=\"photo\" command=\"close\" class=\"lightbox-close\" aria-label=\"Close\"></button></dialog>"
+    },
+    {
+      "name": "Navbar",
+      "slug": "navbar",
+      "description": "A top bar with start, center and end slots, optional sticky and blurred glass styles and a <details> based mobile menu that replaces the links below the md breakpoint.",
+      "classes": [
+        "navbar",
+        "navbar-start",
+        "navbar-center",
+        "navbar-end",
+        "navbar-brand",
+        "navbar-nav",
+        "navbar-link",
+        "navbar-sticky",
+        "navbar-blur",
+        "navbar-mobile",
+        "navbar-burger",
+        "navbar-mobile-panel"
+      ],
+      "html": "<header class=\"navbar navbar-sticky navbar-blur\"><div class=\"navbar-start\"><a href=\"#\" class=\"navbar-brand\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 15a8 8 0 0 1 16 0\"/><path d=\"M12 15v5a2 2 0 0 1-4 0\"/><path d=\"M12 7V4\"/></svg>Acme</a></div><nav class=\"navbar-center navbar-nav\" aria-label=\"Main\"><a href=\"#\" class=\"navbar-link\" aria-current=\"page\">Product</a><a href=\"#\" class=\"navbar-link\">Pricing</a><a href=\"#\" class=\"navbar-link\">Docs</a><a href=\"#\" class=\"navbar-link\">Blog</a></nav><div class=\"navbar-end\"><a href=\"#\" class=\"navbar-link hidden sm:inline-flex\">Sign in</a><a href=\"#\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90\">Get started</a><details class=\"navbar-mobile\"><summary class=\"navbar-burger\" aria-label=\"Menu\"></summary><nav class=\"navbar-mobile-panel\" aria-label=\"Mobile\"><a href=\"#\" class=\"navbar-link\" aria-current=\"page\">Product</a><a href=\"#\" class=\"navbar-link\">Pricing</a><a href=\"#\" class=\"navbar-link\">Docs</a><a href=\"#\" class=\"navbar-link\">Blog</a></nav></details></div></header>"
+    },
+    {
+      "name": "Mega menu",
+      "slug": "mega-menu",
+      "description": "A wide navbar panel on <details name> so only one is open at a time, with sections, icon items with descriptions and a featured card.",
+      "classes": [
+        "mega-menu",
+        "mega-menu-panel",
+        "mega-menu-section",
+        "mega-menu-heading",
+        "mega-menu-item",
+        "mega-menu-icon",
+        "mega-menu-title",
+        "mega-menu-description",
+        "mega-menu-featured"
+      ],
+      "html": "<header class=\"navbar\"><div class=\"navbar-start\"><a href=\"#\" class=\"navbar-brand\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 15a8 8 0 0 1 16 0\"/><path d=\"M12 15v5a2 2 0 0 1-4 0\"/><path d=\"M12 7V4\"/></svg>Acme</a></div><nav class=\"navbar-center\" aria-label=\"Main\"><details class=\"mega-menu\" name=\"mega\" open><summary>Product</summary><div class=\"mega-menu-panel\"><div class=\"mega-menu-section\"><p class=\"mega-menu-heading\">Platform</p><a href=\"#\" class=\"mega-menu-item\"><span class=\"mega-menu-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/></svg></span><span><span class=\"mega-menu-title\">Edge functions</span><span class=\"mega-menu-description\">Run code close to every user.</span></span></a><a href=\"#\" class=\"mega-menu-item\"><span class=\"mega-menu-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 3 9 5-9 5-9-5z\"/><path d=\"m3 13 9 5 9-5\"/></svg></span><span><span class=\"mega-menu-title\">Storage</span><span class=\"mega-menu-description\">Files and blobs with global caching.</span></span></a></div><div class=\"mega-menu-section\"><p class=\"mega-menu-heading\">Security</p><a href=\"#\" class=\"mega-menu-item\"><span class=\"mega-menu-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z\"/></svg></span><span><span class=\"mega-menu-title\">Firewall</span><span class=\"mega-menu-description\">Block bad traffic before it lands.</span></span></a><a href=\"#\" class=\"mega-menu-item\"><span class=\"mega-menu-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z\"/><path d=\"M4 19.5V21h16\"/></svg></span><span><span class=\"mega-menu-title\">Audit logs</span><span class=\"mega-menu-description\">Every change, searchable for a year.</span></span></a></div><a href=\"#\" class=\"mega-menu-featured\"><span class=\"mega-menu-title\">New: Monsoon 2</span>Faster builds, smaller bundles and a fresh dashboard.</a></div></details><details class=\"mega-menu\" name=\"mega\"><summary>Resources</summary><div class=\"mega-menu-panel\"><div class=\"mega-menu-section\"><a href=\"#\" class=\"mega-menu-item\"><span class=\"mega-menu-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z\"/><path d=\"M4 19.5V21h16\"/></svg></span><span><span class=\"mega-menu-title\">Guides</span><span class=\"mega-menu-description\">Step by step tutorials.</span></span></a></div></div></details></nav><div class=\"navbar-end\"><a href=\"#\" class=\"navbar-link\">Sign in</a></div></header>"
+    },
+    {
+      "name": "Sidebar",
+      "slug": "sidebar",
+      "description": "An app sidebar with a header, titled sections, icon items, badges, collapsible groups on <details>, a footer and a compact icon only mode.",
+      "classes": [
+        "sidebar",
+        "sidebar-header",
+        "sidebar-section",
+        "sidebar-title",
+        "sidebar-item",
+        "sidebar-active",
+        "sidebar-label",
+        "sidebar-badge",
+        "sidebar-group",
+        "sidebar-footer",
+        "sidebar-compact"
+      ],
+      "html": "<aside class=\"sidebar h-96\"><div class=\"sidebar-header\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 15a8 8 0 0 1 16 0\"/><path d=\"M12 15v5a2 2 0 0 1-4 0\"/><path d=\"M12 7V4\"/></svg><span class=\"sidebar-label\">Acme Inc</span></div><nav class=\"sidebar-section\" aria-label=\"Main\"><p class=\"sidebar-title\">General</p><a href=\"#\" class=\"sidebar-item\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/></svg><span class=\"sidebar-label\">Home</span></a><a href=\"#\" class=\"sidebar-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 12h-6l-2 3h-4l-2-3H2\"/><path d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"/></svg><span class=\"sidebar-label\">Inbox</span><span class=\"sidebar-badge\">8</span></a><a href=\"#\" class=\"sidebar-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 3v18h18\"/><path d=\"m7 15 4-4 3 3 5-6\"/></svg><span class=\"sidebar-label\">Reports</span></a></nav><div class=\"sidebar-section\"><p class=\"sidebar-title\">Projects</p><details class=\"sidebar-group\" open><summary class=\"sidebar-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg><span class=\"sidebar-label\">Website</span></summary><div><a href=\"#\" class=\"sidebar-item\"><span class=\"sidebar-label\">Pages</span></a><a href=\"#\" class=\"sidebar-item\"><span class=\"sidebar-label\">Deployments</span></a></div></details></div><div class=\"sidebar-footer\"><a href=\"#\" class=\"sidebar-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1\"/></svg><span class=\"sidebar-label\">Settings</span></a></div></aside>"
+    },
+    {
+      "name": "Tabs",
+      "slug": "tabs",
+      "description": "Tabs in line, boxed, pills and lifted styles. Built from radio inputs with panels in .tab-content, so arrow keys switch tabs without JavaScript, or from links for routed pages.",
+      "classes": [
+        "tabs",
+        "tab",
+        "tab-active",
+        "tab-content",
+        "tab-disabled",
+        "tabs-line",
+        "tabs-boxed",
+        "tabs-pills",
+        "tabs-lifted",
+        "tabs-sm",
+        "tabs-lg",
+        "tabs-full"
+      ],
+      "html": "<div class=\"tabs tabs-line\" role=\"tablist\"><input type=\"radio\" name=\"project-tabs\" class=\"tab\" aria-label=\"Overview\" checked><div class=\"tab-content\" role=\"tabpanel\">Traffic is up 12 percent this week.</div><input type=\"radio\" name=\"project-tabs\" class=\"tab\" aria-label=\"Deployments\"><div class=\"tab-content\" role=\"tabpanel\">Last deployment finished 4 minutes ago.</div><input type=\"radio\" name=\"project-tabs\" class=\"tab\" aria-label=\"Settings\"><div class=\"tab-content\" role=\"tabpanel\">Domains, environment variables and team access.</div></div><nav class=\"tabs tabs-boxed mt-6 w-fit\" aria-label=\"Range\"><a href=\"#\" class=\"tab tab-active\" aria-current=\"page\">Day</a><a href=\"#\" class=\"tab\">Week</a><a href=\"#\" class=\"tab\">Month</a><a href=\"#\" class=\"tab tab-disabled\">Year</a></nav>"
+    },
+    {
+      "name": "Breadcrumbs",
+      "slug": "breadcrumbs",
+      "description": "The path to the current page with chevron or slash separators and an optional pill container.",
+      "classes": [
+        "breadcrumbs",
+        "breadcrumbs-slash",
+        "breadcrumbs-boxed"
+      ],
+      "html": "<nav aria-label=\"Breadcrumb\"><ol class=\"breadcrumbs\"><li><a href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/></svg>Home</a></li><li><a href=\"#\">Projects</a></li><li><a href=\"#\">Acme Web</a></li><li><span aria-current=\"page\">Settings</span></li></ol></nav>"
+    },
+    {
+      "name": "Pagination",
+      "slug": "pagination",
+      "description": "Page links with previous and next, an ellipsis, the current page, disabled items, three sizes and pill or joined styles.",
+      "classes": [
+        "pagination",
+        "pagination-item",
+        "pagination-active",
+        "pagination-disabled",
+        "pagination-ellipsis",
+        "pagination-prev",
+        "pagination-next",
+        "pagination-sm",
+        "pagination-lg",
+        "pagination-pills",
+        "pagination-joined"
+      ],
+      "html": "<nav aria-label=\"Pagination\"><ul class=\"pagination\"><li><a href=\"#\" class=\"pagination-item pagination-prev pagination-disabled\" aria-disabled=\"true\">Previous</a></li><li><a href=\"#\" class=\"pagination-item\" aria-current=\"page\">1</a></li><li><a href=\"#\" class=\"pagination-item\">2</a></li><li><a href=\"#\" class=\"pagination-item\">3</a></li><li><span class=\"pagination-ellipsis\" aria-hidden=\"true\"></span></li><li><a href=\"#\" class=\"pagination-item\">12</a></li><li><a href=\"#\" class=\"pagination-item pagination-next\">Next</a></li></ul></nav>"
+    },
+    {
+      "name": "Steps",
+      "slug": "steps",
+      "description": "Numbered progress through a process with completed, current and error states, descriptions, a vertical layout and tones.",
+      "classes": [
+        "steps",
+        "step",
+        "step-done",
+        "step-current",
+        "step-error",
+        "step-description",
+        "steps-vertical",
+        "steps-success",
+        "steps-accent",
+        "steps-neutral"
+      ],
+      "html": "<ol class=\"steps\"><li class=\"step step-done\"><span>Account<span class=\"step-description\">Email and password</span></span></li><li class=\"step step-done\"><span>Workspace<span class=\"step-description\">Name and URL</span></span></li><li class=\"step step-current\" aria-current=\"step\"><span>Invite<span class=\"step-description\">Add your team</span></span></li><li class=\"step\"><span>Launch<span class=\"step-description\">Go live</span></span></li></ol>"
+    },
+    {
+      "name": "Stepper",
+      "slug": "stepper",
+      "description": "A segmented progress bar with a title and description under each segment, for multi page forms.",
+      "classes": [
+        "stepper",
+        "stepper-item",
+        "stepper-done",
+        "stepper-current",
+        "stepper-title",
+        "stepper-description"
+      ],
+      "html": "<ol class=\"stepper\"><li class=\"stepper-item stepper-done\"><span class=\"stepper-title\">Shipping</span><span class=\"stepper-description\">Address and delivery</span></li><li class=\"stepper-item stepper-current\" aria-current=\"step\"><span class=\"stepper-title\">Payment</span><span class=\"stepper-description\">Card or invoice</span></li><li class=\"stepper-item\"><span class=\"stepper-title\">Review</span><span class=\"stepper-description\">Check and confirm</span></li></ol>"
+    },
+    {
+      "name": "Dock",
+      "slug": "dock",
+      "description": "A mobile bottom navigation bar (also .bottom-nav) with icon items, labels, an active marker, a fixed position with safe area padding and a floating style.",
+      "classes": [
+        "dock",
+        "bottom-nav",
+        "dock-item",
+        "dock-active",
+        "dock-label",
+        "dock-fixed",
+        "dock-floating"
+      ],
+      "html": "<nav class=\"dock dock-floating mx-auto\" aria-label=\"Primary\"><a href=\"#\" class=\"dock-item dock-active\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/></svg><span class=\"dock-label\">Home</span></a><a href=\"#\" class=\"dock-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.5-3.5\"/></svg><span class=\"dock-label\">Search</span></a><a href=\"#\" class=\"dock-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 12 5a5.5 5.5 0 0 0-10 3.5c0 2.3 1.5 4 3 5.5l7 7z\"/></svg><span class=\"dock-label\">Saved</span></a><a href=\"#\" class=\"dock-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/></svg><span class=\"dock-label\">Profile</span></a></nav>"
+    },
+    {
+      "name": "Link",
+      "slug": "link",
+      "description": "Text links with a soft underline that firms up on hover, a hover only underline, primary, muted and danger colors and an external marker.",
+      "classes": [
+        "link",
+        "link-hover",
+        "link-primary",
+        "link-muted",
+        "link-danger",
+        "link-external"
+      ],
+      "html": "<p class=\"text-sm\">Read the <a href=\"#\" class=\"link link-primary\">getting started guide</a>, browse the <a href=\"#\" class=\"link link-hover\">changelog</a> or open the <a href=\"https://example.com\" class=\"link link-muted link-external\">status page</a>.</p>"
+    },
+    {
+      "name": "Table of contents",
+      "slug": "toc",
+      "description": "An on this page list with nested levels and an active marker on the rail, set with .toc-active or aria-current.",
+      "classes": [
+        "toc",
+        "toc-title",
+        "toc-link",
+        "toc-active"
+      ],
+      "html": "<nav aria-labelledby=\"toc-title\" class=\"w-56\"><p id=\"toc-title\" class=\"toc-title\">On this page</p><ul class=\"toc\"><li><a href=\"#install\" class=\"toc-active\">Installation</a></li><li><a href=\"#usage\">Usage</a><ul><li><a href=\"#cdn\">From a CDN</a></li><li><a href=\"#npm\">From npm</a></li></ul></li><li><a href=\"#theming\">Theming</a></li><li><a href=\"#faq\">FAQ</a></li></ul></nav>"
+    },
+    {
+      "name": "Scroll spy",
+      "slug": "scroll-spy",
+      "description": "A sticky, horizontally scrolling bar of section links with an active pill, set with .scroll-spy-active or aria-current.",
+      "classes": [
+        "scroll-spy",
+        "scroll-spy-link",
+        "scroll-spy-active"
+      ],
+      "html": "<nav class=\"scroll-spy\" aria-label=\"Sections\"><a href=\"#overview\" class=\"scroll-spy-link scroll-spy-active\">Overview</a><a href=\"#features\" class=\"scroll-spy-link\">Features</a><a href=\"#specs\" class=\"scroll-spy-link\">Specs</a><a href=\"#reviews\" class=\"scroll-spy-link\">Reviews</a><a href=\"#faq\" class=\"scroll-spy-link\">FAQ</a></nav>"
+    },
+    {
+      "name": "Back to top",
+      "slug": "back-to-top",
+      "description": "A round button fixed to the corner that fades in after the page scrolls, driven by a scroll timeline where supported. Use .back-to-top-static to place it inline.",
+      "classes": [
+        "back-to-top",
+        "back-to-top-static"
+      ],
+      "html": "<a href=\"#top\" class=\"back-to-top back-to-top-static\" aria-label=\"Back to top\"></a>"
+    },
+    {
+      "name": "Skip link",
+      "slug": "skip-link",
+      "description": "A link to the main content that stays out of view until it receives keyboard focus.",
+      "classes": [
+        "skip-link"
+      ],
+      "html": "<a href=\"#main\" class=\"skip-link\">Skip to content</a>"
+    },
+    {
+      "name": "Footer",
+      "slug": "footer",
+      "description": "A site footer with a brand column, link columns, a bottom row with legal text and social links, and a centered variant.",
+      "classes": [
+        "footer",
+        "footer-grid",
+        "footer-brand",
+        "footer-title",
+        "footer-links",
+        "footer-bottom",
+        "footer-social",
+        "footer-center"
+      ],
+      "html": "<footer class=\"footer\"><div class=\"footer-grid\"><div class=\"footer-brand\"><a href=\"#\" class=\"navbar-brand text-foreground\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 15a8 8 0 0 1 16 0\"/><path d=\"M12 15v5a2 2 0 0 1-4 0\"/><path d=\"M12 7V4\"/></svg>Acme</a><p>Tools for teams that ship every day.</p></div><nav aria-label=\"Product\"><p class=\"footer-title\">Product</p><ul class=\"footer-links\"><li><a href=\"#\">Features</a></li><li><a href=\"#\">Pricing</a></li><li><a href=\"#\">Changelog</a></li></ul></nav><nav aria-label=\"Company\"><p class=\"footer-title\">Company</p><ul class=\"footer-links\"><li><a href=\"#\">About</a></li><li><a href=\"#\">Careers</a></li><li><a href=\"#\">Press</a></li></ul></nav><nav aria-label=\"Legal\"><p class=\"footer-title\">Legal</p><ul class=\"footer-links\"><li><a href=\"#\">Privacy</a></li><li><a href=\"#\">Terms</a></li></ul></nav></div><div class=\"footer-bottom\"><p>Copyright 2026 Acme Inc. All rights reserved.</p><div class=\"footer-social\"><a href=\"#\" aria-label=\"Website\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\"/></svg></a><a href=\"#\" aria-label=\"Email\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/></svg></a><a href=\"#\" aria-label=\"Feed\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16\"/><circle cx=\"5\" cy=\"19\" r=\"1\"/></svg></a></div></div></footer>"
+    }
+  ]
+}
