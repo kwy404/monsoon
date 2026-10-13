@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "saas-landing",
+    "title": "SaaS landing page",
+    "description": "A product launch page for a runbook automation tool with a glowing hero, an in browser app mockup, features, stats, testimonials and an FAQ.",
+    "tags": ["landing", "marketing", "navbar", "accordion", "container queries"]
+  },
+  {
+    "slug": "dashboard",
+    "title": "Analytics dashboard",
+    "description": "A revenue dashboard with a sidebar that collapses into a drawer, KPI sparklines, an inline SVG chart and a real data table.",
+    "tags": ["app", "dashboard", "drawer", "table", "svg chart"]
+  },
+  {
+    "slug": "blog-article",
+    "title": "Blog article",
+    "description": "A long form magazine article with serif typography, a sticky table of contents, a data figure, a callout and related stories.",
+    "tags": ["content", "prose", "typography", "table of contents"]
+  },
+  {
+    "slug": "pricing",
+    "title": "Pricing page",
+    "description": "Three plans with a monthly and yearly switch built from radio inputs, a feature comparison table and billing questions.",
+    "tags": ["marketing", "pricing", "tabs", "table", "no javascript"]
+  },
+  {
+    "slug": "ecommerce-product",
+    "title": "Ecommerce product page",
+    "description": "A product detail page with a scroll snap gallery, color picker cards, quantity stepper, specs, rating breakdown and reviews.",
+    "tags": ["shop", "product", "carousel", "forms", "reviews"]
+  },
+  {
+    "slug": "portfolio",
+    "title": "Designer portfolio",
+    "description": "A personal portfolio with illustrated case study covers, an experience timeline, a testimonial and a contact form.",
+    "tags": ["personal", "portfolio", "timeline", "forms"]
+  },
+  {
+    "slug": "auth",
+    "title": "Sign in and sign up",
+    "description": "Sign in and create account screens in one tabbed card that switches without JavaScript, next to a forced dark brand panel.",
+    "tags": ["app", "forms", "tabs", "dark section", "no javascript"]
+  }
+]

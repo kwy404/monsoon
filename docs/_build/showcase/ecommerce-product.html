@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecommerce product page | Monsoon showcase</title>
+<meta name="description" content="A product detail page for the Arc One headphones from Ondine Audio, a fictional brand, with a gallery, color picker, specs, reviews and related products, built only with Monsoon classes.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-background text-foreground antialiased" style="--seed: #d97706">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<div class="banner banner-soft banner-primary justify-center text-center text-sm">
+  <span>Free carbon neutral shipping over $75 &middot; 60 night trial &middot; 2 year warranty</span>
+</div>
+
+<header class="navbar navbar-sticky navbar-blur">
+  <div class="navbar-start"><a href="#" class="navbar-brand font-black uppercase tracking-widest">Ondine</a></div>
+  <nav class="navbar-center navbar-nav" aria-label="Shop"><a href="#" class="navbar-link" aria-current="page">Headphones</a><a href="#" class="navbar-link">Earbuds</a><a href="#" class="navbar-link">Speakers</a><a href="#" class="navbar-link">Accessories</a></nav>
+  <div class="navbar-end">
+    <button class="btn btn-icon" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+    <div class="indicator">
+      <span class="indicator-item badge badge-primary badge-solid badge-xs badge-pill">2</span>
+      <a href="#" class="btn btn-icon" aria-label="Cart, 2 items"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
+    </div>
+    <details class="navbar-mobile"><summary class="navbar-burger" aria-label="Menu"></summary><nav class="navbar-mobile-panel" aria-label="Mobile"><a href="#" class="navbar-link" aria-current="page">Headphones</a><a href="#" class="navbar-link">Earbuds</a><a href="#" class="navbar-link">Speakers</a><a href="#" class="navbar-link">Accessories</a></nav></details>
+  </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+  <nav class="py-5" aria-label="Breadcrumb"><ol class="breadcrumbs text-sm"><li><a href="#">Shop</a></li><li><a href="#">Headphones</a></li><li><span aria-current="page">Arc One</span></li></ol></nav>
+
+  <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+    <section aria-label="Product images">
+      <div class="carousel carousel-full rounded-3xl border">
+        <div id="arc-graphite" class="carousel-item aspect-square w-full place-items-center bg-gradient-to-br from-surface-2 to-surface-3">
+          <svg class="m-auto w-4/5" viewBox="0 0 400 400" role="img" aria-label="Arc One headphones in graphite">
+            <ellipse class="fill-foreground" opacity=".08" cx="200" cy="360" rx="140" ry="14"/>
+            <path class="stroke-foreground" fill="none" stroke-width="22" stroke-linecap="round" d="M96 236v-46a104 104 0 0 1 208 0v46"/>
+            <path class="stroke-primary" fill="none" stroke-width="8" stroke-linecap="round" d="M128 150a96 96 0 0 1 144 0"/>
+            <rect class="fill-foreground" x="58" y="214" width="78" height="128" rx="36"/>
+            <rect class="fill-foreground" x="264" y="214" width="78" height="128" rx="36"/>
+            <rect class="fill-primary" x="128" y="230" width="20" height="96" rx="10"/>
+            <rect class="fill-primary" x="252" y="230" width="20" height="96" rx="10"/>
+          </svg>
+        </div>
+        <div id="arc-amber" class="carousel-item aspect-square w-full bg-gradient-to-br from-amber-400 to-orange-600">
+          <svg class="m-auto w-4/5" viewBox="0 0 400 400" role="img" aria-label="Arc One headphones in amber">
+            <ellipse class="fill-black" opacity=".12" cx="200" cy="360" rx="140" ry="14"/>
+            <path class="stroke-white" fill="none" stroke-width="22" stroke-linecap="round" d="M96 236v-46a104 104 0 0 1 208 0v46"/>
+            <rect class="fill-white" x="58" y="214" width="78" height="128" rx="36"/>
+            <rect class="fill-white" x="264" y="214" width="78" height="128" rx="36"/>
+            <rect class="fill-black" opacity=".7" x="128" y="230" width="20" height="96" rx="10"/>
+            <rect class="fill-black" opacity=".7" x="252" y="230" width="20" height="96" rx="10"/>
+          </svg>
+        </div>
+        <div id="arc-mist" class="carousel-item aspect-square w-full bg-gradient-to-br from-sky-400 to-indigo-600">
+          <svg class="m-auto w-4/5" viewBox="0 0 400 400" role="img" aria-label="Arc One headphones in mist">
+            <ellipse class="fill-black" opacity=".15" cx="200" cy="360" rx="140" ry="14"/>
+            <path class="stroke-white" fill="none" stroke-width="22" stroke-linecap="round" d="M96 236v-46a104 104 0 0 1 208 0v46"/>
+            <rect class="fill-white" opacity=".92" x="58" y="214" width="78" height="128" rx="36"/>
+            <rect class="fill-white" opacity=".92" x="264" y="214" width="78" height="128" rx="36"/>
+            <rect class="fill-white" opacity=".6" x="128" y="230" width="20" height="96" rx="10"/>
+            <rect class="fill-white" opacity=".6" x="252" y="230" width="20" height="96" rx="10"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 grid grid-cols-4 gap-3">
+        <a href="#arc-graphite" class="aspect-square rounded-xl border-2 border-primary bg-gradient-to-br from-surface-2 to-surface-3" aria-label="Show graphite"></a>
+        <a href="#arc-amber" class="aspect-square rounded-xl border bg-gradient-to-br from-amber-400 to-orange-600 hover:border-primary" aria-label="Show amber"></a>
+        <a href="#arc-mist" class="aspect-square rounded-xl border bg-gradient-to-br from-sky-400 to-indigo-600 hover:border-primary" aria-label="Show mist"></a>
+        <div class="grid aspect-square place-items-center rounded-xl border bg-surface-2 text-center text-xs text-muted-foreground"><span><svg class="mx-auto mb-1 size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></svg>360 view</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="product-title">
+      <div class="flex flex-wrap items-center gap-2"><span class="badge badge-primary">New colorway</span><span class="badge badge-success badge-dot">In stock, ships tomorrow</span></div>
+      <h1 id="product-title" class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">Arc One wireless headphones</h1>
+      <div class="mt-3 flex items-center gap-2 text-sm"><span class="rating-display" style="--rating: 4.7" role="img" aria-label="4.7 out of 5"></span><a href="#reviews" class="link link-muted">4.7 &middot; 2,318 reviews</a></div>
+      <div class="mt-6 flex items-baseline gap-3"><p class="text-4xl font-bold tabular-nums">$279</p><p class="text-lg text-muted-foreground line-through">$349</p><span class="badge badge-danger badge-solid">Save $70</span></div>
+      <p class="mt-1 text-sm text-muted-foreground">Or 4 interest free payments of $69.75</p>
+      <p class="mt-6 text-muted-foreground leading-relaxed">Adaptive noise canceling tuned by ear, 46 hours of battery and memory foam cushions wrapped in recycled protein leather. They fold flat into a case the size of a paperback.</p>
+
+      <form class="mt-8 space-y-6" action="#">
+        <fieldset>
+          <legend class="text-sm font-medium">Color: <span class="text-muted-foreground">Graphite</span></legend>
+          <div class="mt-3 grid grid-cols-3 gap-3">
+            <label class="radio-card"><input type="radio" class="radio radio-sm" name="color" checked><span class="flex items-center gap-2 text-sm"><span class="size-4 rounded-full bg-foreground"></span>Graphite</span></label>
+            <label class="radio-card"><input type="radio" class="radio radio-sm" name="color"><span class="flex items-center gap-2 text-sm"><span class="size-4 rounded-full bg-amber-500"></span>Amber</span></label>
+            <label class="radio-card"><input type="radio" class="radio radio-sm" name="color"><span class="flex items-center gap-2 text-sm"><span class="size-4 rounded-full bg-sky-500"></span>Mist</span></label>
+          </div>
+        </fieldset>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <div class="input-counter input-group-lg">
+            <button type="button" class="input-counter-button" aria-label="Decrease quantity">&minus;</button>
+            <input type="number" class="input input-lg" value="1" min="1" max="5" aria-label="Quantity">
+            <button type="button" class="input-counter-button" aria-label="Increase quantity">+</button>
+          </div>
+          <button type="submit" class="btn btn-lg flex-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>Add to cart</button>
+          <button type="button" class="btn btn-lg btn-outline btn-neutral btn-square" aria-label="Save to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
+        </div>
+      </form>
+
+      <ul class="mt-8 grid gap-4 rounded-2xl border bg-surface-2 p-5 text-sm sm:grid-cols-2">
+        <li class="flex gap-3"><svg class="size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg><span><strong class="block font-medium">Free delivery Oct 16 to 18</strong><span class="text-muted-foreground">Order within 3 h 12 min</span></span></li>
+        <li class="flex gap-3"><svg class="size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><span><strong class="block font-medium">60 night home trial</strong><span class="text-muted-foreground">Free returns, prepaid label</span></span></li>
+        <li class="flex gap-3"><svg class="size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/></svg><span><strong class="block font-medium">2 year warranty</strong><span class="text-muted-foreground">Battery included</span></span></li>
+        <li class="flex gap-3"><svg class="size-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 7l3-3 3 3-3 3M17 4v7a4 4 0 0 1-4 4H4"/></svg><span><strong class="block font-medium">Repairable by design</strong><span class="text-muted-foreground">Swap cushions and battery</span></span></li>
+      </ul>
+
+      <div class="accordion collapse-plus mt-8">
+        <details class="collapse" name="product-info" open>
+          <summary class="collapse-title">Highlights</summary>
+          <div class="collapse-content"><ul class="list-disc space-y-1.5 pl-5 text-muted-foreground"><li>Adaptive noise canceling with six microphones</li><li>40 mm bio cellulose drivers, tuned flat with a gentle low end lift</li><li>Multipoint pairing with two devices at once</li><li>10 minute charge for 5 hours of playback</li></ul></div>
+        </details>
+        <details class="collapse" name="product-info">
+          <summary class="collapse-title">Specifications</summary>
+          <div class="collapse-content">
+            <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              <dt class="text-muted-foreground">Weight</dt><dd>254 g</dd>
+              <dt class="text-muted-foreground">Battery</dt><dd>46 h with ANC on</dd>
+              <dt class="text-muted-foreground">Bluetooth</dt><dd>5.4, LE Audio ready</dd>
+              <dt class="text-muted-foreground">Codecs</dt><dd>AAC, LC3, SBC</dd>
+              <dt class="text-muted-foreground">Charging</dt><dd>USB C, 3.5 mm audio in</dd>
+            </dl>
+          </div>
+        </details>
+        <details class="collapse" name="product-info">
+          <summary class="collapse-title">Shipping and returns</summary>
+          <div class="collapse-content text-muted-foreground">Orders placed before 3 p.m. ship the same day from our warehouse in Rotterdam. Try them for 60 nights and send them back for free if they are not for you.</div>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <section id="reviews" class="mt-24 grid gap-10 lg:grid-cols-3" aria-labelledby="reviews-title">
+    <div>
+      <h2 id="reviews-title" class="text-2xl font-bold tracking-tight">Customer reviews</h2>
+      <div class="mt-4 flex items-center gap-3"><span class="text-5xl font-bold">4.7</span><div><span class="rating-display rating-display-lg" style="--rating: 4.7" role="img" aria-label="4.7 out of 5"></span><p class="text-sm text-muted-foreground">Based on 2,318 reviews</p></div></div>
+      <ul class="mt-6 space-y-2 text-sm">
+        <li class="flex items-center gap-3"><span class="w-12 shrink-0">5 stars</span><progress class="progress progress-warning" value="78" max="100">78%</progress><span class="w-10 text-right tabular-nums text-muted-foreground">78%</span></li>
+        <li class="flex items-center gap-3"><span class="w-12 shrink-0">4 stars</span><progress class="progress progress-warning" value="15" max="100">15%</progress><span class="w-10 text-right tabular-nums text-muted-foreground">15%</span></li>
+        <li class="flex items-center gap-3"><span class="w-12 shrink-0">3 stars</span><progress class="progress progress-warning" value="4" max="100">4%</progress><span class="w-10 text-right tabular-nums text-muted-foreground">4%</span></li>
+        <li class="flex items-center gap-3"><span class="w-12 shrink-0">2 stars</span><progress class="progress progress-warning" value="2" max="100">2%</progress><span class="w-10 text-right tabular-nums text-muted-foreground">2%</span></li>
+        <li class="flex items-center gap-3"><span class="w-12 shrink-0">1 star</span><progress class="progress progress-warning" value="1" max="100">1%</progress><span class="w-10 text-right tabular-nums text-muted-foreground">1%</span></li>
+      </ul>
+      <a href="#" class="btn btn-outline btn-neutral btn-block mt-6">Write a review</a>
+    </div>
+    <div class="divide-y lg:col-span-2">
+      <article class="pb-6">
+        <div class="flex items-center justify-between gap-3"><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-placeholder">MT</span><div><p class="font-medium">Marguerite T.</p><p class="text-xs text-muted-foreground">Verified buyer &middot; Graphite</p></div></div><span class="rating-display rating-display-sm" style="--rating: 5" role="img" aria-label="5 out of 5"></span></div>
+        <h3 class="mt-4 font-semibold">Quiet enough for a night train</h3>
+        <p class="mt-2 text-muted-foreground">I wore them from Vienna to Hamburg and only took them off for passport control. The case actually fits in my coat pocket.</p>
+      </article>
+      <article class="py-6">
+        <div class="flex items-center justify-between gap-3"><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-placeholder">JO</span><div><p class="font-medium">Jun O.</p><p class="text-xs text-muted-foreground">Verified buyer &middot; Mist</p></div></div><span class="rating-display rating-display-sm" style="--rating: 4" role="img" aria-label="4 out of 5"></span></div>
+        <h3 class="mt-4 font-semibold">Great sound, firm clamp at first</h3>
+        <p class="mt-2 text-muted-foreground">Clamping force was strong for the first week, then settled. Vocals are clear and the bass never gets muddy. The app EQ is optional.</p>
+      </article>
+      <article class="pt-6">
+        <div class="flex items-center justify-between gap-3"><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-placeholder">SA</span><div><p class="font-medium">Sofia A.</p><p class="text-xs text-muted-foreground">Verified buyer &middot; Amber</p></div></div><span class="rating-display rating-display-sm" style="--rating: 5" role="img" aria-label="5 out of 5"></span></div>
+        <h3 class="mt-4 font-semibold">Replaced the cushions myself in two minutes</h3>
+        <p class="mt-2 text-muted-foreground">After two years of daily use the pads were worn, so I ordered new ones. They click in with magnets. That alone sold me on the brand.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="mt-24" aria-labelledby="related-title">
+    <h2 id="related-title" class="text-2xl font-bold tracking-tight">Pairs well with</h2>
+    <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+      <a href="#" class="group"><div class="aspect-square rounded-2xl bg-gradient-to-br from-surface-2 to-surface-3 transition group-hover:shadow-lg"></div><p class="mt-3 text-sm font-medium">Travel case</p><p class="text-sm text-muted-foreground">$39</p></a>
+      <a href="#" class="group"><div class="aspect-square rounded-2xl bg-gradient-to-br from-amber-400 to-rose-500 transition group-hover:shadow-lg"></div><p class="mt-3 text-sm font-medium">Velour cushions</p><p class="text-sm text-muted-foreground">$29</p></a>
+      <a href="#" class="group"><div class="aspect-square rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 transition group-hover:shadow-lg"></div><p class="mt-3 text-sm font-medium">Braided audio cable</p><p class="text-sm text-muted-foreground">$19</p></a>
+      <a href="#" class="group"><div class="aspect-square rounded-2xl bg-gradient-to-br from-violet-400 to-indigo-600 transition group-hover:shadow-lg"></div><p class="mt-3 text-sm font-medium">Arc Buds</p><p class="text-sm text-muted-foreground">$149</p></a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="mx-auto w-full max-w-7xl footer-bottom"><p>Copyright 2026 Ondine Audio. A fictional brand for this showcase.</p><p>Shipping &middot; Returns &middot; Warranty &middot; Contact</p></div>
+</footer>
+</body>
+</html>

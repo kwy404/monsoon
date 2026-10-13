@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaaS landing page | Monsoon showcase</title>
+<meta name="description" content="A product landing page for Quillmesh, a fictional runbook and incident automation tool, built only with Monsoon utility classes and components.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-background text-foreground antialiased" style="--seed: #3b5bdb">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<header class="navbar navbar-sticky navbar-blur">
+  <div class="navbar-start">
+    <a href="#" class="navbar-brand"><span class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-primary to-accent text-primary-foreground"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M4 12h16M4 18h7"/></svg></span>Quillmesh</a>
+  </div>
+  <nav class="navbar-center navbar-nav" aria-label="Main">
+    <a href="#features" class="navbar-link">Product</a>
+    <a href="#workflow" class="navbar-link">How it works</a>
+    <a href="#customers" class="navbar-link">Customers</a>
+    <a href="#faq" class="navbar-link">FAQ</a>
+  </nav>
+  <div class="navbar-end">
+    <a href="#" class="navbar-link hidden sm:inline-flex">Sign in</a>
+    <a href="#cta" class="btn btn-sm">Start free</a>
+    <details class="navbar-mobile">
+      <summary class="navbar-burger" aria-label="Menu"></summary>
+      <nav class="navbar-mobile-panel" aria-label="Mobile">
+        <a href="#features" class="navbar-link">Product</a>
+        <a href="#workflow" class="navbar-link">How it works</a>
+        <a href="#customers" class="navbar-link">Customers</a>
+        <a href="#faq" class="navbar-link">FAQ</a>
+        <a href="#" class="navbar-link">Sign in</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main>
+  <section class="relative isolate overflow-hidden">
+    <div class="pointer-events-none absolute -top-16 left-1/2 -z-10 size-96 -translate-x-1/2 rounded-full bg-primary/30 blur-3xl" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute top-24 -right-16 -z-10 size-72 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
+    <div class="mx-auto max-w-7xl px-4 pt-16 pb-12 text-center sm:px-6 md:pt-24 lg:px-8">
+      <a href="#" class="inline-flex items-center gap-2 rounded-full border bg-surface/80 py-1 pl-1 pr-3 text-sm text-muted-foreground shadow-sm hover:text-foreground">
+        <span class="badge badge-primary badge-solid badge-pill badge-sm">New</span>
+        Runbooks now sync with your on call calendar
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <h1 class="mx-auto mt-8 max-w-4xl text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-7xl">
+        Incidents end faster when the
+        <span class="bg-gradient-to-r from-primary to-info bg-clip-text text-transparent">runbook runs itself</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground text-pretty sm:text-xl">
+        Quillmesh turns the steps your team keeps in wikis into checklists that page the right people, gather logs and post status updates while you focus on the fix.
+      </p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="#cta" class="btn btn-lg w-full sm:w-auto">Start a free workspace</a>
+        <a href="#workflow" class="btn btn-lg btn-outline btn-neutral w-full sm:w-auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></svg>Watch a 3 minute tour</a>
+      </div>
+      <p class="mt-4 text-sm text-muted-foreground">Free for teams up to 10 people &middot; No card required &middot; SOC 2 Type II</p>
+
+      <div class="mx-auto mt-16 max-w-5xl rounded-2xl bg-primary/10 p-2 ring-1 ring-border sm:p-3">
+        <div class="mockup-browser text-left shadow-2xl">
+          <div class="mockup-browser-bar"><span class="mockup-browser-url">app.quillmesh.dev/incidents/INC-2291</span></div>
+          <div class="@container grid grid-cols-1 bg-background md:grid-cols-12">
+            <aside class="hidden border-r bg-surface-2 p-4 md:col-span-3 md:block">
+              <p class="px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Workspace</p>
+              <ul class="mt-3 space-y-1 text-sm">
+                <li class="flex items-center justify-between rounded-md bg-primary/10 px-2 py-1.5 font-medium text-primary">Incidents <span class="badge badge-danger badge-solid badge-xs">2</span></li>
+                <li class="rounded-md px-2 py-1.5 text-muted-foreground">Runbooks</li>
+                <li class="rounded-md px-2 py-1.5 text-muted-foreground">On call</li>
+                <li class="rounded-md px-2 py-1.5 text-muted-foreground">Status pages</li>
+                <li class="rounded-md px-2 py-1.5 text-muted-foreground">Retros</li>
+              </ul>
+              <p class="mt-6 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Services</p>
+              <ul class="mt-3 space-y-2 px-2 text-sm text-muted-foreground">
+                <li class="flex items-center gap-2"><span class="status status-danger status-ping"></span>checkout-api</li>
+                <li class="flex items-center gap-2"><span class="status status-warning"></span>search-index</li>
+                <li class="flex items-center gap-2"><span class="status status-online"></span>billing-worker</li>
+              </ul>
+            </aside>
+            <div class="space-y-5 p-4 sm:p-6 md:col-span-9">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p class="font-mono text-xs text-muted-foreground">INC-2291 &middot; opened 14 min ago</p>
+                  <h2 class="mt-1 text-lg font-semibold sm:text-xl">Checkout latency above 2s in eu-west</h2>
+                </div>
+                <div class="flex items-center gap-2"><span class="badge badge-danger badge-dot">SEV 1</span><span class="badge badge-info">Mitigating</span></div>
+              </div>
+              <div class="grid grid-cols-1 gap-3 @lg:grid-cols-3">
+                <div class="rounded-xl border bg-surface p-3"><p class="text-xs text-muted-foreground">p95 latency</p><p class="mt-1 text-2xl font-bold tabular-nums">2.41s</p><progress class="progress progress-danger progress-xs mt-2" value="82" max="100">82%</progress></div>
+                <div class="rounded-xl border bg-surface p-3"><p class="text-xs text-muted-foreground">Error rate</p><p class="mt-1 text-2xl font-bold tabular-nums">3.8%</p><progress class="progress progress-warning progress-xs mt-2" value="38" max="100">38%</progress></div>
+                <div class="rounded-xl border bg-surface p-3"><p class="text-xs text-muted-foreground">Runbook</p><p class="mt-1 text-2xl font-bold tabular-nums">5 / 7</p><progress class="progress progress-success progress-xs mt-2" value="71" max="100">71%</progress></div>
+              </div>
+              <ol class="space-y-3 text-sm">
+                <li class="flex items-start gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-success text-success-foreground"><svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong class="font-medium">Paged Priya Raman and Lukas Ober</strong><span class="block text-muted-foreground">Acknowledged in 41 seconds</span></span></li>
+                <li class="flex items-start gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-success text-success-foreground"><svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong class="font-medium">Attached 12 slow traces from checkout-api</strong><span class="block text-muted-foreground">Top span: inventory.reserve, 1.9s</span></span></li>
+                <li class="flex items-start gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border-2 border-primary"><span class="size-2 rounded-full bg-primary animate-pulse"></span></span><span><strong class="font-medium">Shift 30% of traffic to eu-central</strong><span class="block text-muted-foreground">Waiting for approval from the incident lead</span></span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y bg-surface-2 py-10" aria-label="Customers">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-medium text-muted-foreground">Trusted by on call teams at 1,400 companies</p>
+      <ul class="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 text-center text-lg font-bold tracking-tight text-muted-foreground sm:grid-cols-3 lg:grid-cols-6">
+        <li>Halcyon Freight</li><li class="font-serif italic">Orchard&amp;Co</li><li class="font-mono">brightpath</li><li>NORTHVALE</li><li class="font-serif">Cobalt Ledger</li><li class="tracking-widest uppercase text-base">Sundial</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="features" class="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-wider text-primary">Everything in one timeline</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl">The boring parts of an outage, handled before you ask</h2>
+      <p class="mt-4 text-lg text-muted-foreground">Write a runbook once in plain language. Quillmesh keeps it current, runs the safe steps on its own and asks before anything risky.</p>
+    </div>
+    <div class="feature-grid mt-14">
+      <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></span><h3 class="feature-title">Automatic first response</h3><p class="feature-text">Alerts open an incident, pick a severity from the blast radius and page whoever is on call for the affected service.</p></div>
+      <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span><h3 class="feature-title">Living checklists</h3><p class="feature-text">Each step shows who ran it, when, and what it returned. Steps that fail twice get flagged for the next retro.</p></div>
+      <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span><h3 class="feature-title">Evidence on tap</h3><p class="feature-text">Logs, traces and deploy diffs from the last hour are pinned to the timeline, so nobody pastes screenshots into chat.</p></div>
+      <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><h3 class="feature-title">Status updates drafted</h3><p class="feature-text">Customer facing notes are drafted from the timeline every 20 minutes. A human approves every word before it goes out.</p></div>
+      <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/></svg></span><h3 class="feature-title">Guardrails by default</h3><p class="feature-text">Risky actions such as failovers and rollbacks need a second approver, and every action is written to an audit log.</p></div>
+      <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg></span><h3 class="feature-title">Retros that write themselves</h3><p class="feature-text">When the incident closes you get a draft review with a minute by minute timeline and the follow ups already assigned.</p></div>
+    </div>
+  </section>
+
+  <section id="workflow" class="section-muted border-y">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 md:py-24 lg:grid-cols-2 lg:items-center lg:px-8">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-primary">How it works</p>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">From alert to all clear in three moves</h2>
+        <ol class="steps steps-vertical mt-8">
+          <li class="step step-done"><span class="font-semibold">Connect your signals</span><span class="step-description">Point your alerting, logs and deploy tool at Quillmesh. Most teams finish in under 15 minutes.</span></li>
+          <li class="step step-done"><span class="font-semibold">Import your runbooks</span><span class="step-description">Paste a wiki page or a markdown file. Commands and links become runnable steps.</span></li>
+          <li class="step step-current"><span class="font-semibold">Let the first ten minutes run themselves</span><span class="step-description">Paging, triage and evidence gathering happen while you open your laptop.</span></li>
+        </ol>
+      </div>
+      <figure class="code-block shadow-xl">
+        <figcaption class="code-block-header"><span>runbooks/checkout-latency.md</span><span>Runbook</span></figcaption>
+        <pre><code>## When p95 checkout latency &gt; 2s
+
+1. page: checkout-oncall, payments-oncall
+2. attach: traces(service="checkout-api", last="30m")
+3. attach: deploys(since="2h")
+4. check: inventory.reserve p95 &lt; 800ms
+5. approve: shift_traffic(from="eu-west", to="eu-central", pct=30)
+6. post: status_update(audience="customers")
+7. close: when p95 &lt; 900ms for 10m</code></pre>
+      </figure>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-label="Results">
+    <div class="stats">
+      <div class="stat"><p class="stat-title">Median time to acknowledge</p><p class="stat-value">38s</p><p class="stat-desc"><span class="stat-trend-down">71%</span> after rollout</p></div>
+      <div class="stat"><p class="stat-title">Time to mitigate</p><p class="stat-value">11 min</p><p class="stat-desc"><span class="stat-trend-down">46%</span> across customers</p></div>
+      <div class="stat"><p class="stat-title">Runbook steps automated</p><p class="stat-value">2.3M</p><p class="stat-desc"><span class="stat-trend-up">18%</span> this quarter</p></div>
+      <div class="stat"><p class="stat-title">Retros published on time</p><p class="stat-value">94%</p><p class="stat-desc"><span class="stat-trend-up">3.1x</span> versus manual</p></div>
+    </div>
+  </section>
+
+  <section id="customers" class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+    <h2 class="text-center text-3xl font-bold tracking-tight sm:text-4xl">On call, but calmer</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <figure class="testimonial"><blockquote class="testimonial-quote">Our first SEV 1 on Quillmesh was the first one where nobody asked who was paging the database team. It had already happened.</blockquote><figcaption class="testimonial-author"><span class="avatar avatar-placeholder bg-primary/10 text-primary">PR</span><div><p class="testimonial-name">Priya Raman</p><p class="testimonial-role">SRE lead, Halcyon Freight</p></div></figcaption></figure>
+      <figure class="testimonial"><blockquote class="testimonial-quote">We moved forty stale wiki pages in an afternoon. Half of them turned out to be wrong, and the failing steps told us which half.</blockquote><figcaption class="testimonial-author"><span class="avatar avatar-placeholder bg-accent/10 text-accent">LO</span><div><p class="testimonial-name">Lukas Ober</p><p class="testimonial-role">Platform engineer, Cobalt Ledger</p></div></figcaption></figure>
+      <figure class="testimonial"><blockquote class="testimonial-quote">The drafted status updates alone saved our support team a weekend. They read like a calm person wrote them at 3 a.m.</blockquote><figcaption class="testimonial-author"><span class="avatar avatar-placeholder bg-success/10 text-success">AM</span><div><p class="testimonial-name">Ama Mensah</p><p class="testimonial-role">Head of support, Sundial</p></div></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="faq" class="border-t bg-surface-2">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
+      <div>
+        <h2 class="text-3xl font-bold tracking-tight">Questions, answered</h2>
+        <p class="mt-4 text-muted-foreground">Still curious? Write to <a href="#" class="link link-primary">hello@quillmesh.dev</a> and an engineer replies within a day.</p>
+      </div>
+      <div class="accordion collapse-plus lg:col-span-2">
+        <details class="collapse" name="faq" open><summary class="collapse-title">Does Quillmesh run commands in our infrastructure?</summary><div class="collapse-content">Only through a small agent you install, and only for steps you mark as safe. Everything else waits for a person to approve it.</div></details>
+        <details class="collapse" name="faq"><summary class="collapse-title">Which alerting tools do you support?</summary><div class="collapse-content">Any tool that can send a webhook. There are ready made connectors for the twelve most common alerting and paging services.</div></details>
+        <details class="collapse" name="faq"><summary class="collapse-title">Can we keep our runbooks in git?</summary><div class="collapse-content">Yes. Point Quillmesh at a folder of markdown files and it syncs on every merge to your main branch.</div></details>
+        <details class="collapse" name="faq"><summary class="collapse-title">What happens when the free plan runs out?</summary><div class="collapse-content">Nothing breaks. You keep every runbook and incident, and paid features pause until you upgrade.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="px-4 py-20 sm:px-6 lg:px-8">
+    <div class="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-info px-6 py-16 text-center text-primary-foreground shadow-2xl sm:px-12">
+      <div class="pointer-events-none absolute -top-16 -left-16 size-72 rounded-full bg-white/10 blur-2xl" aria-hidden="true"></div>
+      <h2 class="relative text-3xl font-bold tracking-tight text-balance sm:text-4xl">Your next incident could be your shortest one</h2>
+      <p class="relative mx-auto mt-4 max-w-xl text-primary-foreground/80">Spin up a workspace, import one runbook and run a game day this afternoon.</p>
+      <form class="relative mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row" action="#">
+        <label class="sr-only" for="cta-email">Work email</label>
+        <input id="cta-email" type="email" class="input input-lg flex-1 text-foreground" placeholder="you@company.com" required>
+        <button class="btn btn-lg btn-neutral" type="submit">Get started</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="mx-auto w-full max-w-7xl space-y-10">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="#" class="navbar-brand text-foreground">Quillmesh</a><p>Runbooks that run themselves, for teams that would rather sleep.</p></div>
+      <nav aria-label="Product"><p class="footer-title">Product</p><ul class="footer-links"><li><a href="#">Runbooks</a></li><li><a href="#">On call</a></li><li><a href="#">Status pages</a></li><li><a href="#">Changelog</a></li></ul></nav>
+      <nav aria-label="Company"><p class="footer-title">Company</p><ul class="footer-links"><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li></ul></nav>
+      <nav aria-label="Resources"><p class="footer-title">Resources</p><ul class="footer-links"><li><a href="#">Docs</a></li><li><a href="#">Runbook library</a></li><li><a href="#">Incident guide</a></li></ul></nav>
+    </div>
+    <div class="footer-bottom"><p>Copyright 2026 Quillmesh Labs. A fictional company for this showcase.</p><p>Privacy &middot; Terms &middot; Status</p></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,323 +1,358 @@
-import { page, code, esc, breadcrumbs, breadcrumbLd, SITE, CDN } from '../lib.mjs';
+// Component pages generated from the src/components/*.json manifests, plus
+// the searchable components index with live thumbnails.
+import { page, docsShell, esc, u, I, code, pre, copyButton, windowBar, fileIcon, breadcrumbLd, SITE, STATE, fmt, uid } from '../lib.mjs';
 
-const check = '<svg class="size-5 shrink-0 text-success" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0z"/></svg>';
+const TONES = { primary: 'the primary color', secondary: 'the quiet secondary tint', accent: 'the accent color (seed hue rotated)', neutral: 'a neutral, near foreground fill', success: 'the success color', warning: 'the warning color', danger: 'the danger color', info: 'the info color' };
+const SIZES = { xs: 'extra small', sm: 'small', md: 'medium, the default', lg: 'large', xl: 'extra large', '2xl': 'double extra large' };
 
-export const components = [
-  {
-    id: 'navbar',
-    title: 'Navbar',
-    desc: 'A responsive top bar. Links collapse into a native details menu on small screens, so it needs no JavaScript.',
-    html: `<header class="border-b bg-surface">
-  <div class="mx-auto max-w-6xl flex items-center justify-between gap-4 px-4 h-16">
-    <a href="#" class="flex items-center gap-2 font-bold text-lg">
-      <span class="grid place-items-center size-8 rounded-lg bg-primary text-primary-foreground text-sm">M</span>
-      Acme
-    </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-      <a href="#" class="hover:text-foreground transition-colors">Product</a>
-      <a href="#" class="hover:text-foreground transition-colors">Pricing</a>
-      <a href="#" class="hover:text-foreground transition-colors">Docs</a>
-      <a href="#" class="rounded-lg bg-primary text-primary-foreground px-3 py-2 font-medium hover:bg-primary/90">Sign up</a>
-    </nav>
-    <details class="relative md:hidden">
-      <summary class="list-none cursor-pointer rounded-lg border px-3 py-1.5 text-sm font-medium">Menu</summary>
-      <nav class="absolute right-0 top-full mt-2 w-48 rounded-xl border bg-surface p-2 shadow-lg z-10">
-        <a href="#" class="block rounded-md px-3 py-2 text-sm hover:bg-muted">Product</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-sm hover:bg-muted">Pricing</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-sm hover:bg-muted">Docs</a>
-      </nav>
-    </details>
-  </div>
-</header>`,
-  },
-  {
-    id: 'hero',
-    title: 'Hero',
-    desc: 'A centered hero with a gradient headline accent and two calls to action.',
-    html: `<section class="px-6 py-20 text-center">
-  <p class="inline-flex rounded-full border bg-surface px-3 py-1 text-xs font-medium text-muted-foreground">Now in public beta</p>
-  <h1 class="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight text-balance">
-    Ship pages that look
-    <span class="bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 bg-clip-text text-transparent">finished</span>
-  </h1>
-  <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-    One stylesheet, readable classes and a theme that follows your brand color.
-  </p>
-  <div class="mt-8 flex flex-wrap justify-center gap-3">
-    <a href="#" class="rounded-xl bg-primary text-primary-foreground px-5 py-3 font-semibold shadow-lg hover:bg-primary/90 transition">Start free</a>
-    <a href="#" class="rounded-xl border bg-surface px-5 py-3 font-semibold hover:bg-muted transition">See examples</a>
-  </div>
-</section>`,
-  },
-  {
-    id: 'pricing',
-    title: 'Pricing cards',
-    desc: 'Three plans with a highlighted middle card. The featured card uses the primary color and a ring.',
-    html: `<div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-  <div class="rounded-2xl border bg-surface p-6 space-y-5">
-    <p class="font-semibold">Hobby</p>
-    <p class="text-4xl font-extrabold">$0<span class="text-base font-medium text-muted-foreground">/mo</span></p>
-    <ul class="space-y-2 text-sm text-muted-foreground">
-      <li class="flex gap-2">${check}1 project</li>
-      <li class="flex gap-2">${check}Community support</li>
-    </ul>
-    <a href="#" class="block rounded-lg border py-2.5 text-center font-medium hover:bg-muted">Get started</a>
-  </div>
-  <div class="relative rounded-2xl border border-primary bg-surface p-6 space-y-5 shadow-xl ring-2 ring-primary">
-    <span class="absolute -top-3 left-6 rounded-full bg-primary text-primary-foreground px-3 py-0.5 text-xs font-semibold">Popular</span>
-    <p class="font-semibold">Team</p>
-    <p class="text-4xl font-extrabold">$19<span class="text-base font-medium text-muted-foreground">/mo</span></p>
-    <ul class="space-y-2 text-sm text-muted-foreground">
-      <li class="flex gap-2">${check}Unlimited projects</li>
-      <li class="flex gap-2">${check}Priority support</li>
-      <li class="flex gap-2">${check}Shared themes</li>
-    </ul>
-    <a href="#" class="block rounded-lg bg-primary text-primary-foreground py-2.5 text-center font-medium hover:bg-primary/90">Choose Team</a>
-  </div>
-  <div class="rounded-2xl border bg-surface p-6 space-y-5">
-    <p class="font-semibold">Enterprise</p>
-    <p class="text-4xl font-extrabold">Custom</p>
-    <ul class="space-y-2 text-sm text-muted-foreground">
-      <li class="flex gap-2">${check}SSO and audit log</li>
-      <li class="flex gap-2">${check}Dedicated support</li>
-    </ul>
-    <a href="#" class="block rounded-lg border py-2.5 text-center font-medium hover:bg-muted">Contact sales</a>
-  </div>
-</div>`,
-  },
-  {
-    id: 'features',
-    title: 'Feature grid',
-    desc: 'Icon tiles in a responsive grid that goes from one to three columns.',
-    html: `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-6">
-  <div class="rounded-2xl border bg-surface p-6 hover:shadow-lg transition">
-    <div class="grid place-items-center size-11 rounded-xl bg-primary/10 text-primary font-bold">01</div>
-    <h3 class="mt-4 font-semibold">Fast by default</h3>
-    <p class="mt-2 text-sm text-muted-foreground">One cached request and no runtime work in the browser.</p>
-  </div>
-  <div class="rounded-2xl border bg-surface p-6 hover:shadow-lg transition">
-    <div class="grid place-items-center size-11 rounded-xl bg-accent text-accent-foreground font-bold">02</div>
-    <h3 class="mt-4 font-semibold">Themeable</h3>
-    <p class="mt-2 text-sm text-muted-foreground">Change one seed color and the whole page follows.</p>
-  </div>
-  <div class="rounded-2xl border bg-surface p-6 hover:shadow-lg transition">
-    <div class="grid place-items-center size-11 rounded-xl bg-success/10 text-success font-bold">03</div>
-    <h3 class="mt-4 font-semibold">Accessible</h3>
-    <p class="mt-2 text-sm text-muted-foreground">Readable contrast and visible focus out of the box.</p>
-  </div>
-</div>`,
-  },
-  {
-    id: 'form',
-    title: 'Form',
-    desc: 'Labels, inputs, a select, a checkbox and a submit button with focus rings that follow the seed.',
-    html: `<form class="mx-auto max-w-md space-y-4 rounded-2xl border bg-surface p-6 shadow-sm">
-  <h3 class="text-lg font-semibold">Create your account</h3>
-  <div class="space-y-1.5">
-    <label for="cf-name" class="block text-sm font-medium">Name</label>
-    <input id="cf-name" type="text" placeholder="Ada Rivers" class="w-full rounded-md border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring">
-  </div>
-  <div class="space-y-1.5">
-    <label for="cf-email" class="block text-sm font-medium">Email</label>
-    <input id="cf-email" type="email" placeholder="you@example.com" class="w-full rounded-md border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring">
-  </div>
-  <div class="space-y-1.5">
-    <label for="cf-role" class="block text-sm font-medium">Role</label>
-    <select id="cf-role" class="w-full rounded-md border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring">
-      <option>Designer</option>
-      <option>Developer</option>
-      <option>Other</option>
-    </select>
-  </div>
-  <label class="flex items-center gap-2 text-sm">
-    <input type="checkbox" class="accent-primary size-4"> I agree to the terms
-  </label>
-  <button type="submit" class="w-full rounded-lg bg-primary text-primary-foreground py-2.5 font-medium hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-offset-2">Create account</button>
-</form>`,
-  },
-  {
-    id: 'table',
-    title: 'Table',
-    desc: 'A data table with zebra rows from the odd: and even: variants and a scroll wrapper for small screens.',
-    html: `<div class="overflow-x-auto rounded-xl border">
-  <table class="w-full text-sm">
-    <thead class="bg-muted text-left">
-      <tr>
-        <th class="px-4 py-3 font-semibold">Customer</th>
-        <th class="px-4 py-3 font-semibold">Plan</th>
-        <th class="px-4 py-3 font-semibold">Status</th>
-        <th class="px-4 py-3 font-semibold text-right">MRR</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y">
-      <tr class="odd:bg-surface even:bg-surface-2">
-        <td class="px-4 py-3 font-medium">Northwind</td>
-        <td class="px-4 py-3">Team</td>
-        <td class="px-4 py-3"><span class="rounded-full bg-success/10 text-success px-2 py-0.5 text-xs font-medium">Active</span></td>
-        <td class="px-4 py-3 text-right tabular-nums">$190</td>
-      </tr>
-      <tr class="odd:bg-surface even:bg-surface-2">
-        <td class="px-4 py-3 font-medium">Globex</td>
-        <td class="px-4 py-3">Hobby</td>
-        <td class="px-4 py-3"><span class="rounded-full bg-warning text-warning-foreground px-2 py-0.5 text-xs font-medium">Trial</span></td>
-        <td class="px-4 py-3 text-right tabular-nums">$0</td>
-      </tr>
-      <tr class="odd:bg-surface even:bg-surface-2">
-        <td class="px-4 py-3 font-medium">Initech</td>
-        <td class="px-4 py-3">Enterprise</td>
-        <td class="px-4 py-3"><span class="rounded-full bg-danger/10 text-danger px-2 py-0.5 text-xs font-medium">Overdue</span></td>
-        <td class="px-4 py-3 text-right tabular-nums">$1,200</td>
-      </tr>
-    </tbody>
-  </table>
-</div>`,
-  },
-  {
-    id: 'alerts',
-    title: 'Alerts',
-    desc: 'Status messages built from the success, warning, danger and info tokens with opacity modifiers.',
-    html: `<div class="space-y-3">
-  <div role="status" class="flex gap-3 rounded-xl border border-success/30 bg-success/10 p-4 text-sm">
-    <span class="grid place-items-center size-6 shrink-0 rounded-full bg-success text-success-foreground text-xs font-bold">i</span>
-    <p><strong class="font-semibold">Deployed.</strong> Your site is live.</p>
-  </div>
-  <div role="status" class="flex gap-3 rounded-xl border border-warning/30 bg-warning/10 p-4 text-sm">
-    <span class="grid place-items-center size-6 shrink-0 rounded-full bg-warning text-warning-foreground text-xs font-bold">!</span>
-    <p><strong class="font-semibold">Almost full.</strong> You have used 90% of your storage.</p>
-  </div>
-  <div role="alert" class="flex gap-3 rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm">
-    <span class="grid place-items-center size-6 shrink-0 rounded-full bg-danger text-danger-foreground text-xs font-bold">x</span>
-    <p><strong class="font-semibold">Build failed.</strong> Check the logs for details.</p>
-  </div>
-  <div role="status" class="flex gap-3 rounded-xl border border-info/30 bg-info/10 p-4 text-sm">
-    <span class="grid place-items-center size-6 shrink-0 rounded-full bg-info text-info-foreground text-xs font-bold">?</span>
-    <p><strong class="font-semibold">Tip.</strong> Press the slash key to search.</p>
-  </div>
-</div>`,
-  },
-  {
-    id: 'modal',
-    title: 'Modal with dialog',
-    desc: 'The native dialog element opened with the command and commandfor attributes and closed with a dialog form. No JavaScript, focus is trapped and Escape closes it.',
-    html: `<button type="button" commandfor="confirm-dialog" command="show-modal" class="rounded-lg bg-primary text-primary-foreground px-4 py-2 font-medium hover:bg-primary/90">Delete project</button>
-<dialog id="confirm-dialog" aria-labelledby="confirm-title" class="m-auto w-full max-w-md rounded-2xl border bg-surface text-foreground p-6 shadow-2xl">
-  <h3 id="confirm-title" class="text-lg font-semibold">Delete this project?</h3>
-  <p class="mt-2 text-sm text-muted-foreground">This removes the project and its deployments. You cannot undo it.</p>
-  <form method="dialog" class="mt-6 flex justify-end gap-2">
-    <button value="cancel" class="rounded-lg border px-4 py-2 font-medium hover:bg-muted">Cancel</button>
-    <button value="confirm" class="rounded-lg bg-danger text-danger-foreground px-4 py-2 font-medium">Delete</button>
-  </form>
-</dialog>`,
-  },
-  {
-    id: 'tabs',
-    title: 'Tabs with details',
-    desc: 'Details elements that share a name open one at a time, so they behave like a set of tabs without any script.',
-    html: `<div class="divide-y rounded-2xl border bg-surface">
-  <details name="plan-tabs" open class="group">
-    <summary class="cursor-pointer select-none px-5 py-4 font-medium hover:bg-muted">Overview</summary>
-    <p class="px-5 pb-5 text-sm text-muted-foreground">Monsoon is one stylesheet with every utility predeclared, so there is nothing to compile.</p>
-  </details>
-  <details name="plan-tabs" class="group">
-    <summary class="cursor-pointer select-none px-5 py-4 font-medium hover:bg-muted">Theming</summary>
-    <p class="px-5 pb-5 text-sm text-muted-foreground">Set --seed on the root or on any element to theme that subtree.</p>
-  </details>
-  <details name="plan-tabs" class="group">
-    <summary class="cursor-pointer select-none px-5 py-4 font-medium hover:bg-muted">Dark mode</summary>
-    <p class="px-5 pb-5 text-sm text-muted-foreground">Follows the operating system, or add class="dark" to force it.</p>
-  </details>
-</div>`,
-  },
-  {
-    id: 'footer',
-    title: 'Footer',
-    desc: 'A multi column footer that stacks on mobile.',
-    html: `<footer class="border-t bg-surface-2">
-  <div class="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-8 px-6 py-12 text-sm">
-    <div class="col-span-2 md:col-span-1 space-y-3">
-      <p class="font-bold text-base">Acme</p>
-      <p class="text-muted-foreground">Pages that look finished, built with one stylesheet.</p>
-    </div>
-    <div class="space-y-2">
-      <p class="font-semibold">Product</p>
-      <a href="#" class="block text-muted-foreground hover:text-foreground">Features</a>
-      <a href="#" class="block text-muted-foreground hover:text-foreground">Pricing</a>
-    </div>
-    <div class="space-y-2">
-      <p class="font-semibold">Company</p>
-      <a href="#" class="block text-muted-foreground hover:text-foreground">About</a>
-      <a href="#" class="block text-muted-foreground hover:text-foreground">Blog</a>
-    </div>
-    <div class="space-y-2">
-      <p class="font-semibold">Legal</p>
-      <a href="#" class="block text-muted-foreground hover:text-foreground">Privacy</a>
-      <a href="#" class="block text-muted-foreground hover:text-foreground">Terms</a>
-    </div>
-  </div>
-  <p class="border-t px-6 py-5 text-center text-xs text-muted-foreground">Copyright 2026 Acme Inc.</p>
-</footer>`,
-  },
+// Plain words for the properties a rule sets. Only facts read from the CSS.
+const PROP_WORDS = [
+  [/^position$/, (v) => (v === 'relative' ? '' : `${v} position`)],
+  [/^display$/, (v) => (v === 'none' ? 'hidden by default' : `${v} display`)],
+  [/^(inset|top|right|bottom|left|inset-inline.*|inset-block.*)$/, () => 'offsets'],
+  [/^z-index$/, () => 'stacking order'],
+  [/^(background|background-color|background-image)$/, () => 'background'],
+  [/^color$/, () => 'text color'],
+  [/^(padding|padding-.*)$/, () => 'padding'],
+  [/^(margin|margin-.*)$/, () => 'margin'],
+  [/radius/, () => 'corner radius'],
+  [/^(border|border-(?!.*radius).*|outline.*)$/, () => 'border'],
+  [/^box-shadow$/, () => 'shadow'],
+  [/^(width|min-width|max-width|inline-size|min-inline-size|max-inline-size)$/, () => 'width'],
+  [/^(height|min-height|max-height|block-size|min-block-size|max-block-size)$/, () => 'height'],
+  [/^(font-size|font)$/, () => 'text size'],
+  [/^font-weight$/, () => 'font weight'],
+  [/^(line-height|letter-spacing|text-.*|white-space)$/, () => 'text style'],
+  [/^(gap|row-gap|column-gap)$/, () => 'gap'],
+  [/^(grid-.*|grid)$/, () => 'grid tracks'],
+  [/^(flex.*|align-.*|justify-.*|place-.*)$/, () => 'alignment'],
+  [/^(transform|translate|scale|rotate)$/, () => 'transform'],
+  [/^transition.*/, () => 'transition'],
+  [/^animation.*/, () => 'animation'],
+  [/^opacity$/, () => 'opacity'],
+  [/^overflow.*/, () => 'overflow'],
+  [/^cursor$/, (v) => `${v} cursor`],
+  [/^(appearance|accent-color|caret-color)$/, () => 'native control styling'],
+  [/^(fill|stroke)$/, () => 'icon color'],
+  [/^(content)$/, () => 'generated content'],
 ];
 
-export function componentsPage() {
-  const crumbs = [['Monsoon', 'index.html'], ['Components', 'components.html']];
-  const toc = components.map((c) => `<a href="#${c.id}" class="rounded-full border bg-surface px-3 py-1.5 text-sm font-medium hover:bg-muted transition-colors">${c.title}</a>`).join('\n      ');
-  const sections = components
-    .map(
-      (c) => `
-  <section id="${c.id}" class="py-12 border-t">
-    <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight">${c.title}</h2>
-        <p class="mt-1 text-muted-foreground max-w-2xl">${esc(c.desc)}</p>
-      </div>
-      <a href="#${c.id}" class="text-sm text-muted-foreground hover:text-foreground">#${c.id}</a>
-    </div>
-    <div class="rounded-2xl border bg-background ${c.id === 'modal' ? 'p-10 flex justify-center' : c.id === 'navbar' || c.id === 'footer' || c.id === 'hero' ? 'overflow-visible' : 'p-6'}">
-${c.html.split('\n').map((l) => `      ${l}`).join('\n')}
-    </div>
-    <div class="mt-4">${code(c.html, 'html', `${c.id}.html`, { cls: 'scroll-y' })}</div>
-  </section>`,
-    )
-    .join('\n');
+function phrasesFor(decls) {
+  const vars = [];
+  const words = [];
+  for (const [p, v] of decls) {
+    if (p.startsWith('--')) {
+      vars.push(p);
+      continue;
+    }
+    for (const [re, fn] of PROP_WORDS) {
+      if (re.test(p)) {
+        const w = fn(String(v).trim());
+        if (w && !words.includes(w)) words.push(w);
+        break;
+      }
+    }
+  }
+  return { vars, words };
+}
 
-  const body = `
-<div class="bloom border-b">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-14">
-    ${breadcrumbs(crumbs)}
-    <h1 class="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight text-balance">Components built with utilities only</h1>
-    <p class="mt-4 max-w-2xl text-lg text-muted-foreground">Ten common interface pieces made from Monsoon classes and plain HTML. Copy a snippet, paste it into a page that links <span class="font-mono text-base">monsooncss</span>, and it renders exactly like this, in light and dark mode and with any seed.</p>
-    <div class="mt-6 flex flex-wrap gap-2">
-      ${toc}
+const listText = (a) => (a.length < 2 ? a.join('') : `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}`);
+
+/**
+ * What a class does, described only from facts: the CSS rules where it is the
+ * subject, and the element it sits on in the manifest example.
+ */
+export function describeClass(cls, comp, base) {
+  const rules = STATE.compCss.get(cls) || [];
+  const lead = rules.filter((r) => r.lead);
+  const decls = lead.flatMap((r) => r.decls || []);
+  const { vars, words } = phrasesFor(decls);
+  const tagMatch = new RegExp(`<([a-z0-9-]+)[^>]*\\sclass="(?:[^"]*\\s)?${cls.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}(?:\\s[^"]*)?"`).exec(comp.html);
+  const tag = tagMatch ? tagMatch[1] : '';
+  const shares = [...comp.html.matchAll(/class="([^"]*)"/g)].some((m) => {
+    const list = m[1].split(/\s+/);
+    return list.includes(cls) && list.some((c) => c !== cls && comp.classes.includes(c));
+  });
+  const suffix = cls.startsWith(`${base}-`) ? cls.slice(base.length + 1) : '';
+  let role = cls === base ? 'Base' : shares ? 'Modifier' : 'Part';
+  if (role !== 'Base' && (shares || !tag) && TONES[suffix] && vars.length) role = 'Tone';
+  else if (role !== 'Base' && (shares || !tag) && SIZES[suffix]) role = 'Size';
+  else if (role === 'Part' && !tag && rules.some((r) => r.text.split('{')[0].includes(`.${base}`))) role = 'Modifier';
+  const where = tag ? `On ${/^[aeiou]/.test(tag) ? 'an' : 'a'} <${tag}> in the example. ` : 'Not used in the example above. ';
+  let what = '';
+  if (role === 'Base') what = `Base class of the ${comp.name.toLowerCase()}. `;
+  else if (role === 'Tone') what = `${suffix[0].toUpperCase()}${suffix.slice(1)} tone. `;
+  else if (role === 'Size') what = `${SIZES[suffix][0].toUpperCase()}${SIZES[suffix].slice(1)} size. `;
+  else if (role === 'Modifier') what = `Modifier, combined with the ${base} class. `;
+  else what = `Part of the ${comp.name.toLowerCase()}. `;
+  let sets = '';
+  if (words.length) sets = `Sets ${listText(words.slice(0, 6))}`;
+  if (vars.length) sets += `${sets ? ', and ' : 'Sets '}${vars.length > 3 ? `${vars.length} custom properties` : listText(vars.map((v) => `\`${v}\``))}`;
+  if (sets) sets += '.';
+  else if (rules.length) {
+    const sel = rules[0].text.split('{')[0].trim().split(',')[0].trim();
+    sets = `A hook for state rules such as \`${sel.length > 70 ? `${sel.slice(0, 70)}...` : sel}\`.`;
+  }
+  return [role, `${what}${where}${sets}`.trim()];
+}
+
+export function baseClass(comp) {
+  const list = comp.classes;
+  const exact = list.find((c) => c === comp.slug);
+  if (exact) return exact;
+  let best = list[0];
+  let score = -1;
+  for (const c of list) {
+    const n = list.filter((x) => x === c || x.startsWith(`${c}-`)).length;
+    if (n > score || (n === score && c.length < best.length)) {
+      best = c;
+      score = n;
+    }
+  }
+  return best;
+}
+
+export function a11yNotes(comp) {
+  const h = comp.html;
+  const notes = [];
+  if (/<dialog/.test(h)) notes.push('Built on the native `dialog` element. Opened with `showModal()` (or a command button) it goes to the top layer, makes the rest of the page inert, closes with Escape and returns focus to the button that opened it.');
+  if (/\spopover[\s=>]/.test(h)) notes.push('Uses the `popover` attribute: the browser handles light dismiss, Escape and top layer stacking, and `popovertarget` wires the trigger without JavaScript.');
+  if (/<details/.test(h)) notes.push('Built on `details` and `summary`, so it opens with Enter or Space and screen readers announce expanded and collapsed. A shared `name` makes a group exclusive.');
+  if (/<(input|select|textarea)/.test(h)) notes.push('Give every control a visible `label` linked with `for`, or an `aria-label` when the purpose is obvious from context. Link help and error text with `aria-describedby`; invalid styles use `:user-invalid`, so they appear only after the user interacts.');
+  if (/type="checkbox"|type="radio"/.test(h)) notes.push('Checkboxes and radios stay real inputs, so they keep native keyboard behavior (Space toggles, arrow keys move within a radio group) and form submission.');
+  if (/<button/.test(h)) notes.push('Use `button` for actions and `a` for navigation. Icon only buttons need an `aria-label`; decorative icons carry `aria-hidden="true"`.');
+  if (/role="(tablist|tab|tabpanel)"/.test(h)) notes.push('Tabs follow the tabs pattern: `role="tablist"`, `role="tab"` with `aria-selected`, and `role="tabpanel"`.');
+  if (/<nav/.test(h)) notes.push('Wrap navigation in `nav` with an `aria-label` when there is more than one on the page, and mark the current link with `aria-current="page"`.');
+  if (/<progress|<meter/.test(h)) notes.push('Uses the native `progress` or `meter` element, which exposes its value to assistive technology. Add a visible label or `aria-label`.');
+  if (/role="(alert|status)"|aria-live/.test(h)) notes.push('Announces itself with `role="status"` (polite) or `role="alert"` (assertive). Use alert only for messages that need immediate attention.');
+  if (/spinner|skeleton|loading|animate/.test(h + comp.slug)) notes.push('Animations stop under `prefers-reduced-motion: reduce`. Mark busy regions with `aria-busy="true"` and give spinners an accessible name.');
+  if (/<img|avatar/.test(h + comp.slug)) notes.push('Give meaningful images an `alt` text and decorative ones `alt=""`. Initials avatars should expose the full name to screen readers.');
+  if (/<table/.test(h)) notes.push('Keep real table markup with `th scope` headers and a `caption` (visually hidden if needed) so screen readers can navigate by row and column.');
+  if (/tooltip/.test(comp.slug)) notes.push('Tooltips appear on hover and on keyboard focus. Keep essential information out of tooltips, since touch users may never see them.');
+  if (/kbd/.test(comp.slug)) notes.push('Use the `kbd` element for keys so the meaning survives without styles.');
+  notes.push('Every interactive part shows a visible focus ring with `:focus-visible`, and tone colors pair with `-foreground` tokens that keep text at 4.5:1 or better in light and dark mode.');
+  return [...new Set(notes)];
+}
+
+function relatedFor(comp, all) {
+  const words = new Set(comp.slug.split('-'));
+  const ia = all.indexOf(comp);
+  return all
+    .filter((c) => c.slug !== comp.slug)
+    .map((c) => {
+      let s = 0;
+      for (const w of c.slug.split('-')) if (words.has(w)) s += 3;
+      if (c.group === comp.group) s += 1;
+      if (Math.abs(ia - all.indexOf(c)) <= 2 && c.group === comp.group) s += 1;
+      return [s, c];
+    })
+    .filter(([s]) => s > 0)
+    .sort((a, b) => b[0] - a[0])
+    .slice(0, 4)
+    .map(([, c]) => c);
+}
+
+/** Strips ids and wiring attributes so several copies can live on one page. */
+export const thumbHtml = (html) =>
+  html.replace(/\s(id|for|href|aria-labelledby|aria-describedby|aria-controls|popovertarget|commandfor|name|autofocus)(="[^"]*")?(?=[\s>/])/g, '').replace(/<dialog([^>]*)\sopen/g, '<dialog$1');
+
+/** True when an example needs the optional interactive layer. */
+export const needsJs = (comp) => Boolean(comp.needsJs) || /\sdata-m-[a-z]/.test(comp.html || '');
+
+export function frameDoc(html, { pad = 24, js = false } = {}) {
+  const script = js && STATE.hasJs ? `<script src="${u('monsoon.js')}" defer></script>` : '';
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="${u('monsoon.min.css')}">${script}<style>html,body{min-height:0!important;height:auto!important}body{padding:${pad}px}</style></head><body class="antialiased bg-background text-foreground">${html}</body></html>`;
+}
+
+/** A preview with Preview and Code tabs, light or dark, and a draggable width. */
+export function previewBlock(html, { title, id = uid('pv'), source = html, lang = 'html', fileName = 'example.html', minHeight = 160, playground = true, js = false } = {}) {
+  const { id: codeId, html: codeHtml } = pre(source, lang, { labelText: `${title} code` });
+  return `<div class="pv" id="${id}" v-data="{ view: 'preview', mode: '' }">
+  <div class="pv-bar">
+    <div class="seg" role="tablist" aria-label="${esc(title)} example">
+      <button type="button" role="tab" id="${id}-tp" aria-controls="${id}-pp" aria-selected="true" :aria-selected="view === 'preview' ? 'true' : 'false'" @click="view = 'preview'">${I.eye}<span>Preview</span></button>
+      <button type="button" role="tab" id="${id}-tc" aria-controls="${id}-pc" aria-selected="false" :aria-selected="view === 'code' ? 'true' : 'false'" @click="view = 'code'">${I.code}<span>Code</span></button>
+    </div>
+    <div class="pv-tools" v-show="view === 'preview'">
+      <div class="seg seg-icons" role="group" aria-label="Preview width">
+        <button type="button" @click="pvSet('${id}', 0)" :aria-pressed="PV['${id}'] ? 'false' : 'true'" aria-pressed="true" aria-label="Full width" title="Full width">${I.monitor}</button>
+        <button type="button" @click="pvSet('${id}', 768)" :aria-pressed="PV['${id}'] === 768 ? 'true' : 'false'" aria-pressed="false" aria-label="Tablet width, 768 pixels" title="768px">${I.tablet}</button>
+        <button type="button" @click="pvSet('${id}', 375)" :aria-pressed="PV['${id}'] === 375 ? 'true' : 'false'" aria-pressed="false" aria-label="Phone width, 375 pixels" title="375px">${I.phone}</button>
+      </div>
+      <span class="pv-size" v-text="pvLabel('${id}')" aria-live="polite">Full</span>
+      <div class="seg" role="group" aria-label="Preview color scheme">
+        <button type="button" @click="mode = ''" :aria-pressed="mode === '' ? 'true' : 'false'" aria-pressed="true" title="Follow the site theme">Auto</button>
+        <button type="button" @click="mode = 'light'" :aria-pressed="mode === 'light' ? 'true' : 'false'" aria-pressed="false" aria-label="Light preview" title="Light">${I.sun}</button>
+        <button type="button" @click="mode = 'dark'" :aria-pressed="mode === 'dark' ? 'true' : 'false'" aria-pressed="false" aria-label="Dark preview" title="Dark">${I.moon}</button>
+      </div>
+      ${playground ? `<button type="button" class="pv-open" @click="toPlayground('${id}')" title="Open in the playground" aria-label="Open this example in the playground">${I.external}</button>` : ''}
     </div>
   </div>
-</div>
-<div class="mx-auto max-w-7xl px-4 sm:px-6 pb-20">
-${sections}
-  <section class="py-12 border-t">
-    <h2 class="text-2xl font-bold tracking-tight">Use them on your page</h2>
-    <p class="mt-2 text-muted-foreground max-w-2xl">Every snippet needs only the stylesheet. Theme them all at once with a seed on the root element.</p>
-    <div class="mt-5 max-w-3xl">${code(`<link rel="stylesheet" href="${CDN}">
-<style>
-  :root { --seed: #0d9488; }
-</style>`, 'html', 'head.html')}</div>
-  </section>
+  <div class="pv-stage" id="${id}-pp" role="tabpanel" aria-labelledby="${id}-tp" v-show="view === 'preview'">
+    <div class="pv-resize" data-pv="${id}" :style="{ width: PV['${id}'] ? PV['${id}'] + 'px' : '' }">
+      <iframe class="pv-frame" title="${esc(title)} preview" style="height:${minHeight}px" data-minh="${minHeight}" srcdoc="${esc(frameDoc(html, { js }))}" data-autoheight :data-fx="frameMode($el, mode, T.mode, T.dark)"></iframe>
+      <div class="pv-handle" role="slider" tabindex="0" aria-label="Preview width in pixels" aria-valuemin="280" aria-valuemax="1600" data-handle="${id}"><span></span></div>
+    </div>
+  </div>
+  <div id="${id}-pc" role="tabpanel" aria-labelledby="${id}-tc" hidden :hidden="view !== 'code'">
+    <figure class="window pv-code">${windowBar(`<span class="ed-tab active">${fileIcon(fileName)}<span>${esc(fileName)}</span></span>${copyButton(codeId, `${title} code`)}`)}${codeHtml}</figure>
+  </div>
+  <script type="text/plain" class="pv-src">${source.replace(/<\/script/gi, '<\\/script')}</script>
 </div>`;
+}
 
+const inline = (s) => esc(String(s)).replace(/`([^`]+)`/g, '<code>$1</code>');
+
+/** Renders a manifest api field: a string, a list, or an object of lists (attributes, options, methods, events). */
+function apiSection(comp) {
+  const api = comp.api;
+  if (!api) return '';
+  const item = (x) => {
+    if (typeof x === 'string') return [x, ''];
+    if (Array.isArray(x)) return [x[0], x[1] || ''];
+    return [x.name || x.attribute || x.event || x.method || x.option || '', x.description || x.desc || x.detail || x.type || ''];
+  };
+  const table = (list, head) =>
+    `<div class="tbl-wrap"><table class="doc-table"><thead><tr><th scope="col">${head}</th><th scope="col">Description</th></tr></thead><tbody>${list
+      .map((x) => {
+        const [n, d] = item(x);
+        return `<tr><td class="cls-name"><code>${esc(n)}</code></td><td>${inline(d)}</td></tr>`;
+      })
+      .join('')}</tbody></table></div>`;
+  if (typeof api === 'string') return `<p>${inline(api)}</p>`;
+  if (Array.isArray(api)) return table(api, 'Name');
+  return Object.entries(api)
+    .map(([key, val]) => {
+      const title = key.charAt(0).toUpperCase() + key.slice(1);
+      if (typeof val === 'string') return `<div class="api-block"><p class="api-title">${esc(title)}</p><p>${inline(val)}</p></div>`;
+      if (Array.isArray(val)) return `<div class="api-block"><p class="api-title">${esc(title)}</p>${table(val, title.replace(/s$/, ''))}</div>`;
+      if (val && typeof val === 'object') return `<div class="api-block"><p class="api-title">${esc(title)}</p>${table(Object.entries(val).map(([n, d]) => [n, typeof d === 'string' ? d : JSON.stringify(d)]), title.replace(/s$/, ''))}</div>`;
+      return '';
+    })
+    .join('\n');
+}
+
+const OVERLAY = /<dialog|\spopover|drawer|sheet|lightbox|command-palette|toast|modal|dropdown|context-menu|tooltip|mega-menu|back-to-top|fab/;
+
+export function componentPage(comp, all) {
+  const base = baseClass(comp);
+  const cssMap = STATE.compCss;
+  const rows = comp.classes
+    .map((cls) => {
+      const [role, desc] = describeClass(cls, comp, base);
+      const rules = [...(cssMap.get(cls) || [])].sort((a, b) => b.lead - a.lead || a.len - b.len).slice(0, 2);
+      const css = rules.map((r) => r.text).join('\n\n');
+      return `<tr id="cls-${esc(cls)}">
+        <td class="cls-name"><button type="button" class="cls-copy" data-copy-text="${esc(cls)}" title="Copy class name"><code>${esc(cls)}</code></button></td>
+        <td><span class="role role-${role.toLowerCase()}">${role}</span></td>
+        <td class="cls-desc">${esc(desc).replace(/`([^`]+)`/g, "<code>$1</code>")}${css ? `<details class="cls-css"><summary>CSS</summary><pre class="css-out" v-pre><code>${esc(css.length > 1400 ? `${css.slice(0, 1400)}\n/* ... */` : css)}</code></pre></details>` : ''}</td>
+      </tr>`;
+    })
+    .join('\n      ');
+  const notes = a11yNotes(comp);
+  const related = relatedFor(comp, all);
+  const js = needsJs(comp);
+  const api = apiSection(comp);
+  const toc = [
+    ['example', 'Example', 2],
+    ['classes', 'Classes', 2],
+    ...(api ? [['api', 'JavaScript API', 2]] : []),
+    ['usage', 'Usage', 2],
+    ['accessibility', 'Accessibility', 2],
+    ['related', 'Related components', 2],
+  ];
+  const lines = comp.html.split('\n');
+  const usage = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monsooncss">${js ? '\n<script src="https://cdn.jsdelivr.net/npm/monsooncss/dist/monsoon.js" defer></script>' : ''}
+
+<!-- ${comp.name}: start from the base class, then add modifiers -->
+${lines.slice(0, 14).join('\n')}${lines.length > 14 ? '\n<!-- the full example is in the Code tab above -->' : ''}`;
+  const h2 = (id, text) => `<h2 id="${id}" class="doc-h2"><a href="#${id}" class="anchor" aria-hidden="true" tabindex="-1">#</a>${text}</h2>`;
+  const body = `
+${js ? `<div class="note-box note-warn" role="note"><p><strong>Needs monsoon.js.</strong> The styles work on their own, and the behavior comes from the optional interactive layer: add <code>&lt;script src="https://cdn.jsdelivr.net/npm/monsooncss/dist/monsoon.js" defer&gt;&lt;/script&gt;</code> or <code>import 'monsooncss/js'</code>. See <a href="${u('docs/interactive-layer.html')}">the interactive layer</a>.</p></div>` : ''}
+<section class="doc-section">
+  ${h2('example', 'Example')}
+  ${previewBlock(comp.slug === 'skip-link' ? `<p class="text-sm text-muted-foreground">Click inside this preview, then press Tab: the skip link appears at the top.</p>${comp.html}` : comp.html, { source: comp.html, title: comp.name, id: `pv-${comp.slug}`, fileName: `${comp.slug}.html`, minHeight: OVERLAY.test(comp.slug + comp.html) ? 480 : 160, js })}
+</section>${api ? `\n<section class="doc-section">\n  ${h2('api', 'JavaScript API')}\n  ${api}\n</section>` : ''}
+<section class="doc-section">
+  ${h2('classes', 'Classes')}
+  <p>${comp.classes.length} classes. Click a name to copy it. Utilities on the same element always win over component defaults, so any of them can be adjusted with plain utility classes.</p>
+  <div class="tbl-wrap" v-data><table class="doc-table cls-table">
+    <thead><tr><th scope="col">Class</th><th scope="col">Type</th><th scope="col">What it does</th></tr></thead>
+    <tbody>
+      ${rows}
+    </tbody>
+  </table></div>
+</section>
+<section class="doc-section">
+  ${h2('usage', 'Usage')}
+  <p>${js ? 'The styles ship inside the same stylesheet as the utilities, and the behavior comes from the optional monsoon.js script, which enhances any element with a matching data-m attribute, including markup added later.' : 'Components ship inside the same stylesheet as the utilities. There is nothing else to install and no script to load: link Monsoon and write the markup.'}</p>
+  ${code(usage, 'html', 'index.html')}
+  <div class="note-box" role="note"><p>Theme it with <code>--seed</code> on any ancestor, for example <code>style="--seed: #0d9488"</code>, and force a scheme with <code>class="dark"</code> or <code>class="light"</code> on a wrapper.</p></div>
+</section>
+<section class="doc-section">
+  ${h2('accessibility', 'Accessibility')}
+  <ul class="a11y-list">${notes.map((n) => `<li>${esc(n).replace(/`([^`]+)`/g, '<code>$1</code>')}</li>`).join('')}</ul>
+</section>
+<section class="doc-section">
+  ${h2('related', 'Related components')}
+  <div class="related-grid">${related
+    .map((r) => `<a href="${u(`components/${r.slug}.html`)}" class="related-card"><span class="related-kicker">${esc(r.groupTitle)}</span><span class="related-title">${esc(r.name)}</span><span class="related-desc">${esc(r.description)}</span></a>`)
+    .join('')}</div>
+</section>`;
+  const crumbs = [['Docs', 'docs/introduction.html'], ['Components', 'components.html'], [comp.groupTitle, `components.html#${comp.group}`], [comp.name, `components/${comp.slug}.html`]];
+  const meta = `<p class="doc-meta"><span class="pill">${esc(comp.groupTitle)}</span><span>${comp.classes.length} classes</span>${js ? '<span class="badge-js">Needs monsoon.js</span>' : '<span>No JavaScript</span>'}<span>Light and dark</span></p>`;
   return page({
-    path: 'components.html',
-    title: 'Monsoon components: copy and paste utility CSS UI',
-    description: 'Copy and paste UI components built only with Monsoon utility classes: navbar, hero, pricing cards, feature grid, form, table, alerts, dialog modal, tabs and footer. No build step.',
-    active: 'Components',
-    body,
+    path: `components/${comp.slug}.html`,
+    title: `${comp.name} component | Monsoon CSS`,
+    description: `${comp.description} Monsoon CSS component, ${comp.classes.length} classes, ${js ? "works with the optional monsoon.js layer" : "no JavaScript"}, light and dark mode.`.slice(0, 300),
     jsonld: [
-      {
-        '@type': 'CollectionPage',
-        name: 'Monsoon components',
-        url: `${SITE}components.html`,
-        description: 'UI components built only with Monsoon utility classes.',
-      },
+      { '@type': 'TechArticle', headline: `${comp.name} component`, description: comp.description, url: `${SITE}components/${comp.slug}.html`, inLanguage: 'en', about: { '@type': 'SoftwareApplication', name: 'Monsoon', url: SITE } },
       breadcrumbLd(crumbs),
     ],
+    body: docsShell({ crumbs, kicker: comp.groupTitle, title: esc(comp.name), lead: esc(comp.description), meta, body, toc, editPath: comp.file ? `src/components/${comp.file}` : '' }),
+  });
+}
+
+export function componentsIndex(groups) {
+  const all = groups.flatMap((g) => g.components);
+  const chips = [['all', `All ${all.length}`], ...groups.map((g) => [g.group, `${g.title} ${g.components.length}`])];
+  const card = (c) => `<div class="comp-card" v-show="cmatch(q, g, '${c.group}', '${esc(`${c.name} ${c.slug} ${c.description}`.toLowerCase().replace(/'/g, ''))}')">
+      ${needsJs(c) ? '<span class="comp-js" title="Needs monsoon.js">JS</span>' : ''}<div class="thumb" aria-hidden="true"><div class="thumb-in" inert v-pre>${thumbHtml(c.html)}</div></div>
+      <div class="comp-meta"><a href="${u(`components/${c.slug}.html`)}" class="comp-name stretched">${esc(c.name)}</a><span class="comp-desc">${esc(c.description)}</span><span class="comp-count">${c.classes.length} classes</span></div>
+    </div>`;
+  const body = `
+<div v-data="{ q: '', g: 'all' }">
+  <div class="comp-filter">
+    <label class="filter-input">${I.search}<span class="sr-only">Filter components</span><input type="search" v-model="q" placeholder="Filter ${all.length} components, for example modal, toggle or badge" autocomplete="off"></label>
+    <div class="chips" role="group" aria-label="Group">${chips.map(([k, l], i) => `<button type="button" class="fchip" aria-pressed="${i === 0}" :aria-pressed="g === '${k}' ? 'true' : 'false'" @click="g = '${k}'">${esc(l)}</button>`).join('')}</div>
+  </div>
+  ${groups
+    .map(
+      (g) => `<section class="comp-group" v-show="g === 'all' || g === '${g.group}'">
+    <h2 id="${g.group}" class="doc-h2">${esc(g.title)} <span class="h-count">${g.components.length}</span></h2>
+    <div class="comp-grid">
+    ${g.components.map(card).join('\n    ')}
+    </div>
+  </section>`,
+    )
+    .join('\n  ')}
+</div>`;
+  const crumbs = [['Docs', 'docs/introduction.html'], ['Components', 'components.html']];
+  return page({
+    path: 'components.html',
+    title: `${all.length} CSS components with no JavaScript | Monsoon`,
+    description: `Browse ${all.length} Monsoon components: forms, buttons, alerts, navigation, cards, tables, dialogs and more. Native HTML, no JavaScript, light and dark mode, themed by one seed color.`,
+    jsonld: [
+      { '@type': 'CollectionPage', name: 'Monsoon components', url: `${SITE}components.html`, hasPart: all.map((c) => ({ '@type': 'TechArticle', name: c.name, url: `${SITE}components/${c.slug}.html` })) },
+      breadcrumbLd(crumbs),
+    ],
+    body: docsShell({
+      crumbs,
+      kicker: 'Components',
+      title: 'Components',
+      lead: `${fmt(all.length)} components in ${groups.length} groups, built with native HTML and no JavaScript. Every one follows <code>--seed</code>, light and dark mode, and can be adjusted with utilities.`,
+      body,
+      toc: groups.map((g) => [g.group, g.title, 2]),
+    }),
   });
 }

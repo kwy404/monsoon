@@ -20,7 +20,7 @@ export const guides = [
         h: 'What "without a build step" actually means',
         blocks: [
           'A build step is any program that has to run between the file you edit and the file the browser loads. For utility CSS that program normally reads your HTML, finds the class names you used and writes a stylesheet that contains only those rules. It is a good design for large applications, but it means you cannot open an HTML file and start styling it. You need Node.js, a configuration file, a watcher in a terminal and a pipeline in production.',
-          'Monsoon predeclares the classes instead. The stylesheet you link already contains `px-4`, `md:grid-cols-3`, `hover:bg-primary` and the other ' + '4,616' + ' base classes, plus 7,565 variant classes. Nothing reads your markup, nothing generates CSS on the fly and nothing runs in the browser. You save the file and refresh.',
+          'Monsoon predeclares the classes instead. The stylesheet you link already contains `px-4`, `md:grid-cols-3`, `hover:bg-primary` and the other %BASE% base classes, plus %VARIANTS% variant classes. Nothing reads your markup, nothing generates CSS on the fly and nothing runs in the browser. You save the file and refresh.',
         ],
       },
       {
@@ -62,7 +62,7 @@ export const guides = [
       {
         h: 'How a predeclared stylesheet stays small',
         blocks: [
-          'If every utility had every variant, the file would be enormous. Monsoon keeps it at about **43 kB with brotli** (80 kB with gzip) by generating each variant only for the utility groups where it is useful. This is a deliberate, documented choice rather than an accident:',
+          'If every utility had every variant, the file would be enormous. Monsoon keeps it at about **%BROTLI% with brotli** (%GZIP% with gzip) by generating each variant only for the utility groups where it is useful. This is a deliberate, documented choice rather than an accident:',
           {
             list: [
               '`hover:` exists for colors, opacity modifiers, shadows, opacity and transforms, because that is what people change on hover.',
@@ -81,7 +81,7 @@ export const guides = [
           'A prebuilt file cannot know values you invent while writing markup. Three things are therefore not part of Monsoon:',
           {
             list: [
-              '**Arbitrary values** such as `w-[37px]`. Use the nearest step of the scale, or a `style` attribute for a true one off.',
+              '**Arbitrary values** such as `w-[37px]` are not in the file. They work with the optional `monsoon.js` script, or compiled by the purge CLI; otherwise use the nearest step of the scale, or a `style` attribute for a true one off.',
               '**Stacked variants** such as `dark:hover:` or `md:hover:`. Semantic colors already adapt to the color scheme, so `hover:bg-primary` covers most of the cases.',
               '**The important modifier.** Monsoon keeps its reset in a cascade layer and utilities at low specificity, so your own CSS wins without it.',
             ],
@@ -111,7 +111,7 @@ export const guides = [
       ['Do I need Node.js to use Monsoon?', 'No. The stylesheet works from a CDN or from a copy on your server. Node.js is only needed if you want to run the optional `purge` or `classes` commands.'],
       ['Does Monsoon add JavaScript to my page?', 'No. It is a CSS file. Theming and dark mode are computed by the browser with custom properties and relative colors.'],
       ['Can I still write my own CSS?', 'Yes. Monsoon uses low specificity and a cascade layer for the reset, so a normal rule in your own stylesheet overrides it without tricks.'],
-      ['How many classes are included?', '4,616 base classes and 7,565 variant classes, all searchable in the [class reference](classes.html).'],
+      ['How many classes are included?', '%BASE% base classes and %VARIANTS% variant classes, all searchable in the [class reference](classes.html).'],
     ],
     related: ['no-build-css-framework', 'css-framework-from-a-cdn', 'utility-css-cdn-in-production'],
   },
@@ -209,7 +209,7 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
     ],
     faqs: [
       ['Which CDN should I use for Monsoon?', 'jsDelivr and unpkg both mirror npm and serve the same file. jsDelivr is used in the examples on this site; either is fine.'],
-      ['Is the CDN file minified?', 'Yes. Both CDN URLs serve `dist/monsoon.min.css`, about 43 kB with brotli and 80 kB with gzip.'],
+      ['Is the CDN file minified?', 'Yes. Both CDN URLs serve `dist/monsoon.min.css`, about %BROTLI% with brotli and %GZIP% with gzip.'],
       ['Does the CDN version include dark mode and theming?', 'Yes. There is only one build. Seed theming, dark mode, the palette and every variant are in the file you link.'],
       ['Can I load Monsoon with @import?', 'You can write `@import url("' + PIN + '");` at the top of a stylesheet, but a `<link>` tag is faster because the browser discovers it without downloading another file first.'],
     ],
@@ -285,13 +285,13 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
       {
         h: 'What a no build stylesheet costs',
         blocks: [
-          'The honest trade off is file size. A compiler can emit only the rules a page uses; a predeclared file ships all of them. Monsoon keeps that cost small, about 43 kB with brotli for everything, and cached after the first page view. When you need less, run the optional purge command once and serve its output. For most sites the full file is smaller than a single hero image.',
+          'The honest trade off is file size. A compiler can emit only the rules a page uses; a predeclared file ships all of them. Monsoon keeps that cost small, about %BROTLI% with brotli for everything, and cached after the first page view. When you need less, run the optional purge command once and serve its output. For most sites the full file is smaller than a single hero image.',
           {
             table: {
               head: ['Setup', 'What you run', 'Typical size'],
               rows: [
-                ['Full file from a CDN', 'nothing', 'about 43 kB brotli'],
-                ['Purged file you host', '`npx monsooncss purge` once', 'a few kB for a typical page'],
+                ['Full file from a CDN', 'nothing', 'about %BROTLI% brotli'],
+                ['Purged file you host', '`npx monsooncss purge` once', 'about %PURGED% brotli for the kitchen sink demo'],
               ],
             },
           },
@@ -327,13 +327,13 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
             table: {
               head: ['Encoding', 'Size'],
               rows: [
-                ['Minified, uncompressed', 'about 731 kB'],
-                ['gzip', 'about 80 kB'],
-                ['brotli', 'about 43 kB'],
+                ['Minified, uncompressed', 'about %RAW%'],
+                ['gzip', 'about %GZIP%'],
+                ['brotli', 'about %BROTLI%'],
               ],
             },
           },
-          'CDNs and most hosts send brotli to browsers that accept it, so 43 kB is what a visitor downloads once. The repository has a size test that fails if the brotli size goes above 80 kB, so the number cannot creep up unnoticed.',
+          'CDNs and most hosts send brotli to browsers that accept it, so %BROTLI% is what a visitor downloads once. The repository has a size check that warns above 100 kB and fails above 120 kB with brotli, so the number cannot creep up unnoticed.',
           'For comparison with everyday assets: that is less than a typical hero photo, and the stylesheet is shared by every page of the site.',
         ],
       },
@@ -365,7 +365,7 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
           'Purging removes the rules your files never mention. It is worth the extra step when the first visit matters a lot (for example a landing page for paid traffic), when you serve users on slow networks, or when you already have a deploy step anyway.',
           {
             term: 'npx monsooncss purge "src/**/*.html" "src/**/*.js" -o public/monsoon.css',
-            out: '<span class="dim">monsooncss purge: scanned 1 file</span>\n<span class="dim">  kept 293 of 12779 utility rules</span>\n  public/monsoon.css: 31.3 kB raw, 6.9 kB gzip, <span class="ok">5.7 kB brotli</span> <span class="dim">(full build 43.2 kB brotli)</span>',
+            out: '%PURGE_OUT%',
           },
           'That output comes from the kitchen sink demo in the repository, a page that uses a wide mix of utilities. The purged file keeps the reset, the theme tokens and the keyframes, so seed theming and dark mode still work.',
           { note: 'The purge command looks for class names as whole words in your files. If you build a class name from pieces at runtime, such as `"bg-" + status`, list the results with `--safelist bg-success,bg-danger` so they are kept.' },
@@ -388,7 +388,7 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
     ],
     faqs: [
       ['Is it bad practice to use a CSS framework from a CDN in production?', 'No, as long as you pin a version. Many production sites load CSS from public CDNs. Self host it if your security policy or privacy rules require it.'],
-      ['How big is Monsoon after purging?', 'It depends on how many classes you use. The kitchen sink demo, which uses a wide mix, purges to about 5.7 kB with brotli.'],
+      ['How big is Monsoon after purging?', 'It depends on how many classes you use. The kitchen sink demo, which uses a wide mix, purges to about %PURGED% with brotli. Purging removes unused utilities; the reset, the theme tokens and the component layer are always kept.'],
       ['Does purging break dark mode or theming?', 'No. The purge command always keeps the theme tokens, the dark mode switch, the reset and the keyframes. Only unused utility rules are removed.'],
       ['Should I inline the CSS?', 'For most sites no. A cached external file is better across page views. Inlining a purged file can make sense for a single landing page.'],
     ],
@@ -850,7 +850,7 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
               'that primary lightness never lands inside the unsafe band.',
             ],
           },
-          'Every one of those pairs must be at least 4.5:1. You can watch the same guarantee hold in the [seed playground](index.html#playground), which measures the colors your browser actually renders.',
+          'Every one of those pairs must be at least 4.5:1. You can watch the same guarantee hold in the [seed playground](index.html#seed), which measures the colors your browser actually renders.',
         ],
       },
       {
@@ -862,7 +862,7 @@ cp node_modules/monsooncss/dist/monsoon.min.css public/monsoon.css`,
               head: ['Class', 'What it does'],
               rows: [
                 ['`sr-only`, `not-sr-only`', 'Hide content visually but keep it for screen readers, and undo it.'],
-                ['`skip-link`', 'Visually hidden until it receives focus, for "Skip to content" links.'],
+                ['`skip-link`', 'A component class (see [Skip link](components/skip-link.html)): visually hidden until it receives focus, for "Skip to content" links.'],
                 ['`focus-ring`', 'A 2px outline in the ring color, only on keyboard focus (`:focus-visible`).'],
                 ['`touch-target`', 'Minimum 44 by 44 pixels for small controls.'],
                 ['`motion-safe:`, `motion-reduce:`', 'Apply transitions and animations only when the user has not asked for reduced motion.'],

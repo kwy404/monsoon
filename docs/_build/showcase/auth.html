@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in and sign up | Monsoon showcase</title>
+<meta name="description" content="Sign in and create account screens for Mossgate, a fictional research notebook app, in one tabbed card that switches with radio inputs and no JavaScript, built only with Monsoon classes.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-background text-foreground antialiased" style="--seed: #22d3ee">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<div class="grid min-h-dvh lg:grid-cols-2">
+  <aside class="dark relative isolate hidden overflow-hidden bg-background text-foreground lg:flex lg:flex-col lg:justify-between lg:p-12">
+    <div class="pointer-events-none absolute -top-16 -left-16 -z-10 size-96 rounded-full bg-primary/30 blur-3xl" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -right-16 -bottom-16 -z-10 size-80 rounded-full bg-info/20 blur-3xl" aria-hidden="true"></div>
+    <a href="#" class="flex items-center gap-2 text-xl font-bold tracking-tight"><span class="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10a8 8 0 0 1 16 0v10"/><path d="M9 20v-6a3 3 0 0 1 6 0v6"/></svg></span>Mossgate</a>
+
+    <div class="mx-auto w-full max-w-md">
+      <div class="rounded-2xl border bg-surface/70 p-5 shadow-2xl backdrop-blur-md">
+        <div class="flex items-center justify-between"><p class="text-sm font-semibold">Coastal lichen survey</p><span class="badge badge-success badge-dot badge-sm">Synced</span></div>
+        <svg class="mt-4 h-auto w-full" viewBox="0 0 360 140" aria-hidden="true">
+          <g class="stroke-border" stroke-width="1"><line x1="0" y1="35" x2="360" y2="35"/><line x1="0" y1="70" x2="360" y2="70"/><line x1="0" y1="105" x2="360" y2="105"/></g>
+          <path class="fill-primary" opacity=".18" d="M0 110 C40 100 60 70 100 72 S160 40 200 50 S270 20 310 26 S350 14 360 12 V140 H0 Z"/>
+          <path class="stroke-primary" fill="none" stroke-width="3" stroke-linecap="round" d="M0 110 C40 100 60 70 100 72 S160 40 200 50 S270 20 310 26 S350 14 360 12"/>
+          <circle class="fill-primary" cx="200" cy="50" r="5"/>
+        </svg>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li class="flex items-center gap-3"><span class="avatar avatar-xs avatar-placeholder bg-primary/20 text-primary">HK</span><span class="flex-1 text-muted-foreground"><strong class="font-medium text-foreground">Hanne</strong> added 14 quadrat photos</span><span class="text-xs text-muted-foreground">2m</span></li>
+          <li class="flex items-center gap-3"><span class="avatar avatar-xs avatar-placeholder bg-info/20 text-info">DA</span><span class="flex-1 text-muted-foreground"><strong class="font-medium text-foreground">Diego</strong> tagged site 7 as revisit</span><span class="text-xs text-muted-foreground">9m</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <figure>
+      <blockquote class="text-xl leading-relaxed text-balance">&ldquo;Our field notes used to live in six notebooks and a shoebox. Now the whole team reads the same page before the tide turns.&rdquo;</blockquote>
+      <figcaption class="mt-5 flex items-center gap-3"><span class="avatar avatar-sm avatar-placeholder bg-primary text-primary-foreground">EM</span><div class="text-sm"><p class="font-semibold">Dr. Elin Marsh</p><p class="text-muted-foreground">Marine ecology lab, Skerry Point Institute</p></div></figcaption>
+    </figure>
+  </aside>
+
+  <main class="flex flex-col items-center justify-center px-4 py-12 sm:px-6">
+    <a href="#" class="mb-8 flex items-center gap-2 text-xl font-bold tracking-tight lg:hidden"><span class="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10a8 8 0 0 1 16 0v10"/><path d="M9 20v-6a3 3 0 0 1 6 0v6"/></svg></span>Mossgate</a>
+
+    <div class="w-full max-w-md">
+      <div class="tabs tabs-boxed tabs-full" role="tablist" aria-label="Account">
+        <input type="radio" name="auth" class="tab" aria-label="Sign in" checked>
+        <section class="tab-content pt-8" role="tabpanel" aria-labelledby="signin-title">
+          <h1 id="signin-title" class="text-2xl font-bold tracking-tight">Welcome back</h1>
+          <p class="mt-1 text-sm text-muted-foreground">Sign in to pick up where your team left off.</p>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            <button type="button" class="btn btn-outline btn-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="9" r="4"/><path d="M12 13l8 8M17 18l2-2M15 16l2-2"/></svg>Use a passkey</button>
+            <button type="button" class="btn btn-outline btn-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>Single sign on</button>
+          </div>
+          <div class="divider my-6 text-xs text-muted-foreground">or with email</div>
+
+          <form class="form" action="#">
+            <div class="field">
+              <label class="label" for="si-email">Email</label>
+              <input id="si-email" type="email" class="input" placeholder="you@lab.org" autocomplete="email" required>
+              <p class="error-text">Enter the email you signed up with.</p>
+            </div>
+            <div class="field">
+              <div class="flex items-center justify-between"><label class="label" for="si-password">Password</label><a href="#" class="link text-sm">Forgot it?</a></div>
+              <div class="password-field">
+                <input id="si-password" type="password" class="input" autocomplete="current-password" required>
+                <button type="button" class="password-field-toggle" aria-pressed="false" aria-label="Show password"></button>
+              </div>
+            </div>
+            <label class="form-control">
+              <input type="checkbox" class="checkbox" checked>
+              <span class="grid gap-0.5"><span class="label-text">Keep me signed in</span><span class="hint">For 30 days on this device</span></span>
+            </label>
+            <button type="submit" class="btn btn-lg btn-block">Sign in</button>
+          </form>
+          <p class="mt-6 text-center text-sm text-muted-foreground">Protected by device checks and optional two step verification.</p>
+        </section>
+
+        <input type="radio" name="auth" class="tab" aria-label="Create account">
+        <section class="tab-content pt-8" role="tabpanel" aria-labelledby="signup-title">
+          <ol class="stepper">
+            <li class="stepper-item stepper-current" aria-current="step"><span class="stepper-title">Account</span></li>
+            <li class="stepper-item"><span class="stepper-title">Workspace</span></li>
+            <li class="stepper-item"><span class="stepper-title">Invite</span></li>
+          </ol>
+          <h1 id="signup-title" class="mt-6 text-2xl font-bold tracking-tight">Start your field notebook</h1>
+          <p class="mt-1 text-sm text-muted-foreground">Free for teams of up to five. No card needed.</p>
+
+          <form class="form mt-6" action="#">
+            <div class="form-row">
+              <div class="field">
+                <label class="label" for="su-first">First name</label>
+                <input id="su-first" class="input" autocomplete="given-name" required>
+              </div>
+              <div class="field">
+                <label class="label" for="su-last">Last name</label>
+                <input id="su-last" class="input" autocomplete="family-name" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label label-required" for="su-email">Work email</label>
+              <input id="su-email" type="email" class="input" placeholder="you@lab.org" autocomplete="email" required>
+              <p class="hint">We will send a six digit code to confirm it.</p>
+            </div>
+            <div class="field">
+              <label class="label label-required" for="su-password">Password</label>
+              <div class="password-field">
+                <input id="su-password" type="password" class="input" autocomplete="new-password" minlength="12" required>
+                <button type="button" class="password-field-toggle" aria-pressed="false" aria-label="Show password"></button>
+              </div>
+              <meter class="meter meter-sm mt-1 w-full" min="0" max="4" low="2" high="3" optimum="4" value="3" aria-label="Password strength">Good</meter>
+              <p class="hint">At least 12 characters. A short sentence works well.</p>
+            </div>
+            <div class="field">
+              <label class="label" for="su-role">What best describes you?</label>
+              <select id="su-role" class="select"><option>Field researcher</option><option>Lab manager</option><option>Student</option><option>Something else</option></select>
+            </div>
+            <label class="form-control">
+              <input type="checkbox" class="checkbox" required>
+              <span class="label-text text-sm">I agree to the <a href="#" class="link">terms</a> and <a href="#" class="link">privacy notice</a>.</span>
+            </label>
+            <button type="submit" class="btn btn-lg btn-block">Create account</button>
+          </form>
+        </section>
+      </div>
+
+      <div class="mt-10 rounded-2xl border bg-surface-2 p-5">
+        <p class="text-sm font-semibold">Already have a code?</p>
+        <p class="mt-1 text-sm text-muted-foreground">Enter the six digits we emailed to finish setting up.</p>
+        <div class="otp otp-sm mt-4" role="group" aria-label="Verification code">
+          <input class="otp-input" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1" value="4">
+          <input class="otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 2" value="1">
+          <input class="otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 3" value="9">
+          <span class="otp-separator"></span>
+          <input class="otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+          <input class="otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+          <input class="otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-xs text-muted-foreground">Mossgate is a fictional product for this showcase. &middot; <a href="#" class="link link-muted">Status</a> &middot; <a href="#" class="link link-muted">Help</a></p>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analytics dashboard | Monsoon showcase</title>
+<meta name="description" content="A subscription revenue dashboard for Vantorra, a fictional analytics product, with a responsive sidebar, KPI cards, an inline SVG chart and a data table, built only with Monsoon classes.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('voodoo:theme');try{t=JSON.parse(t)}catch(e){}if(t==='light'||t==='dark'){var r=document.documentElement;r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}</script>
+<link rel="stylesheet" href="../monsoon.min.css">
+</head>
+<body class="bg-surface-2 text-foreground antialiased" style="--seed: #0d9488">
+<div class="fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-full border bg-surface/90 p-1 text-xs font-medium shadow-lg backdrop-blur-md">
+  <a href="../index.html" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15v5a2 2 0 0 1-4 0"/><path d="M12 7V4"/></svg>Built with Monsoon</a>
+  <a href="../showcase.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-primary-foreground hover:bg-primary/90"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to showcase</a>
+</div>
+
+<div class="drawer drawer-open-lg">
+  <input id="app-drawer" type="checkbox" class="drawer-toggle">
+  <div class="drawer-content min-w-0">
+    <header class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-md sm:px-6">
+      <label for="app-drawer" class="btn btn-icon lg:hidden" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>
+      <label class="search-field hidden w-full max-w-sm sm:flex">
+        <input type="search" class="input input-sm" placeholder="Search customers, invoices" aria-label="Search">
+        <kbd class="search-field-shortcut">/</kbd>
+      </label>
+      <div class="ml-auto flex items-center gap-2">
+        <span class="badge badge-success badge-dot hidden md:inline-flex">All systems normal</span>
+        <div class="indicator">
+          <span class="indicator-item status status-danger"></span>
+          <button class="btn btn-icon" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></button>
+        </div>
+        <span class="avatar avatar-sm avatar-online bg-gradient-to-br from-primary to-accent text-primary-foreground">NE</span>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl space-y-6 p-4 sm:p-6 lg:p-8">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <nav aria-label="Breadcrumb"><ol class="breadcrumbs text-sm"><li><a href="#">Vantorra</a></li><li><a href="#">Reports</a></li><li><span aria-current="page">Revenue</span></li></ol></nav>
+          <h1 class="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Revenue overview</h1>
+          <p class="mt-1 text-sm text-muted-foreground">Updated 4 minutes ago from the billing ledger and the data warehouse.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="segmented segmented-sm" role="radiogroup" aria-label="Range">
+            <label class="segmented-item"><input type="radio" name="range"> 7D</label>
+            <label class="segmented-item"><input type="radio" name="range"> 30D</label>
+            <label class="segmented-item"><input type="radio" name="range" checked> 12M</label>
+          </div>
+          <button class="btn btn-sm btn-outline btn-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export</button>
+          <button class="btn btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New report</button>
+        </div>
+      </div>
+
+      <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Key metrics">
+        <article class="rounded-2xl border bg-surface p-5 shadow-sm">
+          <div class="flex items-center justify-between"><p class="text-sm font-medium text-muted-foreground">Monthly recurring revenue</p><span class="badge badge-success badge-sm">+6.4%</span></div>
+          <p class="mt-3 text-3xl font-bold tracking-tight tabular-nums">$284,120</p>
+          <svg class="mt-3 h-10 w-full" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline class="stroke-success" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" points="0,26 12,24 24,25 36,20 48,21 60,16 72,15 84,12 96,10 108,7 120,4"/></svg>
+        </article>
+        <article class="rounded-2xl border bg-surface p-5 shadow-sm">
+          <div class="flex items-center justify-between"><p class="text-sm font-medium text-muted-foreground">Active subscriptions</p><span class="badge badge-success badge-sm">+312</span></div>
+          <p class="mt-3 text-3xl font-bold tracking-tight tabular-nums">12,408</p>
+          <svg class="mt-3 h-10 w-full" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline class="stroke-primary" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" points="0,22 12,23 24,20 36,21 48,18 60,17 72,18 84,14 96,13 108,11 120,9"/></svg>
+        </article>
+        <article class="rounded-2xl border bg-surface p-5 shadow-sm">
+          <div class="flex items-center justify-between"><p class="text-sm font-medium text-muted-foreground">Logo churn</p><span class="badge badge-danger badge-sm">+0.2 pts</span></div>
+          <p class="mt-3 text-3xl font-bold tracking-tight tabular-nums">1.9%</p>
+          <svg class="mt-3 h-10 w-full" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline class="stroke-danger" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" points="0,20 12,18 24,21 36,19 48,22 60,20 72,17 84,18 96,15 108,16 120,13"/></svg>
+        </article>
+        <article class="rounded-2xl border bg-surface p-5 shadow-sm">
+          <div class="flex items-center justify-between"><p class="text-sm font-medium text-muted-foreground">Average revenue per account</p><span class="badge badge-neutral badge-sm">flat</span></div>
+          <p class="mt-3 text-3xl font-bold tracking-tight tabular-nums">$22.90</p>
+          <svg class="mt-3 h-10 w-full" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline class="stroke-muted-foreground" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" points="0,16 12,15 24,17 36,16 48,14 60,16 72,15 84,16 96,14 108,15 120,15"/></svg>
+        </article>
+      </section>
+
+      <section class="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <article class="rounded-2xl border bg-surface shadow-sm xl:col-span-2">
+          <header class="flex flex-wrap items-center justify-between gap-3 border-b px-5 py-4">
+            <div><h2 class="font-semibold">MRR, last 12 months</h2><p class="text-sm text-muted-foreground">Compared with the same period last year</p></div>
+            <ul class="flex items-center gap-4 text-xs text-muted-foreground">
+              <li class="flex items-center gap-1.5"><span class="h-1 w-4 rounded-full bg-primary"></span>This year</li>
+              <li class="flex items-center gap-1.5"><span class="h-1 w-4 rounded-full bg-muted-foreground"></span>Last year</li>
+            </ul>
+          </header>
+          <div class="p-4 sm:p-5">
+            <svg class="h-auto w-full" viewBox="0 0 640 230" role="img" aria-labelledby="chart-title">
+              <title id="chart-title">MRR grew from 198 thousand dollars in November to 284 thousand dollars in October</title>
+              <g class="stroke-border" stroke-width="1">
+                <line x1="48" y1="20" x2="630" y2="20"/><line x1="48" y1="80" x2="630" y2="80"/><line x1="48" y1="140" x2="630" y2="140"/><line x1="48" y1="200" x2="630" y2="200"/>
+              </g>
+              <g class="fill-muted-foreground" font-size="11" text-anchor="end">
+                <text x="40" y="24">$300k</text><text x="40" y="84">$250k</text><text x="40" y="144">$200k</text><text x="40" y="204">$150k</text>
+              </g>
+              <g class="fill-muted-foreground" font-size="11" text-anchor="middle">
+                <text x="48" y="222">Nov</text><text x="152" y="222">Jan</text><text x="256" y="222">Mar</text><text x="360" y="222">May</text><text x="464" y="222">Jul</text><text x="568" y="222">Sep</text>
+              </g>
+              <path class="fill-primary opacity-15" d="M48,142.4 L100,135.2 L152,126.8 L204,129.2 L256,112.4 L308,102.8 L360,94.4 L412,84.8 L464,77.6 L516,66.8 L568,53.6 L620,39.2 L620,200 L48,200 Z"/>
+              <polyline class="stroke-muted-foreground" fill="none" stroke-width="2" stroke-dasharray="5 5" points="48,185.6 100,182 152,176 204,173.6 256,168.8 308,162.8 360,160.4 412,154.4 464,152 516,148.4 568,144.8 620,142.4"/>
+              <polyline class="stroke-primary" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="48,142.4 100,135.2 152,126.8 204,129.2 256,112.4 308,102.8 360,94.4 412,84.8 464,77.6 516,66.8 568,53.6 620,39.2"/>
+              <line class="stroke-primary" x1="620" y1="39.2" x2="620" y2="200" stroke-width="1" stroke-dasharray="3 3"/>
+              <circle class="fill-surface stroke-primary" cx="620" cy="39.2" r="5" stroke-width="3"/>
+              <g>
+                <rect class="fill-foreground" x="520" y="0" width="88" height="26" rx="6"/>
+                <text class="fill-background" x="564" y="17" font-size="12" font-weight="600" text-anchor="middle">Oct $284.1k</text>
+              </g>
+            </svg>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border bg-surface p-5 shadow-sm">
+          <h2 class="font-semibold">Revenue by plan</h2>
+          <p class="text-sm text-muted-foreground">Share of MRR in October</p>
+          <div class="@container mt-5">
+            <div class="flex flex-col items-center gap-5 @xs:flex-row">
+              <div class="radial-progress radial-progress-primary radial-progress-xl shrink-0" style="--value: 112" role="progressbar" aria-valuenow="112" aria-valuemin="0" aria-valuemax="150" aria-label="Net revenue retention"><span class="text-center leading-tight"><span class="block text-xl font-bold">112%</span><span class="block text-xs font-normal text-muted-foreground">NRR</span></span></div>
+              <ul class="w-full space-y-4 text-sm">
+                <li><div class="flex justify-between"><span>Scale</span><span class="font-medium tabular-nums">$131.6k</span></div><progress class="progress progress-primary progress-sm mt-1.5" value="46" max="100">46%</progress></li>
+                <li><div class="flex justify-between"><span>Team</span><span class="font-medium tabular-nums">$98.2k</span></div><progress class="progress progress-info progress-sm mt-1.5" value="35" max="100">35%</progress></li>
+                <li><div class="flex justify-between"><span>Starter</span><span class="font-medium tabular-nums">$41.9k</span></div><progress class="progress progress-accent progress-sm mt-1.5" value="15" max="100">15%</progress></li>
+                <li><div class="flex justify-between"><span>Add ons</span><span class="font-medium tabular-nums">$12.4k</span></div><progress class="progress progress-neutral progress-sm mt-1.5" value="4" max="100">4%</progress></li>
+              </ul>
+            </div>
+          </div>
+          <div class="alert alert-info alert-soft mt-6" role="status">
+            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div class="alert-content"><p class="alert-title">Expansion is outpacing churn</p><p class="alert-description">Upgrades added $18.7k this month, 3.4x the revenue lost to cancellations.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <article class="min-w-0 xl:col-span-2">
+          <div class="mb-3 flex items-center justify-between">
+            <h2 class="font-semibold">Largest accounts</h2>
+            <a href="#" class="link link-primary text-sm">View all 12,408</a>
+          </div>
+          <div class="table-wrap relative shadow-sm">
+            <table class="table table-hover">
+              <thead><tr><th>Customer</th><th>Plan</th><th>Status</th><th class="text-right">MRR</th><th>Renews</th><th><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody>
+                <tr><td><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-rounded bg-primary/10 text-primary">HF</span><div><p class="font-medium">Halberd Freightworks</p><p class="text-xs text-muted-foreground">billing@halberd.example</p></div></div></td><td>Scale</td><td><span class="badge badge-success badge-dot">Active</span></td><td class="text-right font-medium tabular-nums">$9,840</td><td class="whitespace-nowrap text-muted-foreground">Jan 14, 2027</td><td><button class="btn btn-icon btn-sm" aria-label="More for Halberd Freightworks"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></td></tr>
+                <tr><td><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-rounded bg-accent/10 text-accent">ML</span><div><p class="font-medium">Meridian Loom</p><p class="text-xs text-muted-foreground">ap@meridianloom.example</p></div></div></td><td>Scale</td><td><span class="badge badge-success badge-dot">Active</span></td><td class="text-right font-medium tabular-nums">$7,215</td><td class="whitespace-nowrap text-muted-foreground">Nov 02, 2026</td><td><button class="btn btn-icon btn-sm" aria-label="More for Meridian Loom"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></td></tr>
+                <tr><td><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-rounded bg-warning/10 text-warning">QS</span><div><p class="font-medium">Quarry Street Health</p><p class="text-xs text-muted-foreground">finance@quarryst.example</p></div></div></td><td>Team</td><td><span class="badge badge-warning badge-dot">Past due</span></td><td class="text-right font-medium tabular-nums">$5,980</td><td class="whitespace-nowrap text-muted-foreground">Oct 18, 2026</td><td><button class="btn btn-icon btn-sm" aria-label="More for Quarry Street Health"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></td></tr>
+                <tr><td><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-rounded bg-info/10 text-info">OB</span><div><p class="font-medium">Oxbow Bicycles</p><p class="text-xs text-muted-foreground">ops@oxbow.example</p></div></div></td><td>Scale</td><td><span class="badge badge-info badge-dot">Trialing</span></td><td class="text-right font-medium tabular-nums">$4,400</td><td class="whitespace-nowrap text-muted-foreground">Oct 27, 2026</td><td><button class="btn btn-icon btn-sm" aria-label="More for Oxbow Bicycles"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></td></tr>
+                <tr><td><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-rounded bg-success/10 text-success">PG</span><div><p class="font-medium">Pinegrove Studios</p><p class="text-xs text-muted-foreground">team@pinegrove.example</p></div></div></td><td>Team</td><td><span class="badge badge-success badge-dot">Active</span></td><td class="text-right font-medium tabular-nums">$3,760</td><td class="whitespace-nowrap text-muted-foreground">Mar 09, 2027</td><td><button class="btn btn-icon btn-sm" aria-label="More for Pinegrove Studios"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></td></tr>
+                <tr><td><div class="flex items-center gap-3"><span class="avatar avatar-sm avatar-rounded bg-danger/10 text-danger">TC</span><div><p class="font-medium">Tidecrest Logistics</p><p class="text-xs text-muted-foreground">accounts@tidecrest.example</p></div></div></td><td>Team</td><td><span class="badge badge-danger badge-dot">Canceling</span></td><td class="text-right font-medium tabular-nums">$3,120</td><td class="whitespace-nowrap text-muted-foreground">Oct 31, 2026</td><td><button class="btn btn-icon btn-sm" aria-label="More for Tidecrest Logistics"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <nav class="mt-4 flex items-center justify-between text-sm text-muted-foreground" aria-label="Pagination">
+            <p>Showing 1 to 6 of 12,408</p>
+            <div class="pagination pagination-sm"><a class="pagination-item pagination-prev pagination-disabled" href="#" aria-label="Previous page"></a><a class="pagination-item pagination-active" href="#" aria-current="page">1</a><a class="pagination-item" href="#">2</a><a class="pagination-item" href="#">3</a><a class="pagination-item pagination-next" href="#" aria-label="Next page"></a></div>
+          </nav>
+        </article>
+
+        <article class="rounded-2xl border bg-surface p-5 shadow-sm">
+          <h2 class="font-semibold">Recent activity</h2>
+          <ol class="timeline mt-5">
+            <li class="timeline-item"><span class="timeline-dot bg-success"></span><div class="timeline-content"><time class="timeline-time">12 min ago</time><p class="text-sm font-medium">Meridian Loom upgraded to Scale</p><p class="text-sm text-muted-foreground">+$2,140 MRR, 48 seats added</p></div></li>
+            <li class="timeline-item"><span class="timeline-dot bg-warning"></span><div class="timeline-content"><time class="timeline-time">1 hour ago</time><p class="text-sm font-medium">Card declined for Quarry Street Health</p><p class="text-sm text-muted-foreground">Retry scheduled for tomorrow 09:00</p></div></li>
+            <li class="timeline-item"><span class="timeline-dot"></span><div class="timeline-content"><time class="timeline-time">3 hours ago</time><p class="text-sm font-medium">Oxbow Bicycles started a trial</p><p class="text-sm text-muted-foreground">Sales owner: Nadia Ekwueme</p></div></li>
+            <li class="timeline-item"><span class="timeline-dot bg-danger"></span><div class="timeline-content"><time class="timeline-time">Yesterday</time><p class="text-sm font-medium">Tidecrest Logistics will cancel</p><p class="text-sm text-muted-foreground">Reason given: moving to an in house tool</p></div></li>
+          </ol>
+        </article>
+      </section>
+    </main>
+  </div>
+  <div class="drawer-side">
+    <label for="app-drawer" class="drawer-overlay" aria-label="Close navigation"></label>
+    <nav class="drawer-panel w-64" aria-label="App">
+      <a href="#" class="flex items-center gap-2 px-3 pt-1 text-lg font-bold tracking-tight"><span class="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18 10 6l4 8 2-4 4 8"/></svg></span>Vantorra</a>
+      <ul class="menu">
+        <li class="menu-title">Reports</li>
+        <li><a href="#" class="menu-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>Revenue</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></svg>Customers<span class="menu-shortcut">12.4k</span></a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Invoices</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>Retention</a></li>
+        <li><details open><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Saved views</summary><ul><li><a href="#">EMEA enterprise</a></li><li><a href="#">Trials ending soon</a></li><li><a href="#">At risk accounts</a></li></ul></details></li>
+        <li class="menu-divider"></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>Settings</a></li>
+      </ul>
+      <div class="mt-auto rounded-xl border bg-surface-2 p-4">
+        <p class="text-sm font-semibold">Warehouse sync</p>
+        <p class="mt-1 text-xs text-muted-foreground">8.2 GB of 10 GB used this month</p>
+        <progress class="progress progress-warning progress-sm mt-3" value="82" max="100">82%</progress>
+        <a href="#" class="btn btn-sm btn-soft btn-block mt-3">Upgrade storage</a>
+      </div>
+    </nav>
+  </div>
+</div>
+</body>
+</html>
