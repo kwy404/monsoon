@@ -60,7 +60,42 @@ export const stateVariants = [
   },
 ];
 
-export const responsiveVariants = Object.entries(breakpoints).map(([name, w]) => ({
+// Writing direction. rtl: and ltr: follow the nearest dir attribute and apply
+// to the utilities that name a physical side (left, right, x axis), so a
+// layout can mirror itself: ml-4 rtl:ml-0 rtl:mr-4.
+export const DIR_UTILITY = new RegExp([
+  '^-?[mp][lrx]-', '^-?(left|right)-', '^-?inset-x-', '^text-(left|right)$', '^float-(left|right)$',
+  '^clear-(left|right)$', '^rounded-([lr]|tl|tr|bl|br)(-|$)', '^border-[lrx](-|$)', '^-?translate-x-',
+  '^-?space-x-', '^flex-row', '^origin-',
+].join('|'));
+const dirVariant = (dir) => ({
+  name: dir,
+  match: (u) => DIR_UTILITY.test(u.name),
+  forms: [{ sel: (s) => `${s}:where([dir=${dir}], [dir=${dir}] *)` }],
+});
+export const dirVariants = [dirVariant('rtl'), dirVariant('ltr')];
+
+// Media variants, emitted after the breakpoints so they win over md: and
+// friends. print: and screen: cover the same curated set as the breakpoints
+// (display, hidden and block included); forced-colors: covers what a high
+// contrast theme needs: display, borders, outlines, underlines and the
+// forced-color-adjust switch.
+export const FORCED_UTILITY = new RegExp([
+  '^(hidden|block|inline|inline-block|flex|inline-flex|grid|contents|visible|invisible)$',
+  '^border(-[trblxyse])?(-\\d+)?$', '^border-(solid|dashed|dotted|double|none)$',
+  '^outline', '^(underline|no-underline)$', '^forced-color-adjust-', '^(sr-only|not-sr-only)$',
+].join('|'));
+export const mediaVariants = [
+  { name: 'print', groups: ['layout'], forms: [{ at: '@media print', sel: (s) => s }] },
+  { name: 'screen', groups: ['layout'], forms: [{ at: '@media screen', sel: (s) => s }] },
+  {
+    name: 'forced-colors',
+    match: (u) => FORCED_UTILITY.test(u.name),
+    forms: [{ at: '@media (forced-colors: active)', sel: (s) => s }],
+  },
+];
+
+export const responsiveVariants =Object.entries(breakpoints).map(([name, w]) => ({
   name,
   groups: ['layout'],
   forms: [{ at: `@media (min-width: ${w})`, sel: (s) => s }],
@@ -72,4 +107,4 @@ export const containerVariants = Object.entries(containerBreakpoints).map(([name
   forms: [{ at: `@container (min-width: ${w})`, sel: (s) => s }],
 }));
 
-export const variants = [...stateVariants, ...responsiveVariants, ...containerVariants];
+export const variants = [...stateVariants, ...dirVariants, ...responsiveVariants, ...containerVariants, ...mediaVariants];

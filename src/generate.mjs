@@ -10,13 +10,14 @@ import borders from './utilities/borders.mjs';
 import colors from './utilities/colors.mjs';
 import effects from './utilities/effects.mjs';
 import interactivity, { accessibility } from './utilities/interactivity.mjs';
-import { stateVariants, responsiveVariants, containerVariants } from './variants.mjs';
+import fluid from './utilities/fluid.mjs';
+import { stateVariants, dirVariants, responsiveVariants, containerVariants, mediaVariants } from './variants.mjs';
 
 export const UTILITIES_MARKER = 'monsoon:utilities';
 
 const modules = [
   layout, flexgrid, spacingUtilities, sizingUtilities, typography, borders, colors, effects,
-  interactivity, accessibility,
+  interactivity, accessibility, fluid,
 ];
 
 export function collectUtilities() {
@@ -45,7 +46,8 @@ function variantRules(variant, utilities) {
   return variant.forms.map((form) => {
     const rules = [];
     for (const u of utilities) {
-      if (![...u.groups].some((g) => variant.groups.includes(g))) continue;
+      const applies = variant.match ? variant.match(u) : [...u.groups].some((g) => variant.groups.includes(g));
+      if (!applies) continue;
       const cls = `${variant.name}:${u.name}`;
       rules.push({ cls, base: u, node: rule(u.selector(form.sel(`.${escapeClass(cls)}`)), u.decls) });
     }
@@ -93,6 +95,7 @@ export function generate({ version = '0.0.0' } = {}) {
   };
 
   for (const v of stateVariants) emit(v);
+  for (const v of dirVariants) emit(v);
 
   for (const v of responsiveVariants) {
     const [{ at, rules }] = variantRules(v, utilities);
@@ -104,6 +107,7 @@ export function generate({ version = '0.0.0' } = {}) {
   }
 
   for (const v of containerVariants) emit(v);
+  for (const v of mediaVariants) emit(v);
 
   const css = serialize(nodes);
   const min = serialize(nodes, { minify: true });
