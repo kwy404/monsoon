@@ -1,4 +1,4 @@
-# Generates mascot.svg, mascot-head.svg and favicon.svg (run from assets/).
+# Generates mascot.svg, mascot-dark.svg, mascot-head.svg and favicon.svg (run from assets/).
 # Mo, the Monsoon mascot: a red panda in a raincoat holding a five color umbrella.
 import math
 import sys
@@ -145,6 +145,24 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -14 452 452" width
 </svg>
 '''
 
+# mascot-dark.svg: same art and framing with a light sticker rim, so the dark outline does
+# not melt into dark pages (GitHub dark is #0d1117). The README serves it through <picture>.
+RIM = "#e6e9ff"
+svg_dark = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -14 452 452" width="452" height="452" role="img" aria-labelledby="t d">
+  <title id="t">Mo, the Monsoon mascot</title>
+  <desc id="d">A cheerful red panda in a raincoat holding an open umbrella with indigo, cyan, violet, rose and amber panels.</desc>
+  <filter id="rim" x="-5%" y="-5%" width="110%" height="110%">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="grow"/>
+    <feFlood flood-color="{RIM}"/>
+    <feComposite in2="grow" operator="in" result="edge"/>
+    <feMerge><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <g filter="url(#rim)">
+  {mascot()}
+  </g>
+</svg>
+'''
+
 head_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
   <title id="t">Mo, the Monsoon mascot</title>
   <g transform="translate(128 136) scale(.9)">{head(0, 0)}</g>
@@ -172,5 +190,5 @@ out = sys.argv[2] if len(sys.argv) > 2 else "."
 if out.endswith(".svg"):
     open(out, "w", encoding="utf-8", newline="\n").write(svg)
 else:
-    for name, text in (("mascot.svg", svg), ("mascot-head.svg", head_svg), ("favicon.svg", fav)):
+    for name, text in (("mascot.svg", svg), ("mascot-dark.svg", svg_dark), ("mascot-head.svg", head_svg), ("favicon.svg", fav)):
         open(f"{out}/{name}", "w", encoding="utf-8", newline="\n").write(text)
