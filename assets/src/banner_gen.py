@@ -2,6 +2,7 @@
 import re
 
 m = open("mascot.svg", encoding="utf-8").read()
+vb = re.search(r'viewBox="([^"]+)"', m).group(1)
 inner = re.search(r"<svg[^>]*>(.*)</svg>", m, re.S).group(1)
 inner = re.sub(r"\s*<title.*?</title>\s*<desc.*?</desc>", "", inner, flags=re.S)
 
@@ -22,7 +23,7 @@ def banner(dark):
       <stop offset="0" stop-color="{bg1}"/>
       <stop offset="1" stop-color="{bg2}"/>
     </linearGradient>
-    <linearGradient id="oo" gradientUnits="userSpaceOnUse" x1="880" y1="0" x2="1050" y2="0">
+    <linearGradient id="oo" gradientUnits="userSpaceOnUse" x1="806" y1="0" x2="976" y2="0">
       <stop offset="0" stop-color="#22d3ee"/>
       <stop offset=".5" stop-color="#3b5bdb"/>
       <stop offset="1" stop-color="#8b5cf6"/>
@@ -35,10 +36,10 @@ def banner(dark):
     <path d="M30 360 C90 340 150 370 220 350"/>
     <path d="M1120 110 C1160 96 1200 104 1236 92"/>
   </g>
-  <svg x="64" y="34" width="440" height="336" viewBox="0 0 460 352">{inner}</svg>
-  <text x="544" y="196" font-family="{SANS}" font-size="132" font-weight="900" letter-spacing="-5" fill="{ink}">mons<tspan fill="url(#oo)">oo</tspan>n</text>
-  <text x="550" y="250" font-family="{SANS}" font-size="34" font-weight="600" fill="{sub}">Utility-first CSS. No build step. Ever.</text>
-  <g transform="translate(548 282)">
+  <svg x="72" y="22" width="356" height="356" viewBox="{vb}">{inner}</svg>
+  <text x="470" y="196" font-family="{SANS}" font-size="132" font-weight="900" letter-spacing="-5" fill="{ink}">mons<tspan fill="url(#oo)">oo</tspan>n</text>
+  <text x="476" y="250" font-family="{SANS}" font-size="34" font-weight="600" fill="{sub}">Utility-first CSS. No build step. Ever.</text>
+  <g transform="translate(474 282)">
     <rect width="620" height="52" rx="12" fill="{chip_bg}" stroke="{chip_bd}" stroke-width="2"/>
     <circle cx="26" cy="26" r="6" fill="#22d3ee"/>
     <text x="46" y="33" font-family="{MONO}" font-size="19" textLength="550" fill="#c9d3ff"><tspan fill="#8b5cf6">&lt;link</tspan> <tspan fill="#22d3ee">href</tspan>=<tspan fill="#fda4af">"https://cdn.jsdelivr.net/npm/monsooncss"</tspan><tspan fill="#8b5cf6">&gt;</tspan></text>

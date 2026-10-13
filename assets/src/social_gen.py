@@ -35,7 +35,7 @@ def page(w, h, scale):
   }}
   .wrap {{ position: absolute; inset: 0; transform-origin: 0 0; transform: scale({scale}); width: 1280px; height: 640px;
           display: flex; align-items: center; padding: 0 64px 0 40px; gap: 28px; }}
-  .mascot {{ width: 470px; flex: none; filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); }}
+  .mascot {{ width: 440px; margin-top: -8px; flex: none; filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); }}
   .txt {{ flex: 1; min-width: 0; }}
   h1 {{ font-size: 142px; font-weight: 900; letter-spacing: -6px; line-height: .9; }}
   h1 .oo {{ background: linear-gradient(90deg, #22d3ee, #3b5bdb 50%, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }}
