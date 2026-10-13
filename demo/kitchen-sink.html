@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monsoon kitchen sink</title>
+  <link rel="stylesheet" href="../dist/monsoon.min.css">
+  <script>/* demo only: ?light or ?dark forces a scheme */ var q = location.search; if (/light|dark/.test(q)) document.documentElement.classList.add(q.indexOf("dark") > -1 ? "dark" : "light");</script>
+</head>
+<body class="antialiased">
+  <a href="#main" class="skip-link focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 bg-primary text-primary-foreground px-3 py-2 rounded-md">Skip to content</a>
+
+  <header class="border-b bg-surface">
+    <div class="container flex items-center justify-between py-4">
+      <div class="flex items-center gap-3">
+        <span class="size-9 rounded-xl bg-primary text-primary-foreground grid place-items-center font-bold">M</span>
+        <span class="text-lg font-semibold tracking-tight">Monsoon</span>
+        <span class="hidden md:inline-block text-xs font-medium rounded-full bg-secondary text-secondary-foreground px-2.5 py-0.5">v0.1.0</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
+        <a class="hover:text-foreground transition-colors" href="#">Docs</a>
+        <a class="hover:text-foreground transition-colors" href="#">Utilities</a>
+        <a class="hover:text-foreground transition-colors" href="#">Theming</a>
+        <a class="rounded-md bg-primary text-primary-foreground px-3 py-1.5 font-medium hover:bg-primary/90 shadow-sm" href="#">Get started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container py-10 space-y-12">
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div class="space-y-5">
+        <p class="text-sm font-semibold uppercase tracking-widest text-primary">No build step</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-balance">One stylesheet. Every utility you reach for.</h1>
+        <p class="text-lg text-muted-foreground text-pretty max-w-prose">Change one custom property and the whole interface follows: buttons, rings, surfaces and readable text, in light and dark.</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="rounded-lg bg-primary text-primary-foreground px-4 py-2.5 font-medium shadow hover:bg-primary/90 active:scale-95 transition">Primary</button>
+          <button class="rounded-lg bg-secondary text-secondary-foreground px-4 py-2.5 font-medium hover:bg-secondary/80 transition">Secondary</button>
+          <button class="rounded-lg bg-accent text-accent-foreground px-4 py-2.5 font-medium transition">Accent</button>
+          <button class="rounded-lg border px-4 py-2.5 font-medium hover:bg-muted transition">Outline</button>
+          <button class="rounded-lg bg-primary text-primary-foreground px-4 py-2.5 font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>Disabled</button>
+        </div>
+      </div>
+      <div class="relative rounded-2xl bg-gradient-to-br from-primary to-accent p-1 shadow-xl">
+        <div class="rounded-xl bg-surface p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-semibold">Weekly rainfall</h2>
+            <span class="text-xs rounded-full bg-success text-success-foreground px-2 py-0.5">+12%</span>
+          </div>
+          <div class="flex items-end gap-2 h-32">
+            <div class="flex-1 rounded-t-md bg-primary/30 h-1/3"></div>
+            <div class="flex-1 rounded-t-md bg-primary/50 h-1/2"></div>
+            <div class="flex-1 rounded-t-md bg-primary/70 h-2/3"></div>
+            <div class="flex-1 rounded-t-md bg-primary h-full"></div>
+            <div class="flex-1 rounded-t-md bg-primary/80 h-3/4"></div>
+            <div class="flex-1 rounded-t-md bg-primary/50 h-2/5"></div>
+            <div class="flex-1 rounded-t-md bg-primary/20 h-1/5"></div>
+          </div>
+          <p class="text-sm text-muted-foreground truncate">A very long caption that should be truncated with an ellipsis instead of wrapping onto a second line.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold">Seed theming</h2>
+      <p class="text-muted-foreground">Each card sets only <code class="font-mono text-sm bg-muted rounded px-1">--seed</code>. Foregrounds flip automatically for contrast.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div style="--seed: teal" class="rounded-xl border bg-surface p-5 space-y-3">
+          <p class="text-sm font-medium text-primary">teal</p>
+          <button class="w-full rounded-md bg-primary text-primary-foreground py-2 font-medium">Primary</button>
+          <button class="w-full rounded-md bg-accent text-accent-foreground py-2 font-medium">Accent</button>
+          <div class="h-2 rounded-full bg-secondary"><div class="h-2 w-2/3 rounded-full bg-primary"></div></div>
+        </div>
+        <div style="--seed: #e11d48" class="rounded-xl border bg-surface p-5 space-y-3">
+          <p class="text-sm font-medium text-primary">#e11d48</p>
+          <button class="w-full rounded-md bg-primary text-primary-foreground py-2 font-medium">Primary</button>
+          <button class="w-full rounded-md bg-accent text-accent-foreground py-2 font-medium">Accent</button>
+          <div class="h-2 rounded-full bg-secondary"><div class="h-2 w-1/2 rounded-full bg-primary"></div></div>
+        </div>
+        <div style="--seed: gold" class="rounded-xl border bg-surface p-5 space-y-3">
+          <p class="text-sm font-medium">gold (light seed)</p>
+          <button class="w-full rounded-md bg-primary text-primary-foreground py-2 font-medium">Primary</button>
+          <button class="w-full rounded-md bg-accent text-accent-foreground py-2 font-medium">Accent</button>
+          <div class="h-2 rounded-full bg-secondary"><div class="h-2 w-3/4 rounded-full bg-primary"></div></div>
+        </div>
+        <div style="--seed: oklch(0.5 0.25 300)" class="rounded-xl border bg-surface p-5 space-y-3">
+          <p class="text-sm font-medium text-primary">oklch(0.5 0.25 300)</p>
+          <button class="w-full rounded-md bg-primary text-primary-foreground py-2 font-medium">Primary</button>
+          <button class="w-full rounded-md bg-accent text-accent-foreground py-2 font-medium">Accent</button>
+          <div class="h-2 rounded-full bg-secondary"><div class="h-2 w-1/3 rounded-full bg-primary"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark bg-background text-foreground rounded-2xl p-6 md:p-8 space-y-5">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold">Dark section</h2>
+        <span class="text-xs text-muted-foreground">class="dark"</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-xl bg-surface border p-5 space-y-3">
+          <p class="font-semibold">Default seed</p>
+          <p class="text-sm text-muted-foreground">Surfaces, borders and text all switch together.</p>
+          <button class="rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm font-medium">Continue</button>
+          <a href="#" class="block text-sm text-primary underline underline-offset-4">Readable link</a>
+        </div>
+        <div style="--seed: #16a34a" class="rounded-xl bg-surface-2 border p-5 space-y-3">
+          <p class="font-semibold">Green seed</p>
+          <p class="text-sm text-muted-foreground">Nested seed inside a dark island.</p>
+          <button class="rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm font-medium">Continue</button>
+          <a href="#" class="block text-sm text-primary underline underline-offset-4">Readable link</a>
+        </div>
+        <div style="--seed: #f97316" class="rounded-xl bg-surface-3 border p-5 space-y-3">
+          <p class="font-semibold">Orange seed</p>
+          <p class="text-sm text-muted-foreground">Accent and status colors stay legible.</p>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="rounded-full bg-success text-success-foreground px-2 py-0.5">success</span>
+            <span class="rounded-full bg-warning text-warning-foreground px-2 py-0.5">warning</span>
+            <span class="rounded-full bg-danger text-danger-foreground px-2 py-0.5">danger</span>
+            <span class="rounded-full bg-info text-info-foreground px-2 py-0.5">info</span>
+          </div>
+          <button class="rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm font-medium">Continue</button>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <div class="size-12 rounded-lg bg-white/10 border border-white/20"></div>
+        <div class="size-12 rounded-lg bg-slate-800 dark:bg-slate-700"></div>
+        <div class="size-12 rounded-lg bg-primary/20 ring-2 ring-primary ring-offset-2"></div>
+        <div class="size-12 rounded-lg bg-accent shadow-lg"></div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold">Status</h2>
+        <div class="rounded-lg border-l-4 border-success bg-success/10 p-4 text-sm"><strong class="font-semibold">Saved.</strong> Your settings were updated.</div>
+        <div class="rounded-lg border-l-4 border-warning bg-warning/10 p-4 text-sm"><strong class="font-semibold">Heads up.</strong> Your trial ends in 3 days.</div>
+        <div class="rounded-lg border-l-4 border-danger bg-danger/10 p-4 text-sm"><strong class="font-semibold">Error.</strong> The payment could not be processed.</div>
+        <div class="rounded-lg border-l-4 border-info bg-info/10 p-4 text-sm"><strong class="font-semibold">Note.</strong> A new version is available.</div>
+      </div>
+      <form class="space-y-3 rounded-xl border bg-surface p-5 shadow-sm">
+        <h2 class="text-2xl font-bold">Form</h2>
+        <label class="block text-sm font-medium" for="email">Email</label>
+        <input id="email" type="email" placeholder="you@example.com" class="w-full rounded-md border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary">
+        <label class="flex items-center gap-2 text-sm"><input type="checkbox" class="accent-primary size-4" checked> Subscribe</label>
+        <label class="relative inline-flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" class="peer sr-only" checked>
+          <span class="w-11 h-6 rounded-full bg-muted peer-checked:bg-primary transition-colors"></span>
+          <span class="absolute left-0.5 top-0.5 size-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-5"></span>
+          <span class="text-sm">Toggle with peer-checked</span>
+        </label>
+        <button type="button" class="w-full rounded-md bg-primary text-primary-foreground py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2">Submit</button>
+      </form>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold">Palette</h2>
+      <div class="grid grid-cols-11 gap-1">
+        <div class="h-8 rounded bg-blue-50"></div><div class="h-8 rounded bg-blue-100"></div><div class="h-8 rounded bg-blue-200"></div><div class="h-8 rounded bg-blue-300"></div><div class="h-8 rounded bg-blue-400"></div><div class="h-8 rounded bg-blue-500"></div><div class="h-8 rounded bg-blue-600"></div><div class="h-8 rounded bg-blue-700"></div><div class="h-8 rounded bg-blue-800"></div><div class="h-8 rounded bg-blue-900"></div><div class="h-8 rounded bg-blue-950"></div>
+        <div class="h-8 rounded bg-amber-50"></div><div class="h-8 rounded bg-amber-100"></div><div class="h-8 rounded bg-amber-200"></div><div class="h-8 rounded bg-amber-300"></div><div class="h-8 rounded bg-amber-400"></div><div class="h-8 rounded bg-amber-500"></div><div class="h-8 rounded bg-amber-600"></div><div class="h-8 rounded bg-amber-700"></div><div class="h-8 rounded bg-amber-800"></div><div class="h-8 rounded bg-amber-900"></div><div class="h-8 rounded bg-amber-950"></div>
+        <div class="h-8 rounded bg-emerald-50"></div><div class="h-8 rounded bg-emerald-100"></div><div class="h-8 rounded bg-emerald-200"></div><div class="h-8 rounded bg-emerald-300"></div><div class="h-8 rounded bg-emerald-400"></div><div class="h-8 rounded bg-emerald-500"></div><div class="h-8 rounded bg-emerald-600"></div><div class="h-8 rounded bg-emerald-700"></div><div class="h-8 rounded bg-emerald-800"></div><div class="h-8 rounded bg-emerald-900"></div><div class="h-8 rounded bg-emerald-950"></div>
+        <div class="h-8 rounded bg-rose-50"></div><div class="h-8 rounded bg-rose-100"></div><div class="h-8 rounded bg-rose-200"></div><div class="h-8 rounded bg-rose-300"></div><div class="h-8 rounded bg-rose-400"></div><div class="h-8 rounded bg-rose-500"></div><div class="h-8 rounded bg-rose-600"></div><div class="h-8 rounded bg-rose-700"></div><div class="h-8 rounded bg-rose-800"></div><div class="h-8 rounded bg-rose-900"></div><div class="h-8 rounded bg-rose-950"></div>
+        <div class="h-8 rounded bg-slate-50"></div><div class="h-8 rounded bg-slate-100"></div><div class="h-8 rounded bg-slate-200"></div><div class="h-8 rounded bg-slate-300"></div><div class="h-8 rounded bg-slate-400"></div><div class="h-8 rounded bg-slate-500"></div><div class="h-8 rounded bg-slate-600"></div><div class="h-8 rounded bg-slate-700"></div><div class="h-8 rounded bg-slate-800"></div><div class="h-8 rounded bg-slate-900"></div><div class="h-8 rounded bg-slate-950"></div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="rounded-full bg-red-500 text-white px-3 py-1 text-sm">red</span>
+        <span class="rounded-full bg-orange-500 text-white px-3 py-1 text-sm">orange</span>
+        <span class="rounded-full bg-yellow-400 text-yellow-950 px-3 py-1 text-sm">yellow</span>
+        <span class="rounded-full bg-lime-400 text-lime-950 px-3 py-1 text-sm">lime</span>
+        <span class="rounded-full bg-green-600 text-white px-3 py-1 text-sm">green</span>
+        <span class="rounded-full bg-teal-600 text-white px-3 py-1 text-sm">teal</span>
+        <span class="rounded-full bg-cyan-600 text-white px-3 py-1 text-sm">cyan</span>
+        <span class="rounded-full bg-sky-600 text-white px-3 py-1 text-sm">sky</span>
+        <span class="rounded-full bg-indigo-600 text-white px-3 py-1 text-sm">indigo</span>
+        <span class="rounded-full bg-violet-600 text-white px-3 py-1 text-sm">violet</span>
+        <span class="rounded-full bg-purple-600 text-white px-3 py-1 text-sm">purple</span>
+        <span class="rounded-full bg-fuchsia-600 text-white px-3 py-1 text-sm">fuchsia</span>
+        <span class="rounded-full bg-pink-600 text-white px-3 py-1 text-sm">pink</span>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="rounded-xl border p-5 space-y-3">
+        <h3 class="font-semibold">Effects</h3>
+        <div class="flex gap-3 items-end">
+          <div class="size-12 rounded-lg bg-surface shadow-sm"></div>
+          <div class="size-12 rounded-lg bg-surface shadow-md"></div>
+          <div class="size-12 rounded-lg bg-surface shadow-lg"></div>
+          <div class="size-12 rounded-lg bg-surface shadow-xl"></div>
+          <div class="size-12 rounded-lg bg-surface shadow-2xl"></div>
+        </div>
+        <div class="flex gap-3 items-center">
+          <div class="size-10 rounded-full bg-primary opacity-25"></div>
+          <div class="size-10 rounded-full bg-primary opacity-50"></div>
+          <div class="size-10 rounded-full bg-primary opacity-75"></div>
+          <div class="size-10 rounded bg-accent rotate-12"></div>
+          <div class="size-10 rounded bg-accent scale-75"></div>
+          <div class="size-8 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
+        </div>
+      </div>
+      <div class="@container rounded-xl border p-5">
+        <h3 class="font-semibold mb-3">Container query</h3>
+        <div class="flex flex-col @xs:flex-row gap-3">
+          <div class="rounded-md bg-muted p-3 flex-1 text-sm">Stacks when narrow</div>
+          <div class="rounded-md bg-muted p-3 flex-1 text-sm">Rows when wide</div>
+        </div>
+      </div>
+      <div class="rounded-xl border p-5 space-y-2">
+        <h3 class="font-semibold">Text</h3>
+        <p class="line-clamp-2 text-sm text-muted-foreground">Line clamp keeps this paragraph to two lines even though it keeps going and going with more words than fit in the card.</p>
+        <p class="text-sm"><span class="underline decoration-primary decoration-2 underline-offset-4">underline</span> <span class="line-through">strike</span> <span class="italic">italic</span> <span class="uppercase tracking-wider text-xs">upper</span> <span class="font-mono">mono</span></p>
+        <ul class="list-disc list-inside text-sm text-muted-foreground"><li>List item one</li><li>List item two</li></ul>
+      </div>
+    </section>
+
+    <section class="overflow-x-auto rounded-xl border">
+      <table class="w-full text-sm">
+        <thead class="bg-muted text-left"><tr><th class="p-3 font-semibold">Utility</th><th class="p-3 font-semibold">Variants</th><th class="p-3 font-semibold">Example</th></tr></thead>
+        <tbody class="divide-y">
+          <tr class="odd:bg-surface even:bg-surface-2"><td class="p-3 font-mono">bg-primary</td><td class="p-3">hover, focus, active, group-hover</td><td class="p-3"><span class="inline-block size-4 rounded bg-primary align-middle"></span></td></tr>
+          <tr class="odd:bg-surface even:bg-surface-2"><td class="p-3 font-mono">md:grid-cols-3</td><td class="p-3">sm, md, lg, xl, 2xl</td><td class="p-3">responsive</td></tr>
+          <tr class="odd:bg-surface even:bg-surface-2"><td class="p-3 font-mono">@md:flex-row</td><td class="p-3">@xs to @xl</td><td class="p-3">container</td></tr>
+          <tr class="odd:bg-surface even:bg-surface-2"><td class="p-3 font-mono">dark:bg-slate-800</td><td class="p-3">dark</td><td class="p-3">color scheme</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="border-t py-6 text-center text-sm text-muted-foreground">Monsoon kitchen sink</footer>
+</body>
+</html>
