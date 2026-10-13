@@ -3,12 +3,12 @@
 /* Shared field variables. Sizes swap --field-* and --choice-size; tones swap
    --tone and --tone-fg like every other component. Text fields take their
    focus tone from --field-tone, which a .field-* wrapper can set. */
-.input, .select, .textarea, .file-input, .color-input, .otp-input,
+.input, .select, .textarea, .file-input, .color-input, .otp-input, .otp-field,
 .input-group-addon, .input-counter-button, .checkbox, .radio, .toggle, .range {
   --_line: var(--field-border, color-mix(in oklab, var(--border), var(--foreground) 12%));
   --_shadow: color-mix(in oklab, var(--foreground) calc(7% - 7% * var(--mode)), transparent);
 }
-.input, .select, .textarea, .file-input, .color-input, .otp-input {
+.input, .select, .textarea, .file-input, .color-input, .otp-input, .otp-field {
   --tone: var(--field-tone, var(--ring));
 }
 .checkbox, .radio, .toggle, .range {
@@ -20,12 +20,12 @@
   --tone-fg: var(--warning-foreground);
 }
 .input:hover, .select:hover, .textarea:hover, .file-input:hover, .color-input:hover,
-.otp-input:hover, .checkbox:hover, .radio:hover, .toggle:hover {
+.otp-input:hover, .otp-field:hover, .checkbox:hover, .radio:hover, .toggle:hover {
   --_line: var(--field-border, color-mix(in oklab, var(--border), var(--foreground) 30%));
 }
 
-/* Text fields: input, select, textarea, otp digits */
-.input, .select, .textarea, .otp-input {
+/* Text fields: input, select, textarea, one time code */
+.input, .select, .textarea, .otp-input, .otp-field {
   display: block;
   width: 100%;
   min-width: 0;
@@ -42,11 +42,11 @@
   transition: border-color var(--m-duration-fast), background-color var(--m-duration-fast);
   appearance: none;
 }
-.input:focus, .select:focus, .textarea:focus, .otp-input:focus {
+.input:focus, .select:focus, .textarea:focus, .otp-input:focus, .otp-field:focus {
   --_line: var(--tone);
   background-color: var(--surface);
 }
-.input:focus-visible, .select:focus-visible, .textarea:focus-visible, .otp-input:focus-visible,
+.input:focus-visible, .select:focus-visible, .textarea:focus-visible, .otp-input:focus-visible, .otp-field:focus-visible,
 .file-input:focus-visible, .color-input:focus-visible {
   outline: var(--m-ring);
   outline-color: var(--tone);
@@ -56,7 +56,7 @@
   background-color: var(--surface-2);
   box-shadow: none;
 }
-.input:disabled, .select:disabled, .textarea:disabled, .otp-input:disabled,
+.input:disabled, .select:disabled, .textarea:disabled, .otp-input:disabled, .otp-field:disabled,
 .file-input:disabled, .color-input:disabled {
   --_line: var(--border);
   color: var(--foreground);
@@ -65,10 +65,10 @@
   cursor: not-allowed;
   opacity: var(--m-disabled-opacity);
 }
-.input:user-invalid, .select:user-invalid, .textarea:user-invalid, .otp-input:user-invalid,
+.input:user-invalid, .select:user-invalid, .textarea:user-invalid, .otp-input:user-invalid, .otp-field:user-invalid,
 .file-input:user-invalid, .checkbox:user-invalid, .radio:user-invalid,
 .input[aria-invalid=true], .select[aria-invalid=true], .textarea[aria-invalid=true],
-.otp-input[aria-invalid=true], .file-input[aria-invalid=true] {
+.otp-input[aria-invalid=true], .otp-field[aria-invalid=true], .file-input[aria-invalid=true] {
   --field-border: var(--danger);
   --tone: var(--danger);
   --tone-fg: var(--danger-foreground);
@@ -557,31 +557,131 @@
 }
 .rating-item:focus-visible { outline: 0; }
 
-/* One time code */
+/* One time code. Without a script, .otp-field is a single input: monospace
+   characters spaced over --otp-length slots, so typing, paste and SMS
+   autofill all work natively. With monsoon.js (data-m-otp) the field becomes
+   the hidden carrier of the full value and one .otp-input cell is drawn per
+   character. The script sets data-state="error" or "success" on .otp. */
 .otp {
   --otp-size: 2.75rem;
-  display: inline-flex;
+  --otp-length: 6;
+  --field-radius: var(--m-radius-lg);
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: calc(var(--otp-size) * .18);
+  width: fit-content;
+  min-width: 0;
+  max-width: 100%;
+}
+.otp-field {
+  --_pitch: calc(var(--otp-size) * .82);
+  --_start: calc(var(--otp-size) * .3);
+  --_slot: color-mix(in oklab, var(--foreground) 22%, transparent);
+  width: calc(var(--_start) + (var(--_pitch) - 1ch) / 2 + var(--otp-length) * var(--_pitch) + 2 * var(--m-border-width) + 1px);
+  max-width: 100%;
+  height: calc(var(--otp-size) * 1.15);
+  padding-inline: calc(var(--_start) + (var(--_pitch) - 1ch) / 2) 0;
+  font-family: var(--font-mono);
+  font-size: calc(var(--otp-size) * .44);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: calc(var(--_pitch) - 1ch);
+  text-transform: uppercase;
+  caret-color: var(--tone);
+  background-image: repeating-linear-gradient(to right, var(--_slot) 0 calc(var(--_pitch) - var(--otp-size) * .2), transparent 0 var(--_pitch));
+  background-position: var(--_start) calc(100% - var(--otp-size) * .2);
+  background-size: calc(var(--otp-length) * var(--_pitch)) 2px;
+  background-repeat: no-repeat;
+}
+.otp-field:focus { --_slot: color-mix(in oklab, var(--tone) 70%, transparent); }
+.otp-field::placeholder { color: color-mix(in oklab, var(--muted-foreground) 55%, transparent); }
+.otp[data-otp-ready] > .otp-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
 }
 .otp-input {
+  flex: 0 1 var(--otp-size);
   width: var(--otp-size);
-  height: calc(var(--otp-size) * 1.15);
+  min-width: 1.5rem;
+  height: auto;
+  aspect-ratio: 20 / 23;
   padding: 0;
   font-size: calc(var(--otp-size) * .45);
   font-weight: 600;
-  text-align: center;
   font-variant-numeric: tabular-nums;
+  text-align: center;
+  text-transform: uppercase;
   caret-color: var(--tone);
+  transition: border-color var(--m-duration-fast), background-color var(--m-duration-fast), box-shadow var(--m-duration-fast);
 }
+.otp-input[data-filled] {
+  --_line: var(--field-border, color-mix(in oklab, var(--tone) 45%, var(--border)));
+}
+.otp-input:focus {
+  box-shadow: 0 0 0 calc(var(--m-ring-width) + 2px) color-mix(in oklab, var(--tone) 16%, transparent);
+}
+.otp-input::selection { background-color: transparent; }
 .otp-separator {
-  width: .625rem;
+  flex: none;
+  width: calc(var(--otp-size) * .24);
   height: 2px;
   border-radius: 1px;
-  background-color: var(--border);
+  background-color: color-mix(in oklab, var(--foreground) 28%, transparent);
 }
-.otp-sm { --otp-size: 2.25rem; }
-.otp-lg { --otp-size: 3.25rem; }
+.otp-masked > .otp-input, .otp-masked > .otp-field { -webkit-text-security: disc; }
+.otp[data-state=error] {
+  --field-border: var(--danger);
+  --field-tone: var(--danger);
+  animation: m-otp-shake .42s var(--m-ease);
+}
+.otp[data-state=success] {
+  --field-border: var(--success);
+  --field-tone: var(--success);
+}
+.otp[data-state=success] > .otp-input {
+  background-color: color-mix(in oklab, var(--success) 9%, var(--surface));
+  animation: m-otp-pop .4s var(--m-ease-spring) calc(var(--otp-i, 0) * 45ms) backwards;
+}
+.otp[data-disabled] > .otp-separator { opacity: var(--m-disabled-opacity); }
+@keyframes m-otp-shake {
+  0%, 100% { translate: 0; }
+  20% { translate: -6px; }
+  40% { translate: 5px; }
+  60% { translate: -3px; }
+  80% { translate: 2px; }
+}
+@keyframes m-otp-pop {
+  0% { scale: 1; }
+  45% { scale: 1.1; }
+  100% { scale: 1; }
+}
+
+/* One time code tones set the focus and fill color; sizes follow the
+   shared control scale. --otp-length (or .otp-4 to .otp-8) sizes the field. */
+.otp-primary { --field-tone: var(--primary); }
+.otp-secondary { --field-tone: var(--secondary); }
+.otp-accent { --field-tone: var(--accent); }
+.otp-neutral { --field-tone: var(--foreground); }
+.otp-success { --field-tone: var(--success); }
+.otp-warning { --field-tone: var(--warning); }
+.otp-danger { --field-tone: var(--danger); }
+.otp-info { --field-tone: var(--info); }
+.otp-xs { --otp-size: 2rem; --field-radius: var(--m-radius-sm); }
+.otp-sm { --otp-size: 2.375rem; --field-radius: var(--m-radius-md); }
+.otp-md { --otp-size: 2.75rem; --field-radius: var(--m-radius-lg); }
+.otp-lg { --otp-size: 3.25rem; --field-radius: var(--m-radius-xl); }
+.otp-xl { --otp-size: 3.75rem; --field-radius: var(--m-radius-2xl); }
+.otp-4 { --otp-length: 4; }
+.otp-5 { --otp-length: 5; }
+.otp-6 { --otp-length: 6; }
+.otp-7 { --otp-length: 7; }
+.otp-8 { --otp-length: 8; }
 
 /* Structure: field, label, hint, error */
 .form {
@@ -939,11 +1039,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .input, .select, .textarea, .otp-input, .file-input, .checkbox, .radio, .toggle,
+  .input, .select, .textarea, .otp-input, .otp-field, .file-input, .checkbox, .radio, .toggle,
   .checkbox::before, .radio::before, .toggle::before, .range::-webkit-slider-thumb,
   .rating-item, .floating-label > span, .checkbox-card, .radio-card, .switch-group-item {
     transition: none;
   }
+  .otp[data-state=error], .otp[data-state=success] > .otp-input { animation: none; }
 }
 @media (forced-colors: active) {
   .checkbox::before, .radio::before, .toggle::before {

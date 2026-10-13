@@ -219,15 +219,33 @@
     {
       "name": "One time code",
       "slug": "otp",
-      "description": "A row of single digit inputs for verification codes.",
+      "description": "A verification code field. Without JavaScript it is one input with spaced monospace characters over slot marks, so typing, paste and SMS autofill (autocomplete=\"one-time-code\") work natively. Add data-m-otp and monsoon.js to get one cell per character (see Two factor and sign in).",
       "classes": [
         "otp",
+        "otp-field",
         "otp-input",
         "otp-separator",
+        "otp-masked",
+        "otp-primary",
+        "otp-secondary",
+        "otp-accent",
+        "otp-neutral",
+        "otp-success",
+        "otp-warning",
+        "otp-danger",
+        "otp-info",
+        "otp-xs",
         "otp-sm",
-        "otp-lg"
+        "otp-md",
+        "otp-lg",
+        "otp-xl",
+        "otp-4",
+        "otp-5",
+        "otp-6",
+        "otp-7",
+        "otp-8"
       ],
-      "html": "<div class=\"otp\" role=\"group\" aria-label=\"Verification code\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"one-time-code\" aria-label=\"Digit 1\" value=\"4\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 2\" value=\"2\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 3\">\n  <span class=\"otp-separator\"></span>\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 4\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 5\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 6\">\n</div>"
+      "html": "<div class=\"grid gap-5\">\n  <div class=\"field\">\n    <label class=\"label\" for=\"otp-sms\">Code from the text message</label>\n    <div class=\"otp\">\n      <input id=\"otp-sms\" class=\"otp-field\" name=\"code\" value=\"4829\" inputmode=\"numeric\" autocomplete=\"one-time-code\" maxlength=\"6\" pattern=\"[0-9]{6}\" spellcheck=\"false\" aria-describedby=\"otp-sms-hint\">\n    </div>\n    <p class=\"hint\" id=\"otp-sms-hint\">Type or paste the 6 digits we sent to your phone.</p>\n  </div>\n  <div class=\"flex flex-wrap items-center gap-4\">\n    <div class=\"otp otp-4 otp-sm otp-primary\">\n      <input class=\"otp-field\" type=\"password\" name=\"pin\" inputmode=\"numeric\" autocomplete=\"off\" maxlength=\"4\" aria-label=\"Card PIN\" value=\"1234\">\n    </div>\n    <div class=\"otp otp-8 otp-sm\">\n      <input class=\"otp-field\" name=\"recovery\" autocomplete=\"off\" maxlength=\"8\" aria-label=\"Recovery code\" value=\"K7Q2\" spellcheck=\"false\">\n    </div>\n  </div>\n</div>"
     },
     {
       "name": "Field",
