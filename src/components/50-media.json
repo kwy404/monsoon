@@ -1,0 +1,343 @@
+{
+  "group": "media",
+  "title": "Media and files",
+  "components": [
+    {
+      "name": "Dropzone",
+      "slug": "dropzone",
+      "description": "Drag and drop, click to browse or paste files, with type, size and count validation, previews for images, GIFs, video, audio and documents, progress, retry, remove, reorder and a total; the native input stays in sync so a normal form submit sends the files. It needs monsoon.js. Without it the native file input still works.",
+      "needsJs": true,
+      "classes": [
+        "dropzone",
+        "dropzone-area",
+        "dropzone-glyph",
+        "dropzone-title",
+        "dropzone-browse",
+        "dropzone-hint",
+        "dropzone-errors",
+        "dropzone-list",
+        "dropzone-item",
+        "dropzone-handle",
+        "dropzone-thumb",
+        "dropzone-icon",
+        "dropzone-play",
+        "dropzone-info",
+        "dropzone-name",
+        "dropzone-meta",
+        "dropzone-progress",
+        "dropzone-summary"
+      ],
+      "html": "<div class=\"dropzone max-w-xl\" data-m-dropzone data-m-dropzone-max-size=\"10mb\" data-m-dropzone-max-files=\"8\"><label class=\"dropzone-area\"><input type=\"file\" name=\"attachments\" multiple accept=\"image/*,video/*,audio/*,.pdf,.zip,.csv,.docx,.txt\"><span class=\"dropzone-glyph\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/></svg></span><span class=\"grid gap-1\"><span class=\"dropzone-title\">Drop files here or <span class=\"dropzone-browse\">browse</span></span><span class=\"dropzone-hint\">Images, video, audio, PDF and documents up to 10 MB, 8 files at most. You can also paste.</span></span></label></div>",
+      "api": {
+        "attribute": "data-m-dropzone on a .dropzone that wraps a label.dropzone-area with an <input type=\"file\">",
+        "options": {
+          "data-m-dropzone-max-size": "Largest file, like 10mb, 500kb or a byte count.",
+          "data-m-dropzone-min-size": "Smallest file.",
+          "data-m-dropzone-max-files": "Most files in the list (1 when the input has no multiple attribute).",
+          "data-m-dropzone-accept": "Accepted types, defaults to the input accept attribute (image/*, .pdf, application/zip).",
+          "data-m-dropzone-simulate": "false turns off the simulated upload progress, files are marked done at once."
+        },
+        "methods": {
+          "Monsoon.dropzone(el).files": "The files in list order.",
+          "Monsoon.dropzone(el).add(files)": "Validates and adds files, returns the accepted ones.",
+          "Monsoon.dropzone(el).remove(indexOrFile)": "Removes one file.",
+          "Monsoon.dropzone(el).clear()": "Removes every file.",
+          "Monsoon.dropzone(el).retry(index)": "Uploads one file again.",
+          "Monsoon.dropzone(el).validate(files)": "Returns { accepted, errors } without adding anything."
+        },
+        "events": {
+          "monsoon:dropzone-change": "detail.files after any add, remove or reorder.",
+          "monsoon:dropzone-upload": "One per file. Call event.preventDefault() to upload it yourself and report with detail.progress(0 to 1), detail.done(response) and detail.error(message).",
+          "monsoon:dropzone-complete": "detail.file and detail.response when an upload finishes.",
+          "monsoon:dropzone-failed": "detail.file and detail.error; the row shows a retry button.",
+          "monsoon:dropzone-error": "detail.errors: [{ file, code, message }] for rejected files (code is type, size, count or duplicate).",
+          "monsoon:dropzone-reorder": "detail.from, detail.to and detail.files after a drag or Arrow key move on the handle."
+        }
+      }
+    },
+    {
+      "name": "Dropzone compact",
+      "slug": "dropzone-compact",
+      "description": "A single row dropzone for tight forms, here for one PDF up to 2 MB. It needs monsoon.js.",
+      "needsJs": true,
+      "classes": [
+        "dropzone-compact"
+      ],
+      "html": "<div class=\"dropzone dropzone-compact max-w-md\" data-m-dropzone data-m-dropzone-max-size=\"2mb\"><label class=\"dropzone-area\"><input type=\"file\" name=\"invoice\" accept=\".pdf,application/pdf\"><span class=\"dropzone-glyph\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/></svg></span><span class=\"grid gap-1\"><span class=\"dropzone-title\">Upload the invoice</span><span class=\"dropzone-hint\">One PDF, 2 MB at most</span></span></label></div>",
+      "api": {
+        "attribute": "Add dropzone-compact next to dropzone. Same options, methods and events as the dropzone."
+      }
+    },
+    {
+      "name": "Image cropper",
+      "slug": "cropper",
+      "description": "Move and resize the crop box with its handles or the keyboard, pick an aspect (free, 1:1, 4:3, 16:9, 3:4, circle), zoom with the slider, wheel or a pinch, rotate, flip, and export to a canvas, Blob, data URL or File. Drop or paste another image to crop it. It needs monsoon.js. Without it the image is shown as is.",
+      "needsJs": true,
+      "classes": [
+        "cropper",
+        "cropper-stage",
+        "cropper-image",
+        "cropper-box",
+        "cropper-grid",
+        "cropper-handle",
+        "cropper-toolbar",
+        "cropper-zoom",
+        "cropper-actions",
+        "cropper-preview",
+        "cropper-preview-circle"
+      ],
+      "html": "<div class=\"flex flex-wrap items-start gap-4\"><div class=\"cropper min-w-0 flex-1 basis-64\" data-m-cropper data-m-cropper-aspect=\"4:3\" data-m-cropper-preview=\"[data-crop-preview]\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Violet ridges at dusk\"></div><div class=\"grid w-32 gap-2\"><div data-crop-preview></div><span class=\"text-xs text-muted-foreground\">Live preview</span></div></div>",
+      "api": {
+        "attribute": "data-m-cropper on a .cropper that contains an <img>",
+        "options": {
+          "data-m-cropper-aspect": "Starting aspect: free, circle, 1:1, 4:3, 16:9, 3:4 or any w:h or number.",
+          "data-m-cropper-aspects": "Comma list of the presets in the toolbar, or none.",
+          "data-m-cropper-preview": "Selector of preview elements, the nearest match is used; each gets the cropper-preview class.",
+          "data-m-cropper-max-zoom": "Largest zoom, 8 by default.",
+          "data-m-cropper-max": "Caps the long side of exports in pixels.",
+          "data-m-cropper-toolbar": "false hides the toolbar."
+        },
+        "methods": {
+          "Monsoon.cropper(el).toBlob(type, quality, options)": "Promise of a Blob. options: { width, height, max, circle, background }.",
+          "Monsoon.cropper(el).toFile(name, type, quality, options)": "Promise of a File, ready for FormData.",
+          "Monsoon.cropper(el).toDataURL(type, quality, options)": "A data URL string.",
+          "Monsoon.cropper(el).toCanvas(options)": "A canvas with the crop at source resolution.",
+          "Monsoon.cropper(el).getData()": "{ x, y, width, height } in source pixels of the turned image, plus rotate, flipX, flipY and zoom.",
+          "Monsoon.cropper(el).setAspect(name)": "Changes the aspect, keeping the centre and area.",
+          "Monsoon.cropper(el).zoom(value)": "Zoom from 1 (whole image) to max zoom.",
+          "Monsoon.cropper(el).rotate(turns)": "Turns by 90 degree steps.",
+          "Monsoon.cropper(el).flip(axis)": "Flips on x or y.",
+          "Monsoon.cropper(el).setBox({ x, y, w, h })": "Places the crop box in stage pixels.",
+          "Monsoon.cropper(el).load(srcOrFile)": "Loads another image, returns a Promise.",
+          "Monsoon.cropper(el).reset()": "Back to the starting state."
+        },
+        "events": {
+          "monsoon:cropper-ready": "The image is loaded, detail is the crop data.",
+          "monsoon:crop": "The crop changed (once per frame while dragging), detail is the crop data."
+        },
+        "keyboard": "Focus the crop box: arrows move it, Shift and arrows resize it, Ctrl or Alt moves 10 pixels, plus and minus zoom."
+      }
+    },
+    {
+      "name": "Avatar upload",
+      "slug": "avatar-upload",
+      "description": "Click, drop or paste a picture to crop it in a circle inside a dialog; saving puts the cropped File into the file input so FormData sends it, writes a data URL into a hidden input when there is one and updates the picture. It needs monsoon.js. Without it the original file is sent.",
+      "needsJs": true,
+      "classes": [
+        "avatar-upload",
+        "avatar-upload-trigger",
+        "avatar-upload-image",
+        "avatar-upload-badge",
+        "avatar-upload-error",
+        "avatar-upload-dialog",
+        "avatar-upload-cropper"
+      ],
+      "html": "<div class=\"avatar-upload\" data-m-avatar-upload data-m-avatar-upload-size=\"256\" data-m-avatar-upload-max-size=\"8mb\"><label class=\"avatar-upload-trigger\"><img class=\"avatar-upload-image\" src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%20viewBox='0%200%20160%20160'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23c4b5fd'/%3E%3Cstop%20offset='1'%20stop-color='%23f9a8d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='160'%20height='160'%20fill='url(%23g)'/%3E%3Ccircle%20cx='80'%20cy='64'%20r='28'%20fill='%23fff'%20opacity='.9'/%3E%3Cpath%20d='M28%20150c6-30%2028-44%2052-44s46%2014%2052%2044z'%20fill='%23fff'%20opacity='.9'/%3E%3C/svg%3E\" alt=\"\"><input type=\"file\" name=\"avatar\" accept=\"image/*\" aria-label=\"Change profile photo\"><span class=\"avatar-upload-badge\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z\"/></svg></span></label><div class=\"grid gap-1\"><span class=\"text-sm font-semibold\">Profile photo</span><span class=\"text-xs text-muted-foreground\">PNG, JPG or GIF up to 8 MB. Click the picture or drop an image on it.</span></div><input type=\"hidden\" name=\"avatar_data\"></div>",
+      "api": {
+        "attribute": "data-m-avatar-upload on an .avatar-upload with a label.avatar-upload-trigger holding an <input type=\"file\">",
+        "options": {
+          "data-m-avatar-upload-size": "Output width and height in pixels, 512 by default.",
+          "data-m-avatar-upload-type": "Output type: image/png (default), image/jpeg or image/webp.",
+          "data-m-avatar-upload-shape": "circle (default) or square.",
+          "data-m-avatar-upload-max-size": "Largest accepted file, like 8mb.",
+          "data-m-avatar-upload-hidden": "Selector of a hidden input for the data URL, defaults to a hidden input inside.",
+          "data-m-avatar-upload-title": "Dialog title."
+        },
+        "methods": {
+          "Monsoon.avatarUpload(el).open(file)": "Opens the crop dialog for a File.",
+          "Monsoon.avatarUpload(el).file": "The last saved File.",
+          "Monsoon.avatarUpload(el).cropper": "The cropper API inside the dialog."
+        },
+        "events": {
+          "monsoon:avatar-open": "detail.file when the dialog opens.",
+          "monsoon:avatar-change": "detail.file, detail.dataURL and detail.data after saving.",
+          "monsoon:avatar-error": "detail.error when the export fails."
+        }
+      }
+    },
+    {
+      "name": "Image viewer",
+      "slug": "image-viewer",
+      "description": "Opens linked images in a full screen viewer with zoom (buttons, wheel, pinch, double click or double tap), pan, swipe, arrow keys, captions, a counter, thumbnails and a download button. It needs monsoon.js. Without it each link opens its image.",
+      "needsJs": true,
+      "classes": [
+        "viewer",
+        "viewer-bar",
+        "viewer-counter",
+        "viewer-zoom",
+        "viewer-tools",
+        "viewer-btn",
+        "viewer-stage",
+        "viewer-image",
+        "viewer-prev",
+        "viewer-next",
+        "viewer-caption",
+        "viewer-thumbs",
+        "viewer-thumb"
+      ],
+      "html": "<div class=\"grid max-w-md grid-cols-4 gap-2\" data-m-image-viewer><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Lake Aurel, just after sunset\" class=\"block overflow-hidden rounded-lg\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Violet ridges at dusk\" class=\"aspect-square w-full object-cover\"></a><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237dd3fc'/%3E%3Cstop%20offset='1'%20stop-color='%23e0f2fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fef9c3'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%230ea5e9'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%230369a1'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%230c4a6e'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Morning over the bay\" class=\"block overflow-hidden rounded-lg\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237dd3fc'/%3E%3Cstop%20offset='1'%20stop-color='%23e0f2fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fef9c3'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%230ea5e9'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%230369a1'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%230c4a6e'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Blue bay under a pale sky\" class=\"aspect-square w-full object-cover\"></a><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='900'%20viewBox='0%200%201200%20900'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23bbf7d0'/%3E%3Cstop%20offset='1'%20stop-color='%23fef3c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='900'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='306'%20r='99'%20fill='%23fde68a'/%3E%3Cpath%20d='M0%20558L240%20378L456%20522L720%20324L1200%20594V900H0Z'%20fill='%2315803d'/%3E%3Cpath%20d='M0%20666L336%20504L624%20648L936%20540L1200%20684V900H0Z'%20fill='%2314532d'/%3E%3Crect%20y='756'%20width='1200'%20height='144'%20fill='%23052e16'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Pine valley in late summer\" class=\"block overflow-hidden rounded-lg\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='900'%20viewBox='0%200%201200%20900'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23bbf7d0'/%3E%3Cstop%20offset='1'%20stop-color='%23fef3c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='900'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='306'%20r='99'%20fill='%23fde68a'/%3E%3Cpath%20d='M0%20558L240%20378L456%20522L720%20324L1200%20594V900H0Z'%20fill='%2315803d'/%3E%3Cpath%20d='M0%20666L336%20504L624%20648L936%20540L1200%20684V900H0Z'%20fill='%2314532d'/%3E%3Crect%20y='756'%20width='1200'%20height='144'%20fill='%23052e16'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Green hills and a golden sky\" class=\"aspect-square w-full object-cover\"></a><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='1200'%20viewBox='0%200%20900%201200'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fde68a'/%3E%3Cstop%20offset='1'%20stop-color='%23fb923c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='900'%20height='1200'%20fill='url(%23s)'/%3E%3Ccircle%20cx='630'%20cy='408'%20r='99'%20fill='%23fffbeb'/%3E%3Cpath%20d='M0%20744L180%20504L342%20696L540%20432L900%20792V1200H0Z'%20fill='%23c2410c'/%3E%3Cpath%20d='M0%20888L252%20672L468%20864L702%20720L900%20912V1200H0Z'%20fill='%237c2d12'/%3E%3Crect%20y='1008'%20width='900'%20height='192'%20fill='%23431407'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Dunes at noon, shot in portrait\" class=\"block overflow-hidden rounded-lg\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='1200'%20viewBox='0%200%20900%201200'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fde68a'/%3E%3Cstop%20offset='1'%20stop-color='%23fb923c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='900'%20height='1200'%20fill='url(%23s)'/%3E%3Ccircle%20cx='630'%20cy='408'%20r='99'%20fill='%23fffbeb'/%3E%3Cpath%20d='M0%20744L180%20504L342%20696L540%20432L900%20792V1200H0Z'%20fill='%23c2410c'/%3E%3Cpath%20d='M0%20888L252%20672L468%20864L702%20720L900%20912V1200H0Z'%20fill='%237c2d12'/%3E%3Crect%20y='1008'%20width='900'%20height='192'%20fill='%23431407'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Orange dunes in tall format\" class=\"aspect-square w-full object-cover\"></a></div>",
+      "api": {
+        "attribute": "data-m-image-viewer on any element that holds the links; the viewer dialog is created on first open",
+        "options": {
+          "data-m-image-viewer-selector": "Which children open the viewer, a[href], [data-src] by default. Captions come from data-caption, then the image alt.",
+          "data-m-image-viewer-loop": "false stops at the first and last image.",
+          "data-m-image-viewer-max-zoom": "Largest zoom, 5 by default.",
+          "data-m-image-viewer-thumbs": "false hides the thumbnail strip."
+        },
+        "methods": {
+          "Monsoon.imageViewer(el).open(index)": "Opens at an image.",
+          "Monsoon.imageViewer(el).close()": "Closes the viewer.",
+          "Monsoon.imageViewer(el).next() and prev()": "Moves between images.",
+          "Monsoon.imageViewer(el).zoom(value)": "Zooms the current image."
+        },
+        "events": {
+          "monsoon:viewer-open": "detail.index",
+          "monsoon:viewer-change": "detail.index and detail.item (the link)",
+          "monsoon:viewer-close": "detail.index"
+        },
+        "keyboard": "Left and Right change image, Home and End jump, plus, minus and 0 zoom, Escape closes."
+      }
+    },
+    {
+      "name": "Media gallery",
+      "slug": "media-gallery",
+      "description": "A grid of thumbnails with selection (Shift click selects a range, Escape clears), select all, delete, drag or Alt and arrow keys to reorder, and the image viewer on click. It needs monsoon.js. Without it the links open the images and the checkboxes submit with the form.",
+      "needsJs": true,
+      "classes": [
+        "gallery",
+        "gallery-bar",
+        "gallery-count",
+        "gallery-actions",
+        "gallery-list",
+        "gallery-item",
+        "gallery-check",
+        "gallery-caption"
+      ],
+      "html": "<div class=\"gallery max-w-2xl\" data-m-media-gallery><ul class=\"gallery-list\"><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Lake Aurel, just after sunset\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Violet ridges at dusk\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"1\" aria-label=\"Select violet ridges at dusk\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237dd3fc'/%3E%3Cstop%20offset='1'%20stop-color='%23e0f2fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fef9c3'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%230ea5e9'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%230369a1'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%230c4a6e'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Morning over the bay\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237dd3fc'/%3E%3Cstop%20offset='1'%20stop-color='%23e0f2fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fef9c3'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%230ea5e9'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%230369a1'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%230c4a6e'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Blue bay under a pale sky\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"2\" aria-label=\"Select blue bay under a pale sky\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='900'%20viewBox='0%200%201200%20900'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23bbf7d0'/%3E%3Cstop%20offset='1'%20stop-color='%23fef3c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='900'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='306'%20r='99'%20fill='%23fde68a'/%3E%3Cpath%20d='M0%20558L240%20378L456%20522L720%20324L1200%20594V900H0Z'%20fill='%2315803d'/%3E%3Cpath%20d='M0%20666L336%20504L624%20648L936%20540L1200%20684V900H0Z'%20fill='%2314532d'/%3E%3Crect%20y='756'%20width='1200'%20height='144'%20fill='%23052e16'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Pine valley in late summer\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='900'%20viewBox='0%200%201200%20900'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23bbf7d0'/%3E%3Cstop%20offset='1'%20stop-color='%23fef3c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='900'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='306'%20r='99'%20fill='%23fde68a'/%3E%3Cpath%20d='M0%20558L240%20378L456%20522L720%20324L1200%20594V900H0Z'%20fill='%2315803d'/%3E%3Cpath%20d='M0%20666L336%20504L624%20648L936%20540L1200%20684V900H0Z'%20fill='%2314532d'/%3E%3Crect%20y='756'%20width='1200'%20height='144'%20fill='%23052e16'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Green hills and a golden sky\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"3\" aria-label=\"Select green hills and a golden sky\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='1200'%20viewBox='0%200%20900%201200'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fde68a'/%3E%3Cstop%20offset='1'%20stop-color='%23fb923c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='900'%20height='1200'%20fill='url(%23s)'/%3E%3Ccircle%20cx='630'%20cy='408'%20r='99'%20fill='%23fffbeb'/%3E%3Cpath%20d='M0%20744L180%20504L342%20696L540%20432L900%20792V1200H0Z'%20fill='%23c2410c'/%3E%3Cpath%20d='M0%20888L252%20672L468%20864L702%20720L900%20912V1200H0Z'%20fill='%237c2d12'/%3E%3Crect%20y='1008'%20width='900'%20height='192'%20fill='%23431407'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Dunes at noon, shot in portrait\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='1200'%20viewBox='0%200%20900%201200'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fde68a'/%3E%3Cstop%20offset='1'%20stop-color='%23fb923c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='900'%20height='1200'%20fill='url(%23s)'/%3E%3Ccircle%20cx='630'%20cy='408'%20r='99'%20fill='%23fffbeb'/%3E%3Cpath%20d='M0%20744L180%20504L342%20696L540%20432L900%20792V1200H0Z'%20fill='%23c2410c'/%3E%3Cpath%20d='M0%20888L252%20672L468%20864L702%20720L900%20912V1200H0Z'%20fill='%237c2d12'/%3E%3Crect%20y='1008'%20width='900'%20height='192'%20fill='%23431407'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Orange dunes in tall format\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"4\" aria-label=\"Select orange dunes in tall format\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='700'%20viewBox='0%200%201200%20700'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%231e1b4b'/%3E%3Cstop%20offset='1'%20stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='700'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='238'%20r='77'%20fill='%23e0e7ff'/%3E%3Cpath%20d='M0%20434L240%20294L456%20406L720%20252L1200%20462V700H0Z'%20fill='%23312e81'/%3E%3Cpath%20d='M0%20518L336%20392L624%20504L936%20420L1200%20532V700H0Z'%20fill='%230f172a'/%3E%3Crect%20y='588'%20width='1200'%20height='112'%20fill='%23020617'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Moonrise over the pass\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='700'%20viewBox='0%200%201200%20700'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%231e1b4b'/%3E%3Cstop%20offset='1'%20stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='700'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='238'%20r='77'%20fill='%23e0e7ff'/%3E%3Cpath%20d='M0%20434L240%20294L456%20406L720%20252L1200%20462V700H0Z'%20fill='%23312e81'/%3E%3Cpath%20d='M0%20518L336%20392L624%20504L936%20420L1200%20532V700H0Z'%20fill='%230f172a'/%3E%3Crect%20y='588'%20width='1200'%20height='112'%20fill='%23020617'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Purple night sky over dark hills\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"5\" aria-label=\"Select purple night sky over dark hills\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1000'%20height='1000'%20viewBox='0%200%201000%201000'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23e0e7ff'/%3E%3Cstop%20offset='1'%20stop-color='%23f8fafc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1000'%20height='1000'%20fill='url(%23s)'/%3E%3Ccircle%20cx='700'%20cy='340'%20r='110'%20fill='%23fef3c7'/%3E%3Cpath%20d='M0%20620L200%20420L380%20580L600%20360L1000%20660V1000H0Z'%20fill='%2394a3b8'/%3E%3Cpath%20d='M0%20740L280%20560L520%20720L780%20600L1000%20760V1000H0Z'%20fill='%23475569'/%3E%3Crect%20y='840'%20width='1000'%20height='160'%20fill='%231e293b'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"First snow on the ridge\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1000'%20height='1000'%20viewBox='0%200%201000%201000'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23e0e7ff'/%3E%3Cstop%20offset='1'%20stop-color='%23f8fafc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1000'%20height='1000'%20fill='url(%23s)'/%3E%3Ccircle%20cx='700'%20cy='340'%20r='110'%20fill='%23fef3c7'/%3E%3Cpath%20d='M0%20620L200%20420L380%20580L600%20360L1000%20660V1000H0Z'%20fill='%2394a3b8'/%3E%3Cpath%20d='M0%20740L280%20560L520%20720L780%20600L1000%20760V1000H0Z'%20fill='%23475569'/%3E%3Crect%20y='840'%20width='1000'%20height='160'%20fill='%231e293b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Grey peaks in soft light\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"6\" aria-label=\"Select grey peaks in soft light\"></label></li></ul></div>",
+      "api": {
+        "attribute": "data-m-media-gallery on a .gallery with a ul.gallery-list of li.gallery-item",
+        "options": {
+          "data-m-media-gallery-viewer": "false turns off the image viewer.",
+          "data-m-media-gallery-loop": "Passed to the viewer.",
+          "data-m-media-gallery-thumbs": "Passed to the viewer."
+        },
+        "methods": {
+          "Monsoon.mediaGallery(el).selected": "The selected items.",
+          "Monsoon.mediaGallery(el).values": "Values of the selected checkboxes.",
+          "Monsoon.mediaGallery(el).selectAll() and clear()": "Changes the selection.",
+          "Monsoon.mediaGallery(el).delete()": "Deletes the selected items.",
+          "Monsoon.mediaGallery(el).viewer": "The image viewer API."
+        },
+        "events": {
+          "monsoon:gallery-select": "detail.items and detail.values",
+          "monsoon:gallery-delete": "Cancelable, detail.items and detail.values; call preventDefault() to keep them.",
+          "monsoon:gallery-reorder": "detail.from, detail.to and detail.order (values in the new order)."
+        },
+        "keyboard": "Space on a checkbox selects, Shift click selects a range, Ctrl or Cmd click on a picture selects, Delete removes the selection, Alt and arrows move a picture, Escape clears."
+      }
+    },
+    {
+      "name": "Media gallery masonry",
+      "slug": "media-gallery-masonry",
+      "description": "The same gallery in balanced columns that keep each picture at its own height. It needs monsoon.js.",
+      "needsJs": true,
+      "classes": [
+        "gallery-masonry"
+      ],
+      "html": "<div class=\"gallery gallery-masonry max-w-2xl\" data-m-media-gallery><ul class=\"gallery-list\"><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='1200'%20viewBox='0%200%20900%201200'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fde68a'/%3E%3Cstop%20offset='1'%20stop-color='%23fb923c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='900'%20height='1200'%20fill='url(%23s)'/%3E%3Ccircle%20cx='630'%20cy='408'%20r='99'%20fill='%23fffbeb'/%3E%3Cpath%20d='M0%20744L180%20504L342%20696L540%20432L900%20792V1200H0Z'%20fill='%23c2410c'/%3E%3Cpath%20d='M0%20888L252%20672L468%20864L702%20720L900%20912V1200H0Z'%20fill='%237c2d12'/%3E%3Crect%20y='1008'%20width='900'%20height='192'%20fill='%23431407'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Dunes at noon, shot in portrait\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='1200'%20viewBox='0%200%20900%201200'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fde68a'/%3E%3Cstop%20offset='1'%20stop-color='%23fb923c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='900'%20height='1200'%20fill='url(%23s)'/%3E%3Ccircle%20cx='630'%20cy='408'%20r='99'%20fill='%23fffbeb'/%3E%3Cpath%20d='M0%20744L180%20504L342%20696L540%20432L900%20792V1200H0Z'%20fill='%23c2410c'/%3E%3Cpath%20d='M0%20888L252%20672L468%20864L702%20720L900%20912V1200H0Z'%20fill='%237c2d12'/%3E%3Crect%20y='1008'%20width='900'%20height='192'%20fill='%23431407'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Orange dunes in tall format\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"1\" aria-label=\"Select orange dunes in tall format\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Lake Aurel, just after sunset\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%233b0764'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Violet ridges at dusk\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"2\" aria-label=\"Select violet ridges at dusk\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1000'%20height='1000'%20viewBox='0%200%201000%201000'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23e0e7ff'/%3E%3Cstop%20offset='1'%20stop-color='%23f8fafc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1000'%20height='1000'%20fill='url(%23s)'/%3E%3Ccircle%20cx='700'%20cy='340'%20r='110'%20fill='%23fef3c7'/%3E%3Cpath%20d='M0%20620L200%20420L380%20580L600%20360L1000%20660V1000H0Z'%20fill='%2394a3b8'/%3E%3Cpath%20d='M0%20740L280%20560L520%20720L780%20600L1000%20760V1000H0Z'%20fill='%23475569'/%3E%3Crect%20y='840'%20width='1000'%20height='160'%20fill='%231e293b'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"First snow on the ridge\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1000'%20height='1000'%20viewBox='0%200%201000%201000'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23e0e7ff'/%3E%3Cstop%20offset='1'%20stop-color='%23f8fafc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1000'%20height='1000'%20fill='url(%23s)'/%3E%3Ccircle%20cx='700'%20cy='340'%20r='110'%20fill='%23fef3c7'/%3E%3Cpath%20d='M0%20620L200%20420L380%20580L600%20360L1000%20660V1000H0Z'%20fill='%2394a3b8'/%3E%3Cpath%20d='M0%20740L280%20560L520%20720L780%20600L1000%20760V1000H0Z'%20fill='%23475569'/%3E%3Crect%20y='840'%20width='1000'%20height='160'%20fill='%231e293b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Grey peaks in soft light\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"3\" aria-label=\"Select grey peaks in soft light\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='700'%20viewBox='0%200%201200%20700'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%231e1b4b'/%3E%3Cstop%20offset='1'%20stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='700'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='238'%20r='77'%20fill='%23e0e7ff'/%3E%3Cpath%20d='M0%20434L240%20294L456%20406L720%20252L1200%20462V700H0Z'%20fill='%23312e81'/%3E%3Cpath%20d='M0%20518L336%20392L624%20504L936%20420L1200%20532V700H0Z'%20fill='%230f172a'/%3E%3Crect%20y='588'%20width='1200'%20height='112'%20fill='%23020617'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Moonrise over the pass\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='700'%20viewBox='0%200%201200%20700'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%231e1b4b'/%3E%3Cstop%20offset='1'%20stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='700'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='238'%20r='77'%20fill='%23e0e7ff'/%3E%3Cpath%20d='M0%20434L240%20294L456%20406L720%20252L1200%20462V700H0Z'%20fill='%23312e81'/%3E%3Cpath%20d='M0%20518L336%20392L624%20504L936%20420L1200%20532V700H0Z'%20fill='%230f172a'/%3E%3Crect%20y='588'%20width='1200'%20height='112'%20fill='%23020617'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Purple night sky over dark hills\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"4\" aria-label=\"Select purple night sky over dark hills\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='900'%20viewBox='0%200%201200%20900'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23bbf7d0'/%3E%3Cstop%20offset='1'%20stop-color='%23fef3c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='900'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='306'%20r='99'%20fill='%23fde68a'/%3E%3Cpath%20d='M0%20558L240%20378L456%20522L720%20324L1200%20594V900H0Z'%20fill='%2315803d'/%3E%3Cpath%20d='M0%20666L336%20504L624%20648L936%20540L1200%20684V900H0Z'%20fill='%2314532d'/%3E%3Crect%20y='756'%20width='1200'%20height='144'%20fill='%23052e16'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Pine valley in late summer\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='900'%20viewBox='0%200%201200%20900'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23bbf7d0'/%3E%3Cstop%20offset='1'%20stop-color='%23fef3c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='900'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='306'%20r='99'%20fill='%23fde68a'/%3E%3Cpath%20d='M0%20558L240%20378L456%20522L720%20324L1200%20594V900H0Z'%20fill='%2315803d'/%3E%3Cpath%20d='M0%20666L336%20504L624%20648L936%20540L1200%20684V900H0Z'%20fill='%2314532d'/%3E%3Crect%20y='756'%20width='1200'%20height='144'%20fill='%23052e16'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Green hills and a golden sky\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"5\" aria-label=\"Select green hills and a golden sky\"></label></li><li class=\"gallery-item\"><a href=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237dd3fc'/%3E%3Cstop%20offset='1'%20stop-color='%23e0f2fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fef9c3'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%230ea5e9'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%230369a1'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%230c4a6e'%20opacity='.85'/%3E%3C/svg%3E\" data-caption=\"Morning over the bay\"><img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='800'%20viewBox='0%200%201200%20800'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%237dd3fc'/%3E%3Cstop%20offset='1'%20stop-color='%23e0f2fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='800'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='272'%20r='88'%20fill='%23fef9c3'/%3E%3Cpath%20d='M0%20496L240%20336L456%20464L720%20288L1200%20528V800H0Z'%20fill='%230ea5e9'/%3E%3Cpath%20d='M0%20592L336%20448L624%20576L936%20480L1200%20608V800H0Z'%20fill='%230369a1'/%3E%3Crect%20y='672'%20width='1200'%20height='128'%20fill='%230c4a6e'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Blue bay under a pale sky\"></a><label class=\"gallery-check\"><input type=\"checkbox\" name=\"media\" value=\"6\" aria-label=\"Select blue bay under a pale sky\"></label></li></ul></div>",
+      "api": {
+        "attribute": "Add gallery-masonry next to gallery. Set --gallery-min for the column width and --gallery-gap for the gap."
+      }
+    },
+    {
+      "name": "Before and after compare",
+      "slug": "compare",
+      "description": "Two pictures (or any two elements) split by a divider that follows the pointer, a finger or the keyboard through a native range input, with optional labels. It needs monsoon.js. Without it a fixed half and half split shows.",
+      "needsJs": true,
+      "classes": [
+        "compare",
+        "compare-before",
+        "compare-after",
+        "compare-range",
+        "compare-handle",
+        "compare-knob",
+        "compare-label",
+        "compare-label-after"
+      ],
+      "html": "<div class=\"compare aspect-video max-w-xl\" data-m-compare><img class=\"compare-before\" src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='675'%20viewBox='0%200%201200%20675'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23cbd5e1'/%3E%3Cstop%20offset='1'%20stop-color='%23e2e8f0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='675'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='230'%20r='74.25'%20fill='%23f1f5f9'/%3E%3Cpath%20d='M0%20418.5L240%20283.5L456%20391.5L720%20243L1200%20445.5V675H0Z'%20fill='%2394a3b8'/%3E%3Cpath%20d='M0%20499.5L336%20378L624%20486L936%20405L1200%20513V675H0Z'%20fill='%2364748b'/%3E%3Crect%20y='567'%20width='1200'%20height='108'%20fill='%23475569'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Before: the raw photo\"><img class=\"compare-after\" src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='675'%20viewBox='0%200%201200%20675'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='675'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='230'%20r='74.25'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20418.5L240%20283.5L456%20391.5L720%20243L1200%20445.5V675H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20499.5L336%20378L624%20486L936%20405L1200%20513V675H0Z'%20fill='%233b0764'/%3E%3Crect%20y='567'%20width='1200'%20height='108'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"After: the color graded photo\"><span class=\"compare-label\">Before</span><span class=\"compare-label compare-label-after\">After</span><input type=\"range\" class=\"compare-range\" min=\"0\" max=\"100\" value=\"50\" aria-label=\"Before and after divider\"></div>",
+      "api": {
+        "attribute": "data-m-compare on a .compare with .compare-before and .compare-after",
+        "options": {
+          "data-m-compare-position": "Starting position in percent, 50 by default (or the range value).",
+          "data-m-compare-orientation": "vertical splits top and bottom, like the compare-vertical class.",
+          "data-m-compare-hover": "true makes the divider follow a mouse without pressing.",
+          "data-m-compare-step": "Keyboard step in percent."
+        },
+        "methods": {
+          "Monsoon.compare(el).set(percent)": "Moves the divider.",
+          "Monsoon.compare(el).position": "Current position in percent."
+        },
+        "events": {
+          "monsoon:compare": "detail.position in percent."
+        },
+        "keyboard": "Arrows, Page Up, Page Down, Home and End on the range input."
+      }
+    },
+    {
+      "name": "Compare vertical",
+      "slug": "compare-vertical",
+      "description": "A top and bottom split. It needs monsoon.js.",
+      "needsJs": true,
+      "classes": [
+        "compare-vertical"
+      ],
+      "html": "<div class=\"compare compare-vertical aspect-video max-w-xl\" data-m-compare data-m-compare-position=\"40\"><img class=\"compare-before\" src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='675'%20viewBox='0%200%201200%20675'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23cbd5e1'/%3E%3Cstop%20offset='1'%20stop-color='%23e2e8f0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='675'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='230'%20r='74.25'%20fill='%23f1f5f9'/%3E%3Cpath%20d='M0%20418.5L240%20283.5L456%20391.5L720%20243L1200%20445.5V675H0Z'%20fill='%2394a3b8'/%3E%3Cpath%20d='M0%20499.5L336%20378L624%20486L936%20405L1200%20513V675H0Z'%20fill='%2364748b'/%3E%3Crect%20y='567'%20width='1200'%20height='108'%20fill='%23475569'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"Before: the raw photo\"><img class=\"compare-after\" src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='675'%20viewBox='0%200%201200%20675'%3E%3Cdefs%3E%3ClinearGradient%20id='s'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23fdba74'/%3E%3Cstop%20offset='1'%20stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1200'%20height='675'%20fill='url(%23s)'/%3E%3Ccircle%20cx='840'%20cy='230'%20r='74.25'%20fill='%23fff7d6'/%3E%3Cpath%20d='M0%20418.5L240%20283.5L456%20391.5L720%20243L1200%20445.5V675H0Z'%20fill='%237c3aed'/%3E%3Cpath%20d='M0%20499.5L336%20378L624%20486L936%20405L1200%20513V675H0Z'%20fill='%233b0764'/%3E%3Crect%20y='567'%20width='1200'%20height='108'%20fill='%231e1b4b'%20opacity='.85'/%3E%3C/svg%3E\" alt=\"After: the color graded photo\"><span class=\"compare-label\">Before</span><span class=\"compare-label compare-label-after\">After</span></div>",
+      "api": {
+        "attribute": "Add compare-vertical next to compare. Same API as the compare."
+      }
+    },
+    {
+      "name": "Signature pad",
+      "slug": "signature",
+      "description": "Smooth, speed and pressure aware strokes with pen colors and width, undo, clear, PNG and SVG export, and strokes that survive a resize; the result goes into a hidden input. A typed name field stays available for people who cannot draw. It needs monsoon.js. Without it only the typed name field shows.",
+      "needsJs": true,
+      "classes": [
+        "signature",
+        "signature-pad",
+        "signature-canvas",
+        "signature-hint",
+        "signature-toolbar",
+        "signature-colors",
+        "signature-swatch",
+        "signature-width",
+        "signature-actions",
+        "signature-fallback"
+      ],
+      "html": "<div class=\"signature max-w-lg\" data-m-signature><input type=\"hidden\" name=\"signature\"><label class=\"grid gap-1 text-sm\"><span class=\"text-muted-foreground\">Or type your full name</span><input class=\"input signature-fallback\" name=\"signature_name\" autocomplete=\"name\"></label></div>",
+      "api": {
+        "attribute": "data-m-signature on a .signature; the pad, canvas and toolbar are created when missing",
+        "options": {
+          "data-m-signature-colors": "Comma list of pen colors, CSS colors or tokens, var(--foreground),var(--primary),var(--info) by default.",
+          "data-m-signature-width": "Pen width in pixels, 2.5 by default.",
+          "data-m-signature-format": "png (default) or svg, for the hidden input value.",
+          "data-m-signature-input": "Selector of the hidden input, defaults to one inside.",
+          "data-m-signature-placeholder": "Text on the empty pad, Sign here by default.",
+          "data-m-signature-toolbar": "false hides the toolbar."
+        },
+        "methods": {
+          "Monsoon.signature(el).toDataURL(type, quality, options)": "PNG by default. options: { scale, background }.",
+          "Monsoon.signature(el).toBlob(type, quality, options)": "Promise of a Blob.",
+          "Monsoon.signature(el).toSVG(options)": "SVG markup string with one path per segment.",
+          "Monsoon.signature(el).toData() and fromData(strokes)": "Saves and restores the strokes.",
+          "Monsoon.signature(el).undo() and clear()": "Removes the last or every stroke.",
+          "Monsoon.signature(el).setColor(color) and setWidth(px)": "Changes the pen.",
+          "Monsoon.signature(el).empty": "True when nothing is drawn."
+        },
+        "events": {
+          "monsoon:signature-change": "detail.empty and detail.strokes after each stroke, undo or clear."
+        },
+        "keyboard": "Ctrl or Cmd and Z undoes while the pad has focus."
+      }
+    }
+  ]
+}
