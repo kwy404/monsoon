@@ -1,0 +1,358 @@
+{
+  "group": "forms",
+  "title": "Forms",
+  "components": [
+    {
+      "name": "Input",
+      "slug": "input",
+      "description": "Text, email, password, number, search, url and tel inputs with sizes, tones, ghost and filled variants.",
+      "classes": [
+        "input",
+        "input-bordered",
+        "input-ghost",
+        "input-filled",
+        "input-primary",
+        "input-success",
+        "input-warning",
+        "input-danger",
+        "input-xs",
+        "input-sm",
+        "input-md",
+        "input-lg"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <input type=\"email\" class=\"input\" placeholder=\"you@example.com\" aria-label=\"Email\">\n  <input type=\"text\" class=\"input input-sm input-ghost\" placeholder=\"Ghost, small\" aria-label=\"Ghost input\">\n  <input type=\"url\" class=\"input input-filled\" placeholder=\"https://\" aria-label=\"Website\">\n  <input type=\"tel\" class=\"input input-success\" value=\"+1 415 555 0132\" aria-label=\"Phone\">\n  <input type=\"text\" class=\"input input-lg\" value=\"Read only value\" readonly aria-label=\"Read only\">\n  <input type=\"text\" class=\"input\" placeholder=\"Disabled\" disabled aria-label=\"Disabled input\">\n</div>"
+    },
+    {
+      "name": "Date and time",
+      "slug": "date-time",
+      "description": "The .input class styles date, time and datetime pickers, with a picker icon that follows the theme.",
+      "classes": [
+        "input"
+      ],
+      "html": "<div class=\"grid grid-cols-2 gap-3 max-w-sm\">\n  <input type=\"date\" class=\"input\" value=\"2026-10-13\" aria-label=\"Date\">\n  <input type=\"time\" class=\"input\" value=\"09:30\" aria-label=\"Time\">\n  <input type=\"datetime-local\" class=\"input col-span-2\" value=\"2026-10-13T09:30\" aria-label=\"Date and time\">\n</div>"
+    },
+    {
+      "name": "Textarea",
+      "slug": "textarea",
+      "description": "Multi line text with the same sizes and tones as inputs, plus an autosize variant that grows with its content.",
+      "classes": [
+        "textarea",
+        "textarea-bordered",
+        "textarea-ghost",
+        "textarea-filled",
+        "textarea-primary",
+        "textarea-success",
+        "textarea-warning",
+        "textarea-danger",
+        "textarea-xs",
+        "textarea-sm",
+        "textarea-md",
+        "textarea-lg",
+        "textarea-autosize"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <textarea class=\"textarea\" placeholder=\"Tell us about your project\" aria-label=\"Project\"></textarea>\n  <textarea class=\"textarea textarea-autosize textarea-sm\" aria-label=\"Notes\">This one grows as you type.</textarea>\n</div>"
+    },
+    {
+      "name": "Select",
+      "slug": "select",
+      "description": "A styled native select with a theme aware chevron, sizes, tones and variants.",
+      "classes": [
+        "select",
+        "select-bordered",
+        "select-ghost",
+        "select-filled",
+        "select-primary",
+        "select-success",
+        "select-warning",
+        "select-danger",
+        "select-xs",
+        "select-sm",
+        "select-md",
+        "select-lg"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <select class=\"select\" aria-label=\"Country\">\n    <option>Brazil</option>\n    <option>Canada</option>\n    <option>Japan</option>\n  </select>\n  <select class=\"select select-sm select-filled\" aria-label=\"Sort by\">\n    <option>Newest first</option>\n    <option>Oldest first</option>\n  </select>\n</div>"
+    },
+    {
+      "name": "Multiple select",
+      "slug": "select-multiple",
+      "description": "With multiple or size the select becomes a list box without the chevron.",
+      "classes": [
+        "select"
+      ],
+      "html": "<select class=\"select max-w-sm\" multiple size=\"4\" aria-label=\"Skills\">\n  <option selected>Design</option>\n  <option>Engineering</option>\n  <option selected>Marketing</option>\n  <option>Support</option>\n</select>"
+    },
+    {
+      "name": "Custom select",
+      "slug": "select-custom",
+      "description": "Add select-custom to opt in to the customizable select (appearance: base-select) with a styled picker where supported; other browsers keep the native select.",
+      "classes": [
+        "select-custom"
+      ],
+      "html": "<select class=\"select select-custom max-w-sm\" aria-label=\"Plan\">\n  <option>Starter</option>\n  <option selected>Team</option>\n  <option>Enterprise</option>\n</select>"
+    },
+    {
+      "name": "Checkbox",
+      "slug": "checkbox",
+      "description": "Custom drawn checkbox with checked and indeterminate states, tones, sizes and an animated check.",
+      "classes": [
+        "checkbox",
+        "checkbox-primary",
+        "checkbox-accent",
+        "checkbox-success",
+        "checkbox-warning",
+        "checkbox-danger",
+        "checkbox-info",
+        "checkbox-neutral",
+        "checkbox-xs",
+        "checkbox-sm",
+        "checkbox-md",
+        "checkbox-lg"
+      ],
+      "html": "<div class=\"flex flex-wrap items-center gap-4\">\n  <label class=\"label\"><input type=\"checkbox\" class=\"checkbox\" checked> Remember me</label>\n  <label class=\"label\"><input type=\"checkbox\" class=\"checkbox checkbox-success\" checked> Success</label>\n  <label class=\"label\"><input type=\"checkbox\" class=\"checkbox checkbox-danger checkbox-lg\"> Large</label>\n  <label class=\"label\"><input type=\"checkbox\" class=\"checkbox checkbox-sm\" checked disabled> Disabled</label>\n</div>"
+    },
+    {
+      "name": "Radio",
+      "slug": "radio",
+      "description": "Custom drawn radio buttons with tones and sizes.",
+      "classes": [
+        "radio",
+        "radio-primary",
+        "radio-accent",
+        "radio-success",
+        "radio-warning",
+        "radio-danger",
+        "radio-info",
+        "radio-neutral",
+        "radio-xs",
+        "radio-sm",
+        "radio-md",
+        "radio-lg"
+      ],
+      "html": "<div class=\"flex flex-wrap items-center gap-4\" role=\"radiogroup\" aria-label=\"Billing\">\n  <label class=\"label\"><input type=\"radio\" class=\"radio\" name=\"billing\" checked> Monthly</label>\n  <label class=\"label\"><input type=\"radio\" class=\"radio\" name=\"billing\"> Yearly</label>\n  <label class=\"label\"><input type=\"radio\" class=\"radio radio-accent radio-lg\" name=\"tone\" checked> Accent</label>\n  <label class=\"label\"><input type=\"radio\" class=\"radio radio-info radio-sm\" name=\"tone2\" checked> Info</label>\n</div>"
+    },
+    {
+      "name": "Toggle",
+      "slug": "toggle",
+      "description": "A switch drawn on a native checkbox, with tones and sizes.",
+      "classes": [
+        "toggle",
+        "toggle-primary",
+        "toggle-accent",
+        "toggle-success",
+        "toggle-warning",
+        "toggle-danger",
+        "toggle-info",
+        "toggle-neutral",
+        "toggle-xs",
+        "toggle-sm",
+        "toggle-md",
+        "toggle-lg"
+      ],
+      "html": "<div class=\"flex flex-wrap items-center gap-4\">\n  <label class=\"label\"><input type=\"checkbox\" class=\"toggle\" role=\"switch\" checked> Notifications</label>\n  <label class=\"label\"><input type=\"checkbox\" class=\"toggle\" role=\"switch\"> Off</label>\n  <label class=\"label\"><input type=\"checkbox\" class=\"toggle toggle-success toggle-lg\" role=\"switch\" checked> Large</label>\n  <label class=\"label\"><input type=\"checkbox\" class=\"toggle toggle-sm\" role=\"switch\" disabled> Disabled</label>\n</div>"
+    },
+    {
+      "name": "Range",
+      "slug": "range",
+      "description": "Slider with a custom track and thumb in every engine, a filled track and tones.",
+      "classes": [
+        "range",
+        "range-primary",
+        "range-accent",
+        "range-success",
+        "range-warning",
+        "range-danger",
+        "range-info",
+        "range-neutral",
+        "range-xs",
+        "range-sm",
+        "range-md",
+        "range-lg"
+      ],
+      "html": "<div class=\"grid gap-4 max-w-sm\">\n  <input type=\"range\" class=\"range\" value=\"40\" aria-label=\"Volume\">\n  <input type=\"range\" class=\"range range-success range-sm\" value=\"70\" aria-label=\"Progress\">\n  <input type=\"range\" class=\"range range-danger range-lg\" value=\"20\" aria-label=\"Risk\">\n</div>"
+    },
+    {
+      "name": "File input",
+      "slug": "file-input",
+      "description": "A native file input with a styled selector button.",
+      "classes": [
+        "file-input",
+        "file-input-primary",
+        "file-input-xs",
+        "file-input-sm",
+        "file-input-md",
+        "file-input-lg"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <input type=\"file\" class=\"file-input\" aria-label=\"Attachment\">\n  <input type=\"file\" class=\"file-input file-input-primary file-input-sm\" aria-label=\"Avatar\">\n</div>"
+    },
+    {
+      "name": "Color input",
+      "slug": "color-input",
+      "description": "A native color picker shown as a rounded swatch.",
+      "classes": [
+        "color-input",
+        "color-input-sm",
+        "color-input-lg"
+      ],
+      "html": "<div class=\"flex items-center gap-3\">\n  <input type=\"color\" class=\"color-input color-input-sm\" value=\"#0ea5e9\" aria-label=\"Small color\">\n  <input type=\"color\" class=\"color-input\" value=\"#8b5cf6\" aria-label=\"Brand color\">\n  <input type=\"color\" class=\"color-input color-input-lg\" value=\"#f43f5e\" aria-label=\"Large color\">\n</div>"
+    },
+    {
+      "name": "Rating",
+      "slug": "rating",
+      "description": "Star rating built from a radio group, with hover preview and keyboard support.",
+      "classes": [
+        "rating",
+        "rating-item",
+        "rating-primary",
+        "rating-warning",
+        "rating-danger",
+        "rating-xs",
+        "rating-sm",
+        "rating-md",
+        "rating-lg"
+      ],
+      "html": "<div class=\"rating\" role=\"radiogroup\" aria-label=\"Rating\">\n  <input type=\"radio\" name=\"rating\" class=\"rating-item\" aria-label=\"1 star\">\n  <input type=\"radio\" name=\"rating\" class=\"rating-item\" aria-label=\"2 stars\">\n  <input type=\"radio\" name=\"rating\" class=\"rating-item\" aria-label=\"3 stars\">\n  <input type=\"radio\" name=\"rating\" class=\"rating-item\" aria-label=\"4 stars\" checked>\n  <input type=\"radio\" name=\"rating\" class=\"rating-item\" aria-label=\"5 stars\">\n</div>"
+    },
+    {
+      "name": "One time code",
+      "slug": "otp",
+      "description": "A row of single digit inputs for verification codes.",
+      "classes": [
+        "otp",
+        "otp-input",
+        "otp-separator",
+        "otp-sm",
+        "otp-lg"
+      ],
+      "html": "<div class=\"otp\" role=\"group\" aria-label=\"Verification code\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" autocomplete=\"one-time-code\" aria-label=\"Digit 1\" value=\"4\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 2\" value=\"2\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 3\">\n  <span class=\"otp-separator\"></span>\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 4\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 5\">\n  <input class=\"otp-input\" inputmode=\"numeric\" maxlength=\"1\" aria-label=\"Digit 6\">\n</div>"
+    },
+    {
+      "name": "Field",
+      "slug": "field",
+      "description": "Label, control, hint and error message. The error shows on :user-invalid or aria-invalid, and field tones color the control and hint.",
+      "classes": [
+        "field",
+        "label",
+        "label-text",
+        "label-required",
+        "hint",
+        "error-text",
+        "field-success",
+        "field-warning",
+        "field-danger"
+      ],
+      "html": "<div class=\"grid gap-4 max-w-sm\">\n  <div class=\"field\">\n    <label class=\"label label-required\" for=\"f-email\">Email</label>\n    <input id=\"f-email\" type=\"email\" class=\"input\" required placeholder=\"you@example.com\">\n    <p class=\"hint\">We never share your email.</p>\n    <p class=\"error-text\">Enter a valid email address.</p>\n  </div>\n  <div class=\"field\">\n    <label class=\"label\" for=\"f-user\">Username</label>\n    <input id=\"f-user\" class=\"input\" value=\"mo\" aria-invalid=\"true\" aria-describedby=\"f-user-error\">\n    <p class=\"error-text\" id=\"f-user-error\">Usernames need at least 3 characters.</p>\n  </div>\n  <div class=\"field field-success\">\n    <label class=\"label\" for=\"f-handle\">Handle</label>\n    <input id=\"f-handle\" class=\"input\" value=\"monsoon\">\n    <p class=\"hint\">This handle is available.</p>\n  </div>\n</div>"
+    },
+    {
+      "name": "Fieldset",
+      "slug": "fieldset",
+      "description": "Groups related controls under a legend.",
+      "classes": [
+        "fieldset",
+        "legend"
+      ],
+      "html": "<fieldset class=\"fieldset max-w-sm\">\n  <legend class=\"legend\">Shipping</legend>\n  <div class=\"field\">\n    <label class=\"label\" for=\"fs-street\">Street</label>\n    <input id=\"fs-street\" class=\"input\" autocomplete=\"street-address\">\n  </div>\n  <label class=\"label\"><input type=\"checkbox\" class=\"checkbox\" checked> Same as billing</label>\n</fieldset>"
+    },
+    {
+      "name": "Form layout",
+      "slug": "form-layout",
+      "description": "A form stack, responsive rows of fields and an actions bar.",
+      "classes": [
+        "form",
+        "form-row",
+        "form-actions"
+      ],
+      "html": "<form class=\"form max-w-md\">\n  <div class=\"form-row\">\n    <div class=\"field\">\n      <label class=\"label\" for=\"fl-first\">First name</label>\n      <input id=\"fl-first\" class=\"input\" autocomplete=\"given-name\">\n    </div>\n    <div class=\"field\">\n      <label class=\"label\" for=\"fl-last\">Last name</label>\n      <input id=\"fl-last\" class=\"input\" autocomplete=\"family-name\">\n    </div>\n  </div>\n  <div class=\"form-actions\">\n    <button type=\"reset\" class=\"inline-flex items-center rounded-md px-4 py-2 text-sm font-medium border border-border\">Cancel</button>\n    <button type=\"submit\" class=\"inline-flex items-center rounded-md px-4 py-2 text-sm font-medium bg-primary text-primary-foreground\">Save</button>\n  </div>\n</form>"
+    },
+    {
+      "name": "Form control",
+      "slug": "form-control",
+      "description": "A checkbox, radio or toggle next to a label and a description.",
+      "classes": [
+        "form-control"
+      ],
+      "html": "<label class=\"form-control max-w-sm\">\n  <input type=\"checkbox\" class=\"checkbox\" checked>\n  <span class=\"grid gap-0.5\">\n    <span class=\"label-text\">Product updates</span>\n    <span class=\"hint\">A short email when we ship something new.</span>\n  </span>\n</label>"
+    },
+    {
+      "name": "Input group",
+      "slug": "input-group",
+      "description": "Joins inputs with prefix and suffix addons or buttons; group sizes apply to every child.",
+      "classes": [
+        "input-group",
+        "input-group-addon",
+        "input-group-button",
+        "input-group-xs",
+        "input-group-sm",
+        "input-group-md",
+        "input-group-lg"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <div class=\"input-group\">\n    <span class=\"input-group-addon\">https://</span>\n    <input class=\"input\" placeholder=\"example.com\" aria-label=\"Domain\">\n  </div>\n  <div class=\"input-group\">\n    <input type=\"number\" class=\"input\" value=\"120\" aria-label=\"Amount\">\n    <span class=\"input-group-addon\">USD</span>\n  </div>\n  <div class=\"input-group input-group-sm\">\n    <input type=\"email\" class=\"input\" placeholder=\"Email\" aria-label=\"Email\">\n    <button type=\"button\" class=\"input-group-button\">Subscribe</button>\n  </div>\n</div>"
+    },
+    {
+      "name": "Floating label",
+      "slug": "floating-label",
+      "description": "The label sits inside the field and floats up on focus or when it has a value. The input needs a placeholder, a single space is enough.",
+      "classes": [
+        "floating-label"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <label class=\"floating-label\">\n    <input type=\"email\" class=\"input\" placeholder=\"you@example.com\">\n    <span>Email address</span>\n  </label>\n  <label class=\"floating-label\">\n    <input class=\"input\" placeholder=\" \" value=\"Mo the red panda\">\n    <span>Full name</span>\n  </label>\n</div>"
+    },
+    {
+      "name": "Search field",
+      "slug": "search-field",
+      "description": "A search input with a leading icon and an optional keyboard shortcut hint.",
+      "classes": [
+        "search-field",
+        "search-field-shortcut"
+      ],
+      "html": "<label class=\"search-field max-w-sm\">\n  <input type=\"search\" class=\"input\" placeholder=\"Search docs\" aria-label=\"Search docs\">\n  <kbd class=\"search-field-shortcut\">/</kbd>\n</label>"
+    },
+    {
+      "name": "Password field",
+      "slug": "password-field",
+      "description": "A password input with room for a reveal button; toggle aria-pressed and the input type from your app.",
+      "classes": [
+        "password-field",
+        "password-field-toggle"
+      ],
+      "html": "<div class=\"password-field max-w-sm\">\n  <input type=\"password\" class=\"input\" value=\"correct horse\" autocomplete=\"current-password\" aria-label=\"Password\">\n  <button type=\"button\" class=\"password-field-toggle\" aria-pressed=\"false\" aria-label=\"Show password\"></button>\n</div>"
+    },
+    {
+      "name": "Checkbox card",
+      "slug": "checkbox-card",
+      "description": "A selectable card that highlights when its checkbox is checked.",
+      "classes": [
+        "checkbox-card"
+      ],
+      "html": "<div class=\"grid gap-3 max-w-sm\">\n  <label class=\"checkbox-card\">\n    <input type=\"checkbox\" class=\"checkbox\" checked>\n    <span class=\"grid gap-0.5\">\n      <span class=\"label-text\">Daily backups</span>\n      <span class=\"hint\">Keep 30 days of snapshots.</span>\n    </span>\n  </label>\n  <label class=\"checkbox-card\">\n    <input type=\"checkbox\" class=\"checkbox\">\n    <span class=\"grid gap-0.5\">\n      <span class=\"label-text\">Audit log</span>\n      <span class=\"hint\">Track every change to the workspace.</span>\n    </span>\n  </label>\n</div>"
+    },
+    {
+      "name": "Radio card",
+      "slug": "radio-card",
+      "description": "Selectable cards for a single choice, driven by :has(:checked).",
+      "classes": [
+        "radio-card"
+      ],
+      "html": "<div class=\"grid grid-cols-2 gap-3 max-w-md\" role=\"radiogroup\" aria-label=\"Plan\">\n  <label class=\"radio-card\">\n    <input type=\"radio\" class=\"radio\" name=\"plan\" checked>\n    <span class=\"grid gap-0.5\">\n      <span class=\"label-text\">Starter</span>\n      <span class=\"hint\">Free for small teams</span>\n    </span>\n  </label>\n  <label class=\"radio-card\">\n    <input type=\"radio\" class=\"radio\" name=\"plan\">\n    <span class=\"grid gap-0.5\">\n      <span class=\"label-text\">Pro</span>\n      <span class=\"hint\">12 USD per seat</span>\n    </span>\n  </label>\n</div>"
+    },
+    {
+      "name": "Switch group",
+      "slug": "switch-group",
+      "description": "A list of settings, each with a label, a description and a toggle.",
+      "classes": [
+        "switch-group",
+        "switch-group-item"
+      ],
+      "html": "<div class=\"switch-group max-w-sm\">\n  <label class=\"switch-group-item\">\n    <span class=\"grid gap-0.5\">\n      <span class=\"label-text\">Email alerts</span>\n      <span class=\"hint\">When someone mentions you</span>\n    </span>\n    <input type=\"checkbox\" class=\"toggle\" role=\"switch\" checked>\n  </label>\n  <label class=\"switch-group-item\">\n    <span class=\"grid gap-0.5\">\n      <span class=\"label-text\">Weekly digest</span>\n      <span class=\"hint\">A summary every Monday</span>\n    </span>\n    <input type=\"checkbox\" class=\"toggle\" role=\"switch\">\n  </label>\n</div>"
+    },
+    {
+      "name": "Input counter",
+      "slug": "input-counter",
+      "description": "Layout for a number input between decrease and increase buttons; wire the buttons with stepUp() and stepDown().",
+      "classes": [
+        "input-counter",
+        "input-counter-button"
+      ],
+      "html": "<div class=\"input-counter\">\n  <button type=\"button\" class=\"input-counter-button\" aria-label=\"Decrease\">−</button>\n  <input type=\"number\" class=\"input\" value=\"2\" min=\"0\" aria-label=\"Quantity\">\n  <button type=\"button\" class=\"input-counter-button\" aria-label=\"Increase\">+</button>\n</div>"
+    }
+  ]
+}

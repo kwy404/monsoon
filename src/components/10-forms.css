@@ -1,0 +1,931 @@
+/* Forms: native inputs, selects, choices and layout helpers. No JavaScript. */
+
+/* Shared field variables. Sizes and tones only swap --field-* and --choice-* */
+.input, .select, .textarea, .file-input, .color-input, .otp-input,
+.input-group-addon, .input-counter-button, .checkbox, .radio, .toggle, .range {
+  --_line: var(--field-border, color-mix(in oklab, var(--border), var(--foreground) 12%));
+  --_shadow: color-mix(in oklab, var(--foreground) calc(7% - 7% * var(--mode)), transparent);
+}
+.input:hover, .select:hover, .textarea:hover, .file-input:hover, .color-input:hover,
+.otp-input:hover, .checkbox:hover, .radio:hover, .toggle:hover {
+  --_line: var(--field-border, color-mix(in oklab, var(--border), var(--foreground) 30%));
+}
+
+/* Text fields: input, select, textarea, otp digits */
+.input, .select, .textarea, .otp-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: var(--field-h, 2.5rem);
+  padding-block: 0;
+  padding-inline: var(--field-px, .75rem);
+  font-size: var(--field-fs, .875rem);
+  line-height: 1.25;
+  color: var(--foreground);
+  background-color: var(--field-bg, var(--surface));
+  border: 1px solid var(--_line);
+  border-radius: var(--field-radius, .5rem);
+  box-shadow: 0 1px 2px var(--_shadow);
+  outline: 3px solid transparent;
+  outline-offset: 0;
+  transition: border-color .15s, background-color .15s, outline-color .15s;
+  appearance: none;
+}
+.input:focus, .select:focus, .textarea:focus, .otp-input:focus {
+  --_line: var(--field-ring, var(--ring));
+  background-color: var(--surface);
+  outline: 3px solid color-mix(in oklab, var(--field-ring, var(--ring)) 28%, transparent);
+  outline-offset: 0;
+}
+.input:read-only:not(:disabled), .textarea:read-only:not(:disabled) {
+  background-color: var(--surface-2);
+  box-shadow: none;
+}
+.input:disabled, .select:disabled, .textarea:disabled, .otp-input:disabled,
+.file-input:disabled, .color-input:disabled {
+  --_line: var(--border);
+  color: var(--muted-foreground);
+  background-color: var(--muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: .7;
+}
+.input:user-invalid, .select:user-invalid, .textarea:user-invalid, .otp-input:user-invalid,
+.file-input:user-invalid, .checkbox:user-invalid, .radio:user-invalid,
+.input[aria-invalid=true], .select[aria-invalid=true], .textarea[aria-invalid=true],
+.otp-input[aria-invalid=true], .file-input[aria-invalid=true] {
+  --field-border: var(--danger);
+  --field-ring: var(--danger);
+}
+.input:autofill {
+  -webkit-text-fill-color: var(--foreground);
+  box-shadow: inset 0 0 0 100vmax color-mix(in oklab, var(--primary) 9%, var(--surface));
+}
+.input::-webkit-calendar-picker-indicator {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  margin-inline-start: .375rem;
+  background: var(--muted-foreground);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M16 3v4M8 3v4M3 10h18'/%3E%3C/svg%3E") center / contain no-repeat;
+  cursor: pointer;
+}
+.input[type=time]::-webkit-calendar-picker-indicator {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+}
+.input::-webkit-calendar-picker-indicator:hover { background: var(--foreground); }
+.input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: .875rem;
+  height: .875rem;
+  margin-inline-start: .375rem;
+  background: var(--muted-foreground);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+  cursor: pointer;
+}
+
+/* Variants */
+.input-bordered, .select-bordered, .textarea-bordered {
+  border-style: solid;
+  border-width: 1px;
+}
+.input-ghost, .select-ghost, .textarea-ghost {
+  --field-bg: transparent;
+  --field-border: transparent;
+  box-shadow: none;
+}
+.input-ghost:hover, .select-ghost:hover, .textarea-ghost:hover { --field-bg: var(--muted); }
+.input-filled, .select-filled, .textarea-filled {
+  --field-bg: var(--muted);
+  --field-border: transparent;
+  box-shadow: none;
+}
+.input-filled:hover, .select-filled:hover, .textarea-filled:hover {
+  --field-bg: color-mix(in oklab, var(--muted), var(--foreground) 5%);
+}
+
+/* Tones (also usable on a .field wrapper) */
+.input-primary, .select-primary, .textarea-primary {
+  --field-border: var(--primary);
+  --field-ring: var(--primary);
+}
+.input-success, .select-success, .textarea-success, .field-success {
+  --field-border: var(--success);
+  --field-ring: var(--success);
+}
+.input-warning, .select-warning, .textarea-warning, .field-warning {
+  --field-border: var(--warning);
+  --field-ring: var(--warning);
+}
+.input-danger, .select-danger, .textarea-danger, .field-danger {
+  --field-border: var(--danger);
+  --field-ring: var(--danger);
+}
+
+/* Sizes */
+.input-xs, .select-xs, .textarea-xs, .file-input-xs, .input-group-xs {
+  --field-h: 1.75rem;
+  --field-px: .5rem;
+  --field-fs: .75rem;
+  --field-radius: .375rem;
+}
+.input-sm, .select-sm, .textarea-sm, .file-input-sm, .input-group-sm, .color-input-sm {
+  --field-h: 2rem;
+  --field-px: .625rem;
+  --field-fs: .8125rem;
+  --field-radius: .4375rem;
+}
+.input-md, .select-md, .textarea-md, .file-input-md, .input-group-md {
+  --field-h: 2.5rem;
+  --field-px: .75rem;
+  --field-fs: .875rem;
+  --field-radius: .5rem;
+}
+.input-lg, .select-lg, .textarea-lg, .file-input-lg, .input-group-lg, .color-input-lg {
+  --field-h: 3rem;
+  --field-px: 1rem;
+  --field-fs: 1rem;
+  --field-radius: .625rem;
+}
+
+/* Select */
+.select {
+  padding-inline-end: calc(var(--field-px, .75rem) + 1.375rem);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a3abbb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right calc(var(--field-px, .75rem) - .125rem) center;
+  background-size: calc(1rem - 1rem * var(--mode)) 1rem, calc(1rem * var(--mode)) 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.select:dir(rtl) { background-position: left calc(var(--field-px, .75rem) - .125rem) center; }
+.select[multiple], .select[size] {
+  height: auto;
+  padding: .25rem;
+  background-image: none;
+  white-space: normal;
+  overflow-y: auto;
+}
+.select[multiple] option, .select[size] option {
+  padding: .375rem .5rem;
+  border-radius: calc(var(--field-radius, .5rem) - .1875rem);
+}
+.select[multiple] option:checked, .select[size] option:checked {
+  color: var(--foreground);
+  background: linear-gradient(color-mix(in oklab, var(--primary) 18%, var(--surface)), color-mix(in oklab, var(--primary) 18%, var(--surface)));
+}
+@supports (appearance: base-select) {
+  .select-custom, .select-custom::picker(select) { appearance: base-select; }
+  .select-custom {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding-inline-end: var(--field-px, .75rem);
+    background-image: none;
+  }
+  .select-custom::picker-icon {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    margin-inline-start: auto;
+    background-color: var(--muted-foreground);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: rotate .2s;
+  }
+  .select-custom:open::picker-icon { rotate: 180deg; }
+  .select-custom::picker(select) {
+    margin-block: .375rem;
+    padding: .25rem;
+    color: var(--foreground);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--field-radius, .5rem) + .125rem);
+    box-shadow: 0 12px 32px -12px color-mix(in oklab, var(--foreground) calc(30% - 30% * var(--mode)), transparent), 0 4px 10px -4px var(--_shadow);
+  }
+  .select-custom option {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem .625rem;
+    font-size: var(--field-fs, .875rem);
+    border-radius: calc(var(--field-radius, .5rem) - .125rem);
+    outline: 0;
+    cursor: pointer;
+  }
+  .select-custom option:hover, .select-custom option:focus-visible { background-color: var(--muted); }
+  .select-custom option:checked { font-weight: 500; }
+  .select-custom option::checkmark {
+    content: "";
+    order: 1;
+    width: 1rem;
+    height: 1rem;
+    margin-inline-start: auto;
+    background-color: var(--primary);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+}
+
+/* Textarea */
+.textarea {
+  height: auto;
+  min-height: calc(var(--field-h, 2.5rem) * 2.2);
+  padding-block: calc(var(--field-px, .75rem) * .75);
+  line-height: 1.5;
+  resize: vertical;
+}
+.textarea-autosize {
+  field-sizing: content;
+  max-height: 20rem;
+}
+
+/* File input */
+.file-input {
+  display: block;
+  width: 100%;
+  height: var(--field-h, 2.5rem);
+  padding-inline-end: var(--field-px, .75rem);
+  font-size: var(--field-fs, .875rem);
+  line-height: calc(var(--field-h, 2.5rem) - 2px);
+  color: var(--muted-foreground);
+  background-color: var(--field-bg, var(--surface));
+  border: 1px solid var(--_line);
+  border-radius: var(--field-radius, .5rem);
+  box-shadow: 0 1px 2px var(--_shadow);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color .15s, outline-color .15s;
+}
+.file-input::file-selector-button {
+  height: 100%;
+  margin-inline-end: var(--field-px, .75rem);
+  padding-inline: var(--field-px, .75rem);
+  font-weight: 500;
+  color: var(--foreground);
+  background-color: var(--muted);
+  border: 0;
+  border-inline-end: 1px solid var(--_line);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.file-input:hover::file-selector-button { background-color: var(--surface-3); }
+.file-input:focus-visible, .color-input:focus-visible {
+  --_line: var(--field-ring, var(--ring));
+  outline: 3px solid color-mix(in oklab, var(--field-ring, var(--ring)) 28%, transparent);
+  outline-offset: 0;
+}
+.file-input-primary::file-selector-button {
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+.file-input-primary:hover::file-selector-button {
+  background-color: color-mix(in oklab, var(--primary) 88%, var(--foreground));
+}
+
+/* Color input */
+.color-input {
+  display: inline-block;
+  width: var(--field-h, 2.5rem);
+  height: var(--field-h, 2.5rem);
+  padding: .1875rem;
+  background-color: var(--field-bg, var(--surface));
+  border: 1px solid var(--_line);
+  border-radius: var(--field-radius, .5rem);
+  box-shadow: 0 1px 2px var(--_shadow);
+  cursor: pointer;
+  appearance: none;
+  vertical-align: middle;
+}
+.color-input::-webkit-color-swatch-wrapper { padding: 0; }
+.color-input::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--field-radius, .5rem) - .1875rem);
+}
+.color-input::-moz-color-swatch {
+  border: 0;
+  border-radius: calc(var(--field-radius, .5rem) - .1875rem);
+}
+
+/* Checkbox and radio */
+.checkbox, .radio {
+  --_size: var(--choice-size, 1.125rem);
+  --_tone: var(--choice-tone, var(--primary));
+  display: inline-grid;
+  place-content: center;
+  flex-shrink: 0;
+  width: var(--_size);
+  height: var(--_size);
+  color: var(--choice-fg, var(--primary-foreground));
+  background-color: var(--surface);
+  border: 1px solid var(--_line);
+  border-radius: calc(var(--_size) * .28);
+  box-shadow: 0 1px 2px var(--_shadow);
+  vertical-align: middle;
+  cursor: pointer;
+  appearance: none;
+  transition: background-color .15s, border-color .15s;
+}
+.radio { border-radius: 50%; }
+.checkbox::before {
+  content: "";
+  width: calc(var(--_size) * .72);
+  height: calc(var(--_size) * .72);
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .2s ease-out;
+}
+.checkbox:indeterminate::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M6 12h12'/%3E%3C/svg%3E");
+}
+.radio::before {
+  content: "";
+  width: calc(var(--_size) * .4);
+  height: calc(var(--_size) * .4);
+  border-radius: 50%;
+  background-color: currentColor;
+  scale: 0;
+  transition: scale .2s cubic-bezier(.3, 1.6, .6, 1);
+}
+.checkbox:checked, .checkbox:indeterminate, .radio:checked {
+  background-color: var(--_tone);
+  border-color: var(--_tone);
+}
+.checkbox:checked::before, .checkbox:indeterminate::before { clip-path: inset(0); }
+.radio:checked::before { scale: 1; }
+.checkbox:focus-visible, .radio:focus-visible, .toggle:focus-visible, .range:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.checkbox:disabled, .radio:disabled, .toggle:disabled, .range:disabled, .rating-item:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+/* Toggle switch (a checkbox) */
+.toggle {
+  --_h: calc(var(--choice-size, 1.125rem) + .125rem);
+  --_w: calc(var(--_h) * 1.8);
+  --_tone: var(--choice-tone, var(--primary));
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--_w);
+  height: var(--_h);
+  background-color: color-mix(in oklab, var(--foreground) 10%, var(--surface));
+  border: 1px solid var(--_line);
+  border-radius: 999px;
+  vertical-align: middle;
+  cursor: pointer;
+  appearance: none;
+  transition: background-color .2s, border-color .2s;
+}
+.toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 2px;
+  width: calc(var(--_h) - 6px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--muted-foreground);
+  translate: 0 -50%;
+  scale: .78;
+  box-shadow: 0 1px 2px var(--_shadow);
+  transition: translate .2s cubic-bezier(.3, 1.3, .6, 1), scale .2s, background-color .2s;
+}
+.toggle:checked {
+  background-color: var(--_tone);
+  border-color: var(--_tone);
+}
+.toggle:checked::before {
+  background-color: var(--choice-fg, var(--primary-foreground));
+  translate: calc(var(--_w) - var(--_h)) -50%;
+  scale: 1;
+}
+.toggle:checked:dir(rtl)::before { translate: calc(var(--_h) - var(--_w)) -50%; }
+
+/* Range */
+.range {
+  --_thumb: calc(var(--choice-size, 1.125rem) + .125rem);
+  --_track: calc(var(--_thumb) * .3);
+  --_tone: var(--choice-tone, var(--primary));
+  --_rail: color-mix(in oklab, var(--foreground) 13%, var(--surface));
+  --_h: calc(var(--_thumb) + 8px);
+  display: block;
+  width: 100%;
+  height: var(--_h);
+  background: transparent;
+  accent-color: var(--_tone);
+  border-radius: calc(var(--_h) / 2);
+  overflow: hidden;
+  cursor: pointer;
+  appearance: none;
+}
+.range::-webkit-slider-runnable-track {
+  height: var(--_h);
+  background: transparent;
+}
+.range::-webkit-slider-thumb {
+  width: var(--_thumb);
+  height: var(--_thumb);
+  margin-top: 4px;
+  background-color: var(--surface);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--_tone), 0 1px 3px var(--_shadow);
+  border-image: linear-gradient(90deg, var(--_tone) 50%, var(--_rail) 0) 0 1 / calc(50% - var(--_track) / 2) 100vw / 0 100vw;
+  appearance: none;
+  transition: box-shadow .15s;
+}
+.range::-moz-range-track {
+  height: var(--_track);
+  background-color: var(--_rail);
+  border-radius: 999px;
+}
+.range::-moz-range-progress {
+  height: var(--_track);
+  background-color: var(--_tone);
+  border-radius: 999px;
+}
+.range::-moz-range-thumb {
+  width: var(--_thumb);
+  height: var(--_thumb);
+  background-color: var(--surface);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--_tone), 0 1px 3px var(--_shadow);
+}
+.range:focus-visible { outline: 0; }
+.range:focus-visible::-webkit-slider-thumb {
+  box-shadow: inset 0 0 0 2px var(--_tone), 0 0 0 2px var(--surface), 0 0 0 4px var(--ring);
+}
+.range:focus-visible::-moz-range-thumb {
+  box-shadow: inset 0 0 0 2px var(--_tone), 0 0 0 2px var(--surface), 0 0 0 4px var(--ring);
+}
+
+/* Choice tones and sizes */
+.checkbox-primary, .radio-primary, .toggle-primary, .range-primary, .rating-primary {
+  --choice-tone: var(--primary);
+  --choice-fg: var(--primary-foreground);
+}
+.checkbox-accent, .radio-accent, .toggle-accent, .range-accent {
+  --choice-tone: var(--accent);
+  --choice-fg: var(--accent-foreground);
+}
+.checkbox-success, .radio-success, .toggle-success, .range-success {
+  --choice-tone: var(--success);
+  --choice-fg: var(--success-foreground);
+}
+.checkbox-warning, .radio-warning, .toggle-warning, .range-warning, .rating-warning {
+  --choice-tone: var(--warning);
+  --choice-fg: var(--warning-foreground);
+}
+.checkbox-danger, .radio-danger, .toggle-danger, .range-danger, .rating-danger {
+  --choice-tone: var(--danger);
+  --choice-fg: var(--danger-foreground);
+}
+.checkbox-info, .radio-info, .toggle-info, .range-info {
+  --choice-tone: var(--info);
+  --choice-fg: var(--info-foreground);
+}
+.checkbox-neutral, .radio-neutral, .toggle-neutral, .range-neutral {
+  --choice-tone: var(--foreground);
+  --choice-fg: var(--background);
+}
+.checkbox-xs, .radio-xs, .toggle-xs, .range-xs, .rating-xs { --choice-size: .875rem; }
+.checkbox-sm, .radio-sm, .toggle-sm, .range-sm, .rating-sm { --choice-size: 1rem; }
+.checkbox-md, .radio-md, .toggle-md, .range-md, .rating-md { --choice-size: 1.125rem; }
+.checkbox-lg, .radio-lg, .toggle-lg, .range-lg, .rating-lg { --choice-size: 1.375rem; }
+
+/* Rating: a group of radios drawn as stars */
+.rating {
+  --_size: calc(var(--choice-size, 1.125rem) * 1.35);
+  --_tone: var(--choice-tone, var(--warning));
+  display: inline-flex;
+  align-items: center;
+  gap: .125rem;
+  border-radius: .375rem;
+  vertical-align: middle;
+}
+.rating-item {
+  width: var(--_size);
+  height: var(--_size);
+  background-color: color-mix(in oklab, var(--foreground) 16%, transparent);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.94 6.1 6.56.86-4.8 4.6 1.2 6.54L12 17.4l-5.9 3.2 1.2-6.54-4.8-4.6 6.56-.86z' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  cursor: pointer;
+  appearance: none;
+  transition: background-color .15s, scale .15s;
+}
+.rating-item:checked, .rating-item:has(~ .rating-item:checked) { background-color: var(--_tone); }
+.rating:has(.rating-item:hover:enabled) .rating-item { background-color: var(--_tone); }
+.rating:has(.rating-item:hover:enabled) .rating-item:hover ~ .rating-item { background-color: color-mix(in oklab, var(--foreground) 16%, transparent); }
+.rating-item:hover:enabled, .rating-item:focus-visible { scale: 1.15; }
+.rating:has(.rating-item:focus-visible) {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.rating-item:focus-visible { outline: 0; }
+
+/* One time code */
+.otp {
+  --otp-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+.otp-input {
+  width: var(--otp-size);
+  height: calc(var(--otp-size) * 1.15);
+  padding: 0;
+  font-size: calc(var(--otp-size) * .45);
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  caret-color: var(--field-ring, var(--ring));
+}
+.otp-separator {
+  width: .625rem;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--border);
+}
+.otp-sm { --otp-size: 2.25rem; }
+.otp-lg { --otp-size: 3.25rem; }
+
+/* Structure: field, label, hint, error */
+.form {
+  display: grid;
+  gap: 1.25rem;
+}
+.field {
+  display: grid;
+  gap: .375rem;
+  min-width: 0;
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: var(--foreground);
+}
+.label:has(:disabled) {
+  cursor: not-allowed;
+  opacity: .6;
+}
+.label-text {
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: var(--foreground);
+}
+.label-required::after {
+  content: "*";
+  margin-inline-start: -.375rem;
+  color: var(--danger);
+}
+.hint {
+  font-size: .8125rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+.field-success .hint { color: var(--success); }
+.field-warning .hint { color: color-mix(in oklab, var(--warning), var(--foreground) 40%); }
+.field-danger .hint { color: var(--danger); }
+.error-text {
+  display: flex;
+  align-items: flex-start;
+  gap: .375rem;
+  font-size: .8125rem;
+  line-height: 1.25rem;
+  color: var(--danger);
+}
+.error-text::before {
+  content: "";
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: .125rem;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5M12 16.5h.01'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.field .error-text { display: none; }
+.field:has(:user-invalid) .error-text, .field:has([aria-invalid=true]) .error-text { display: flex; }
+.field:has(:user-invalid):has(.error-text) .hint, .field:has([aria-invalid=true]):has(.error-text) .hint { display: none; }
+.field:has(:user-invalid) .label, .field:has([aria-invalid=true]) .label { color: var(--danger); }
+
+/* Fieldset */
+.fieldset {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem 1.25rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+}
+.fieldset:disabled { opacity: .7; }
+.legend {
+  padding-inline: .375rem;
+  margin-inline-start: -.375rem;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Inline control with label and description */
+.form-control {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  cursor: pointer;
+}
+.form-control > .checkbox, .form-control > .radio { margin-top: .0625rem; }
+.form-control:has(:disabled) {
+  cursor: not-allowed;
+  opacity: .6;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 1rem;
+}
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .5rem;
+  padding-top: .25rem;
+}
+
+/* Input group and number counter: joined children */
+.input-group, .input-counter {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+.input-counter {
+  display: inline-flex;
+  width: auto;
+}
+.input-group > *, .input-counter > * {
+  flex-shrink: 0;
+  border-radius: 0;
+}
+.input-group > :first-child, .input-counter > :first-child {
+  border-start-start-radius: var(--field-radius, .5rem);
+  border-end-start-radius: var(--field-radius, .5rem);
+}
+.input-group > :last-child, .input-counter > :last-child {
+  border-start-end-radius: var(--field-radius, .5rem);
+  border-end-end-radius: var(--field-radius, .5rem);
+}
+.input-group > :not(:first-child), .input-counter > :not(:first-child) { margin-inline-start: -1px; }
+.input-group > :hover, .input-counter > :hover { z-index: 1; }
+.input-group > :focus, .input-counter > :focus, .input-group > :focus-visible { z-index: 2; }
+.input-group > .input, .input-group > .select {
+  flex: 1 1 0%;
+  width: auto;
+}
+.input-group-addon {
+  display: flex;
+  align-items: center;
+  gap: .375rem;
+  padding-inline: var(--field-px, .75rem);
+  font-size: var(--field-fs, .875rem);
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  background-color: var(--muted);
+  border: 1px solid var(--_line);
+}
+.input-group-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .375rem;
+  padding-inline: calc(var(--field-px, .75rem) * 1.25);
+  font-size: var(--field-fs, .875rem);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.input-group-button:hover { background-color: color-mix(in oklab, var(--primary) 88%, var(--foreground)); }
+.input-group-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.input-counter > .input {
+  width: calc(var(--field-h, 2.5rem) * 1.6);
+  padding-inline: .25rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  appearance: textfield;
+}
+.input-counter > .input::-webkit-inner-spin-button, .input-counter > .input::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.input-counter-button {
+  display: grid;
+  place-items: center;
+  width: var(--field-h, 2.5rem);
+  font-size: calc(var(--field-fs, .875rem) * 1.25);
+  line-height: 1;
+  color: var(--foreground);
+  background-color: var(--surface-2);
+  border: 1px solid var(--_line);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.input-counter-button:hover { background-color: var(--surface-3); }
+.input-counter-button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+/* Floating label: <label class="floating-label"><input class="input" placeholder=" "><span>Text</span></label> */
+.floating-label {
+  --field-h: 3.25rem;
+  position: relative;
+  display: block;
+}
+.floating-label > .input, .floating-label > .select { padding-top: 1.125rem; }
+.floating-label > .textarea { padding-top: 1.5rem; }
+.floating-label > span {
+  position: absolute;
+  top: .4375rem;
+  inset-inline-start: calc(var(--field-px, .75rem) + 1px);
+  max-width: calc(100% - var(--field-px, .75rem) * 2);
+  overflow: hidden;
+  font-size: .75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  transition: top .15s, font-size .15s, line-height .15s, color .15s;
+}
+.floating-label:has(:placeholder-shown:not(:focus)) > span {
+  top: calc(var(--field-h, 3.25rem) / 2 - .625rem);
+  font-size: var(--field-fs, .875rem);
+  line-height: 1.25rem;
+}
+.floating-label:has(.textarea:placeholder-shown:not(:focus)) > span { top: .875rem; }
+.floating-label:focus-within > span { color: var(--field-ring, var(--ring)); }
+.floating-label > :not(:focus)::placeholder { color: transparent; }
+
+/* Search field with a leading icon */
+.search-field {
+  position: relative;
+  display: block;
+}
+.search-field::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  inset-inline-start: var(--field-px, .75rem);
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--muted-foreground);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  translate: 0 -50%;
+  pointer-events: none;
+}
+.search-field > .input { padding-inline-start: calc(var(--field-px, .75rem) + 1.5rem); }
+.search-field:has(.search-field-shortcut) > .input { padding-inline-end: 3rem; }
+.search-field-shortcut {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: calc(var(--field-px, .75rem) - .25rem);
+  padding: 0 .375rem;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: .3125rem;
+  translate: 0 -50%;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+.search-field:focus-within .search-field-shortcut { opacity: 0; }
+
+/* Password field: input plus a reveal button wired by the app */
+.password-field {
+  position: relative;
+  display: block;
+}
+.password-field > .input { padding-inline-end: var(--field-h, 2.5rem); }
+.password-field > .input::-ms-reveal { display: none; }
+.password-field-toggle {
+  position: absolute;
+  inset-block: 1px;
+  inset-inline-end: 1px;
+  display: grid;
+  place-items: center;
+  width: calc(var(--field-h, 2.5rem) - 2px);
+  color: var(--muted-foreground);
+  border-radius: calc(var(--field-radius, .5rem) - 1px);
+  cursor: pointer;
+  transition: color .15s;
+}
+.password-field-toggle::before {
+  content: "";
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.password-field-toggle[aria-pressed=true]::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 3l18 18M10.6 5.1A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.9 8.4 2 12 2 12s3.6 7 10 7c2 0 3.8-.6 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2'/%3E%3C/svg%3E");
+}
+.password-field-toggle:hover { color: var(--foreground); }
+.password-field-toggle:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -4px;
+}
+
+/* Selectable cards */
+.checkbox-card, .radio-card {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  cursor: pointer;
+  transition: border-color .15s, background-color .15s, box-shadow .15s;
+}
+.checkbox-card > .checkbox, .radio-card > .radio { margin-top: .0625rem; }
+.checkbox-card:hover, .radio-card:hover { border-color: color-mix(in oklab, var(--border), var(--foreground) 25%); }
+.checkbox-card:has(:checked), .radio-card:has(:checked) {
+  background-color: color-mix(in oklab, var(--primary) 7%, var(--surface));
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+.checkbox-card:has(:focus-visible), .radio-card:has(:focus-visible) {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.checkbox-card:has(:focus-visible) > :focus-visible, .radio-card:has(:focus-visible) > :focus-visible { outline: 0; }
+.checkbox-card:has(:disabled), .radio-card:has(:disabled) {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+/* Switch group: a list of settings with toggles */
+.switch-group {
+  display: grid;
+  overflow: hidden;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+}
+.switch-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .875rem 1rem;
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.switch-group-item + .switch-group-item { border-top: 1px solid var(--border); }
+.switch-group-item:hover { background-color: color-mix(in oklab, var(--muted) 70%, transparent); }
+.switch-group-item:has(:disabled) {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input, .select, .textarea, .otp-input, .file-input, .checkbox, .radio, .toggle,
+  .checkbox::before, .radio::before, .toggle::before, .range::-webkit-slider-thumb,
+  .rating-item, .floating-label > span, .checkbox-card, .radio-card, .switch-group-item {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .checkbox::before, .radio::before, .toggle::before {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+  .rating-item:checked, .rating-item:has(~ .rating-item:checked) {
+    forced-color-adjust: none;
+    background-color: Highlight;
+  }
+}
