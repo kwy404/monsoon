@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 520" width="1040" height="520" role="img" aria-labelledby="dt">
+<title id="dt">Monsoon demo: utility classes render a card, then one --seed value re-themes it</title>
+<style>
+@keyframes k1{0%,45.938%{fill:#3b5bdb}47.812%,61.562%{fill:#7c3aed}63.438%,77.188%{fill:#e11d48}79.062%,100.000%{fill:#0e7490}}
+@keyframes k2{0%,45.938%{fill:#e0e7ff}47.812%,61.562%{fill:#ede9fe}63.438%,77.188%{fill:#ffe4e6}79.062%,100.000%{fill:#cffafe}}
+@keyframes k3{0%,45.938%{fill:#2b3fa3}47.812%,61.562%{fill:#5b21b6}63.438%,77.188%{fill:#9f1239}79.062%,100.000%{fill:#155e75}}
+@keyframes k4{0%,45.938%{fill:#eef1ff}47.812%,61.562%{fill:#f5f1ff}63.438%,77.188%{fill:#fff1f3}79.062%,100.000%{fill:#ecfbfe}}
+@keyframes k5{0%,45.938%{fill:#3b5bdb}47.812%,61.562%{fill:#8b5cf6}63.438%,77.188%{fill:#f43f5e}79.062%,100.000%{fill:#22d3ee}}
+@keyframes k6{0%,45.938%{fill:#8ea2ff}47.812%,61.562%{fill:#b9a1ff}63.438%,77.188%{fill:#ff8fa3}79.062%,100.000%{fill:#5fe3f5}}
+@keyframes k7{0%,45.938%{fill:#e0e7ff}47.812%,61.562%{fill:#ede9fe}63.438%,77.188%{fill:#ffe4e6}79.062%,100.000%{fill:#cffafe}}
+@keyframes k8{0%,45.938%{fill:#9fb1f5}47.812%,61.562%{fill:#c4b5fd}63.438%,77.188%{fill:#fda4af}79.062%,100.000%{fill:#67e8f9}}
+@keyframes k9{0%,45.938%{fill:#3b5bdb}47.812%,61.562%{fill:#8b5cf6}63.438%,77.188%{fill:#f43f5e}79.062%,100.000%{fill:#22d3ee}}
+@keyframes k10{0%,45.938%{fill:#2b3fa3}47.812%,61.562%{fill:#6d28d9}63.438%,77.188%{fill:#be123c}79.062%,100.000%{fill:#0e7490}}
+@keyframes k11{0%,45.938%{fill:#1b2766}47.812%,61.562%{fill:#3b1680}63.438%,77.188%{fill:#6b0d24}79.062%,100.000%{fill:#0b3c4a}}
+@keyframes k12{0%,45.938%{opacity:1}47.812%,100%{opacity:0}}
+@keyframes k13{0%,45.938%{opacity:0}47.812%,61.562%{opacity:1}63.438%,100%{opacity:0}}
+@keyframes k14{0%,61.562%{opacity:0}63.438%,77.188%{opacity:1}79.062%,100%{opacity:0}}
+@keyframes k15{0%,77.188%{opacity:0}79.062%,100%{opacity:1}}
+@keyframes k16{0%,3.125%{transform:translateX(0px);animation-timing-function:steps(30,end)}5.250%{transform:translateX(246.0px)}5.438%,100%{transform:translateX(900px)}}
+@keyframes k17{0%,3.125%{transform:translateX(0px);animation-timing-function:steps(30,end)}5.250%,100%{transform:translateX(246.0px)}}
+@keyframes k18{0%,5.625%{opacity:1}5.688%,100%{opacity:0}}
+@keyframes k19{0%,5.750%{transform:translateX(0px);animation-timing-function:steps(50,end)}7.875%{transform:translateX(410.0px)}8.062%,100%{transform:translateX(900px)}}
+@keyframes k20{0%,5.750%{transform:translateX(0px);animation-timing-function:steps(50,end)}7.875%,100%{transform:translateX(410.0px)}}
+@keyframes k21{0%,5.625%{opacity:0}5.687%,8.250%{opacity:1}8.312%,100%{opacity:0}}
+@keyframes k22{0%,8.375%{transform:translateX(0px);animation-timing-function:steps(37,end)}10.500%{transform:translateX(303.4px)}10.688%,100%{transform:translateX(900px)}}
+@keyframes k23{0%,8.375%{transform:translateX(0px);animation-timing-function:steps(37,end)}10.500%,100%{transform:translateX(303.4px)}}
+@keyframes k24{0%,8.250%{opacity:0}8.312%,10.875%{opacity:1}10.938%,100%{opacity:0}}
+@keyframes k25{0%,11.000%{transform:translateX(0px);animation-timing-function:steps(53,end)}13.125%{transform:translateX(434.6px)}13.312%,100%{transform:translateX(900px)}}
+@keyframes k26{0%,11.000%{transform:translateX(0px);animation-timing-function:steps(53,end)}13.125%,100%{transform:translateX(434.6px)}}
+@keyframes k27{0%,10.875%{opacity:0}10.938%,13.500%{opacity:1}13.562%,100%{opacity:0}}
+@keyframes k28{0%,13.625%{transform:translateX(0px);animation-timing-function:steps(37,end)}15.750%{transform:translateX(303.4px)}15.937%,100%{transform:translateX(900px)}}
+@keyframes k29{0%,13.625%{transform:translateX(0px);animation-timing-function:steps(37,end)}15.750%,100%{transform:translateX(303.4px)}}
+@keyframes k30{0%,13.500%{opacity:0}13.562%,16.125%{opacity:1}16.187%,100%{opacity:0}}
+@keyframes k31{0%,16.250%{transform:translateX(0px);animation-timing-function:steps(37,end)}18.375%{transform:translateX(303.4px)}18.562%,100%{transform:translateX(900px)}}
+@keyframes k32{0%,16.250%{transform:translateX(0px);animation-timing-function:steps(37,end)}18.375%,100%{transform:translateX(303.4px)}}
+@keyframes k33{0%,16.125%{opacity:0}16.188%,18.750%{opacity:1}18.812%,100%{opacity:0}}
+@keyframes k34{0%,18.875%{transform:translateX(0px);animation-timing-function:steps(6,end)}21.000%{transform:translateX(49.2px)}21.187%,100%{transform:translateX(900px)}}
+@keyframes k35{0%,18.875%{transform:translateX(0px);animation-timing-function:steps(6,end)}21.000%,100%{transform:translateX(49.2px)}}
+@keyframes k36{0%,18.750%{opacity:0}18.812%,21.375%{opacity:1}21.438%,100%{opacity:0}}
+@keyframes k37{0%,21.500%{transform:translateX(0px);animation-timing-function:steps(51,end)}23.625%{transform:translateX(418.2px)}23.812%,100%{transform:translateX(900px)}}
+@keyframes k38{0%,21.500%{transform:translateX(0px);animation-timing-function:steps(51,end)}23.625%,100%{transform:translateX(418.2px)}}
+@keyframes k39{0%,21.375%{opacity:0}21.438%,24.000%{opacity:1}24.062%,100%{opacity:0}}
+@keyframes k40{0%,24.125%{transform:translateX(0px);animation-timing-function:steps(44,end)}26.250%{transform:translateX(360.8px)}26.438%,100%{transform:translateX(900px)}}
+@keyframes k41{0%,24.125%{transform:translateX(0px);animation-timing-function:steps(44,end)}26.250%,100%{transform:translateX(360.8px)}}
+@keyframes k42{0%,24.000%{opacity:0}24.062%,26.625%{opacity:1}26.687%,100%{opacity:0}}
+@keyframes k43{0%,26.750%{transform:translateX(0px);animation-timing-function:steps(18,end)}28.875%{transform:translateX(147.6px)}29.062%,100%{transform:translateX(900px)}}
+@keyframes k44{0%,26.750%{transform:translateX(0px);animation-timing-function:steps(18,end)}28.875%,100%{transform:translateX(147.6px)}}
+@keyframes k45{0%,26.625%{opacity:0}26.687%,29.250%{opacity:1}29.312%,100%{opacity:0}}
+@keyframes k46{0%,29.375%{transform:translateX(0px);animation-timing-function:steps(6,end)}31.500%{transform:translateX(49.2px)}31.688%,100%{transform:translateX(900px)}}
+@keyframes k47{0%,29.375%{transform:translateX(0px);animation-timing-function:steps(6,end)}31.500%,100%{transform:translateX(49.2px)}}
+@keyframes k48{0%,29.250%{opacity:0}29.313%{opacity:1}31.500%{opacity:1}34.625%{opacity:0}37.750%{opacity:1}40.875%{opacity:0}44.000%{opacity:1}47.125%{opacity:0}50.250%{opacity:1}53.375%{opacity:0}56.500%{opacity:1}59.625%{opacity:0}62.750%{opacity:1}65.875%{opacity:0}69.000%{opacity:1}72.125%{opacity:0}75.250%{opacity:1}78.375%{opacity:0}81.500%{opacity:1}84.625%{opacity:0}87.750%{opacity:1}90.875%{opacity:0}96.250%,100%{opacity:0}}
+@keyframes k49{0%{opacity:0}45.625%{opacity:0}46.875%{opacity:.22}52.500%{opacity:0}61.250%{opacity:0}62.500%{opacity:.22}68.125%{opacity:0}76.875%{opacity:0}78.125%{opacity:.22}83.750%{opacity:0}100%{opacity:0}}
+@keyframes k50{0%,7.875%{opacity:0}9.750%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k51{0%,13.125%{opacity:0}15.000%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k52{0%,15.750%{opacity:0}17.625%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k53{0%,18.375%{opacity:0}20.250%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k54{0%,23.625%{opacity:0}25.500%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k55{0%,28.875%{opacity:0}30.750%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k56{0%,34.000%{opacity:0}35.875%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+@keyframes k57{0%,96.250%{opacity:1}98.750%,100%{opacity:0}}
+.btn{animation:k1 16.0s infinite}
+.soft{animation:k2 16.0s infinite}
+.strong{animation:k3 16.0s infinite}
+.tint{animation:k4 16.0s infinite}
+.seedc{animation:k5 16.0s infinite}
+.codec{animation:k6 16.0s infinite}
+.r0{animation:k7 16.0s infinite}
+.r1{animation:k8 16.0s infinite}
+.r2{animation:k9 16.0s infinite}
+.r3{animation:k10 16.0s infinite}
+.r4{animation:k11 16.0s infinite}
+.s0{animation:k12 16.0s infinite}
+.s1{animation:k13 16.0s infinite}
+.s2{animation:k14 16.0s infinite}
+.s3{animation:k15 16.0s infinite}
+.flash{animation:k49 16.0s infinite}
+.a_card{animation:k50 16.0s infinite}
+.a_avatar{animation:k51 16.0s infinite}
+.a_title{animation:k52 16.0s infinite}
+.a_badge{animation:k53 16.0s infinite}
+.a_text{animation:k54 16.0s infinite}
+.a_btn{animation:k55 16.0s infinite}
+.a_swatch{animation:k56 16.0s infinite}
+.a_code{animation:k57 16.0s infinite}
+</style>
+<rect width="1040" height="520" rx="20" fill="#141530"/>
+<circle cx="40" cy="36" r="6" fill="#f43f5e"/><circle cx="60" cy="36" r="6" fill="#8b5cf6"/><circle cx="80" cy="36" r="6" fill="#22d3ee"/>
+<text x="520" y="41" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="600" fill="#7c84b8">monsoon: one CSS file, zero build</text>
+<!-- editor -->
+<rect x="20" y="60" width="572" height="440" rx="14" fill="#0d0e22"/>
+<rect x="20" y="60" width="572" height="40" rx="14" fill="#191b3d"/>
+<rect x="20" y="86" width="572" height="14" fill="#191b3d"/>
+<rect x="36" y="68" width="112" height="32" rx="8" fill="#0d0e22"/>
+<rect x="36" y="88" width="112" height="12" fill="#0d0e22"/>
+<text x="92" y="89" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c9d3ff">index.html</text>
+<g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"><text x="48" y="112" text-anchor="end" fill="#4b5180">1</text><text x="48" y="138" text-anchor="end" fill="#4b5180">2</text><text x="48" y="164" text-anchor="end" fill="#4b5180">3</text><text x="48" y="190" text-anchor="end" fill="#4b5180">4</text><text x="48" y="216" text-anchor="end" fill="#4b5180">5</text><text x="48" y="242" text-anchor="end" fill="#4b5180">6</text><text x="48" y="268" text-anchor="end" fill="#4b5180">7</text><text x="48" y="294" text-anchor="end" fill="#4b5180">8</text><text x="48" y="320" text-anchor="end" fill="#4b5180">9</text><text x="48" y="346" text-anchor="end" fill="#4b5180">10</text><text x="48" y="372" text-anchor="end" fill="#4b5180">11</text></g>
+<clipPath id="ed"><rect x="20" y="98" width="572" height="362"/></clipPath>
+<g class="a_code" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="14">
+<text x="74.0" y="112" fill="#fb7185" textLength="41.0" lengthAdjust="spacingAndGlyphs">&lt;html</text>
+<text x="123.2" y="112" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">style=</text>
+<text x="172.4" y="112" fill="#c4b5fd" textLength="65.6" lengthAdjust="spacingAndGlyphs">"--seed:</text>
+<rect x="243.2" y="97" width="63.4" height="20" rx="4" fill="#ffffff" class="flash"/>
+<g class="codec">
+<text x="246.2" y="112" class="s0" textLength="57.4" lengthAdjust="spacingAndGlyphs">#3b5bdb</text>
+<text x="246.2" y="112" class="s1" textLength="57.4" lengthAdjust="spacingAndGlyphs">#8b5cf6</text>
+<text x="246.2" y="112" class="s2" textLength="57.4" lengthAdjust="spacingAndGlyphs">#f43f5e</text>
+<text x="246.2" y="112" class="s3" textLength="57.4" lengthAdjust="spacingAndGlyphs">#22d3ee</text>
+</g>
+<text x="303.6" y="112" fill="#c4b5fd" textLength="8.2" lengthAdjust="spacingAndGlyphs">"</text>
+<text x="311.8" y="112" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="74.0" y="138" fill="#fb7185" textLength="32.8" lengthAdjust="spacingAndGlyphs">&lt;div</text>
+<text x="115.0" y="138" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="164.2" y="138" fill="#c4b5fd" textLength="311.6" lengthAdjust="spacingAndGlyphs">"@container rounded-2xl p-6 shadow-lg"</text>
+<text x="475.8" y="138" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="90.4" y="164" fill="#fb7185" textLength="32.8" lengthAdjust="spacingAndGlyphs">&lt;div</text>
+<text x="131.4" y="164" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="180.6" y="164" fill="#c4b5fd" textLength="205.0" lengthAdjust="spacingAndGlyphs">"flex items-center gap-3"</text>
+<text x="385.6" y="164" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="106.8" y="190" fill="#fb7185" textLength="41.0" lengthAdjust="spacingAndGlyphs">&lt;span</text>
+<text x="156.0" y="190" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="205.2" y="190" fill="#c4b5fd" textLength="270.6" lengthAdjust="spacingAndGlyphs">"size-11 rounded-full bg-primary"</text>
+<text x="475.8" y="190" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="484.0" y="190" fill="#fb7185" textLength="49.2" lengthAdjust="spacingAndGlyphs">&lt;/span</text>
+<text x="533.2" y="190" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="106.8" y="216" fill="#fb7185" textLength="16.4" lengthAdjust="spacingAndGlyphs">&lt;b</text>
+<text x="131.4" y="216" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="180.6" y="216" fill="#c4b5fd" textLength="155.8" lengthAdjust="spacingAndGlyphs">"text-lg font-bold"</text>
+<text x="336.4" y="216" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="344.6" y="216" fill="#e7ebff" textLength="32.8" lengthAdjust="spacingAndGlyphs">Gale</text>
+<text x="377.4" y="216" fill="#fb7185" textLength="24.6" lengthAdjust="spacingAndGlyphs">&lt;/b</text>
+<text x="402.0" y="216" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="106.8" y="242" fill="#fb7185" textLength="24.6" lengthAdjust="spacingAndGlyphs">&lt;em</text>
+<text x="139.6" y="242" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="188.8" y="242" fill="#c4b5fd" textLength="147.6" lengthAdjust="spacingAndGlyphs">"ml-auto bg-muted"</text>
+<text x="336.4" y="242" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="344.6" y="242" fill="#e7ebff" textLength="24.6" lengthAdjust="spacingAndGlyphs">new</text>
+<text x="369.2" y="242" fill="#fb7185" textLength="32.8" lengthAdjust="spacingAndGlyphs">&lt;/em</text>
+<text x="402.0" y="242" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="90.4" y="268" fill="#fb7185" textLength="41.0" lengthAdjust="spacingAndGlyphs">&lt;/div</text>
+<text x="131.4" y="268" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="90.4" y="294" fill="#fb7185" textLength="16.4" lengthAdjust="spacingAndGlyphs">&lt;p</text>
+<text x="115.0" y="294" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="164.2" y="294" fill="#c4b5fd" textLength="139.4" lengthAdjust="spacingAndGlyphs">"mt-3 text-muted"</text>
+<text x="303.6" y="294" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="311.8" y="294" fill="#e7ebff" textLength="16.4" lengthAdjust="spacingAndGlyphs">No</text>
+<text x="336.4" y="294" fill="#e7ebff" textLength="41.0" lengthAdjust="spacingAndGlyphs">build</text>
+<text x="385.6" y="294" fill="#e7ebff" textLength="41.0" lengthAdjust="spacingAndGlyphs">step.</text>
+<text x="434.8" y="294" fill="#e7ebff" textLength="41.0" lengthAdjust="spacingAndGlyphs">Ever.</text>
+<text x="475.8" y="294" fill="#fb7185" textLength="24.6" lengthAdjust="spacingAndGlyphs">&lt;/p</text>
+<text x="500.4" y="294" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="90.4" y="320" fill="#fb7185" textLength="57.4" lengthAdjust="spacingAndGlyphs">&lt;button</text>
+<text x="156.0" y="320" fill="#22d3ee" textLength="49.2" lengthAdjust="spacingAndGlyphs">class=</text>
+<text x="205.2" y="320" fill="#c4b5fd" textLength="237.8" lengthAdjust="spacingAndGlyphs">"mt-4 w-full bg-primary py-2"</text>
+<text x="443.0" y="320" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="106.8" y="346" fill="#e7ebff" textLength="73.8" lengthAdjust="spacingAndGlyphs">Subscribe</text>
+<text x="180.6" y="346" fill="#fb7185" textLength="65.6" lengthAdjust="spacingAndGlyphs">&lt;/button</text>
+<text x="246.2" y="346" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<text x="74.0" y="372" fill="#fb7185" textLength="41.0" lengthAdjust="spacingAndGlyphs">&lt;/div</text>
+<text x="115.0" y="372" fill="#fb7185" textLength="8.2" lengthAdjust="spacingAndGlyphs">&gt;</text>
+<rect x="323.8" y="100" width="14" height="14" rx="3" class="seedc" stroke="#ffffff" stroke-opacity=".5"/>
+<g clip-path="url(#ed)">
+<rect x="70.0" y="94" width="600" height="26" fill="#0d0e22" style="animation:k16 16.0s infinite"/>
+<g style="animation:k18 16.0s infinite"><rect x="73.0" y="97" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k17 16.0s infinite"/></g>
+<rect x="70.0" y="120" width="600" height="26" fill="#0d0e22" style="animation:k19 16.0s infinite"/>
+<g style="animation:k21 16.0s infinite"><rect x="73.0" y="123" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k20 16.0s infinite"/></g>
+<rect x="86.4" y="146" width="600" height="26" fill="#0d0e22" style="animation:k22 16.0s infinite"/>
+<g style="animation:k24 16.0s infinite"><rect x="89.4" y="149" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k23 16.0s infinite"/></g>
+<rect x="102.8" y="172" width="600" height="26" fill="#0d0e22" style="animation:k25 16.0s infinite"/>
+<g style="animation:k27 16.0s infinite"><rect x="105.8" y="175" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k26 16.0s infinite"/></g>
+<rect x="102.8" y="198" width="600" height="26" fill="#0d0e22" style="animation:k28 16.0s infinite"/>
+<g style="animation:k30 16.0s infinite"><rect x="105.8" y="201" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k29 16.0s infinite"/></g>
+<rect x="102.8" y="224" width="600" height="26" fill="#0d0e22" style="animation:k31 16.0s infinite"/>
+<g style="animation:k33 16.0s infinite"><rect x="105.8" y="227" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k32 16.0s infinite"/></g>
+<rect x="86.4" y="250" width="600" height="26" fill="#0d0e22" style="animation:k34 16.0s infinite"/>
+<g style="animation:k36 16.0s infinite"><rect x="89.4" y="253" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k35 16.0s infinite"/></g>
+<rect x="86.4" y="276" width="600" height="26" fill="#0d0e22" style="animation:k37 16.0s infinite"/>
+<g style="animation:k39 16.0s infinite"><rect x="89.4" y="279" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k38 16.0s infinite"/></g>
+<rect x="86.4" y="302" width="600" height="26" fill="#0d0e22" style="animation:k40 16.0s infinite"/>
+<g style="animation:k42 16.0s infinite"><rect x="89.4" y="305" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k41 16.0s infinite"/></g>
+<rect x="102.8" y="328" width="600" height="26" fill="#0d0e22" style="animation:k43 16.0s infinite"/>
+<g style="animation:k45 16.0s infinite"><rect x="105.8" y="331" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k44 16.0s infinite"/></g>
+<rect x="70.0" y="354" width="600" height="26" fill="#0d0e22" style="animation:k46 16.0s infinite"/>
+<g style="animation:k48 16.0s infinite"><rect x="73.0" y="357" width="2.5" height="20" rx="1" fill="#22d3ee" style="animation:k47 16.0s infinite"/></g>
+</g>
+</g>
+<text x="40" y="482" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#5b6299">&lt;link href="https://cdn.jsdelivr.net/npm/monsooncss"&gt;</text>
+<!-- preview -->
+<rect x="608" y="60" width="412" height="440" rx="14" class="tint"/>
+<rect x="608" y="60" width="412" height="40" rx="14" fill="#ffffff"/>
+<rect x="608" y="86" width="412" height="14" fill="#ffffff"/>
+<rect x="636" y="70" width="356" height="20" rx="10" fill="#f1f3fb"/>
+<text x="814" y="84" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#6b7194">localhost/index.html</text>
+<g class="a_card">
+  <rect x="664" y="134" width="296" height="212" rx="20" fill="#141530" opacity=".08"/>
+  <rect x="664" y="126" width="296" height="212" rx="20" fill="#ffffff" stroke="#e3e7f5"/>
+</g>
+<g class="a_avatar">
+  <circle cx="710" cy="174" r="22" class="btn"/>
+  <g fill="#ffffff"><circle cx="704" cy="176" r="6"/><circle cx="711" cy="171" r="7.5"/><circle cx="718" cy="176" r="5.5"/><rect x="698" y="175" width="26" height="7" rx="3.5"/></g>
+</g>
+<text x="744" y="181" class="a_title" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="19" font-weight="800" fill="#141530">Gale</text>
+<g class="a_badge">
+  <rect x="886" y="162" width="50" height="24" rx="12" class="soft"/>
+  <text x="911" y="178.5" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" class="strong">new</text>
+</g>
+<g class="a_text" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+  <text x="688" y="232" font-size="15" fill="#3d4466">No build step. Ever.</text>
+  <rect x="688" y="246" width="200" height="8" rx="4" fill="#e9ecf7"/>
+</g>
+<g class="a_btn">
+  <rect x="688" y="272" width="248" height="42" rx="12" class="btn"/>
+  <text x="812.0" y="298" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#ffffff">Subscribe</text>
+</g>
+<g class="a_swatch">
+  <text x="664" y="380" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#6b7194">theme generated from --seed</text>
+  <rect x="664" y="392" width="42" height="30" rx="8" class="r0"/><rect x="714" y="392" width="42" height="30" rx="8" class="r1"/><rect x="764" y="392" width="42" height="30" rx="8" class="r2"/><rect x="814" y="392" width="42" height="30" rx="8" class="r3"/><rect x="864" y="392" width="42" height="30" rx="8" class="r4"/>
+  <rect x="916" y="392" width="44" height="30" rx="8" fill="#ffffff" stroke="#e3e7f5"/>
+  <text x="938" y="412" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="800" fill="#141530">AA</text>
+  <text x="664" y="452" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#6b7194">button text contrast</text>
+  <text x="972" y="452" text-anchor="end" class="s0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" font-weight="700" fill="#141530">5.7:1</text><text x="972" y="452" text-anchor="end" class="s1" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" font-weight="700" fill="#141530">5.7:1</text><text x="972" y="452" text-anchor="end" class="s2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" font-weight="700" fill="#141530">4.7:1</text><text x="972" y="452" text-anchor="end" class="s3" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" font-weight="700" fill="#141530">5.4:1</text>
+</g>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-labelledby="bt">
+  <title id="bt">Monsoon: Utility-first CSS. No build step. Ever.</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f9ff"/>
+      <stop offset="1" stop-color="#e8edff"/>
+    </linearGradient>
+    <linearGradient id="oo" gradientUnits="userSpaceOnUse" x1="880" y1="0" x2="1050" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset=".5" stop-color="#3b5bdb"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="400" rx="24" fill="url(#bg)"/>
+  <g fill="none" stroke="#d9e1ff" stroke-width="6" stroke-linecap="round">
+    <path d="M1010 66 C1080 40 1160 58 1236 38"/>
+    <path d="M1200 372 C1220 366 1240 368 1256 362"/>
+    <path d="M30 360 C90 340 150 370 220 350"/>
+    <path d="M1120 110 C1160 96 1200 104 1236 92"/>
+  </g>
+  <svg x="64" y="34" width="440" height="336" viewBox="0 0 460 352">
+  <defs>
+    <g id="cloud">
+      <circle cx="84" cy="204" r="56"/>
+      <circle cx="148" cy="150" r="72"/>
+      <circle cx="226" cy="158" r="58"/>
+      <circle cx="268" cy="214" r="44"/>
+      <rect x="40" y="180" width="262" height="98" rx="49"/>
+    </g>
+    <clipPath id="cloud-clip"><use href="#cloud"/></clipPath>
+  </defs>
+  <g fill="none" stroke="#141530" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M316 178 C350 176 392 176 414 162 C434 148 424 124 406 128 C392 131 394 148 408 147"/>
+    <path d="M326 204 L392 204 M414 204 L438 204"/>
+    <path d="M326 234 L376 234 M398 234 L438 234"/>
+    <path d="M316 260 C350 262 392 262 414 276 C434 290 424 314 406 310 C392 307 394 290 408 291"/>
+  </g>
+  <polygon points="110,262 86,306 108,306 98,342 148,290 126,290 140,262" fill="#22d3ee" stroke="#141530" stroke-width="8" stroke-linejoin="round"/>
+  <use href="#cloud" fill="#141530" stroke="#141530" stroke-width="16" stroke-linejoin="round"/>
+  <use href="#cloud" fill="#f1f5ff"/>
+  <g clip-path="url(#cloud-clip)">
+    <ellipse cx="170" cy="296" rx="180" ry="46" fill="#3b5bdb" opacity=".2"/>
+    <ellipse cx="124" cy="112" rx="30" ry="12" fill="#ffffff" transform="rotate(-20 124 112)"/>
+  </g>
+  <g fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M316 178 C350 176 392 176 414 162 C434 148 424 124 406 128 C392 131 394 148 408 147" stroke="#22d3ee"/>
+    <path d="M326 204 L392 204 M414 204 L438 204" stroke="#3b5bdb"/>
+    <path d="M326 234 L376 234 M398 234 L438 234" stroke="#8b5cf6"/>
+    <path d="M316 260 C350 262 392 262 414 276 C434 290 424 314 406 310 C392 307 394 290 408 291" stroke="#f43f5e"/>
+  </g>
+  <g fill="#141530">
+    <ellipse cx="184" cy="200" rx="13" ry="17"/>
+    <ellipse cx="236" cy="198" rx="13" ry="17"/>
+    <ellipse cx="278" cy="232" rx="10" ry="11"/>
+  </g>
+  <ellipse cx="278" cy="234" rx="5" ry="5.5" fill="#f43f5e"/>
+  <g fill="#ffffff">
+    <circle cx="189" cy="193" r="5"/>
+    <circle cx="241" cy="191" r="5"/>
+  </g>
+  <g fill="none" stroke="#141530" stroke-width="7" stroke-linecap="round">
+    <path d="M168 170 Q181 165 196 170"/>
+    <path d="M222 162 Q236 152 252 160"/>
+  </g>
+  <g fill="#f43f5e" opacity=".42">
+    <ellipse cx="160" cy="232" rx="16" ry="10"/>
+    <ellipse cx="246" cy="234" rx="12" ry="8"/>
+  </g>
+</svg>
+  <text x="544" y="196" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="132" font-weight="900" letter-spacing="-5" fill="#141530">mons<tspan fill="url(#oo)">oo</tspan>n</text>
+  <text x="550" y="250" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="34" font-weight="600" fill="#4a5280">Utility-first CSS. No build step. Ever.</text>
+  <g transform="translate(548 282)">
+    <rect width="620" height="52" rx="12" fill="#141530" stroke="#141530" stroke-width="2"/>
+    <circle cx="26" cy="26" r="6" fill="#22d3ee"/>
+    <text x="46" y="33" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" textLength="550" fill="#c9d3ff"><tspan fill="#8b5cf6">&lt;link</tspan> <tspan fill="#22d3ee">href</tspan>=<tspan fill="#fda4af">"https://cdn.jsdelivr.net/npm/monsooncss"</tspan><tspan fill="#8b5cf6">&gt;</tspan></text>
+  </g>
+</svg>

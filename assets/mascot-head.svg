@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-labelledby="t">
+  <title id="t">Gale, the Monsoon mascot</title>
+  <defs>
+    <g id="h">
+      <circle cx="36" cy="72" r="24"/>
+      <circle cx="60" cy="48" r="30"/>
+      <circle cx="92" cy="56" r="24"/>
+      <rect x="12" y="62" width="104" height="48" rx="24"/>
+    </g>
+    <clipPath id="hc"><use href="#h"/></clipPath>
+  </defs>
+  <use href="#h" fill="#141530" stroke="#141530" stroke-width="10" stroke-linejoin="round"/>
+  <use href="#h" fill="#f1f5ff"/>
+  <g clip-path="url(#hc)">
+    <ellipse cx="64" cy="118" rx="70" ry="18" fill="#3b5bdb" opacity=".2"/>
+    <ellipse cx="50" cy="32" rx="12" ry="5" fill="#ffffff" transform="rotate(-20 50 32)"/>
+  </g>
+  <g fill="#141530">
+    <ellipse cx="50" cy="76" rx="7" ry="9"/>
+    <ellipse cx="80" cy="76" rx="7" ry="9"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="52.5" cy="72" r="2.6"/>
+    <circle cx="82.5" cy="72" r="2.6"/>
+  </g>
+  <g fill="none" stroke="#141530" stroke-width="4" stroke-linecap="round">
+    <path d="M41 60 Q49 56 57 59"/>
+    <path d="M73 57 Q81 51 90 56"/>
+    <path d="M58 92 Q65 98 72 92"/>
+  </g>
+  <g fill="#f43f5e" opacity=".42">
+    <ellipse cx="38" cy="92" rx="8" ry="5"/>
+    <ellipse cx="92" cy="92" rx="8" ry="5"/>
+  </g>
+</svg>

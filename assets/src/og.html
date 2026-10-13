@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Monsoon social card</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f1f5ff;
+    background:
+      radial-gradient(circle at 18% 30%, rgba(59,91,219,.55), transparent 42%),
+      radial-gradient(circle at 92% 95%, rgba(139,92,246,.45), transparent 40%),
+      radial-gradient(circle at 70% 0%, rgba(34,211,238,.18), transparent 35%),
+      #141530;
+    position: relative;
+  }
+  .wrap { position: absolute; left: 0; top: 15.0px; transform-origin: 0 0; transform: scale(0.9375); width: 1280px; height: 640px;
+          display: flex; align-items: center; padding: 0 64px 0 40px; gap: 28px; }
+  .mascot { width: 470px; flex: none; filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); }
+  .txt { flex: 1; min-width: 0; }
+  h1 { font-size: 142px; font-weight: 900; letter-spacing: -6px; line-height: .9; }
+  h1 .oo { background: linear-gradient(90deg, #22d3ee, #3b5bdb 50%, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tag { font-size: 38px; font-weight: 700; color: #c9d3ff; margin-top: 18px; letter-spacing: -.5px; }
+  .chip { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; padding: 14px 20px; border-radius: 14px;
+          background: #0b0c1f; border: 2px solid #2c3170; font: 21px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c9d3ff; }
+  .chip i { width: 10px; height: 10px; border-radius: 50%; background: #22d3ee; box-shadow: 0 0 12px #22d3ee; }
+  .t { color: #fb7185; } .a { color: #22d3ee; } .s { color: #c4b5fd; }
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; max-width: 690px; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 11px; border-radius: 999px;
+          background: rgba(241,245,255,.07); border: 1.5px solid rgba(201,211,255,.18); font-size: 18px; font-weight: 600; color: #e3e8ff; }
+  .swirl { position: absolute; inset: 0; }
+</style></head>
+<body>
+<svg class="swirl" viewBox="0 0 1280 640" width="1200" height="630" preserveAspectRatio="none" fill="none" stroke="#2a2f6e" stroke-width="6" stroke-linecap="round">
+  <path d="M960 70 C1040 40 1140 64 1236 38"/><path d="M1080 120 C1130 104 1190 112 1240 98"/>
+  <path d="M40 590 C120 566 200 600 300 574"/><path d="M1020 600 C1090 580 1170 610 1250 584"/>
+</svg>
+<div class="wrap">
+  <img class="mascot" src="../mascot.svg" alt="">
+  <div class="txt">
+    <h1>mons<span class="oo">oo</span>n</h1>
+    <p class="tag">Utility-first CSS. No build step. Ever.</p>
+    <div class="chip"><i></i><span><span class="t">&lt;link</span> <span class="a">href</span>=<span class="s">"https://cdn.jsdelivr.net/npm/monsooncss"</span><span class="t">&gt;</span></span></div>
+    <div class="pills"><span class="pill"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9d3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19.5 7.7v8.6L12 20.5l-7.5-4.2V7.7z"/><path d="M4.5 7.7 12 12l7.5-4.3M12 12v8.5"/><path d="M3 3l18 18" style="stroke:#22d3ee"/></svg>
+No build step</span><span class="pill"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9d3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 14C12 10.5 9.5 8 5 8c0 4 2.5 6 7 6z"/><path d="M12 12c0-4 2.8-7.5 7.5-7.5 0 4.5-3 7.5-7.5 7.5z" style="stroke:#22d3ee"/><path d="M7 21h10"/></svg>
+Theme from one --seed</span><span class="pill"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9d3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="#c9d3ff"/></svg>
+Auto dark mode</span><span class="pill"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9d3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3" width="19" height="12.5" rx="2"/><rect x="5.5" y="6" width="7" height="6.5" rx="1" style="stroke:#22d3ee"/><path d="M4 20h16M6 18l-2 2 2 2M18 18l2 2-2 2"/></svg>
+Container queries</span><span class="pill"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9d3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-45 12 12)"><rect x="2.5" y="8.5" width="11" height="7" rx="3.5"/><rect x="10.5" y="8.5" width="11" height="7" rx="3.5" style="stroke:#22d3ee"/></g></svg>
+Readable class names</span><span class="pill"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9d3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="7.3" r="1.5" style="fill:#22d3ee" stroke="none"/><path d="M7.5 10.2 12 11l4.5-.8M12 11v3.2l-2.6 4M12 14.2l2.6 4"/></svg>
+Accessible contrast</span></div>
+  </div>
+</div>
+</body></html>
