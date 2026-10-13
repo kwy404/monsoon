@@ -258,11 +258,12 @@ Monsoon targets current versions of Chrome, Edge, Firefox and Safari. Seed themi
 A prebuilt stylesheet cannot know values you invent while writing markup, so these are not part of Monsoon:
 
 - stacked variants such as `dark:hover:` or `md:hover:`;
-- arbitrary values such as `w-[37px]`;
 - the important modifier;
 - opacity modifiers beyond semantic colors, black and white (`bg-primary/90` and `bg-black/50` exist, palette colors with `/50` do not).
 
 Use the nearest step of a scale, a `style` attribute, or a few lines of your own CSS with the theme variables.
+
+Arbitrary values such as `w-[37px]`, `bg-[#0ea5e9]` or `md:grid-cols-[1fr_2fr]` are not in the file either, but they need no build step: `dist/monsoon.js` (or the 6 kB `dist/monsoon-arbitrary.js`) writes them in the browser, and `monsooncss purge` compiles them into the purged stylesheet so production can drop the script.
 
 ## FAQ
 
