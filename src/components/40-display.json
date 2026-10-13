@@ -1,0 +1,497 @@
+{
+  "group": "display",
+  "title": "Data display and layout",
+  "components": [
+    {
+      "name": "Card",
+      "slug": "card",
+      "description": "A surface that groups related content, with header, media, body, actions and footer parts and several styles.",
+      "classes": [
+        "card",
+        "card-header",
+        "card-body",
+        "card-title",
+        "card-subtitle",
+        "card-actions",
+        "card-footer",
+        "card-media",
+        "card-bordered",
+        "card-elevated",
+        "card-glass",
+        "card-interactive"
+      ],
+      "html": "<article class=\"card card-elevated max-w-sm\"><div class=\"card-media aspect-video bg-gradient-to-br from-primary to-accent\"></div><div class=\"card-body\"><h3 class=\"card-title\">Quarterly report</h3><p class=\"card-subtitle\">Updated 2 hours ago</p><p class=\"text-sm text-muted-foreground\">Revenue grew 18 percent while churn stayed flat across every region.</p><div class=\"card-actions\"><a class=\"inline-flex items-center rounded-lg border border-border px-4 py-2 text-sm font-medium\" href=\"#\">Share</a><a class=\"inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground\" href=\"#\">Open</a></div></div><footer class=\"card-footer\">3 comments</footer></article>"
+    },
+    {
+      "name": "Card overlay",
+      "slug": "card-overlay",
+      "description": "A card whose body sits over its media on a readable gradient.",
+      "classes": [
+        "card-overlay"
+      ],
+      "html": "<article class=\"card card-overlay card-interactive max-w-sm\"><div class=\"card-media aspect-square bg-gradient-to-br from-info to-success\"></div><div class=\"card-body\"><h3 class=\"card-title\"><a href=\"#\">Coastal trail guide</a></h3><p class=\"card-subtitle\">12 km, moderate</p></div></article>"
+    },
+    {
+      "name": "Card side",
+      "slug": "card-side",
+      "description": "A horizontal card with the media on the side, here in the compact size.",
+      "classes": [
+        "card-side",
+        "card-compact"
+      ],
+      "html": "<article class=\"card card-side card-compact card-bordered max-w-xl\"><div class=\"card-media bg-gradient-to-br from-warning to-danger\"></div><div class=\"card-body\"><h3 class=\"card-title\">Weekend workshop</h3><p class=\"text-sm text-muted-foreground\">Two days of hands on sessions about design tokens and theming.</p><div class=\"card-actions\"><a class=\"inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground\" href=\"#\">Reserve a seat</a></div></div></article>"
+    },
+    {
+      "name": "Avatar",
+      "slug": "avatar",
+      "description": "A picture or initials for a person, with sizes, shapes, a ring and a status dot.",
+      "classes": [
+        "avatar",
+        "avatar-xs",
+        "avatar-sm",
+        "avatar-lg",
+        "avatar-xl",
+        "avatar-rounded",
+        "avatar-square",
+        "avatar-ring",
+        "avatar-placeholder",
+        "avatar-online",
+        "avatar-offline",
+        "avatar-busy",
+        "avatar-away"
+      ],
+      "html": "<div class=\"flex items-center gap-4\"><span class=\"avatar avatar-xs avatar-placeholder\">AK</span><span class=\"avatar avatar-sm avatar-placeholder avatar-online\">MS</span><span class=\"avatar avatar-placeholder avatar-busy\">JD</span><span class=\"avatar avatar-lg avatar-rounded avatar-ring bg-gradient-to-br from-primary to-accent\"></span><span class=\"avatar avatar-xl avatar-square avatar-placeholder avatar-away\">LP</span></div>"
+    },
+    {
+      "name": "Avatar group",
+      "slug": "avatar-group",
+      "description": "Overlapping avatars with a count for the rest.",
+      "classes": [
+        "avatar-group",
+        "avatar-count"
+      ],
+      "html": "<div class=\"avatar-group\"><span class=\"avatar avatar-placeholder\">AK</span><span class=\"avatar avatar-placeholder\">MS</span><span class=\"avatar bg-gradient-to-br from-primary to-accent\"></span><span class=\"avatar avatar-placeholder\">JD</span><span class=\"avatar avatar-count\">+12</span></div>"
+    },
+    {
+      "name": "List",
+      "slug": "list",
+      "description": "Rows with leading media, text and a trailing action, optionally divided, bordered and hoverable.",
+      "classes": [
+        "list",
+        "list-item",
+        "list-divided",
+        "list-bordered",
+        "list-hover",
+        "list-media",
+        "list-content",
+        "list-title",
+        "list-description",
+        "list-action"
+      ],
+      "html": "<ul class=\"list list-divided list-bordered list-hover max-w-md\"><li class=\"list-item\"><span class=\"list-media avatar avatar-placeholder avatar-online\">AK</span><div class=\"list-content\"><p class=\"list-title\">Ana Kohler</p><p class=\"list-description\">Design lead</p></div><span class=\"list-action\">Owner</span></li><li class=\"list-item\"><span class=\"list-media avatar avatar-placeholder\">MS</span><div class=\"list-content\"><p class=\"list-title\">Marco Silva</p><p class=\"list-description\">Frontend engineer</p></div><a class=\"list-action\" href=\"#\">Edit</a></li><li class=\"list-item\"><span class=\"list-media avatar avatar-placeholder avatar-offline\">JD</span><div class=\"list-content\"><p class=\"list-title\">Julia Duarte</p><p class=\"list-description\">Product manager</p></div><a class=\"list-action\" href=\"#\">Edit</a></li></ul>"
+    },
+    {
+      "name": "Table",
+      "slug": "table",
+      "description": "Data tables with zebra rows, hover rows, compact cells, cell borders, a pinned header and first column, inside a scroll wrapper.",
+      "classes": [
+        "table",
+        "table-wrap",
+        "table-zebra",
+        "table-hover",
+        "table-compact",
+        "table-bordered",
+        "table-pin-header",
+        "table-pin-col"
+      ],
+      "html": "<div class=\"table-wrap max-h-72\"><table class=\"table table-zebra table-hover table-pin-header table-pin-col\"><thead><tr><th>Invoice</th><th>Customer</th><th>Status</th><th>Amount</th></tr></thead><tbody><tr><td>INV-1042</td><td>Northwind</td><td class=\"text-success\">Paid</td><td>$1,250.00</td></tr><tr><td>INV-1043</td><td>Globex</td><td class=\"text-muted-foreground\">Pending</td><td>$860.00</td></tr><tr><td>INV-1044</td><td>Initech</td><td class=\"text-danger\">Overdue</td><td>$2,410.00</td></tr><tr><td>INV-1045</td><td>Umbrella</td><td class=\"text-success\">Paid</td><td>$395.00</td></tr></tbody></table></div>"
+    },
+    {
+      "name": "Timeline",
+      "slug": "timeline",
+      "description": "Events on a line with dots or icons, vertical, horizontal or alternating sides.",
+      "classes": [
+        "timeline",
+        "timeline-item",
+        "timeline-dot",
+        "timeline-icon",
+        "timeline-content",
+        "timeline-time",
+        "timeline-horizontal",
+        "timeline-alternate"
+      ],
+      "html": "<ol class=\"timeline\"><li class=\"timeline-item\"><span class=\"timeline-dot\"></span><div class=\"timeline-content\"><time class=\"timeline-time\">Mar 2026</time><p class=\"font-semibold\">Project started</p><p class=\"text-sm text-muted-foreground\">First commit and the token formulas.</p></div></li><li class=\"timeline-item\"><span class=\"timeline-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13 2 4 14h7l-1 8 9-12h-7l1-8Z\"/></svg></span><div class=\"timeline-content\"><time class=\"timeline-time\">Jun 2026</time><p class=\"font-semibold\">Public beta</p><p class=\"text-sm text-muted-foreground\">One stylesheet from a CDN.</p></div></li><li class=\"timeline-item\"><span class=\"timeline-dot bg-success\"></span><div class=\"timeline-content\"><time class=\"timeline-time\">Oct 2026</time><p class=\"font-semibold\">Components</p><p class=\"text-sm text-muted-foreground\">Cards, tables, timelines and more.</p></div></li></ol>"
+    },
+    {
+      "name": "Stats",
+      "slug": "stats",
+      "description": "Key numbers with a title, value, description, figure and up or down trend.",
+      "classes": [
+        "stats",
+        "stats-vertical",
+        "stat",
+        "stat-figure",
+        "stat-title",
+        "stat-value",
+        "stat-desc",
+        "stat-trend-up",
+        "stat-trend-down"
+      ],
+      "html": "<div class=\"stats\"><div class=\"stat\"><p class=\"stat-title\">Revenue</p><p class=\"stat-value\">$48.2k</p><p class=\"stat-desc\"><span class=\"stat-trend-up\">12%</span> vs last month</p></div><div class=\"stat\"><p class=\"stat-title\">Active users</p><p class=\"stat-value\">3,912</p><p class=\"stat-desc\"><span class=\"stat-trend-up\">4.1%</span> vs last month</p></div><div class=\"stat\"><span class=\"stat-figure size-6\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z\"/></svg></span><p class=\"stat-title\">Churn</p><p class=\"stat-value\">1.8%</p><p class=\"stat-desc\"><span class=\"stat-trend-down\">0.3%</span> vs last month</p></div></div>"
+    },
+    {
+      "name": "Collapse",
+      "slug": "collapse",
+      "description": "A details element that opens and closes, with an arrow or plus icon.",
+      "classes": [
+        "collapse",
+        "collapse-title",
+        "collapse-content",
+        "collapse-arrow",
+        "collapse-plus"
+      ],
+      "html": "<details class=\"collapse collapse-arrow max-w-lg\"><summary class=\"collapse-title\">Does it need a build step?</summary><div class=\"collapse-content\">No. Link one stylesheet and every component works with plain HTML.</div></details>"
+    },
+    {
+      "name": "Accordion",
+      "slug": "accordion",
+      "description": "A group of collapse items that share one frame, exclusive when they share a name.",
+      "classes": [
+        "accordion",
+        "accordion-flush"
+      ],
+      "html": "<div class=\"accordion collapse-plus max-w-lg\"><details class=\"collapse\" name=\"faq\" open><summary class=\"collapse-title\">How is the theme built?</summary><div class=\"collapse-content\">Every token is derived from a single seed color with relative color syntax.</div></details><details class=\"collapse\" name=\"faq\"><summary class=\"collapse-title\">Is dark mode automatic?</summary><div class=\"collapse-content\">Yes. It follows the system setting, and the dark class forces it.</div></details><details class=\"collapse\" name=\"faq\"><summary class=\"collapse-title\">Can I use it from a CDN?</summary><div class=\"collapse-content\">Yes, one link tag is enough.</div></details></div>"
+    },
+    {
+      "name": "Carousel",
+      "slug": "carousel",
+      "description": "A scroll snap slider with centered, full width and vertical modes, plus dot and arrow links to slide ids.",
+      "classes": [
+        "carousel",
+        "carousel-item",
+        "carousel-center",
+        "carousel-full",
+        "carousel-vertical",
+        "carousel-nav",
+        "carousel-dot",
+        "carousel-prev",
+        "carousel-next"
+      ],
+      "html": "<div class=\"max-w-xl\"><div class=\"carousel carousel-full\"><div id=\"slide-1\" class=\"carousel-item\"><div class=\"aspect-video w-full bg-gradient-to-br from-primary to-accent\"></div><a class=\"carousel-prev\" href=\"#slide-3\" aria-label=\"Previous slide\"></a><a class=\"carousel-next\" href=\"#slide-2\" aria-label=\"Next slide\"></a></div><div id=\"slide-2\" class=\"carousel-item\"><div class=\"aspect-video w-full bg-gradient-to-br from-info to-success\"></div><a class=\"carousel-prev\" href=\"#slide-1\" aria-label=\"Previous slide\"></a><a class=\"carousel-next\" href=\"#slide-3\" aria-label=\"Next slide\"></a></div><div id=\"slide-3\" class=\"carousel-item\"><div class=\"aspect-video w-full bg-gradient-to-br from-warning to-danger\"></div><a class=\"carousel-prev\" href=\"#slide-2\" aria-label=\"Previous slide\"></a><a class=\"carousel-next\" href=\"#slide-1\" aria-label=\"Next slide\"></a></div></div><nav class=\"carousel-nav\"><a class=\"carousel-dot\" href=\"#slide-1\" aria-label=\"Slide 1\"></a><a class=\"carousel-dot\" href=\"#slide-2\" aria-label=\"Slide 2\"></a><a class=\"carousel-dot\" href=\"#slide-3\" aria-label=\"Slide 3\"></a></nav></div>"
+    },
+    {
+      "name": "Rating display",
+      "slug": "rating-display",
+      "description": "Read only stars filled from the --rating custom property, decimals included.",
+      "classes": [
+        "rating-display",
+        "rating-display-sm",
+        "rating-display-lg"
+      ],
+      "html": "<div class=\"flex items-center gap-2\"><span class=\"rating-display\" style=\"--rating: 4.5\" role=\"img\" aria-label=\"4.5 out of 5\"></span><span class=\"text-sm text-muted-foreground\">4.5 (1,284 reviews)</span></div>"
+    },
+    {
+      "name": "Divider",
+      "slug": "divider",
+      "description": "A horizontal or vertical rule with optional text, alignment and tones.",
+      "classes": [
+        "divider",
+        "divider-vertical",
+        "divider-start",
+        "divider-end",
+        "divider-primary",
+        "divider-accent",
+        "divider-success",
+        "divider-warning",
+        "divider-danger",
+        "divider-info"
+      ],
+      "html": "<div class=\"max-w-md\"><div class=\"divider\">or continue with</div><div class=\"divider divider-start divider-primary\">Recent</div><div class=\"flex h-12 items-center\"><span>Docs</span><div class=\"divider divider-vertical\"></div><span>Blog</span></div></div>"
+    },
+    {
+      "name": "Hero",
+      "slug": "hero",
+      "description": "A large opening section with centered content, an optional image overlay and a seed tinted gradient.",
+      "classes": [
+        "hero",
+        "hero-content",
+        "hero-overlay",
+        "hero-gradient"
+      ],
+      "html": "<section class=\"hero hero-gradient\"><div class=\"hero-content\"><h1 class=\"text-5xl font-extrabold tracking-tight\">Ship pages that look finished</h1><p class=\"max-w-xl text-lg text-muted-foreground\">One stylesheet, one seed color, light and dark mode out of the box.</p><div class=\"flex gap-2\"><a class=\"inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground\" href=\"#\">Get started</a><a class=\"inline-flex items-center rounded-lg border border-border px-4 py-2 text-sm font-medium\" href=\"#\">Read the docs</a></div></div></section>"
+    },
+    {
+      "name": "Feature grid",
+      "slug": "feature-grid",
+      "description": "An auto fitting grid of features with icon, title and text.",
+      "classes": [
+        "feature-grid",
+        "feature",
+        "feature-icon",
+        "feature-title",
+        "feature-text"
+      ],
+      "html": "<div class=\"feature-grid\"><div class=\"feature\"><span class=\"feature-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13 2 4 14h7l-1 8 9-12h-7l1-8Z\"/></svg></span><h3 class=\"feature-title\">No build step</h3><p class=\"feature-text\">Link one file from a CDN and start writing markup.</p></div><div class=\"feature\"><span class=\"feature-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5\"/></svg></span><h3 class=\"feature-title\">Seed theming</h3><p class=\"feature-text\">Every color comes from a single seed, with AA contrast kept.</p></div><div class=\"feature\"><span class=\"feature-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z\"/></svg></span><h3 class=\"feature-title\">Accessible</h3><p class=\"feature-text\">Native elements, visible focus and reduced motion support.</p></div></div>"
+    },
+    {
+      "name": "Pricing",
+      "slug": "pricing",
+      "description": "A set of plan cards with price, feature list and a featured plan.",
+      "classes": [
+        "pricing",
+        "pricing-card",
+        "pricing-featured",
+        "pricing-badge",
+        "pricing-name",
+        "pricing-desc",
+        "pricing-price",
+        "pricing-period",
+        "pricing-features"
+      ],
+      "html": "<div class=\"pricing\"><div class=\"pricing-card\"><h3 class=\"pricing-name\">Starter</h3><p class=\"pricing-desc\">For side projects.</p><p class=\"pricing-price\">$0<span class=\"pricing-period\">/month</span></p><ul class=\"pricing-features\"><li>3 projects</li><li>Community support</li></ul><a class=\"inline-flex items-center rounded-lg border border-border px-4 py-2 text-sm font-medium justify-center\" href=\"#\">Start free</a></div><div class=\"pricing-card pricing-featured\"><span class=\"pricing-badge\">Most popular</span><h3 class=\"pricing-name\">Pro</h3><p class=\"pricing-desc\">For growing teams.</p><p class=\"pricing-price\">$24<span class=\"pricing-period\">/month</span></p><ul class=\"pricing-features\"><li>Unlimited projects</li><li>Priority support</li><li>Custom themes</li></ul><a class=\"inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground justify-center\" href=\"#\">Upgrade</a></div><div class=\"pricing-card\"><h3 class=\"pricing-name\">Enterprise</h3><p class=\"pricing-desc\">For large organizations.</p><p class=\"pricing-price\">$99<span class=\"pricing-period\">/month</span></p><ul class=\"pricing-features\"><li>Single sign on</li><li>Audit log</li><li>Dedicated manager</li></ul><a class=\"inline-flex items-center rounded-lg border border-border px-4 py-2 text-sm font-medium justify-center\" href=\"#\">Contact sales</a></div></div>"
+    },
+    {
+      "name": "Testimonial",
+      "slug": "testimonial",
+      "description": "A customer quote with the author name, role and avatar.",
+      "classes": [
+        "testimonial",
+        "testimonial-quote",
+        "testimonial-author",
+        "testimonial-name",
+        "testimonial-role"
+      ],
+      "html": "<figure class=\"testimonial max-w-md\"><blockquote class=\"testimonial-quote\">We replaced three stylesheets with one and our pages finally match in dark mode.</blockquote><figcaption class=\"testimonial-author\"><span class=\"avatar avatar-placeholder\">RL</span><div><p class=\"testimonial-name\">Rita Lopes</p><p class=\"testimonial-role\">CTO, Fieldnote</p></div></figcaption></figure>"
+    },
+    {
+      "name": "Chat",
+      "slug": "chat",
+      "description": "Message bubbles aligned to the start or end, with avatar, header, footer and tones.",
+      "classes": [
+        "chat",
+        "chat-start",
+        "chat-end",
+        "chat-avatar",
+        "chat-header",
+        "chat-footer",
+        "chat-bubble",
+        "chat-bubble-neutral",
+        "chat-bubble-primary",
+        "chat-bubble-secondary",
+        "chat-bubble-accent",
+        "chat-bubble-success",
+        "chat-bubble-warning",
+        "chat-bubble-danger",
+        "chat-bubble-info"
+      ],
+      "html": "<div class=\"max-w-md\"><div class=\"chat chat-start\"><span class=\"chat-avatar avatar avatar-sm avatar-placeholder\">AK</span><div class=\"chat-header\">Ana <time>10:12</time></div><div class=\"chat-bubble\">Is the release ready?</div></div><div class=\"chat chat-end\"><span class=\"chat-avatar avatar avatar-sm avatar-placeholder\">ME</span><div class=\"chat-bubble\">Tests pass, publishing now.</div><div class=\"chat-footer\">Seen 10:13</div></div><div class=\"chat chat-start\"><span class=\"chat-avatar avatar avatar-sm avatar-placeholder\">AK</span><div class=\"chat-bubble chat-bubble-success\">Great, thank you!</div></div></div>"
+    },
+    {
+      "name": "Mockup browser",
+      "slug": "mockup-browser",
+      "description": "A browser frame with window dots and an address bar.",
+      "classes": [
+        "mockup-browser",
+        "mockup-browser-bar",
+        "mockup-browser-url"
+      ],
+      "html": "<div class=\"mockup-browser max-w-xl\"><div class=\"mockup-browser-bar\"><span class=\"mockup-browser-url\">https://example.com</span></div><div class=\"grid h-48 place-items-center\">Hello</div></div>"
+    },
+    {
+      "name": "Mockup window",
+      "slug": "mockup-window",
+      "description": "A desktop window frame with dots.",
+      "classes": [
+        "mockup-window"
+      ],
+      "html": "<div class=\"mockup-window max-w-xl\"><div class=\"grid h-40 place-items-center\">Window content</div></div>"
+    },
+    {
+      "name": "Mockup phone",
+      "slug": "mockup-phone",
+      "description": "A phone frame with a camera island; set --phone-w to resize the screen.",
+      "classes": [
+        "mockup-phone",
+        "mockup-phone-screen"
+      ],
+      "html": "<div class=\"mockup-phone\"><div class=\"mockup-phone-screen grid place-items-center bg-gradient-to-b from-primary to-accent text-primary-foreground\">9:41</div></div>"
+    },
+    {
+      "name": "Mockup code",
+      "slug": "mockup-code",
+      "description": "A terminal style code frame where each pre line can take a data-prefix.",
+      "classes": [
+        "mockup-code"
+      ],
+      "html": "<div class=\"mockup-code max-w-xl\"><pre data-prefix=\"$\"><code>npm install monsooncss</code></pre><pre data-prefix=\">\" class=\"text-warning\"><code>installing...</code></pre><pre data-prefix=\">\"><code>added 1 package in 2s</code></pre></div>"
+    },
+    {
+      "name": "Code block",
+      "slug": "code-block",
+      "description": "A code listing with a header for the file name.",
+      "classes": [
+        "code-block",
+        "code-block-header"
+      ],
+      "html": "<figure class=\"code-block max-w-xl\"><figcaption class=\"code-block-header\"><span>theme.css</span><span>CSS</span></figcaption><pre><code>:root {&#10;  --seed: oklch(0.55 0.22 262);&#10;}</code></pre></figure>"
+    },
+    {
+      "name": "Countdown",
+      "slug": "countdown",
+      "description": "Number boxes with labels; the value is text or the --value custom property.",
+      "classes": [
+        "countdown",
+        "countdown-box",
+        "countdown-value",
+        "countdown-label"
+      ],
+      "html": "<div class=\"countdown\" role=\"timer\" aria-label=\"12 days, 4 hours, 36 minutes and 9 seconds left\"><div class=\"countdown-box\"><span class=\"countdown-value\" style=\"--value: 12\"></span><span class=\"countdown-label\">Days</span></div><div class=\"countdown-box\"><span class=\"countdown-value\" style=\"--value: 4\"></span><span class=\"countdown-label\">Hours</span></div><div class=\"countdown-box\"><span class=\"countdown-value\" style=\"--value: 36\"></span><span class=\"countdown-label\">Minutes</span></div><div class=\"countdown-box\"><span class=\"countdown-value\" style=\"--value: 9\"></span><span class=\"countdown-label\">Seconds</span></div></div>"
+    },
+    {
+      "name": "Diff",
+      "slug": "diff",
+      "description": "A before and after comparison; drag the divider, which is a native resize handle.",
+      "classes": [
+        "diff",
+        "diff-before",
+        "diff-after",
+        "diff-resizer"
+      ],
+      "html": "<div class=\"diff aspect-video max-w-xl\"><div class=\"diff-before\"><div class=\"flex items-center bg-gradient-to-br from-primary to-accent p-6 text-2xl font-bold text-primary-foreground\">Before</div></div><div class=\"diff-after\"><div class=\"flex items-center justify-end bg-surface-3 p-6 text-2xl font-bold\">After</div></div><div class=\"diff-resizer\"></div></div>"
+    },
+    {
+      "name": "Masonry",
+      "slug": "masonry",
+      "description": "Column based masonry that keeps each child whole, auto or with 2, 3 or 4 columns.",
+      "classes": [
+        "masonry",
+        "masonry-2",
+        "masonry-3",
+        "masonry-4"
+      ],
+      "html": "<div class=\"masonry masonry-3\"><div class=\"h-32 rounded-lg bg-primary\"></div><div class=\"h-48 rounded-lg bg-accent\"></div><div class=\"h-24 rounded-lg bg-info\"></div><div class=\"h-40 rounded-lg bg-success\"></div><div class=\"h-28 rounded-lg bg-warning\"></div><div class=\"h-36 rounded-lg bg-danger\"></div></div>"
+    },
+    {
+      "name": "Mask",
+      "slug": "mask",
+      "description": "Clip any element or image to a shape.",
+      "classes": [
+        "mask",
+        "mask-squircle",
+        "mask-hexagon",
+        "mask-circle",
+        "mask-heart",
+        "mask-star",
+        "mask-triangle",
+        "mask-decagon",
+        "mask-blob"
+      ],
+      "html": "<div class=\"flex flex-wrap gap-4\"><div class=\"mask mask-squircle size-24 bg-gradient-to-br from-primary to-accent\"></div><div class=\"mask mask-hexagon size-24 bg-gradient-to-br from-info to-success\"></div><div class=\"mask mask-heart size-24 bg-gradient-to-br from-danger to-warning\"></div><div class=\"mask mask-star size-24 bg-warning\"></div><div class=\"mask mask-blob size-24 bg-primary\"></div></div>"
+    },
+    {
+      "name": "Blockquote",
+      "slug": "blockquote",
+      "description": "A quotation with an accent rule, an optional filled style and a citation.",
+      "classes": [
+        "blockquote",
+        "blockquote-cite",
+        "blockquote-filled"
+      ],
+      "html": "<blockquote class=\"blockquote blockquote-filled max-w-lg\"><p>Simplicity is prerequisite for reliability.</p><cite class=\"blockquote-cite\">Edsger W. Dijkstra</cite></blockquote>"
+    },
+    {
+      "name": "Prose",
+      "slug": "prose",
+      "description": "Typography for long form HTML such as articles and Markdown output, in three sizes.",
+      "classes": [
+        "prose",
+        "prose-sm",
+        "prose-lg"
+      ],
+      "html": "<article class=\"prose\"><h2>Getting started</h2><p>Add the stylesheet, then pick a <a href=\"#\">seed color</a>. Everything else is <strong>derived</strong> from it.</p><ul><li>No build step</li><li>Automatic dark mode</li></ul><pre><code>&lt;link rel=\"stylesheet\" href=\"monsoon.min.css\"&gt;</code></pre><blockquote>Write markup, not configuration.</blockquote><p>Use <code>--seed</code> on any element to theme a section.</p></article>"
+    },
+    {
+      "name": "Stack",
+      "slug": "stack",
+      "description": "Children layered on top of each other, the first one in front.",
+      "classes": [
+        "stack"
+      ],
+      "html": "<div class=\"stack w-64\"><div class=\"card card-compact\"><div class=\"card-body\"><p class=\"card-title\">Notification</p><p class=\"card-subtitle\">You have 3 new messages</p></div></div><div class=\"card card-compact\"><div class=\"card-body\"><p class=\"card-title\">Second</p></div></div><div class=\"card card-compact\"><div class=\"card-body\"><p class=\"card-title\">Third</p></div></div></div>"
+    },
+    {
+      "name": "Artboard",
+      "slug": "artboard",
+      "description": "Fixed device sized frames for previews, also in landscape.",
+      "classes": [
+        "artboard",
+        "artboard-xs",
+        "artboard-sm",
+        "artboard-lg",
+        "artboard-xl",
+        "artboard-horizontal"
+      ],
+      "html": "<div class=\"artboard artboard-xs artboard-horizontal grid place-items-center\">320 x 568, landscape</div>"
+    },
+    {
+      "name": "Container narrow",
+      "slug": "container-narrow",
+      "description": "A centered column at a comfortable reading width with side padding.",
+      "classes": [
+        "container-narrow"
+      ],
+      "html": "<div class=\"container-narrow\"><p>Centered content at a reading width.</p></div>"
+    },
+    {
+      "name": "Section",
+      "slug": "section",
+      "description": "Fluid vertical padding for page sections in three sizes, with a muted background option.",
+      "classes": [
+        "section",
+        "section-sm",
+        "section-lg",
+        "section-muted"
+      ],
+      "html": "<section class=\"section section-sm section-muted\"><div class=\"container-narrow\"><h2 class=\"text-2xl font-bold\">Section title</h2></div></section>"
+    },
+    {
+      "name": "Grid auto",
+      "slug": "grid-auto",
+      "description": "As many columns as fit, each at least --grid-min wide.",
+      "classes": [
+        "grid-auto",
+        "grid-auto-sm",
+        "grid-auto-lg"
+      ],
+      "html": "<div class=\"grid-auto grid-auto-sm\"><div class=\"h-24 rounded-lg bg-surface-3\"></div><div class=\"h-24 rounded-lg bg-surface-3\"></div><div class=\"h-24 rounded-lg bg-surface-3\"></div><div class=\"h-24 rounded-lg bg-surface-3\"></div></div>"
+    },
+    {
+      "name": "Center",
+      "slug": "center",
+      "description": "Centers content horizontally inside a readable measure.",
+      "classes": [
+        "center"
+      ],
+      "html": "<div class=\"center gap-2\"><h2 class=\"text-2xl font-bold\">Centered</h2><p class=\"text-muted-foreground\">Text and children are centered.</p></div>"
+    },
+    {
+      "name": "Cluster",
+      "slug": "cluster",
+      "description": "Wrapping inline items with an even gap, such as tags or buttons.",
+      "classes": [
+        "cluster"
+      ],
+      "html": "<div class=\"cluster\"><span class=\"rounded-full bg-muted px-3 py-1 text-sm\">css</span><span class=\"rounded-full bg-muted px-3 py-1 text-sm\">no build</span><span class=\"rounded-full bg-muted px-3 py-1 text-sm\">dark mode</span></div>"
+    },
+    {
+      "name": "Sidebar layout",
+      "slug": "sidebar-layout",
+      "description": "A sidebar next to the main content that stacks when space runs out, without media queries.",
+      "classes": [
+        "sidebar-layout",
+        "sidebar-layout-end"
+      ],
+      "html": "<div class=\"sidebar-layout\"><aside class=\"rounded-lg bg-surface-2 p-4\">Sidebar</aside><main class=\"rounded-lg border border-border p-4\">Main content</main></div>"
+    }
+  ]
+}
