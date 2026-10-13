@@ -71,7 +71,11 @@ export function start() {
     observer = new MutationObserver((records) => {
       for (const r of records) {
         for (const node of r.addedNodes) if (node.nodeType === 1) enhance(node);
-        for (const node of r.removedNodes) if (node.nodeType === 1) destroy(node);
+        // A node that is moved fires a removal and an addition in the same
+        // batch: only tear down what is really gone once the batch settles.
+        for (const node of r.removedNodes) {
+          if (node.nodeType === 1) queueMicrotask(() => { if (!node.isConnected) destroy(node); });
+        }
       }
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
