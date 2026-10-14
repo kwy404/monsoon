@@ -329,7 +329,12 @@ export const MORE = [
   ['vueleap', 'https://kwy404.github.io/vueleap/', 'Migrate Vue 2 to Vue 3 with one command.'],
   ['numberparrot', 'https://kwy404.github.io/numberparrot/', 'Parse localized number and currency strings.'],
   ['breakhound', 'https://kwy404.github.io/breakhound/', 'Find bugs in any JavaScript library automatically.'],
-  ['Voodoo.js', VOODOO_REPO, 'JSX and reactivity from a plain HTML file.'],
+  ['Voodoo.js', 'https://kwy404.github.io/Voodoo.js/', 'JSX and reactivity from a plain HTML file.'],
+  ['cookieowl', 'https://kwy404.github.io/cookieowl/', 'Free cookie consent banner for LGPD and GDPR that really blocks trackers.'],
+  ['installkite', 'https://kwy404.github.io/installkite/', 'Make any website installable and offline capable.'],
+  ['a11ymedic', 'https://kwy404.github.io/a11ymedic/', 'The accessibility checker that explains every problem and gives the exact fix.'],
+  ['fontsketch', 'https://kwy404.github.io/fontsketch/', 'Turn your handwriting into a font, free in your browser.'],
+  ['kastor', 'https://kwy404.github.io/kastor/', 'The TypeScript ORM for almost every database.'],
 ];
 
 function footer() {

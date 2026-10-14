@@ -873,7 +873,12 @@ Os guias estão em inglês:
 - [vueleap](https://kwy404.github.io/vueleap/): migre de Vue 2 para Vue 3 com um comando.
 - [numberparrot](https://kwy404.github.io/numberparrot/): converta números e valores monetários localizados de volta em números.
 - [breakhound](https://kwy404.github.io/breakhound/): encontre bugs em qualquer biblioteca JavaScript automaticamente, sem escrever testes.
-- [Voodoo.js](https://github.com/kwy404/Voodoo.js): JSX e reatividade a partir de um arquivo HTML puro, usado nas partes interativas do site do Monsoon.
+- [Voodoo.js](https://kwy404.github.io/Voodoo.js/): JSX e reatividade a partir de um arquivo HTML puro, usado nas partes interativas do site do Monsoon.
+- [cookieowl](https://kwy404.github.io/cookieowl/): banner de cookies gratuito para LGPD e GDPR que bloqueia rastreadores de verdade.
+- [installkite](https://kwy404.github.io/installkite/): torne qualquer site instalável e com funcionamento offline.
+- [a11ymedic](https://kwy404.github.io/a11ymedic/): verificador de acessibilidade que explica cada problema e entrega a correção exata.
+- [fontsketch](https://kwy404.github.io/fontsketch/): crie uma fonte com a sua letra, grátis e no navegador.
+- [kastor](https://kwy404.github.io/kastor/): o ORM para TypeScript para quase todos os bancos de dados.
 
 ## Contribuindo
 

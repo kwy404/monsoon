@@ -871,7 +871,12 @@ Yes. Import or link the stylesheet once and write classes in your components or 
 - [vueleap](https://kwy404.github.io/vueleap/): migrate Vue 2 to Vue 3 with one command.
 - [numberparrot](https://kwy404.github.io/numberparrot/): parse localized number and currency strings back into numbers.
 - [breakhound](https://kwy404.github.io/breakhound/): find bugs in any JavaScript library automatically, no tests needed.
-- [Voodoo.js](https://github.com/kwy404/Voodoo.js): JSX and reactivity from a plain HTML file, used for the interactive parts of the Monsoon site.
+- [Voodoo.js](https://kwy404.github.io/Voodoo.js/): JSX and reactivity from a plain HTML file, used for the interactive parts of the Monsoon site.
+- [cookieowl](https://kwy404.github.io/cookieowl/): free cookie consent banner for LGPD and GDPR that really blocks trackers.
+- [installkite](https://kwy404.github.io/installkite/): make any website installable and offline capable.
+- [a11ymedic](https://kwy404.github.io/a11ymedic/): the accessibility checker that explains every problem and gives the exact fix.
+- [fontsketch](https://kwy404.github.io/fontsketch/): turn your handwriting into a font, free in your browser.
+- [kastor](https://kwy404.github.io/kastor/): the TypeScript ORM for almost every database.
 
 ## Contributing
 
