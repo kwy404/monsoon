@@ -39,7 +39,7 @@ export function reasons({ components = 0, noJs = 0, installGuides = 0, brotli = 
     {
       title: 'Dark mode that follows the nearest themed ancestor',
       text: 'A light card inside a dark section inside a light page is exactly what you expect, at any depth, for the tokens and for the dark: prefix alike.',
-      href: 'dark-mode-with-one-line-of-css.html',
+      href: 'docs/dark-mode.html',
       demo: '<div class="dark rounded-lg border p-3"><p class="text-xs text-muted-foreground">dark</p><div class="light mt-2 rounded-md border p-3"><p class="text-xs text-muted-foreground">light</p><div class="dark mt-2 rounded border p-2 text-xs">dark again</div></div></div>',
     },
     {
@@ -128,7 +128,7 @@ export function reasons({ components = 0, noJs = 0, installGuides = 0, brotli = 
     {
       title: 'One cached file for every page and project',
       text: 'Every page of every site that links the same version shares one file the browser already has, so the second page and the next project load no CSS at all.',
-      href: 'css-framework-from-a-cdn.html',
+      href: 'docs/installation-cdn.html',
       code: `<!-- page one, page two, project three: the same URL -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monsooncss${pin}">`,
       lang: 'html',

@@ -14,7 +14,6 @@ function article(g, url, kind) {
     dateModified: LASTMOD,
     inLanguage: 'en',
     proficiencyLevel: 'Beginner',
-    ...(g.keywords ? { keywords: g.keywords } : {}),
     wordCount: wordCount(g),
     articleSection: kind,
     image: `${SITE}assets/og.png`,

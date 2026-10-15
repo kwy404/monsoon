@@ -55,7 +55,6 @@ export function arbitraryPage({ size = '', jsSize = '', version = '' } = {}) {
     title: 'Arbitrary values without a build step',
     metaTitle: 'Arbitrary values: w-[37px] and bg-[#0ea5e9] with no build | Monsoon docs',
     description: 'Write bg-[#0ea5e9], w-[37px] or md:grid-cols-[1fr_2fr] with no build step: the optional script writes the rules in the browser, the purge CLI compiles them for production.',
-    keywords: 'arbitrary values css, w-[37px], bg-[#hex], arbitrary values without build, runtime css utilities, css variable shorthand',
     lead: `When a scale has no step that fits, write the value itself: \`w-[37px]\`, \`bg-[#0ea5e9]\`, \`grid-cols-[200px_1fr]\`. The stylesheet cannot contain values you invent, so they come from one of two places, neither of them a build step: a small script that writes the rules in the browser${size ? ` (${size} with brotli)` : ''}, or the purge CLI, which compiles them into the purged file.`,
     head: (u) => `<script src="${u('monsoon-arbitrary.js')}" defer></script>\n`,
     sections: [

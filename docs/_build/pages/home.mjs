@@ -10,10 +10,8 @@ import { frameDoc, thumbHtml } from './components.mjs';
 import { CAT_INFO } from './utilities.mjs';
 import { whyGrid } from './why.mjs';
 
-export const SEEDS = [
-  ['Storm', '#3b5bdb'], ['Cyan', '#22d3ee'], ['Violet', '#8b5cf6'], ['Rose', '#f43f5e'], ['Teal', '#0d9488'],
-  ['Amber', '#f59e0b'], ['Emerald', '#059669'], ['Orange', '#ea580c'], ['Slate', '#475569'], ['Lime', '#84cc16'],
-];
+export { SEEDS } from '../lib.mjs';
+import { SEEDS } from '../lib.mjs';
 
 export const homeFaqs = [
   ['How do I use utility-first CSS without a build step?', 'Add one tag, `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monsooncss">`, and write classes such as `px-4`, `md:grid-cols-3` or `hover:bg-primary` in your HTML. Every class is already in the file, so there is no compiler, no config file and no watcher to run.'],
@@ -559,7 +557,7 @@ ${band('', '', `
       '@type': 'SoftwareApplication',
       name: 'Monsoon',
       alternateName: 'monsooncss',
-      description: 'Utility-first CSS framework with no build step: one stylesheet from a CDN, a full theme from one seed color with OKLCH relative colors, automatic dark mode, container query utilities and native components with no JavaScript.',
+      description: 'A utility-first CSS framework in one stylesheet, with seed color theming and automatic dark mode.',
       applicationCategory: 'DeveloperApplication',
       applicationSubCategory: 'CSS framework',
       operatingSystem: 'Any',
@@ -572,7 +570,6 @@ ${band('', '', `
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       author: { '@type': 'Person', name: 'Alexandre Kohler', url: 'https://github.com/kwy404' },
       image: `${SITE}assets/og.png`,
-      keywords: 'utility-first css without a build step, css framework from a cdn, no build css framework, css components without javascript, generate a theme from one color css, dark mode css, container queries utility classes, oklch color palette css, accessible color contrast css',
     },
     { '@type': 'WebSite', name: 'Monsoon', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}classes.html?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
     faqLd(homeFaqs),
@@ -583,7 +580,7 @@ ${band('', '', `
     path: 'index.html',
     layout: 'landing',
     title: 'Monsoon: utility-first CSS without a build step, from a CDN',
-    description: `Monsoon is a no build CSS framework: one stylesheet from a CDN, ${fmt(BASE_COUNT)} utility classes, ${comps.length} components with no JavaScript, a whole theme from one --seed color and automatic dark mode.`,
+    description: 'Utility-first CSS in one stylesheet. Link it from a CDN, theme it with one color, and get dark mode and components with no build step.',
     body,
     jsonld,
   });
