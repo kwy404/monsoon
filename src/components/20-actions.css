@@ -247,10 +247,14 @@
 :where(.copy-btn > svg) { width: 0.875rem; height: 0.875rem; flex: none; }
 .copy-btn:where(:hover) { background-color: var(--surface-2); color: var(--foreground); }
 .copy-btn:focus-visible { outline: var(--m-ring); outline-offset: var(--m-ring-offset); }
-.copy-btn-done {
+.copy-btn-done, .copy-btn[data-copied] {
   border-color: color-mix(in oklab, var(--success) 45%, var(--border));
   background-color: color-mix(in oklab, var(--success) 10%, var(--surface));
   color: oklch(from var(--success) calc(min(l, 0.48) * (1 - var(--mode)) + max(l, 0.8) * var(--mode)) c h);
+}
+:where(.copy-btn[data-copied] > svg) { animation: m-copy-pop var(--m-duration-slow) var(--m-ease-spring); }
+@keyframes m-copy-pop {
+  from { scale: 0.6; opacity: 0.4; }
 }
 
 /* ---- Segmented control (radios) ---- */
@@ -1173,7 +1177,7 @@
 @supports not (color: oklch(from red l c h)) {
   .btn, .alert, .callout, .banner, .badge, .chip, .tag, .notification, .toggle-group-item, .fab-label { --tone-ink: var(--tone); }
   .btn-gradient, .banner-gradient { background-image: none; }
-  .copy-btn-done { color: var(--success); }
+  .copy-btn-done, .copy-btn[data-copied] { color: var(--success); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1183,6 +1187,6 @@
   }
   .btn:where(:active) { scale: none; }
   :where(.fab-trigger > svg) { transition: none; }
-  .skeleton, .toast-item, .toast > .alert, .status-ping::after { animation: none; }
+  .skeleton, .toast-item, .toast > .alert, .status-ping::after, .copy-btn > svg { animation: none; }
   .spinner, .btn-loading::before, .progress:indeterminate { animation-duration: 2.4s; }
 }

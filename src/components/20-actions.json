@@ -81,11 +81,27 @@
     {
       "name": "Copy button",
       "slug": "copy-button",
-      "description": "A compact button for copying code or links, with a confirmed state.",
+      "description": "A compact button for copying code or links, with a confirmed state. With monsoon.js, data-m-copy does the copying and shows the confirmed state for a moment.",
       "classes": [
         "copy-btn",
         "copy-btn-done"
       ],
+      "api": {
+        "attribute": "data-m-copy=\"text to copy\" (optional, needs monsoon.js)",
+        "options": [
+          "data-m-copy-target=\"#id\" copies the text or the value of that element",
+          "data-m-copy-as=\"html\" copies the markup inside the target instead, dedented (point it at a <template> to copy the markup as written)",
+          "data-m-copy-done=\"Link copied\" (the label while the confirmation shows, \"Copied\" by default)",
+          "data-m-copy-label on an element inside the button shows the same text"
+        ],
+        "methods": [
+          "Monsoon.copy(text) returns a promise and falls back to a hidden text area on pages without the clipboard API"
+        ],
+        "events": [
+          "monsoon:copy { text }",
+          "monsoon:copy-error { text }"
+        ]
+      },
       "html": "<div class=\"flex items-center gap-2\">\n  <button class=\"copy-btn\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg> Copy</button>\n  <button class=\"copy-btn copy-btn-done\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg> Copied</button>\n  <button class=\"copy-btn\" type=\"button\" aria-label=\"Copy link\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg></button>\n</div>"
     },
     {
