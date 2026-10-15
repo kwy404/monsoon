@@ -833,7 +833,14 @@
   to { background-position: 200% 0; }
 }
 
-/* ---- Radial progress (set --value from 0 to 100) ---- */
+/* ---- Radial progress (set --value from 0 to 100) ----
+   The ring draws --m-rp, which follows --value through a registered property
+   so a new value sweeps the ring instead of jumping. */
+@property --m-rp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
 .radial-progress {
   --tone: var(--primary);
   --tone-fg: var(--primary-foreground);
@@ -852,6 +859,8 @@
   font-variant-numeric: tabular-nums;
   line-height: 1;
   vertical-align: middle;
+  --m-rp: var(--value);
+  transition: --m-rp var(--m-duration-slow) var(--m-ease);
 }
 .radial-progress::before, .radial-progress::after {
   content: "";
@@ -862,14 +871,14 @@
   inset: 0;
   background:
     radial-gradient(farthest-side, var(--tone) 98%, transparent) top / var(--thickness) var(--thickness) no-repeat,
-    conic-gradient(var(--tone) calc(var(--value) * 1%), color-mix(in oklab, var(--tone-tint) 16%, transparent) 0);
+    conic-gradient(var(--tone) calc(var(--m-rp) * 1%), color-mix(in oklab, var(--tone-tint) 16%, transparent) 0);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--thickness)), var(--foreground) calc(100% - var(--thickness) + 1px));
   mask: radial-gradient(farthest-side, transparent calc(100% - var(--thickness)), var(--foreground) calc(100% - var(--thickness) + 1px));
 }
 .radial-progress::after {
   inset: calc(50% - var(--thickness) / 2);
   background-color: var(--tone);
-  transform: rotate(calc(var(--value) * 3.6deg - 90deg)) translate(calc(var(--size) / 2 - 50%));
+  transform: rotate(calc(var(--m-rp) * 3.6deg - 90deg)) translate(calc(var(--size) / 2 - 50%));
 }
 .radial-progress-xs { --size: 2.5rem; }
 .radial-progress-sm { --size: 3.25rem; }
@@ -1181,7 +1190,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn, .copy-btn, .segmented-item, .toggle-group-item, .chip, .chip-remove, .fab-actions,
+  .btn, .copy-btn, .segmented-item, .toggle-group-item, .chip, .chip-remove, .fab-actions, .radial-progress,
   .swap > .swap-on, .swap > .swap-off, .tooltip::after, .tooltip::before, .dismiss > :where(summary) {
     transition: none;
   }

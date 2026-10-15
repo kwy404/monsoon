@@ -1523,6 +1523,10 @@
 .tab:checked + .tab-content,
 .tab:has(> input:checked) + .tab-content {
   display: block;
+  animation: m-nav-tab-in var(--m-duration) var(--m-ease);
+}
+@keyframes m-nav-tab-in {
+  from { opacity: 0; translate: 0 .25rem; }
 }
 .tabs-full > .tab {
   flex: 1 1 0;
@@ -2351,6 +2355,10 @@
   .back-to-top,
   .skip-link {
     transition-duration: 0s;
+  }
+  .tab:checked + .tab-content,
+  .tab:has(> input:checked) + .tab-content {
+    animation: none;
   }
   .menu :where(details > summary)::after,
   .mega-menu > :where(summary)::after,
