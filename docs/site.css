@@ -948,3 +948,55 @@ code, kbd, pre, .cap, .cap-mini, .vchip { font-variant-ligatures: none; }
   .bl-main .pv-handle { display: none; }
   .bl-bar-tools { margin-left: 0; }
 }
+
+/* ---------- Special dates ---------- */
+
+:root[data-season-id=newyear] { --season: #eab308; }
+:root[data-season-id=carnival] { --season: #8b5cf6; }
+:root[data-season-id=easter] { --season: #ec4899; }
+:root[data-season-id=valentine] { --season: #f43f5e; }
+:root[data-season-id=junina] { --season: #f97316; }
+:root[data-season-id=halloween] { --season: #f97316; }
+:root[data-season-id=christmas] { --season: #c0392b; }
+.season-ic { display: inline-block; width: 18px; height: 18px; flex: none; background: currentColor; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+.season-stage { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero-art > :not(.season-stage) { z-index: 1; }
+.season-accent { position: absolute; top: -6px; left: 50%; width: min(100%, 560px); translate: -50% 0; opacity: .9; }
+.season-accent img { width: 100%; height: auto; }
+.page-hero, .nf { position: relative; }
+.page-hero > .season-stage .season-accent, .nf > .season-stage .season-accent { top: -34px; width: min(100%, 460px); left: 0; translate: 0 0; opacity: .75; }
+.nf > .season-stage .season-accent { left: 50%; translate: -50% 0; }
+.season-float { position: absolute; width: 30px; height: 30px; color: var(--season); opacity: .8; }
+.season-float-1 { top: 18%; left: 4%; }
+.season-float-2 { top: 54%; right: 2%; width: 26px; height: 26px; }
+.season-float-3 { bottom: 8%; left: 10%; width: 22px; height: 22px; }
+.page-hero .season-float, .nf .season-float { display: none; }
+.season-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.band-hero > .frame { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .season-float { animation: season-float 6s ease-in-out infinite; }
+  .season-float-2 { animation-delay: -2s; }
+  .season-float-3 { animation-delay: -4s; }
+  .season-accent { animation: season-sway 9s ease-in-out infinite; transform-origin: 50% 0; }
+}
+@keyframes season-float { 50% { translate: 0 -10px; rotate: 8deg; } }
+@keyframes season-sway { 50% { rotate: .6deg; } }
+
+/* The chip that turns the special date off and on. */
+.season-chip { position: fixed; left: 16px; bottom: 16px; z-index: 60; display: inline-flex; align-items: center; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid color-mix(in oklab, var(--season, var(--primary)) 40%, var(--line)); border-radius: 999px; background: color-mix(in oklab, var(--background) 90%, transparent); color: var(--foreground); box-shadow: 0 12px 30px -16px rgb(0 0 0 / .45); backdrop-filter: blur(10px); font-size: 13px; font-weight: 600; }
+.season-chip-ic { color: var(--season, var(--primary)); }
+.season-switch { position: relative; width: 36px; height: 22px; border: 0; border-radius: 999px; background: var(--muted); box-shadow: inset 0 0 0 1px var(--border); cursor: pointer; flex: none; transition: background-color .2s; }
+.season-switch span { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--background); box-shadow: 0 1px 3px rgb(0 0 0 / .3); transition: translate .2s cubic-bezier(.3, 1.4, .5, 1); }
+.season-switch[aria-checked=true] { background: var(--season, var(--primary)); }
+.season-switch[aria-checked=true] span { translate: 14px 0; background: #fff; }
+.season-switch:focus-visible, .season-x:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.season-x { display: inline-grid; place-items: center; width: 26px; height: 26px; border: 0; border-radius: 50%; background: transparent; color: var(--muted-foreground); cursor: pointer; }
+.season-x:hover { background: var(--muted); color: var(--foreground); }
+@media (prefers-reduced-motion: no-preference) {
+  .season-chip { animation: season-chip-in .4s cubic-bezier(.2, .8, .2, 1) .6s both; }
+  .season-chip.is-leaving { animation: season-chip-out .2s ease-in both; }
+}
+@keyframes season-chip-in { from { opacity: 0; translate: 0 12px; } }
+@keyframes season-chip-out { to { opacity: 0; translate: 0 12px; } }
+@media (max-width: 639px) { .season-chip { left: 10px; bottom: 10px; } .season-float { display: none; } }
+@media print { .season-chip, .season-stage, .season-fx { display: none !important; } }

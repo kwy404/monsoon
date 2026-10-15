@@ -1218,6 +1218,258 @@ function blToPlayground() {
   location.href = `${ROOT}playground.html`;
 }
 
+// ---- Special dates: Mo in costume, a hero garland, icons, particles and a chip ----
+// seasons.js (loaded in the head) decides the season and sets data-season on
+// <html>; this part swaps the art and draws the decorations.
+
+const SEASON = window.MonsoonSeasons?.state || null;
+const SEASON_ICONS = {
+  newyear: ['firework', 'star', 'clock'], carnival: ['mask', 'confetti', 'streamer'], easter: ['egg', 'bunny', 'flower'],
+  valentine: ['heart', 'balloon', 'letter'], junina: ['bonfire', 'flags', 'corn'], halloween: ['pumpkin', 'bat', 'ghost'], christmas: ['snowflake', 'tree', 'gift'],
+};
+const SEASON_MO = {
+  newyear: 'with a party hat and a sparkler', carnival: 'in a carnival mask', easter: 'with bunny ears and a basket of eggs', valentine: 'holding a heart balloon',
+  junina: 'in a straw hat next to a small bonfire', halloween: 'in a witch hat, holding a carved pumpkin', christmas: 'in a red hat and scarf',
+};
+const FX = {
+  newyear: { kind: 'burst', colors: ['#fbbf24', '#22d3ee', '#f43f5e', '#c4b5fd'] },
+  carnival: { kind: 'rect', n: 34, fall: 1, colors: ['#f43f5e', '#22d3ee', '#fbbf24', '#8b5cf6', '#10b981'] },
+  easter: { kind: 'petal', n: 20, fall: 1, colors: ['#f9a8d4', '#a5b4fc', '#fde68a', '#86efac'] },
+  valentine: { kind: 'heart', n: 16, fall: 1, colors: ['#f43f5e', '#fb7185', '#fda4af'] },
+  junina: { kind: 'spark', n: 28, fall: -1, colors: ['#fbbf24', '#f97316', '#fde68a'] },
+  halloween: { kind: 'leaf', n: 18, fall: 1, colors: ['#f97316', '#c2410c', '#a16207', '#b45309'], bats: 2 },
+  christmas: { kind: 'snow', n: 54, fall: 1, colors: ['#ffffff', '#e0e7ff'], light: ['#a5b4fc', '#c7d2fe'] },
+};
+const seasonDir = (id) => `${ROOT}assets/seasons/${id}/`;
+const iconSpan = (id, name, cls = 'season-ic') => `<span class="${cls}" style="--ic: url('${seasonDir(id)}icon-${name}.svg')"></span>`;
+
+/** One canvas of slow particles inside a host element; returns a stop function. */
+function seasonParticles(host, id) {
+  const cfg = FX[id];
+  if (!cfg || calm.matches || !host) return () => {};
+  const cv = document.createElement('canvas');
+  cv.className = 'season-fx';
+  cv.setAttribute('aria-hidden', 'true');
+  host.prepend(cv);
+  const ctx = cv.getContext('2d');
+  let w = 0;
+  let h = 0;
+  let raf = 0;
+  let onScreen = true;
+  let last = 0;
+  const parts = [];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+  const colors = () => (!T.dark && cfg.light ? cfg.light : cfg.colors);
+  const spawn = (p = {}, top = false) => {
+    const fall = cfg.fall || 1;
+    return Object.assign(p, {
+      x: rnd(0, w), y: top ? (fall > 0 ? rnd(-40, -10) : rnd(h + 10, h + 40)) : rnd(0, h),
+      vx: rnd(-0.15, 0.15), vy: fall * rnd(0.25, 0.7), r: rnd(3, 6.5), a: rnd(0, Math.PI * 2), va: rnd(-0.02, 0.02),
+      sway: rnd(0.4, 1.2), ph: rnd(0, 6.28), c: pick(colors()), life: 1,
+    });
+  };
+  const fit = () => {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    w = host.clientWidth;
+    h = host.clientHeight;
+    cv.width = w * dpr;
+    cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  fit();
+  const count = Math.round((cfg.n || 0) * Math.min(1.2, Math.max(0.4, w / 1440)));
+  for (let i = 0; i < count; i++) parts.push(spawn());
+  const bats = Array.from({ length: cfg.bats || 0 }, (_, i) => ({ x: -60 - i * 300, y: rnd(40, 160), s: rnd(0.7, 1), v: rnd(0.5, 0.8), ph: rnd(0, 6) }));
+  let nextBurst = 0;
+  const shape = (p) => {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.a);
+    ctx.fillStyle = p.c;
+    ctx.globalAlpha = (T.dark ? 0.7 : 0.55) * p.life;
+    switch (cfg.kind) {
+      case 'rect':
+        ctx.fillRect(-p.r, -p.r / 2.4, p.r * 2, p.r / 1.2);
+        break;
+      case 'leaf':
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.r * 1.6, p.r * 0.8, 0, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+      case 'petal':
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.r * 1.3, p.r * 0.7, 0, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+      case 'heart': {
+        const s = p.r / 6;
+        ctx.scale(s, s);
+        ctx.beginPath();
+        ctx.moveTo(0, 5);
+        ctx.bezierCurveTo(-8, -1, -8, -9, -2.5, -9);
+        ctx.bezierCurveTo(-1, -9, 0, -7.5, 0, -6.5);
+        ctx.bezierCurveTo(0, -7.5, 1, -9, 2.5, -9);
+        ctx.bezierCurveTo(8, -9, 8, -1, 0, 5);
+        ctx.fill();
+        break;
+      }
+      default:
+        ctx.beginPath();
+        ctx.arc(0, 0, cfg.kind === 'spark' || cfg.kind === 'burst' ? p.r / 2.4 : p.r / 1.6, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.restore();
+  };
+  const frame = (t) => {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(3, last ? (t - last) / 16.7 : 1);
+    last = t;
+    ctx.clearRect(0, 0, w, h);
+    if (cfg.kind === 'burst') {
+      if (t > nextBurst) {
+        nextBurst = t + rnd(1400, 2600);
+        const cx = rnd(w * 0.1, w * 0.9);
+        const cy = rnd(h * 0.1, h * 0.5);
+        const c = pick(cfg.colors);
+        for (let i = 0; i < 26; i++) {
+          const ang = (i / 26) * Math.PI * 2;
+          const sp = rnd(1.2, 2.2);
+          parts.push({ x: cx, y: cy, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, r: rnd(3, 5), a: 0, va: 0, sway: 0, ph: 0, c, life: 1, burst: true });
+        }
+      }
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i];
+        p.vy += 0.02 * dt;
+        p.vx *= 0.985;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.life -= 0.011 * dt;
+        if (p.life <= 0) parts.splice(i, 1);
+        else shape(p);
+      }
+      return;
+    }
+    for (const p of parts) {
+      p.ph += 0.02 * dt;
+      p.x += (p.vx + Math.sin(p.ph) * 0.3 * p.sway) * dt;
+      p.y += p.vy * dt;
+      p.a += p.va * dt;
+      if (cfg.kind === 'spark') p.life = Math.max(0, Math.min(1, p.y / h));
+      if (p.y > h + 40 || p.y < -50 || p.x < -40 || p.x > w + 40) spawn(p, true);
+      shape(p);
+    }
+    for (const b of bats) {
+      b.x += b.v * dt;
+      b.ph += 0.2 * dt;
+      if (b.x > w + 80) Object.assign(b, { x: -80, y: rnd(30, 170) });
+      const flap = Math.sin(b.ph) * 6;
+      ctx.save();
+      ctx.translate(b.x, b.y + Math.sin(b.ph / 4) * 8);
+      ctx.scale(b.s, b.s);
+      ctx.globalAlpha = T.dark ? 0.7 : 0.5;
+      ctx.fillStyle = T.dark ? '#a99bf0' : '#3b2f73';
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(-10, -8 - flap, -22, -4 - flap);
+      ctx.quadraticCurveTo(-14, 2, -6, 6);
+      ctx.quadraticCurveTo(0, 3, 6, 6);
+      ctx.quadraticCurveTo(14, 2, 22, -4 - flap);
+      ctx.quadraticCurveTo(10, -8 - flap, 0, 0);
+      ctx.fill();
+      ctx.restore();
+    }
+  };
+  const run = () => {
+    cancelAnimationFrame(raf);
+    last = 0;
+    if (onScreen && !document.hidden) raf = requestAnimationFrame(frame);
+  };
+  const ro = new ResizeObserver(fit);
+  ro.observe(host);
+  const io = new IntersectionObserver(([e]) => {
+    onScreen = e.isIntersecting;
+    run();
+  });
+  io.observe(host);
+  const vis = () => run();
+  document.addEventListener('visibilitychange', vis);
+  const stopCalm = () => calm.matches && stop();
+  calm.addEventListener('change', stopCalm);
+  function stop() {
+    cancelAnimationFrame(raf);
+    ro.disconnect();
+    io.disconnect();
+    document.removeEventListener('visibilitychange', vis);
+    calm.removeEventListener('change', stopCalm);
+    cv.remove();
+  }
+  return stop;
+}
+
+let stopFx = [];
+/** Puts the season's art on the page, or takes it away. */
+function seasonArt(on) {
+  const id = SEASON.id;
+  for (const img of $$('img[src$="assets/mascot.svg"], img[src$="assets/mascot-dark.svg"], img[data-mo]')) {
+    if (!img.dataset.mo) {
+      img.dataset.mo = img.getAttribute('src').endsWith('mascot-dark.svg') ? 'dark' : 'light';
+      img.dataset.moSrc = img.getAttribute('src');
+      img.dataset.moAlt = img.getAttribute('alt') || '';
+    }
+    img.src = on ? `${seasonDir(id)}mo-${img.dataset.mo}.svg` : img.dataset.moSrc;
+    if (img.dataset.moAlt) img.alt = on ? `Mo the red panda ${SEASON_MO[id]}` : img.dataset.moAlt;
+  }
+  $$('.season-stage').forEach((s) => s.remove());
+  stopFx.forEach((f) => f());
+  stopFx = [];
+  if (!on) return;
+  const icons = SEASON_ICONS[id] || [];
+  for (const host of $$('.hero-art, .page-hero, .nf')) {
+    const stage = document.createElement('div');
+    stage.className = 'season-stage';
+    stage.setAttribute('aria-hidden', 'true');
+    stage.innerHTML = `<span class="season-accent"><img class="art-light" src="${seasonDir(id)}accent-light.svg" alt="" width="640" height="130"><img class="art-dark" src="${seasonDir(id)}accent-dark.svg" alt="" width="640" height="130"></span>${icons.map((n, i) => iconSpan(id, n, `season-ic season-float season-float-${i + 1}`)).join('')}`;
+    host.prepend(stage);
+  }
+  for (const host of $$('.band-hero, .nf')) stopFx.push(seasonParticles(host.closest('.band-hero') || host, id));
+}
+
+function seasonChip() {
+  if (!SEASON?.id) return;
+  let hidden = false;
+  try {
+    hidden = sessionStorage.getItem('monsoon-season-chip') === 'hidden';
+  } catch {}
+  if (hidden && !SEASON.forced) return;
+  const chip = document.createElement('div');
+  chip.className = 'season-chip';
+  chip.setAttribute('role', 'group');
+  chip.setAttribute('aria-label', `${SEASON.name} theme`);
+  chip.innerHTML = `${iconSpan(SEASON.id, SEASON_ICONS[SEASON.id][0], 'season-ic season-chip-ic')}<span class="season-chip-label">${escHtml(SEASON.name)} mode</span>
+<button type="button" class="season-switch" role="switch" aria-checked="${SEASON.on}" aria-label="${escHtml(SEASON.name)} mode"><span></span></button>
+<button type="button" class="season-x" aria-label="Hide this switch"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
+  document.body.append(chip);
+  const sw = $('.season-switch', chip);
+  sw.addEventListener('click', () => {
+    const on = sw.getAttribute('aria-checked') !== 'true';
+    window.MonsoonSeasons.set(on);
+    sw.setAttribute('aria-checked', String(on));
+    seasonArt(on);
+  });
+  $('.season-x', chip).addEventListener('click', () => {
+    try {
+      sessionStorage.setItem('monsoon-season-chip', 'hidden');
+    } catch {}
+    chip.classList.add('is-leaving');
+    setTimeout(() => chip.remove(), calm.matches ? 0 : 220);
+  });
+}
+if (SEASON?.id) {
+  if (SEASON.on) seasonArt(true);
+  seasonChip();
+}
+
 // ---- Start ----
 
 Object.assign(V.config.globals, {

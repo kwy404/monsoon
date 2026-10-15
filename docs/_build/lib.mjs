@@ -558,6 +558,7 @@ export function page({ path, title, description, body, layout = 'docs', jsonld =
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ${THEME_HEAD}
+<script src="${u('seasons.js')}"></script>
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}

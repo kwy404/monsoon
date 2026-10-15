@@ -30,6 +30,21 @@ for (const f of ['favicon.svg', 'mascot.svg', 'mascot-dark.svg', 'og.png', 'masc
   if (existsSync(join(ROOT, 'assets', f))) copyFileSync(join(ROOT, 'assets', f), join(DOCS, 'assets', f));
 }
 if (existsSync(join(ROOT, 'assets/art'))) cpSync(join(ROOT, 'assets/art'), join(DOCS, 'assets/art'), { recursive: true });
+// Special dates: draw the seasonal art, copy it, and ship seasons.js minified.
+{
+  const { writeSeasonArt } = await import('./seasons-art.mjs');
+  writeSeasonArt(ROOT);
+  rmSync(join(DOCS, 'assets/seasons'), { recursive: true, force: true });
+  cpSync(join(ROOT, 'assets/seasons'), join(DOCS, 'assets/seasons'), { recursive: true, filter: (src) => !src.endsWith('.js') });
+  const source = readFileSync(join(ROOT, 'assets/seasons/seasons.js'), 'utf8');
+  let out = source;
+  try {
+    out = (await import('esbuild')).transformSync(source, { minify: true, target: 'es2017' }).code;
+  } catch (e) {
+    log(`  seasons.js copied without minifying (${e.message.split('\n')[0]})`);
+  }
+  writeFileSync(join(DOCS, 'seasons.js'), out);
+}
 
 // ---- Data ----
 
