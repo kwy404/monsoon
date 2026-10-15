@@ -10,6 +10,10 @@
 //
 // Returns { el, close(), update(message, options) }. A button can show one
 // without code: <button data-m-toast="Saved" data-m-toast-tone="success">.
+//
+// Monsoon.toast.promise(save(), { loading: 'Saving', success: 'Saved',
+// error: (err) => err.message }) shows a loading toast that turns into the
+// success or error toast when the promise settles, and returns the promise.
 import { define, emit } from '../core.mjs';
 import { h } from './combobox.mjs';
 
@@ -18,6 +22,7 @@ const ICONS = {
   danger: '<circle cx="12" cy="12" r="10"/><path d="M12 7.5v5M12 16.5h.01"/>',
   warning: '<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
   info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+  loading: '<path d="M21 12a9 9 0 1 1-6.2-8.56"/>',
 };
 const svg = (paths) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
 const regions = new Map();
@@ -46,13 +51,20 @@ export function toast(message, options = {}) {
   const o = typeof message === 'object' ? message : { ...options, title: message };
   const position = o.position || 'bottom-end';
   const r = region(position);
-  const item = h('div', { class: 'toast-item', 'data-tone': o.tone || null, role: o.tone === 'danger' ? 'alert' : null });
-  let remaining = o.duration === undefined ? (o.tone === 'danger' ? 8000 : 5000) : o.duration;
+  const item = h('div', { class: 'toast-item' });
+  const defaultDuration = (tone) => (tone === 'loading' ? 0 : tone === 'danger' ? 8000 : 5000);
+  let current = o;
+  let remaining = o.duration === undefined ? defaultDuration(o.tone) : o.duration;
   let last = Date.now();
   let timer = 0;
   let closed = false;
 
   const fill = (opts) => {
+    if (opts.tone) item.dataset.tone = opts.tone;
+    else delete item.dataset.tone;
+    if (opts.tone === 'danger') item.setAttribute('role', 'alert');
+    else item.removeAttribute('role');
+    item.toggleAttribute('aria-busy', opts.tone === 'loading');
     const body = h('div', { class: 'toast-content' },
       opts.title ? h('p', { class: 'toast-title' }, opts.title) : null,
       opts.description ? h('p', { class: 'toast-description' }, opts.description) : null);
@@ -104,7 +116,7 @@ export function toast(message, options = {}) {
     item.setAttribute('data-leaving', '');
     item.animate([
       { opacity: 1, translate: item.style.translate || '0 0', marginBlockEnd: '0px', height: `${height}px` },
-      { opacity: 0, translate: item.style.translate || '0 .5rem', marginBlockEnd: `-${r.style.gap || '10px'}`, height: '0px', paddingBlock: '0px' },
+      { opacity: 0, translate: item.style.translate || (position.startsWith('top') ? '0 -.5rem' : '0 .5rem'), marginBlockEnd: `-${r.style.gap || '10px'}`, height: '0px', paddingBlock: '0px' },
     ], { duration: 220, easing: 'cubic-bezier(.2,.8,.2,1)' }).onfinish = () => item.remove();
   }
 
@@ -119,10 +131,12 @@ export function toast(message, options = {}) {
       item.style.translate = `${dx}px 0`;
       item.style.opacity = String(1 - Math.min(Math.abs(dx) / 240, 0.7));
     };
-    const up = () => {
+    const up = (ev) => {
       removeEventListener('pointermove', move);
       removeEventListener('pointerup', up);
-      if (Math.abs(dx) > 80 || Math.abs(dx) / (Date.now() - t0) > 0.6) {
+      removeEventListener('pointercancel', up);
+      const fast = Math.abs(dx) > 16 && Math.abs(dx) / Math.max(1, Date.now() - t0) > 0.6;
+      if (ev.type === 'pointerup' && (Math.abs(dx) > 80 || fast)) {
         item.style.translate = `${Math.sign(dx) * 120}% 0`;
         item.style.opacity = '0';
         setTimeout(close, 150);
@@ -133,6 +147,7 @@ export function toast(message, options = {}) {
     };
     addEventListener('pointermove', move);
     addEventListener('pointerup', up);
+    addEventListener('pointercancel', up);
   });
 
   fill(o);
@@ -150,17 +165,41 @@ export function toast(message, options = {}) {
     el: item,
     close,
     update(msg, next = {}) {
-      const merged = typeof msg === 'object' ? { ...o, ...msg } : { ...o, ...next, title: msg };
-      fill(merged);
-      if (merged.tone) item.dataset.tone = merged.tone;
-      if (next.duration !== undefined) {
-        remaining = next.duration;
+      const changes = typeof msg === 'object' ? msg : { ...next, title: msg };
+      const wasLoading = current.tone === 'loading';
+      current = { ...current, ...changes };
+      fill(current);
+      // A new duration restarts the timer. A loading toast that finished
+      // gets the default duration of its new tone.
+      if (changes.duration !== undefined || (wasLoading && current.tone !== 'loading')) {
+        remaining = changes.duration !== undefined ? changes.duration : defaultDuration(current.tone);
         last = Date.now();
         tick();
       }
     },
   };
 }
+
+/** Shows a loading toast for a promise, then its success or error text. Returns the promise. */
+toast.promise = function promise(task, messages = {}, options = {}) {
+  let p = task;
+  if (typeof task === 'function') {
+    try { p = task(); } catch (err) { p = Promise.reject(err); }
+  }
+  const text = (m, v) => (typeof m === 'function' ? m(v) : m);
+  const t = toast(text(messages.loading) || 'Loading', { ...options, tone: 'loading', duration: 0, dismissible: false });
+  const settle = (tone, m, v) => {
+    const out = text(m, v);
+    const base = { tone, dismissible: options.dismissible !== false, duration: options.duration };
+    if (out == null || out === false) t.close();
+    else t.update(typeof out === 'object' ? { ...base, ...out } : { ...base, title: String(out) });
+  };
+  Promise.resolve(p).then(
+    (v) => settle('success', messages.success === undefined ? 'Done' : messages.success, v),
+    (err) => settle('danger', messages.error === undefined ? 'Something went wrong' : messages.error, err),
+  );
+  return p;
+};
 
 define('toast', (el, opts) => {
   const onClick = () => toast(el.dataset.mToast || el.textContent.trim(), {

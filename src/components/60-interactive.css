@@ -1138,6 +1138,9 @@
 .toast-item[data-tone=success] { --tone: var(--success); }
 .toast-item[data-tone=warning] { --tone: var(--warning); }
 .toast-item[data-tone=danger] { --tone: var(--danger); }
+.toast-item[data-tone=loading] { --tone: var(--muted-foreground); }
+.toast-item[data-tone=loading] > .toast-icon > svg { animation: m-ix-spin .8s linear infinite; }
+@keyframes m-ix-spin { to { rotate: 1turn; } }
 .toast-icon {
   display: grid;
   flex: none;
@@ -1348,6 +1351,7 @@
     transition: none;
   }
   .sortable-ghost { rotate: none; scale: none; }
+  .toast-item[data-tone=loading] > .toast-icon > svg { animation-duration: 2.4s; }
 }
 @media (forced-colors: active) {
   .datepicker-grid td[aria-selected=true] .datepicker-day, .range-dual-fill, .tree-check::before {

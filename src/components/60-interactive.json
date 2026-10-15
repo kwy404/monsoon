@@ -512,7 +512,8 @@
         ],
         "methods": [
           "Monsoon.toast(message, { title, description, tone, position, duration, action: { label, onClick }, dismissible, max })",
-          "returns { el, close(), update(message, options) }"
+          "returns { el, close(), update(message, options) }",
+          "Monsoon.toast.promise(promise, { loading, success, error }, options) shows a toast with the loading tone (a spinner, no timer) that becomes the success or error toast; each text may be a function of the result. Returns the promise"
         ],
         "events": [
           "monsoon:toast { toast }",

@@ -15,6 +15,8 @@ describe('dist/monsoon.esm.js', () => {
       expect(typeof m[name], name).toBe('function');
     }
     expect(typeof m.arbitrary.start).toBe('function');
+    expect(typeof m.copy).toBe('function');
+    expect(typeof m.toast.promise).toBe('function');
     // Helpers shared by several modules are ambiguous and left out.
     expect(m.clamp).toBeUndefined();
   });

@@ -538,7 +538,7 @@
   pointer-events: none;
 }
 .toast > :where(*) { pointer-events: auto; }
-.toast-top { inset-block-start: 1rem; inset-block-end: auto; }
+.toast-top { --m-toast-from: -0.5rem; inset-block-start: 1rem; inset-block-end: auto; }
 .toast-bottom { inset-block-start: auto; inset-block-end: 1rem; }
 .toast-start { inset-inline-start: 1rem; inset-inline-end: auto; }
 .toast-center { inset-inline-start: 50%; inset-inline-end: auto; translate: -50% 0; }
@@ -567,7 +567,7 @@
 .toast-description { color: var(--muted-foreground); }
 .toast-title + .toast-description { margin-top: 0.125rem; }
 @keyframes m-toast-in {
-  from { opacity: 0; translate: 0 0.5rem; scale: 0.97; }
+  from { opacity: 0; translate: 0 var(--m-toast-from, 0.5rem); scale: 0.97; }
 }
 
 /* ---- Badge ---- */
