@@ -3,6 +3,26 @@
 All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `data-m-copy-as="html"` copies the markup inside the target, dedented, so a "Copy component" button can sit next to any example. Point it at a `<template>` to copy the markup as written, before any script enhanced it.
+- `Monsoon.copy(text)`, the copy behind `data-m-copy`, also exported from `monsooncss/js`. It falls back to a hidden text area on pages without the async clipboard API, such as plain http.
+- `data-m-copy-label` on an element inside a copy button shows the confirmation text too.
+- `Monsoon.toast.promise(promise, { loading, success, error })` shows a loading toast with a spinner that becomes the success or error toast when the promise settles. Each text can be a function of the result.
+
+### Changed
+
+- Motion: tab panels fade in when they open, a radial progress sweeps to its new `--value` instead of jumping, the copy button icon pops when the copy lands, and toasts at the top slide in and out from above. All of it is off with `prefers-reduced-motion`.
+
+### Fixed
+
+- A `.copy-btn` with `data-m-copy` now shows its confirmed state (`data-copied` had no style outside the authenticator setup).
+- Clicking a copy button twice no longer cuts the second confirmation short.
+- A toast that changes tone with `update()` drops the alert role when it stops being a danger toast, and keeps the text of earlier updates.
+- A tiny pointer movement while clicking a toast no longer counts as a swipe that dismisses it, and a cancelled swipe stops tracking the pointer.
+
 ## [0.2.0] - 2026-10-13
 
 Components, an optional script layer and arbitrary values, still with no build step.

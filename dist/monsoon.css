@@ -2205,10 +2205,19 @@
   outline: var(--m-ring);
   outline-offset: var(--m-ring-offset);
 }
-.copy-btn-done {
+.copy-btn-done, .copy-btn[data-copied] {
   border-color: color-mix(in oklab, var(--success) 45%, var(--border));
   background-color: color-mix(in oklab, var(--success) 10%, var(--surface));
   color: oklch(from var(--success) calc(min(l, 0.48) * (1 - var(--mode)) + max(l, 0.8) * var(--mode)) c h);
+}
+:where(.copy-btn[data-copied] > svg) {
+  animation: m-copy-pop var(--m-duration-slow) var(--m-ease-spring);
+}
+@keyframes m-copy-pop {
+  from {
+    scale: 0.6;
+    opacity: 0.4;
+  }
 }
 /* ---- Segmented control (radios) ---- */
 .segmented {
@@ -2671,6 +2680,7 @@
   pointer-events: auto;
 }
 .toast-top {
+  --m-toast-from: -0.5rem;
   inset-block-start: 1rem;
   inset-block-end: auto;
 }
@@ -2728,7 +2738,7 @@
 @keyframes m-toast-in {
   from {
     opacity: 0;
-    translate: 0 0.5rem;
+    translate: 0 var(--m-toast-from, 0.5rem);
     scale: 0.97;
   }
 }
@@ -3151,7 +3161,14 @@
     background-position: 200% 0;
   }
 }
-/* ---- Radial progress (set --value from 0 to 100) ---- */
+/* ---- Radial progress (set --value from 0 to 100) ----
+   The ring draws --m-rp, which follows --value through a registered property
+   so a new value sweeps the ring instead of jumping. */
+@property --m-rp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
 .radial-progress {
   --tone: var(--primary);
   --tone-fg: var(--primary-foreground);
@@ -3170,6 +3187,8 @@
   font-variant-numeric: tabular-nums;
   line-height: 1;
   vertical-align: middle;
+  --m-rp: var(--value);
+  transition: --m-rp var(--m-duration-slow) var(--m-ease);
 }
 .radial-progress::before, .radial-progress::after {
   content: "";
@@ -3179,14 +3198,14 @@
 .radial-progress::before {
   inset: 0;
   background: radial-gradient(farthest-side, var(--tone) 98%, transparent) top / var(--thickness) var(--thickness) no-repeat,
-    conic-gradient(var(--tone) calc(var(--value) * 1%), color-mix(in oklab, var(--tone-tint) 16%, transparent) 0);
+    conic-gradient(var(--tone) calc(var(--m-rp) * 1%), color-mix(in oklab, var(--tone-tint) 16%, transparent) 0);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--thickness)), var(--foreground) calc(100% - var(--thickness) + 1px));
   mask: radial-gradient(farthest-side, transparent calc(100% - var(--thickness)), var(--foreground) calc(100% - var(--thickness) + 1px));
 }
 .radial-progress::after {
   inset: calc(50% - var(--thickness) / 2);
   background-color: var(--tone);
-  transform: rotate(calc(var(--value) * 3.6deg - 90deg)) translate(calc(var(--size) / 2 - 50%));
+  transform: rotate(calc(var(--m-rp) * 3.6deg - 90deg)) translate(calc(var(--size) / 2 - 50%));
 }
 .radial-progress-xs {
   --size: 2.5rem;
@@ -3772,12 +3791,12 @@
   .btn-gradient, .banner-gradient {
     background-image: none;
   }
-  .copy-btn-done {
+  .copy-btn-done, .copy-btn[data-copied] {
     color: var(--success);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, .copy-btn, .segmented-item, .toggle-group-item, .chip, .chip-remove, .fab-actions, .swap > .swap-on, .swap > .swap-off, .tooltip::after, .tooltip::before, .dismiss > :where(summary) {
+  .btn, .copy-btn, .segmented-item, .toggle-group-item, .chip, .chip-remove, .fab-actions, .radial-progress, .swap > .swap-on, .swap > .swap-off, .tooltip::after, .tooltip::before, .dismiss > :where(summary) {
     transition: none;
   }
   .btn:where(:active) {
@@ -3786,7 +3805,11 @@
   :where(.fab-trigger > svg) {
     transition: none;
   }
-  .skeleton, .toast-item, .toast > .alert, .status-ping::after {
+  .skeleton,
+  .toast-item,
+  .toast > .alert,
+  .status-ping::after,
+  .copy-btn > svg {
     animation: none;
   }
   .spinner, .btn-loading::before, .progress:indeterminate {
@@ -5246,6 +5269,13 @@
 }
 .tab:checked + .tab-content, .tab:has(> input:checked) + .tab-content {
   display: block;
+  animation: m-nav-tab-in var(--m-duration) var(--m-ease);
+}
+@keyframes m-nav-tab-in {
+  from {
+    opacity: 0;
+    translate: 0 .25rem;
+  }
 }
 .tabs-full > .tab {
   flex: 1 1 0;
@@ -6035,6 +6065,9 @@
   .back-to-top,
   .skip-link {
     transition-duration: 0s;
+  }
+  .tab:checked + .tab-content, .tab:has(> input:checked) + .tab-content {
+    animation: none;
   }
   .menu :where(details > summary)::after, .mega-menu > :where(summary)::after, .sidebar-group > .sidebar-item::after {
     transition: none;
@@ -10371,6 +10404,17 @@
 .toast-item[data-tone=danger] {
   --tone: var(--danger);
 }
+.toast-item[data-tone=loading] {
+  --tone: var(--muted-foreground);
+}
+.toast-item[data-tone=loading] > .toast-icon > svg {
+  animation: m-ix-spin .8s linear infinite;
+}
+@keyframes m-ix-spin {
+  to {
+    rotate: 1turn;
+  }
+}
 .toast-icon {
   display: grid;
   flex: none;
@@ -10650,6 +10694,9 @@
   .sortable-ghost {
     rotate: none;
     scale: none;
+  }
+  .toast-item[data-tone=loading] > .toast-icon > svg {
+    animation-duration: 2.4s;
   }
 }
 @media (forced-colors: active) {
