@@ -1,17 +1,23 @@
 // Renders content blocks (guides, getting started and install pages) into
 // HTML, and collects the headings for the table of contents.
-import { code, terminal, esc, md, slug, I } from './lib.mjs';
+import { code, terminal, esc, md, slug, I, uid, exPicker } from './lib.mjs';
 
 export function demoBox(html, labelText = 'Live result') {
-  return `<figure class="demo-box" v-data="{ mode: '' }">
+  const id = uid('demo');
+  return `<figure class="demo-box" id="${id}" v-data="{ mode: '' }">
   <figcaption class="demo-bar"><span class="demo-label">${I.eye}${esc(labelText)}</span>
+    <span class="demo-tools">
+    <button type="button" class="pv-copy pv-copy-sm" data-copy-src="#${id}" aria-label="Copy this example's HTML"><span class="ic-swap">${I.copy}${I.check}</span><span>Copy</span></button>
+    ${exPicker(`${id}-theme`, { cls: 'ex-theme-sm' })}
     <span class="seg seg-sm" role="group" aria-label="Preview color scheme">
       <button type="button" :aria-pressed="mode === '' ? 'true' : 'false'" aria-pressed="true" @click="mode = ''">Auto</button>
       <button type="button" :aria-pressed="mode === 'light' ? 'true' : 'false'" aria-pressed="false" @click="mode = 'light'">Light</button>
       <button type="button" :aria-pressed="mode === 'dark' ? 'true' : 'false'" aria-pressed="false" @click="mode = 'dark'">Dark</button>
     </span>
+    </span>
   </figcaption>
-  <div class="demo-stage" :class="mode"><div class="demo-inner" v-pre>${html}</div></div>
+  <div class="demo-stage" :class="mode"><div class="demo-inner ex-target" v-pre>${html}</div></div>
+  <script type="text/plain" class="pv-src">${html.replace(/<\/script/gi, '<\\/script')}</script>
 </figure>`;
 }
 

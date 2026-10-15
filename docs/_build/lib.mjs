@@ -16,7 +16,7 @@ export const VOODOO = 'https://cdn.jsdelivr.net/npm/voodoojs@1.0.0/dist/voodoo.f
 export const VOODOO_REPO = 'https://github.com/kwy404/Voodoo.js';
 export const AUTHOR_GH = 'https://github.com/kwy404';
 export const AUTHOR_LI = 'https://www.linkedin.com/in/alexandre-silva-173687256/';
-export const LASTMOD = '2026-10-13';
+export const LASTMOD = '2026-10-15';
 export const VERSION = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version;
 export const INDEX = JSON.parse(readFileSync(join(ROOT, 'scripts/classes.json'), 'utf8'));
 export const BASE_COUNT = INDEX.classes.length;
@@ -243,6 +243,37 @@ export const themeButton = (extra = '') =>
   <span class="ti ti-system">${I.system}</span><span class="ti ti-light">${I.sun}</span><span class="ti ti-dark">${I.moon}</span>
 </button>`;
 
+export const SEEDS = [
+  ['Storm', '#3b5bdb'], ['Cyan', '#22d3ee'], ['Violet', '#8b5cf6'], ['Rose', '#f43f5e'], ['Teal', '#0d9488'],
+  ['Amber', '#f59e0b'], ['Emerald', '#059669'], ['Orange', '#ea580c'], ['Slate', '#475569'], ['Lime', '#84cc16'],
+];
+
+/**
+ * The example theme picker: one seed color and one corner style shared by every
+ * example on the site (component previews, live results, thumbnails, the page
+ * builder). The choice lives in the TH store and is remembered in the browser.
+ */
+export function exPicker(id, { label = 'Theme', cls = '' } = {}) {
+  const sw = SEEDS.slice(0, 8)
+    .map(([n, h]) => `<button type="button" class="swatch" style="--swatch:${h}" @click="setEx({ seed: '${h}' })" :aria-pressed="TH.seed === '${h}' ? 'true' : 'false'" aria-pressed="false" aria-label="${n} ${h}" title="${n}"></button>`)
+    .join('');
+  return `<span class="ex-theme ${cls}" v-data>
+  <button type="button" class="ex-btn" popovertarget="${id}" aria-label="Theme the examples" title="Theme every example on the page"><span class="ex-dot" aria-hidden="true" :style="{ '--swatch': TH.seed || 'var(--primary)' }"></span><span class="ex-btn-label">${esc(label)}</span></button>
+  <span id="${id}" popover class="ex-pop" role="dialog" aria-label="Example theme">
+    <span class="ex-pop-title">Theme every example</span>
+    <span class="ex-row" role="group" aria-label="Seed color">
+      <button type="button" class="swatch swatch-auto" @click="setEx({ seed: '' })" :aria-pressed="TH.seed ? 'false' : 'true'" aria-pressed="true" aria-label="Default seed" title="Default"></button>${sw}
+    </span>
+    <label class="ex-custom"><input type="color" class="swatch-input" value="#3b5bdb" :value="TH.seed || '#3b5bdb'" @input="setEx({ seed: $event.target.value })"><span>Any color, as <code v-text="'--seed: ' + (TH.seed || 'default')">--seed: default</code></span></label>
+    <span class="ex-sub">Component corners</span>
+    <span class="seg seg-sm" role="group" aria-label="Component corners">
+      ${['sharp', 'default', 'round'].map((c) => `<button type="button" @click="setEx({ corners: '${c}' })" :aria-pressed="TH.corners === '${c}' ? 'true' : 'false'" aria-pressed="${c === 'default'}">${c[0].toUpperCase()}${c.slice(1)}</button>`).join('')}
+    </span>
+    <span class="ex-foot"><span>Remembered in this browser.</span><button type="button" class="link-btn" @click="setEx({ seed: '', corners: 'default' })">Reset</button></span>
+  </span>
+</span>`;
+}
+
 export const TOP_NAV = [
   ['Docs', 'docs/introduction.html', 'docs'],
   ['Components', 'components.html', 'components'],
@@ -278,7 +309,7 @@ function header() {
         ${I.search}<span class="search-btn-label">Search docs</span><span class="kbd-group" aria-hidden="true"><kbd>Ctrl</kbd><kbd>K</kbd></span>
       </button>
       <span class="author-top">Made by <a href="${AUTHOR_GH}" rel="me noopener">Alexandre Kohler</a><a href="${AUTHOR_LI}" class="author-ic" rel="me noopener" aria-label="Alexandre Kohler on LinkedIn">${I.linkedin}</a></span>
-      <a href="${REPO}" class="gh-btn" aria-label="Monsoon on GitHub">${I.github}<span class="gh-stars"><span class="gh-star">${I.star}</span><span v-text="S.stars ? fmtNum(S.stars) : '${stars || 'Star'}'">${stars || 'Star'}</span></span></a>
+      <a href="${REPO}" class="gh-btn" aria-label="Monsoon on GitHub"${stars ? ` data-stars="${STATE.stars}"` : ''}>${I.github}<span class="gh-stars"><span class="gh-star">${I.star}</span><span v-text="S.stars ? fmtNum(S.stars) : '${stars || 'Star'}'">${stars || 'Star'}</span></span></a>
       ${themeButton()}
     </div>
   </div>
@@ -286,17 +317,22 @@ function header() {
 }
 
 function searchDialog() {
-  return `<dialog id="search" class="search-dlg" aria-label="Search the documentation" v-data="{ q: '', sel: 0 }" @close="q = ''; sel = 0" @click.self="closeSearch()">
+  const scopes = [['all', 'All'], ['components', 'Components'], ['classes', 'Classes'], ['docs', 'Docs']];
+  const tries = ['modal', 'dark mode', 'grid-cols', 'react', 'teal'];
+  return `<dialog id="search" class="search-dlg" aria-label="Search the documentation" v-data="{ q: '', sel: 0, scope: 'all' }" @close="q = ''; sel = 0; scope = 'all'" @click.self="closeSearch()">
   <div class="search-panel">
     <div class="sd-field">
       ${I.search}
       <label for="search-input" class="sr-only">Search</label>
-      <input id="search-input" type="text" v-model="q" @input="sel = 0" @keydown.down.prevent="sel = moveSel(q, sel, 1)" @keydown.up.prevent="sel = moveSel(q, sel, -1)" @keydown.enter.prevent="goSel(q, sel)" placeholder="Search docs, components, utilities and classes" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-list" aria-autocomplete="list" :aria-activedescendant="q ? 'sr-' + sel : ''">
+      <input id="search-input" type="text" v-model="q" @input="sel = 0" @keydown.down.prevent="sel = moveSel(q, sel, 1, scope)" @keydown.up.prevent="sel = moveSel(q, sel, -1, scope)" @keydown.enter.prevent="goSel(q, sel, scope)" placeholder="Search docs, components, classes or a color" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-list" aria-autocomplete="list" :aria-activedescendant="q ? 'sr-' + sel : ''">
       <button type="button" class="esc-key" @click="closeSearch()" aria-label="Close search">esc</button>
+    </div>
+    <div class="sd-scopes" role="group" aria-label="Show results from" v-show="q && results(q, 'all').total">
+      ${scopes.map(([k, l]) => `<button type="button" class="sd-scope" @click="scope = '${k}'; sel = 0" :aria-pressed="scope === '${k}' ? 'true' : 'false'" aria-pressed="${k === 'all'}">${l}<span class="sd-count" v-text="results(q, 'all').counts.${k}"></span></button>`).join('')}
     </div>
     <div class="search-body" id="search-list" role="listbox" aria-label="Results">
       <div v-show="!q">
-        <div v-show="!S.recent.length" class="search-empty"><p class="font-medium text-foreground">No recent searches</p><p class="mt-1 text-sm">Try <button type="button" class="link-btn" @click="q = 'button'">button</button>, <button type="button" class="link-btn" @click="q = 'dark mode'">dark mode</button>, <button type="button" class="link-btn" @click="q = 'grid-cols'">grid-cols</button> or <button type="button" class="link-btn" @click="q = 'react'">react</button>.</p></div>
+        <div v-show="!S.recent.length" class="search-empty"><p class="font-medium text-foreground">Search the whole site</p><p class="mt-1 text-sm">Try ${tries.map((t) => `<button type="button" class="link-btn" @click="q = '${t}'">${t}</button>`).join(', ')}. Small typos are fine.</p></div>
         <div v-show="S.recent.length">
           <div class="search-group"><span>Recent</span><button type="button" class="link-btn" @click="clearRecent()">Clear</button></div>
           <a v-for="r in S.recent" :key="r.url" :href="relUrl(r.url)" class="search-item" @click="remember(r)"><span class="si-icon">${I.clock}</span><span class="si-text"><span class="si-title" v-text="r.title"></span><span class="si-sub" v-text="r.group"></span></span></a>
@@ -304,11 +340,16 @@ function searchDialog() {
       </div>
       <div v-show="q">
         <p v-show="S.loading" class="search-empty">Loading the search index</p>
-        <div v-show="!S.loading && !results(q).total" class="search-empty"><p class="font-medium text-foreground">No results for "<span v-text="q"></span>"</p><p class="mt-1 text-sm">Check the spelling, or search a class name such as px-4.</p></div>
-        <section v-for="g in results(q).groups" :key="g.name">
+        <div v-show="!S.loading && !results(q, scope).total" class="search-empty">
+          <p class="font-medium text-foreground">No results for "<span v-text="q"></span>"<span v-show="scope !== 'all'"> in <span v-text="scope"></span></span></p>
+          <p class="mt-1 text-sm" v-show="scope !== 'all' && results(q, 'all').total"><button type="button" class="link-btn" @click="scope = 'all'">Show all <span v-text="results(q, 'all').total"></span> results</button></p>
+          <p class="mt-1 text-sm" v-show="scope === 'all' && suggest(q)">Did you mean <button type="button" class="link-btn" @click="q = suggest(q); sel = 0" v-text="suggest(q)"></button>?</p>
+          <p class="mt-1 text-sm" v-show="scope === 'all' && !suggest(q)">Search a component, a page or a class name such as px-4.</p>
+        </div>
+        <section v-for="g in results(q, scope).groups" :key="g.name">
           <div class="search-group"><span v-text="g.name"></span></div>
-          <a v-for="it in g.items" :key="it.url" :id="'sr-' + it.i" :href="relUrl(it.url)" class="search-item" :class="{ 'is-sel': it.i === sel }" role="option" :aria-selected="it.i === sel ? 'true' : 'false'" @mousemove="sel = it.i" @click="remember(it)">
-            <span class="si-icon" v-html="kindIcon(it.kind)"></span>
+          <a v-for="it in g.items" :key="it.url" :id="'sr-' + it.i" :href="it.kind === 'action' ? '#' : relUrl(it.url)" class="search-item" :class="{ 'is-sel': it.i === sel, 'is-action': it.kind === 'action' }" :style="{ '--n': it.i }" role="option" :aria-selected="it.i === sel ? 'true' : 'false'" @mousemove="sel = it.i" @click="pick(it, $event)">
+            <span class="si-icon" v-html="kindIcon(it.kind, it.color)"></span>
             <span class="si-text"><span class="si-title" v-html="it.html"></span><span class="si-sub" v-text="it.sub"></span></span>
             <span class="si-enter" aria-hidden="true">&#8629;</span>
           </a>
@@ -316,7 +357,7 @@ function searchDialog() {
       </div>
     </div>
     <div class="search-foot" aria-hidden="true">
-      <span><kbd>&#8593;</kbd><kbd>&#8595;</kbd> navigate</span><span><kbd>&#8629;</kbd> open</span><span><kbd>esc</kbd> close</span>
+      <span><kbd>&#8593;</kbd><kbd>&#8595;</kbd> navigate</span><span><kbd>&#8629;</kbd> open</span><span><kbd>esc</kbd> close</span><span><kbd>/</kbd> search from any page</span>
       <span class="search-foot-brand">${logo(16)} Monsoon search</span>
     </div>
   </div>
@@ -372,7 +413,7 @@ function footer() {
   </div>
   <div class="foot-bottom">
     <div class="foot-bottom-in">
-      <p class="author-foot">MIT License. Made by Alexandre Kohler <a href="${AUTHOR_GH}" rel="me noopener">${I.github}<span>GitHub</span></a><a href="${AUTHOR_LI}" rel="me noopener">${I.linkedin}<span>LinkedIn</span></a></p>
+      <p class="author-foot">MIT License. Built with Monsoon. Made by Alexandre Kohler <a href="${AUTHOR_GH}" rel="me noopener">${I.github}<span>GitHub</span></a><a href="${AUTHOR_LI}" rel="me noopener">${I.linkedin}<span>LinkedIn</span></a></p>
       <p class="flex flex-wrap gap-4"><a href="${REPO}" class="hover:text-foreground">GitHub</a><a href="${NPM}" class="hover:text-foreground">npm</a><a href="${REPO}/issues" class="hover:text-foreground">Issues</a><a href="${u('sitemap.xml')}" class="hover:text-foreground">Sitemap</a></p>
     </div>
   </div>
@@ -492,7 +533,7 @@ ${body}
       </div>
       <footer class="doc-foot">
         ${prevNext()}
-        <p class="doc-edit">${editPath ? `<a href="${REPO}/blob/main/${editPath}">Edit this page on GitHub</a><span aria-hidden="true">&middot;</span>` : ''}<span>Updated <time datetime="${LASTMOD}">October 13, 2026</time></span></p>
+        <p class="doc-edit">${editPath ? `<a href="${REPO}/blob/main/${editPath}">Edit this page on GitHub</a><span aria-hidden="true">&middot;</span>` : ''}<span>Updated <time datetime="${LASTMOD}">October 15, 2026</time></span></p>
       </footer>
     </article>
     <aside class="docs-aside">

@@ -74,7 +74,10 @@ import 'monsooncss/js/browser';`,
 
 <!-- copy the text of another element, with a custom confirmation label -->
 <code id="key">sk_live_0000</code>
-<button class="btn btn-soft" data-m-copy data-m-copy-target="#key" data-m-copy-done="Key copied">Copy key</button>`,
+<button class="btn btn-soft" data-m-copy data-m-copy-target="#key" data-m-copy-done="Key copied">Copy key</button>
+
+<!-- copy the markup of an example instead of its text -->
+<button class="btn btn-ghost" data-m-copy data-m-copy-as="html" data-m-copy-target="#card-example">Copy HTML</button>`,
             lang: 'html',
             title: 'copy.html',
           },

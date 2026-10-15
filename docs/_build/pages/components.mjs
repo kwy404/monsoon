@@ -1,6 +1,6 @@
 // Component pages generated from the src/components/*.json manifests, plus
 // the searchable components index with live thumbnails.
-import { page, docsShell, esc, u, I, code, pre, copyButton, windowBar, fileIcon, breadcrumbLd, SITE, STATE, fmt, uid } from '../lib.mjs';
+import { page, docsShell, esc, u, I, code, pre, copyButton, windowBar, fileIcon, breadcrumbLd, SITE, STATE, fmt, uid, exPicker } from '../lib.mjs';
 
 const TONES = { primary: 'the primary color', secondary: 'the quiet secondary tint', accent: 'the accent color (seed hue rotated)', neutral: 'a neutral, near foreground fill', success: 'the success color', warning: 'the warning color', danger: 'the danger color', info: 'the info color' };
 const SIZES = { xs: 'extra small', sm: 'small', md: 'medium, the default', lg: 'large', xl: 'extra large', '2xl': 'double extra large' };
@@ -161,7 +161,7 @@ export const needsJs = (comp) => Boolean(comp.needsJs) || /\sdata-m-[a-z]/.test(
 
 export function frameDoc(html, { pad = 24, js = false } = {}) {
   const script = js && STATE.hasJs ? `<script src="${u('monsoon.js')}" defer></script>` : '';
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="${u('monsoon.min.css')}">${script}<style>html,body{min-height:0!important;height:auto!important}body{padding:${pad}px}</style></head><body class="antialiased bg-background text-foreground">${html}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="${u('monsoon.min.css')}">${script}<style>html,body{min-height:0!important;height:auto!important}body{padding:${pad}px}@media (prefers-reduced-motion:no-preference){.ex-fade *,.ex-fade *::before,.ex-fade *::after{transition:background-color .45s ease,border-color .45s ease,color .45s ease,fill .45s ease,box-shadow .45s ease,border-radius .45s ease!important}}</style></head><body class="antialiased bg-background text-foreground">${html}</body></html>`;
 }
 
 /** A preview with Preview and Code tabs, light or dark, and a draggable width. */
@@ -173,6 +173,7 @@ export function previewBlock(html, { title, id = uid('pv'), source = html, lang 
       <button type="button" role="tab" id="${id}-tp" aria-controls="${id}-pp" aria-selected="true" :aria-selected="view === 'preview' ? 'true' : 'false'" @click="view = 'preview'">${I.eye}<span>Preview</span></button>
       <button type="button" role="tab" id="${id}-tc" aria-controls="${id}-pc" aria-selected="false" :aria-selected="view === 'code' ? 'true' : 'false'" @click="view = 'code'">${I.code}<span>Code</span></button>
     </div>
+    <button type="button" class="pv-copy" data-copy-src="#${id}" aria-label="Copy the ${esc(title)} HTML"><span class="ic-swap">${I.copy}${I.check}</span><span>Copy HTML</span></button>
     <div class="pv-tools" v-show="view === 'preview'">
       <div class="seg seg-icons" role="group" aria-label="Preview width">
         <button type="button" @click="pvSet('${id}', 0)" :aria-pressed="PV['${id}'] ? 'false' : 'true'" aria-pressed="true" aria-label="Full width" title="Full width">${I.monitor}</button>
@@ -185,6 +186,7 @@ export function previewBlock(html, { title, id = uid('pv'), source = html, lang 
         <button type="button" @click="mode = 'light'" :aria-pressed="mode === 'light' ? 'true' : 'false'" aria-pressed="false" aria-label="Light preview" title="Light">${I.sun}</button>
         <button type="button" @click="mode = 'dark'" :aria-pressed="mode === 'dark' ? 'true' : 'false'" aria-pressed="false" aria-label="Dark preview" title="Dark">${I.moon}</button>
       </div>
+      ${exPicker(`${id}-theme`)}
       ${playground ? `<button type="button" class="pv-open" @click="toPlayground('${id}')" title="Open in the playground" aria-label="Open this example in the playground">${I.external}</button>` : ''}
     </div>
   </div>
@@ -316,19 +318,24 @@ ${js ? `<div class="note-box note-warn" role="note"><p><strong>Needs monsoon.js.
 export function componentsIndex(groups) {
   const all = groups.flatMap((g) => g.components);
   const chips = [['all', `All ${all.length}`], ...groups.map((g) => [g.group, `${g.title} ${g.components.length}`])];
-  const card = (c) => `<div class="comp-card" v-show="cmatch(q, g, '${c.group}', '${esc(`${c.name} ${c.slug} ${c.description}`.toLowerCase().replace(/'/g, ''))}')">
-      ${needsJs(c) ? '<span class="comp-js" title="Needs monsoon.js">JS</span>' : ''}<div class="thumb" aria-hidden="true"><div class="thumb-in" inert v-pre>${thumbHtml(c.html)}</div></div>
+  const card = (c) => {
+    const text = esc(`${c.name} ${c.slug} ${c.description}`.toLowerCase().replace(/'/g, ''));
+    return `<div class="comp-card" data-g="${c.group}" data-t="${text}" v-show="cmatch(q, g, '${c.group}', '${text}')">
+      ${needsJs(c) ? '<span class="comp-js" title="Needs monsoon.js">JS</span>' : ''}<button type="button" class="comp-copy" data-copy-comp="${c.slug}" aria-label="Copy the ${esc(c.name)} HTML" title="Copy HTML"><span class="ic-swap">${I.copy}${I.check}</span></button><div class="thumb" aria-hidden="true"><div class="thumb-in" inert v-pre>${thumbHtml(c.html)}</div></div>
       <div class="comp-meta"><a href="${u(`components/${c.slug}.html`)}" class="comp-name stretched">${esc(c.name)}</a><span class="comp-desc">${esc(c.description)}</span><span class="comp-count">${c.classes.length} classes</span></div>
     </div>`;
+  };
   const body = `
 <div v-data="{ q: '', g: 'all' }">
+  <p class="comp-hint">Copy any card's HTML with its copy button, or pick a theme to recolor all ${all.length} at once.</p>
   <div class="comp-filter">
     <label class="filter-input">${I.search}<span class="sr-only">Filter components</span><input type="search" v-model="q" placeholder="Filter ${all.length} components, for example modal, toggle or badge" autocomplete="off"></label>
+    ${exPicker('comp-theme', { label: 'Theme all' })}
     <div class="chips" role="group" aria-label="Group">${chips.map(([k, l], i) => `<button type="button" class="fchip" aria-pressed="${i === 0}" :aria-pressed="g === '${k}' ? 'true' : 'false'" @click="g = '${k}'">${esc(l)}</button>`).join('')}</div>
   </div>
   ${groups
     .map(
-      (g) => `<section class="comp-group" v-show="g === 'all' || g === '${g.group}'">
+      (g) => `<section class="comp-group" v-show="(g === 'all' || g === '${g.group}') && countComps(q, g, '${g.group}')">
     <h2 id="${g.group}" class="doc-h2">${esc(g.title)} <span class="h-count">${g.components.length}</span></h2>
     <div class="comp-grid">
     ${g.components.map(card).join('\n    ')}
@@ -336,6 +343,7 @@ export function componentsIndex(groups) {
   </section>`,
     )
     .join('\n  ')}
+  <div class="comp-empty" v-show="!countComps(q, g, '')" hidden :hidden="countComps(q, g, '') > 0"><p class="font-medium text-foreground">No component matches "<span v-text="q"></span>"</p><p class="mt-1 text-sm">Try a shorter word, or <button type="button" class="link-btn" @click="q = ''; g = 'all'">show all ${all.length}</button>.</p></div>
 </div>`;
   const crumbs = [['Docs', 'docs/introduction.html'], ['Components', 'components.html']];
   return page({
